@@ -93,7 +93,7 @@
       color: darkorange;
     }
 
-    /* -----  버튼 -----  */
+    /* -----  버튼 ----- // */
     button {
       font-size: 15px;
       border: none;

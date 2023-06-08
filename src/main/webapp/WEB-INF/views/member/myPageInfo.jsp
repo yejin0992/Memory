@@ -68,8 +68,12 @@
 			</tr>
 		</table>
 	</form>
+	
 
 	<script>
+	
+
+	//들어가라
 		$("#update").on("click", function() {
 			console.log("수정버튼 클릭");
 			$("input").removeAttr("readonly");

@@ -112,7 +112,7 @@ input[type="password"]:focus {
 	height: 150px;
 }
 
-/* 버튼 */
+/* 버튼 //*/
 #idCheck, #searchZipcode, #joinBtn, #cancel {
 	border: none;
 	background-color: rgb(82, 82, 82);
