@@ -12,5 +12,7 @@
 <a href="/member/loginForm">
 <button>버튼</button></a><br>
 
+
+<a href="/perfume/perfumeList">perfume main</a>
 </body>
 </html>

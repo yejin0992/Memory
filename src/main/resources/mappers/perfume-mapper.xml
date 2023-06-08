@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Perfume">
+
+	<insert id="insert">
+		<selectKey keyProperty="per_seq" resultType="int" order="BEFORE" >
+			select perfume_seq.nextval from dual
+		</selectKey>
+		insert into perfume values(#{per_seq},#{writer},#{per_name},#{per_brand},#{per_volume},#{per_kind},#{per_price},#{per_gender},#{top1},#{top2},#{top3},#{middle1},#{middle2},#{middle3},#{base1},#{base2},#{base3},sysdate)
+	</insert>
+
+
+	<select id="selectList" resultType="p.memory.dto.PerfumeMainDTO">
+	select * from(select p.per_seq, p.per_brand, p.per_name, p.per_price,
+	i.sysname,
+	rank() over(order by p.per_seq desc) as rank
+	from perfume p
+	left join perfume_image i on p.per_seq = i.per_seq)
+	where rank between #{start} and #{end}
+	</select>
+
+	<select id="recordTotalCount" resultType="int">
+		select count(*) from perfume
+	</select>
+	
+	
+	<select id="selectBySeq" resultType="p.memory.dto.PerfumeDTO">
+	select * from perfume where per_seq = #{per_seq}
+	</select>
+	
+	<update id="update">
+	update perfume
+    set writer = #{writer},
+    per_name = #{per_name},
+    per_brand = #{per_brand},
+    per_volume = #{per_volume},
+    per_kind = #{per_kind},
+    per_price = #{per_price},
+    per_gender = #{per_gender},
+    top1 = #{top1},
+    top2 = #{top2},
+    top3 = #{top3},
+    middle1 = #{middle1},
+    middle2 = #{middle2},
+    middle3 = #{middle3},
+    base1 = #{base1},
+    base2 = #{base2},
+    base3 = #{base3},
+    write_date = sysdate
+	where per_seq=#{per_seq}
+	</update>
+	
+	<delete id="delete">
+	 delete from perfume where per_seq=#{per_seq}
+	</delete>
+	
+</mapper>
