@@ -158,5 +158,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/git,java,eclipse,windows,maven
-pom.xml
-spring/*.xml
