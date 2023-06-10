@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QnABoard">
+
+<!-- 게시글 전체 출력 -->
+<select id="boardList" resultType="p.memory.dto.QnABoardDTO">
+select * from qna_board
+</select>
+
+
+<!-- 조회수 -->
+<select id="selectViewCount" resultType="_integer">
+select qa_view_count from qna_board where qa_seq=#{qa_seq}
+</select>
+
+<update id="updateViewCount">
+update qna_board set qa_view_count=${qa_view_count} where qa_seq=#{qa_seq} 
+</update>
+
+
+<!-- 선택한 게시글 보기 -->
+<select id="selectOnePost" resultType="p.memory.dto.QnABoardDTO">
+select * from qna_board where qa_seq=#{qa_seq}
+</select>
+
+
+<!-- 게시글 작성 -->
+<insert id="insertPost">
+ 	insert into qna_board values (qna_board_seq.nextval,#{qa_writer},#{qa_title},#{qa_contents},0,sysdate)
+</insert>
+
+
+<!-- 게시글 수정 -->
+<update id="update">
+  update qna_board set qa_title=#{qa_title}, qa_contents=#{qa_contents} where qa_seq=#{qa_seq} and qa_writer=#{qa_writer}
+</update>
+
+
+<!-- 게시글 삭제 -->
+<delete id="delete">
+delete from qna_board where qa_seq=#{qa_seq}
+</delete>
+
+</mapper>
