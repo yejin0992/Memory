@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="File">
+	
+    <insert id="insert">
+  insert into perfume_image values(perfume_image_seq.nextval, #{oriName},#{sysName},#{per_seq})
+  </insert>
+  
+  <delete id="delete">
+  delete from perFile where file_seq=#{file_seq}
+  </delete>
+  
+  <select id="selectByPerSeq" resultType="p.memory.dto.FileDTO">
+  select * from perfume_image where per_seq = #{per_seq}
+  </select>
+  
+  <update id="update">
+  update perfume_image 
+  set
+  oriname = #{oriName},
+  sysname = #{sysName}
+  where file_seq = #{file_seq}
+  </update>
+  
+  
+  </mapper>
