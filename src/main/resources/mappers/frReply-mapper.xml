@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FrReply">
+
+	<insert id="insertComment">
+		insert into fr_reply
+		values(re_seq.nextval,#{re_writer},#{re_contents},
+		sysdate,#{fr_seq}
+
+		)
+	</insert>
+	
+	<select id="selectComments" resultType="p.memory.dto.FrReplyDTO">
+	select * from fr_reply where fr_seq = #{fr_seq} order by re_seq
+	
+	</select>
+	
+	<delete id="deleteComment">
+		delete from fr_reply where re_seq = #{re_seq}
+	</delete>
+	
+	<update id="updateComment">
+		update fr_reply set re_contents = #{re_contents}
+		where re_seq = #{re_seq}
+	</update>
+
+	
+
+</mapper>
