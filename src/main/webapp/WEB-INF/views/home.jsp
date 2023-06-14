@@ -13,6 +13,8 @@
 <button>버튼</button></a><br>
 
 
-<a href="/perfume/perfumeList">perfume main</a>
+<a href="/perfume/perfumeList">perfume main</a><br>
+
+<a href="/freeBoard/selectList"><button>자유게시판 목록으로</button></a>
 </body>
 </html>
