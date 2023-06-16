@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FreeBoard">
+
+	<insert id="insertBoard">
+
+		insert into free_board values(fr_seq.nextval,
+		#{fr_category} , #{fr_writer},
+		#{fr_title}, #{fr_contents}, 0, sysdate)
+
+	</insert>
+
+	<select id="selectList" resultType="p.memory.dto.FreeBoardDTO">
+		select * from free_board
+	</select>
+
+	<select id="selectBySeq" resultType="p.memory.dto.FreeBoardDTO">
+		select * from free_board
+		where fr_seq = #{fr_seq}
+	</select>
+
+	<update id="updateBoard">
+		update free_board set fr_category = #{fr_category}, fr_title = #{fr_title},
+		fr_contents = #{fr_contents} where fr_seq = #{fr_seq}
+
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from free_board where fr_seq = #{fr_seq} 
+	</delete>
+	
+	<!--조회수 업데이트 쿼리  -->
+	<update id="updateViewCount">
+		update free_board set fr_view_count = fr_view_count +1 where fr_seq = #{fr_seq}
+	</update>
+
+
+
+
+
+
+
+
+</mapper>
