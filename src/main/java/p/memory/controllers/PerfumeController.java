@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import p.memory.dto.FileDTO;
 import p.memory.dto.PerfumeDTO;
 import p.memory.dto.PerfumeMainDTO;
+import p.memory.dto.PerfumeReplyDTO;
 import p.memory.services.FileService;
 import p.memory.services.PageService;
+import p.memory.services.PerfumeReplyService;
 import p.memory.services.PerfumeService;
 
 @Controller
@@ -32,6 +34,9 @@ public class PerfumeController {
 	
 	@Autowired
 	private PageService pageService;
+	
+	@Autowired
+	private PerfumeReplyService replyService;
 	
 	
 	@RequestMapping("perfumeList")
@@ -57,7 +62,9 @@ public class PerfumeController {
 		System.out.println("페이지네비 구하는고 완료");
 		// 해당 페이지당 목록으로 나오는 게시글
 		List<PerfumeMainDTO> list = perfumeService.selectList(startRecord, endRecord);
-		
+		// brand 목록 가져오기
+		List<String> brand = perfumeService.selectBrandKind();
+		model.addAttribute("brand",brand);
 		model.addAttribute("list",list);
 		model.addAttribute("pagination", pageNavi);
 		model.addAttribute("cpage",currentPage);
@@ -88,11 +95,14 @@ public class PerfumeController {
 	@RequestMapping("select")
 	public String pefumeselect(int per_seq,Model model) throws Exception{
 	
-		System.out.println("넘어온 시퀀스 : "+ per_seq);
+		System.out.println("Perfume.select 넘어온 시퀀스 : "+ per_seq);
 		PerfumeDTO perfume = perfumeService.selectBySeq(per_seq);
 		FileDTO file = fileService.selectByPerSeq(per_seq);
+		List<PerfumeReplyDTO> reply = replyService.selectByPerSeq(per_seq);
 		model.addAttribute("perfume",perfume);
 		model.addAttribute("file",file);
+		model.addAttribute("reply", reply);
+		System.out.println("댓글 불러오기 성공");
 		return "perfume/perfumeSelect";
 	}
 	

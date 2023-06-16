@@ -85,6 +85,13 @@ float:right;
 float:right;
 }
 
+.replyUpdBtn{
+display:none;
+}
+
+.replyDelBtn{
+display:none;
+}
 </style>
 
 
@@ -165,24 +172,8 @@ float:right;
 </svg>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <h4>댓글</h4>
-            </div>
-            <hr>
-        </div>
-		<div class="row">
-			<div class="col">
-				<div class="messageBox">
-					<div class="id">아이디</div>
-					<input type="text" name="" placeholder="댓글입력">
-					<div class="com">
-						<button id="msgInsert">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row btnRow">
+        
+        <div class="row btnRow">
             <div class="col-2 btnCol">
                 <button>목록</button>
                 <!-- 삭제, 수정버튼 관리자일때만  -->
@@ -192,6 +183,53 @@ float:right;
                 <button id="updateBtn">수정</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>댓글</h4>
+            </div>
+            <hr>
+        </div>
+        <div class="row replyListRow">
+        <div class="col replyListCol">
+        <c:forEach var="i" items="${reply}">
+					<form action="/perfumeReply/update" method="post">
+						<div class="row">
+							<input type="text" class="col" name="writer" value="${i.writer}" readonly>
+						</div>
+						<div class="row">
+							<input type="text" name="contents" value="${i.contents}" readonly>
+							<input type="hidden" name="per_seq" value="${i.per_seq}">
+							<input type="hidden" name="re_seq" value="${i.re_seq}">
+						</div>
+						<c:if test="${writer eq i.writer}">
+							<div class="row">
+								<div class="col">
+									<button type="button" class="replyModBtn">수정</button>
+									<a href="/perfumeReply/delete?re_seq=${i.re_seq}&per_seq=${perfume.per_seq}">
+									<button type="button" class="replyDelBtn">삭제</button></a>
+									<button class="replyUpdBtn" type="submit">완료</button>
+								</div>
+							</div>
+						</c:if>
+					</form>
+				</c:forEach>
+        </div>
+        </div>
+		<div class="row">
+			<div class="col">
+				<div class="messageBox">
+				<form action="/perfumeReply/insert" method="post">
+					<div class="id">${writer}</div>
+					<input type="hidden" name="per_seq" value="${perfume.per_seq}">
+					<input type="text" name="contents" placeholder="댓글입력">
+					<div class="com">
+						<button type="submit" id="msgInsert">확인</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+        
         <div class="row footer">푸터</div>
     </div>
     
@@ -203,6 +241,19 @@ float:right;
 	 location.href="/perfume/toUpdate?per_seq="+per_seq;
  });
  
+ $(".replyModBtn").on("click", function(){
+	 let contents = $(this).parent().parent().prev().children();
+	 $(this).css("display","none");
+	 $(this).next().children().css("display","inline-block");
+	 $(this).next().next().css("display","inline-block");
+	 contents.removeAttr("readonly");
+	 alert("readonly 풀림")
+ })
+ 
+ $("replyUpdBtn").on("click", function(){
+	 location.href="/perfumeReply/update"
+ })
+  
  
  </script>
 

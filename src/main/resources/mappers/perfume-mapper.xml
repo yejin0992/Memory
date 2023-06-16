@@ -57,4 +57,9 @@
 	 delete from perfume where per_seq=#{per_seq}
 	</delete>
 	
+	<select id="selectBrandKind" resultType="String">
+		select distinct per_brand from perfume
+	</select>
+	
+	
 </mapper>

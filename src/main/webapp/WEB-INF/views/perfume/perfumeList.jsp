@@ -137,62 +137,12 @@ div {
 					<div class="col-4 col-md-3 col-lg-2 sideNavi">
 						<div class="sideNaviBrand row p-2">
 							<div class="BrandTitle">Brand</div>
+							<c:forEach var="i" items="${brand}" >
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
+								<input class="form-check-input brand" type="checkbox" id="flexCheckDefault" value="${i}" > 
+								<label class="form-check-label" for="flexCheckDefault" name="brand" > ${i} </label>
 							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckChecked" checked> <label
-									class="form-check-label" for="flexCheckChecked">
-									Checked checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
+							</c:forEach>
 						</div>
 						<div class="sideNaviPrice row p-2">
 							<div class="priceTitle col-12">Price</div>
