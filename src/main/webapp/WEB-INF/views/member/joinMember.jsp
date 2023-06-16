@@ -112,7 +112,7 @@ input[type="password"]:focus {
 	height: 150px;
 }
 
-/* 버튼 //*/
+/* 버튼 */
 #idCheck, #searchZipcode, #joinBtn, #cancel {
 	border: none;
 	background-color: rgb(82, 82, 82);
@@ -179,7 +179,7 @@ input[type=radio] {
 						<tr>
 							<td class="col1">* 생년월일</td>
 							<td class="col3"><input type="text" id="birth_date"
-								name="birth_date" maxlength="8" required></td>
+								name="birth_date" placeholder="  예시)19990101" maxlength="8" required></td>
 						</tr>
 						<tr>
 							<td class="col1">* 성별</td>
@@ -359,16 +359,24 @@ input[type=radio] {
         }else if (pw == "") {
           alert("비밀번호를 입력해주세요.");
           return false;
-        
         } else if (!(pw == repw)) {
-          alert("패스워드가 일치하지 않습니다.");
+          alert("비밀번호가 일치하지 않습니다.");
           return false;
+        }else if (!pwRegex.test(pw)){
+           	alert("비밀번호 형식을 맞춰 입력해주세요.(영문 소문자, 4~16자)")
+           	return false;
         } else if (name == "") {
           alert("이름를 입력해주세요.");
           return false;
         } else if (!nameRegex.test(name)) {
           alert('이름 형식을 맞춰 입력해주세요.(한글, 2자~5자)');
           return false;
+        } else if (birth_date == "") {
+            alert("생년월일을 입력해주세요.");
+            return false;
+          } else if (!birth_dateRegex.test(birth_date)) {
+            alert('생년월일 형식을 맞춰 입력해주세요.(예시, 19990101)');
+            return false;
         }else if (contact == "") {
           alert("휴대폰 번호를 입력해주세요.");
           return false;
