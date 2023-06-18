@@ -8,13 +8,20 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
-		<property name="username" value="final"></property>
-		<property name="password" value="final"></property>
+<!-- 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="username" value="memory"></property>
+		<property name="password" value="memory"></property>
 		<property name="jdbcUrl"
-			value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+			value="jdbc:oracle:thin:@13.124.36.151:1521:xe"></property>
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver"></property>
+	</bean> -->
+	
+		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="username" value="kh"></property>
+		<property name="password" value="kh"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
 	</bean>
 
 
