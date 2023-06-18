@@ -7,11 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%-- <c:if test="${status=='m_u'}">
-			<script>
-				alert("수정 완료 했습니다.");
-			</script>
-		</c:if> //--%>
+
 	<table border=1 align=center>
 		<tr>
 			<th colspan=4>${sessionScope.loginID}님환영합니다.</th>
