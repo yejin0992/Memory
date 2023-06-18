@@ -15,7 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 </head>
 <body>
-<form action="/qnaBoard/insertPost" method="post">
+<form action="/qnaBoard/insertPost" method="post" enctype="multipart/form-data">
 	<table border="1" width="1000" height="500">
 		
 			<tr height="20">
@@ -26,13 +26,12 @@
 				<input type="text" placeholder="글 제목을 입력하세요" size="130" name="qa_title">
 				</td>
 			</tr>
-		<!-- 	<tr height="20">
+		 	<tr height="20">
 				<td>
 				
 				<input type="file" id="addfile" name="files" multiple>
-				
 				</td>
-			</tr> -->
+			</tr> 
 		
 			<tr>
 				<td>
@@ -49,9 +48,8 @@
 		
 	</table>
 </form>
-	<script>
+<script>
 
-   </script>
-
+</script>
 </body>
 </html>
