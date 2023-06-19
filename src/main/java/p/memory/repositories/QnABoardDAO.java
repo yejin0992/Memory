@@ -17,9 +17,7 @@ public class QnABoardDAO {
 	private SqlSessionTemplate db;
 	
 	// 게시판 전체 출력
-	public List<QnABoardDTO> boardList(QnABoardDTO qa_dto) {
-		int qa_view_count = db.selectOne("QnABoard.selectViewCount",qa_dto.getQa_seq());
-		qa_view_count++; 
+	public List<QnABoardDTO> boardList(QnABoardDTO qa_dto) { 
 		return db.selectList("QnABoard.boardList",qa_dto);
 	}
 	

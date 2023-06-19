@@ -34,8 +34,7 @@
 	</bean>
 
 
-	<context:component-scan
-		base-package="p.memory.repositories" />
-
-
+	<context:component-scan base-package="p.memory.repositories"/>
+	<context:component-scan base-package="p.memory.services" />
+	
 </beans>
