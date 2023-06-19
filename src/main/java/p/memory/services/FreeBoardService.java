@@ -40,6 +40,22 @@ public class FreeBoardService {
 	public int updateViewCount(Integer fr_seq) {
 		return fBdao.updateViewCount(fr_seq); 
 	}
+	// 검색
+	public List<FreeBoardDTO> searchPosts (String field, String query){
+		return fBdao.searchPosts(field, query); 
+	}
+	// 게시물 총 개수  
+	public int getPostsCount () {
+		return fBdao.getPostsCount(); 
+	}
+	// 페이징
+	public List<FreeBoardDTO> selectBound(int start, int end){
+		System.out.println(start);
+		System.out.println(end);
+		return fBdao.selectBound(start, end); 
+	}
+	
+	
 	
 
 }

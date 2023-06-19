@@ -60,6 +60,11 @@ h2 {
 	overflow: auto; /* 내용이 넘칠 경우 스크롤 생성 */
 }
 
+.imageContainer {
+	max-width: 400px;
+	max-height: auto;
+}
+
 /* 수정완료, 취소버튼 */
 #btnSave {
 	display: inline-block;
@@ -199,6 +204,7 @@ textarea.form-control {
 				<div class="titleArea">
 					<h2>게시판</h2>
 				</div>
+
 				<!-- 말머리랑 제목 -->
 				<div class="row form-group">
 					<div class="col-2">
@@ -220,6 +226,11 @@ textarea.form-control {
 				<!-- 내용 -->
 				<div class="mb-3">
 					<div class="wrContent">
+						<div class="imageContainer">
+							<c:forEach items="${imageList}" var="image">
+								<img src="/freeImages/${image.sysName}" alt="게시판 이미지">
+							</c:forEach>
+						</div>
 						<p id="contents">${conts.fr_contents}</p>
 					</div>
 				</div>
@@ -270,13 +281,16 @@ textarea.form-control {
 				<!-- 내용 -->
 				<div class="mb-3">
 					<div class="wrContent">
-						<textarea class="form-control" id="content" name="fr_contents"
-							rows="13">${conts.fr_contents }</textarea>
+						<div class="imageContainer">
+							<c:forEach items="${imageList}" var="image">
+								<img src="/freeImages/${image.sysName}" alt="게시판 이미지">
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 				<div class="button">
-					<a href="/freeBoard/selectList"><button type="button" id="backToList"
-							class="btn btn-light">목록</button></a>
+					<a href="/freeBoard/selectList"><button type="button"
+							id="backToList" class="btn btn-light">목록</button></a>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -364,8 +378,9 @@ textarea.form-control {
 		function updateComment() {
 			console.log("수정버튼 클릭하면");
 			let re_seq = $(event.target).parent().find('#re_seq').val();
-			console.log("re_seq : " + re_seq); 
-			$(event.target).parent().next().children().find("#commentContents").removeAttr("readonly");
+			console.log("re_seq : " + re_seq);
+			$(event.target).parent().next().children().find("#commentContents")
+					.removeAttr("readonly");
 
 			$(".commentDate").hide();
 			$(".commentReply").hide();
@@ -380,8 +395,9 @@ textarea.form-control {
 			cancel.html("취소");
 
 			saveUpdate.attr("type", "submit");
-			$(event.target).parent().next().find(".commentBody").append(saveUpdate); 
-			$(event.target).parent().next().find(".commentBody").append(cancel); 
+			$(event.target).parent().next().find(".commentBody").append(
+					saveUpdate);
+			$(event.target).parent().next().find(".commentBody").append(cancel);
 
 			$("#cancel").on("click", function() {
 				history.back();

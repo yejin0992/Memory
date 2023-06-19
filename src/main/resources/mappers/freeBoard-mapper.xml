@@ -7,8 +7,11 @@
 <mapper namespace="FreeBoard">
 
 	<insert id="insertBoard">
-
-		insert into free_board values(fr_seq.nextval,
+		<selectKey keyProperty="fr_seq" resultType="int"
+			order="BEFORE">
+			select fr_seq.nextval from dual
+		</selectKey>
+		insert into free_board values(#{fr_seq},
 		#{fr_category} , #{fr_writer},
 		#{fr_title}, #{fr_contents}, 0, sysdate)
 
@@ -16,6 +19,7 @@
 
 	<select id="selectList" resultType="p.memory.dto.FreeBoardDTO">
 		select * from free_board
+		order by fr_seq desc
 	</select>
 
 	<select id="selectBySeq" resultType="p.memory.dto.FreeBoardDTO">
@@ -24,19 +28,62 @@
 	</select>
 
 	<update id="updateBoard">
-		update free_board set fr_category = #{fr_category}, fr_title = #{fr_title},
-		fr_contents = #{fr_contents} where fr_seq = #{fr_seq}
+		update free_board set fr_category = #{fr_category},
+		fr_title = #{fr_title},
+		fr_contents = #{fr_contents} where fr_seq =
+		#{fr_seq}
 
 	</update>
-	
+
 	<delete id="deleteBoard">
-		delete from free_board where fr_seq = #{fr_seq} 
+		delete from free_board where fr_seq = #{fr_seq}
 	</delete>
-	
-	<!--조회수 업데이트 쿼리  -->
+
+	<!--조회수 업데이트 쿼리 -->
 	<update id="updateViewCount">
-		update free_board set fr_view_count = fr_view_count +1 where fr_seq = #{fr_seq}
+		update free_board set fr_view_count = fr_view_count
+		+1 where fr_seq = #{fr_seq}
 	</update>
+
+	<!--게시물 총개수 -->
+	<select id="getPostsCount" resultType="int">
+		select count(*) from
+		free_board
+	</select>
+
+	<!--페이징 -->
+	<select id="selectBound" parameterType="hashMap"
+		resultType="p.memory.dto.FreeBoardDTO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rn, t.*
+		FROM (
+		SELECT *
+		FROM free_board
+		ORDER BY fr_seq DESC
+		) t
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!--검색 -->
+	<select id="searchPosts" parameterType="map"
+		resultType="p.memory.dto.FreeBoardDTO">
+		SELECT * FROM free_board
+		WHERE
+		<if test="query1 != null and query1 != ''">
+			fr_title LIKE CONCAT('%', #{query1}, '%')
+		</if>
+		<if test="query2 != null and query2 != ''">
+			AND fr_contents LIKE CONCAT('%', #{query2}, '%')
+		</if>
+		<if test="query3 != null and query3 != ''">
+			AND fr_writer LIKE CONCAT('%', #{query2}, '%')
+		</if>
+	</select>
+	
+	
+
+
 
 
 

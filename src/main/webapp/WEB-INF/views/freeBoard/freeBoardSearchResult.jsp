@@ -65,7 +65,7 @@ h1 {
 </head>
 <body>
 	<div class="titleArea">
-		<h1>자유게시판</h1>
+		<h1>검색결과</h1>
 	</div>
 
 	<div class="container">
@@ -83,14 +83,14 @@ h1 {
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="i" items="${list}">
+					<c:forEach var="r" items="${searchResults}">
 						<tr>
-							<td class="hide-on-mobile" align="center">${i.fr_seq }</td>
-							<td class="hide-on-mobile" align="center">${i.fr_category }</td>
-							<td><a href="/freeBoard/selectBySeq?fr_seq=${i.fr_seq}">${i.fr_title}</a></td>
-							<td align="center">${i.fr_writer }</td>
-							<td align="center">${i.fr_write_date}</td>
-							<td class="hide-on-mobile" align="center">${i.fr_view_count }</td>
+							<td class="hide-on-mobile" align="center">${r.fr_seq }</td>
+							<td class="hide-on-mobile" align="center">${r.fr_category }</td>
+							<td><a href="/freeBoard/selectBySeq?fr_seq=${r.fr_seq}">${i.fr_title}</a></td>
+							<td align="center">${r.fr_writer }</td>
+							<td align="center">${r.fr_write_date}</td>
+							<td class="hide-on-mobile" align="center">${r.fr_view_count }</td>
 							<td align="center">댓글수 아직 미완성이여요</td>
 						</tr>
 					</c:forEach>
@@ -103,25 +103,19 @@ h1 {
 					id="btnAdd" class="btn btn-primary">+</button></a>
 		</div>
 		<div class="searchArea">
+			<h3 class="hidden">자유게시판 검색폼</h3>
 			<form class="table-form" action="freeBoard/searchPosts" method="get">
-				<select name="field">
-					<option value="query1">제목</option>
-					<option value="query2">내용</option>
-					<option value="query3">작성자</option>
-				</select> <input type="text" name="query" value="" /> <input
-					class="btn btn-search" type="submit" value="검색">
+				<fieldset>
+					<legend class="hidden"></legend>
+					<label class="hidden"></label> <select name="field">
+						<option value="fr_title" >제목
+							</options>
+						<option value="fr_writer">작성자
+							</options>
+					</select> <label class="hidden"></label> <input type="text" name="query"
+						value="" /> <input class="btn btn-search" type="submit"
+						value="검색">
+				</fieldset>
 			</form>
-		</div>
-		<div class="pageArea">
-			<c:if test="${prev}">
-				<span><a href="freeBoard/selectList?cpage=${startNavi -1}">이전</a></span>
-			</c:if>
-			<c:forEach var="navi" begin="${startNavi }" end="${endNavi }">
-				<span> <a href="/freeBoard/selectList?cpage=${navi}">${navi}</a>
-				</span>
-			</c:forEach>
-			<c:if test="${next}">
-				<span><a href="freeBoard/selectList?cpage=${endNavi +1}">다음</a></span>
-			</c:if>
 		</div>
 	</div>
