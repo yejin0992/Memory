@@ -66,7 +66,8 @@ h2 {
 			<h2>게시판</h2>
 		</div>
 		<!-- 말머리랑 제목  -->
-		<form action="/freeBoard/insertBoard" method="post">
+		<form action="/freeBoard/insertBoard" method="post"
+			enctype="multipart/form-data">
 			<div class="row form-group">
 				<div class="col-2">
 					<div class="mb-3">
@@ -93,6 +94,17 @@ h2 {
 						rows="13" required></textarea>
 				</div>
 			</div>
+			<!-- 첨부파일 -->
+			<div class="mb-3">
+				<div class="fileWrapper">
+					<fieldset>
+						<legend>이미지 파일 첨부 </legend>
+						<input type="file" id="inputFiles" value="첨부파일" name="files"
+							accept="image/png, image/jpeg, image/jpg" multiple><br>
+					</fieldset>
+				</div>
+			</div>
+			<!-- 버튼  -->
 			<div class="button">
 				<button type="submit" class="btn btn-primary">등록</button>
 				<button type="button" class="btn btn-light">취소</button>
@@ -106,6 +118,9 @@ h2 {
 		$("#btnCancel").on("click", function() {
 
 		})
+
+
+
 	</script>
 
 
