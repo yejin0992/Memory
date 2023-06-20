@@ -115,7 +115,15 @@ h2 {
 				<div class="wrContent">
 					<textarea class="form-control" id="content" name="fr_contents"
 						required rows="13">${conts.fr_contents}</textarea>
-
+				</div>
+			</div>
+			<div class="mb-3">
+				<div class="fileWrapper">
+					<fieldset>
+						<legend>이미지 파일 첨부 </legend>
+						<input type="file" id="inputFiles" value="첨부파일" name="files"
+							accept="image/png, image/jpeg, image/jpg" multiple><br>
+					</fieldset>
 				</div>
 			</div>
 			<div class="button">
@@ -133,7 +141,6 @@ h2 {
 		$("#backToList").on("click", function() {
 			history.back();
 		})
-
 	</script>
 
 
