@@ -9,8 +9,8 @@
     insert into heart(heart_seq, heart_flag, per_seq, writer) values(heart_seq.nextval, default, #{per_seq}, #{writer})
     </insert>
     
-    <select id="select" resultType="int">
-    select heart_flag from heart where per_seq = #{per_seq}
+    <select id="select" resultType="p.memory.dto.HeartDTO">
+    select * from heart where per_seq = #{per_seq}
     </select>
     
     <update id="flagTrue">

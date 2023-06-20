@@ -116,9 +116,13 @@ public class PerfumeController {
 		PerfumeDTO perfume = perfumeService.selectBySeq(per_seq);
 		FileDTO file = fileService.selectByPerSeq(per_seq);
 		List<PerfumeReplyDTO> reply = replyService.selectByPerSeq(per_seq);
+		HeartDTO heart = heartService.select(per_seq);
+		System.out.println(heart.getPer_seq());
+		System.out.println(heart.getHeart_flag());
 		model.addAttribute("perfume",perfume);
 		model.addAttribute("file",file);
 		model.addAttribute("reply", reply);
+		model.addAttribute("heart", heart);
 		System.out.println("댓글 불러오기 성공");
 		return "perfume/perfumeSelect";
 	}

@@ -13,6 +13,11 @@ public class HeartDAO {
 
 	@Autowired	
 	private SqlSessionTemplate mybatis;
+	
+	public HeartDTO select(int per_seq) {
+		return mybatis.selectOne("Heart.select", per_seq);
+	}
+	
 	// 게시글 작성 시 좋아요 테이블 추가
 	public int insert(HeartDTO dto ) {
 		return mybatis.insert("Heart.insert", dto);

@@ -225,7 +225,6 @@ height:100%;
 									<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}">
 									<c:choose>
 									<c:when test="${i.heart_flag == 0}">
-									
 									<i class="fa-regular fa-heart false"></i>
 									</c:when>
 									<c:when test="${i.heart_flag == 1}">

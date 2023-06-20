@@ -9,6 +9,7 @@
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src = "https://code.jquery.com/jquery-3.6.4.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 <title>perfume Select</title>
  <style>
@@ -167,9 +168,17 @@ display:none;
 		</div>
 		<div class="row">
             <div class="col heartCol">
-       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg>
+     			<input type="hidden" class="per_seq" name="per_seq" value="${perfume.per_seq}">
+     			<input type="hidden" class="per_seq" name="heart_per_seq" value="${heart.per_seq}">
+     			<input type="hidden" class="per_seq" name="heart_flag" value="${heart.heart_flag}">
+					<c:choose>
+					<c:when test="${heart.heart_flag == 0}">
+					<i class="fa-regular fa-heart false"></i>
+					</c:when>
+					<c:when test="${heart.heart_flag == 1}">
+					<i class="fa-solid fa-heart true"></i>
+					</c:when>
+					</c:choose>	
             </div>
         </div>
         
@@ -235,12 +244,13 @@ display:none;
     
  <script>
 
+ // 게시글 수정
  $("#updateBtn").on("click",function(){
 	 let per_seq = $("#per_seq").val();
 	 console.log("per_seq : " + per_seq);
 	 location.href="/perfume/toUpdate?per_seq="+per_seq;
  });
- 
+ // 댓글 수정
  $(".replyModBtn").on("click", function(){
 	 let contents = $(this).parent().parent().prev().children();
 	 $(this).css("display","none");
@@ -249,10 +259,33 @@ display:none;
 	 contents.removeAttr("readonly");
 	 alert("readonly 풀림")
  })
- 
+ // 댓글 없어도 될껄?? 테스트 해봐야함
  $("replyUpdBtn").on("click", function(){
 	 location.href="/perfumeReply/update"
  })
+ // 좋아요
+  t = (per_seq, isTrue) => {
+		 console.log("per_seq : "+per_seq);
+		 console.log("isTrue : "+ isTrue);
+		  $.ajax({
+		    url: "/perfume/heartFlagTrue",
+		    type: "post",
+		    data: {
+		      per_seq: per_seq,
+		      isTrue: isTrue
+		    }
+		  });
+		  alert("ajax수행");
+		};
+	  
+ // 좋아요 클릭
+ $(".fa-heart").on("click", function (ev) {
+	 this.className = $(this).hasClass('true') ? "fa-regular fa-heart false" : "fa-solid fa-heart true";	 
+	 console.log($(this).hasClass('true'));
+	 let per_seq =  $(this).prev().val();
+	 // 넘어가는 값은 (id, true인지 false인지)
+	 t(per_seq, $(this).hasClass('true')) 
+ });
   
  
  </script>
