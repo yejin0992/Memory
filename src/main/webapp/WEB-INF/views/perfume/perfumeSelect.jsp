@@ -169,8 +169,6 @@ display:none;
 		<div class="row">
             <div class="col heartCol">
      			<input type="hidden" class="per_seq" name="per_seq" value="${perfume.per_seq}">
-     			<input type="hidden" class="per_seq" name="heart_per_seq" value="${heart.per_seq}">
-     			<input type="hidden" class="per_seq" name="heart_flag" value="${heart.heart_flag}">
 					<c:choose>
 					<c:when test="${heart.heart_flag == 0}">
 					<i class="fa-regular fa-heart false"></i>
@@ -259,10 +257,7 @@ display:none;
 	 contents.removeAttr("readonly");
 	 alert("readonly 풀림")
  })
- // 댓글 없어도 될껄?? 테스트 해봐야함
- $("replyUpdBtn").on("click", function(){
-	 location.href="/perfumeReply/update"
- })
+
  // 좋아요
   t = (per_seq, isTrue) => {
 		 console.log("per_seq : "+per_seq);

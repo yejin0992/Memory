@@ -88,8 +88,8 @@ public class PerfumeController {
 	@RequestMapping("toInsert")
 	public String toInsert() throws Exception {
 		System.out.println("글쓰기 도착");
-		session.setAttribute("writer", "아무개");
-		return "perfume/perfumeInsert2";
+		session.setAttribute("writer", "아멀랑");
+		return "perfume/perfumeInsert";
 	}
 	
 	@RequestMapping("insert")
@@ -116,13 +116,13 @@ public class PerfumeController {
 		PerfumeDTO perfume = perfumeService.selectBySeq(per_seq);
 		FileDTO file = fileService.selectByPerSeq(per_seq);
 		List<PerfumeReplyDTO> reply = replyService.selectByPerSeq(per_seq);
-		HeartDTO heart = heartService.select(per_seq);
-		System.out.println(heart.getPer_seq());
-		System.out.println(heart.getHeart_flag());
+//		HeartDTO heart = heartService.select(per_seq);
+//		System.out.println(heart.getPer_seq());
+//		System.out.println(heart.getHeart_flag());
 		model.addAttribute("perfume",perfume);
 		model.addAttribute("file",file);
 		model.addAttribute("reply", reply);
-		model.addAttribute("heart", heart);
+//		model.addAttribute("heart", heart);
 		System.out.println("댓글 불러오기 성공");
 		return "perfume/perfumeSelect";
 	}
@@ -184,6 +184,13 @@ public class PerfumeController {
 			System.out.println("false에 도착");
 		}
 	}
+	
+//	@RequestMapping("perfumeBest")
+//	public String perfumeBest(Model model) {
+//		PerfumeMainDTO best = perfumeService.selectBest();
+//		model.addAttribute("best", best);
+//		return "perfume/perfumeBest";
+//	}
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
