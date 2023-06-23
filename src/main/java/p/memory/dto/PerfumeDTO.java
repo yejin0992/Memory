@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class PerfumeDTO {
 	private int per_seq;
-	private String writer;
+	private String id;
 	private String per_name;
 	private String per_brand;
 	private int per_volume;
@@ -17,21 +17,17 @@ public class PerfumeDTO {
 	private String middle1;
 	private String middle2;
 	private String middle3;
-	private String base1;
-	private String base2;
-	private String base3;
-	private Timestamp write_date;
 	public int getPer_seq() {
 		return per_seq;
 	}
 	public void setPer_seq(int per_seq) {
 		this.per_seq = per_seq;
 	}
-	public String getWriter() {
-		return writer;
+	public String getId() {
+		return id;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getPer_name() {
 		return per_name;
@@ -129,12 +125,20 @@ public class PerfumeDTO {
 	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
-	public PerfumeDTO(int per_seq, String writer, String per_name, String per_brand, int per_volume, String per_kind,
+	private String base1;
+	private String base2;
+	private String base3;
+	private Timestamp write_date;
+	public PerfumeDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public PerfumeDTO(int per_seq, String id, String per_name, String per_brand, int per_volume, String per_kind,
 			int per_price, String per_gender, String top1, String top2, String top3, String middle1, String middle2,
 			String middle3, String base1, String base2, String base3, Timestamp write_date) {
 		super();
 		this.per_seq = per_seq;
-		this.writer = writer;
+		this.id = id;
 		this.per_name = per_name;
 		this.per_brand = per_brand;
 		this.per_volume = per_volume;
@@ -151,10 +155,6 @@ public class PerfumeDTO {
 		this.base2 = base2;
 		this.base3 = base3;
 		this.write_date = write_date;
-	}
-	public PerfumeDTO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

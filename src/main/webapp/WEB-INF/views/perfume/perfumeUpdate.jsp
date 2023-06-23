@@ -1643,7 +1643,7 @@ height:100%;
     			  options[i].selected = true;
     		  }
     	  }
-    	  
+    	  // per_gender select된 값 불러오기
     	  let checkedValue="${perfume.per_gender}";
     	  let radios = document.getElementsByName("per_gender");
     	  console.log(checkedValue);

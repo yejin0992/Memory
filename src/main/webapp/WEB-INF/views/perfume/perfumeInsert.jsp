@@ -85,7 +85,7 @@
         <div class="rowFile">
             <div class="col-12">
                 <div class="mb-3">
-                    <input  type="file" id="formFileSm" class="form-control form-control-sm"  name="files "dir="rtl">
+                    <input  type="file" id="formFileSm" class="form-control form-control-sm"  name="files" dir="rtl" accept="image/*">
                   </div>
             </div>
         </div>
@@ -136,8 +136,8 @@
             <div class="col-12">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">성별</span>
                 <div class="d-flex justify-content-center w-75 " id="genderAlign">
-                    <input type="radio" id="waman" class="d-inline-block" name="per_gender"  value="woman">
-                    <lable for="woman" class="gender">WAMAN</lable>
+                    <input type="radio" id="woman" class="d-inline-block" name="per_gender"  value="woman">
+                    <lable for="woman" class="gender">WOMAN</lable>
                     <input type="radio" id="man" class="d-inline-block" name="per_gender" value="man">
                     <lable for="man" class="gender">MAN</lable>
                     <input type="radio" id="unisex" class="d-inline-block" name="per_gender" value="unisex">
@@ -151,7 +151,6 @@
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">top1</span>
-                <input type="text" class="form-control h-75"  list="datalistOptions" name="top1">
                 <datalist id="datalistOptions">
                     <option value="Bergamot">
                         <option value="Bigarade">
@@ -1538,77 +1537,64 @@
                         <option value="Yeast">
                         
                 </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                 <input type="text" class="form-control h-75"  list="datalistOptions" name="top1">
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">top2</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="top2">
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button">버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group mb-3">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">top3</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="top3">
-                <datalist class="datalistOptions">
-                </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">middle1</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="middle1">
-                <datalist class="datalistOptions">
-                </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">middle2</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="middle2">
-                <datalist class="datalistOptions">
-                </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group mb-3">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">middle3</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="middle3">
-                <datalist class="datalistOptions">
-                </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">base1</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="base1">
-                <datalist class="datalistOptions">
-                </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" class="searchNote">버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">base2</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="base2">
-                <datalist class="datalistOptions">
-                </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group mb-3">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">base3</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="base3">
-                <datalist class="datalistOptions">
-                </datalist>
-                <button class="btn btn-outline-secondary h-75" type="button" id="button-addon2">버튼</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
             </div>
         </div>
         <div class="row">
@@ -1616,11 +1602,28 @@
         </div>
         <div class="row"><button type="submit">입력</button></div>
 
+&{list}
     </div>
     </form>
     
+    
+    
     <script>
-
+ 	$(".searchNote").on("click", function(){
+		$(this).css("background-color", "pink");
+		console.log($(this).prev().val());
+		$.ajax({
+			url:"/perfume/noteIsTrue",
+			data : {
+				note : $(this).prev().val(),
+			},
+			type:"post"
+		}).done(function(resp){
+		
+			console.log(resp);
+			console.log("done에 도착");			
+		})
+	}); 
     
 
     </script>

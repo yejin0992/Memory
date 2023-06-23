@@ -93,6 +93,10 @@ display:none;
 .replyDelBtn{
 display:none;
 }
+
+.true{
+color: #c28243;
+}
 </style>
 
 
@@ -170,10 +174,10 @@ display:none;
             <div class="col heartCol">
      			<input type="hidden" class="per_seq" name="per_seq" value="${perfume.per_seq}">
 					<c:choose>
-					<c:when test="${heart.heart_flag == 0}">
+					<c:when test="${heart == 0}">
 					<i class="fa-regular fa-heart false"></i>
 					</c:when>
-					<c:when test="${heart.heart_flag == 1}">
+					<c:when test="${heart == 1}">
 					<i class="fa-solid fa-heart true"></i>
 					</c:when>
 					</c:choose>	
@@ -201,14 +205,14 @@ display:none;
         <c:forEach var="i" items="${reply}">
 					<form action="/perfumeReply/update" method="post">
 						<div class="row">
-							<input type="text" class="col" name="writer" value="${i.writer}" readonly>
+							<input type="text" class="col" name="id" value="${i.id}" readonly>
 						</div>
 						<div class="row">
 							<input type="text" name="contents" value="${i.contents}" readonly>
 							<input type="hidden" name="per_seq" value="${i.per_seq}">
 							<input type="hidden" name="re_seq" value="${i.re_seq}">
 						</div>
-						<c:if test="${writer eq i.writer}">
+						<c:if test="${writer eq i.id}">
 							<div class="row">
 								<div class="col">
 									<button type="button" class="replyModBtn">수정</button>
@@ -236,7 +240,7 @@ display:none;
 				</div>
 			</div>
 		</div>
-        
+        <input type="hidden" id="loginID" value="${sessionScope.writer}">
         <div class="row footer">푸터</div>
     </div>
     
@@ -258,16 +262,18 @@ display:none;
 	 alert("readonly 풀림")
  })
 
- // 좋아요
-  t = (per_seq, isTrue) => {
+ // 좋아요 ajax
+  t = (per_seq, isTrue, id) => {
 		 console.log("per_seq : "+per_seq);
 		 console.log("isTrue : "+ isTrue);
+		 console.log("id : " + id);
 		  $.ajax({
-		    url: "/perfume/heartFlagTrue",
+		    url: "/perfume/heartChange",
 		    type: "post",
 		    data: {
 		      per_seq: per_seq,
-		      isTrue: isTrue
+		      isTrue: isTrue,
+		      id : id
 		    }
 		  });
 		  alert("ajax수행");
@@ -278,8 +284,8 @@ display:none;
 	 this.className = $(this).hasClass('true') ? "fa-regular fa-heart false" : "fa-solid fa-heart true";	 
 	 console.log($(this).hasClass('true'));
 	 let per_seq =  $(this).prev().val();
-	 // 넘어가는 값은 (id, true인지 false인지)
-	 t(per_seq, $(this).hasClass('true')) 
+	 let id = $("#loginID").val();
+	 t(per_seq, $(this).hasClass('true'),id) 
  });
   
  
