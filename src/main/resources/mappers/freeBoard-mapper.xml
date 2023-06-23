@@ -45,43 +45,47 @@
 		+1 where fr_seq = #{fr_seq}
 	</update>
 
-	<!--게시물 총개수 -->
-	<select id="getPostsCount" resultType="int">
+	<!--게시물 총개수 + 검색ver -->
+	<select id="getPostsCount" resultType="int" parameterType="hashMap">
 		select count(*) from
 		free_board
+		<if test="field.equals('fr_title')">
+			WHERE fr_title LIKE '%' || #{query} || '%'
+		</if>
+		<if test="field.equals('fr_contents')">
+			WHERE fr_contents LIKE '%' || #{query} || '%'
+		</if>
+		<if test="field.equals('fr_writer')">
+			WHERE fr_writer LIKE '%' || #{query} || '%'
+		</if>
 	</select>
 
-	<!--페이징 -->
-	<select id="selectBound" parameterType="hashMap"
+	<!--목록 불러오기 + 페이징 + 검색-->
+	<select id="selectBoundWithSearch" parameterType="hashMap"
 		resultType="p.memory.dto.FreeBoardDTO">
 		SELECT * FROM (
 		SELECT ROWNUM AS rn, t.*
 		FROM (
 		SELECT *
 		FROM free_board
+		<if test="field.equals('fr_title')">
+			WHERE fr_title LIKE '%' || #{query} || '%'
+		</if>
+		<if test="field.equals('fr_contents')">
+			WHERE fr_contents LIKE '%' || #{query} || '%'
+		</if>
+		<if test="field.equals('fr_writer')">
+			WHERE fr_writer LIKE '%' || #{query} || '%'
+		</if>
 		ORDER BY fr_seq DESC
 		) t
 		)
 		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 
-	<!--검색 -->
-	<select id="searchPosts" parameterType="map"
-		resultType="p.memory.dto.FreeBoardDTO">
-		SELECT * FROM free_board
-		WHERE
-		<if test="query1 != null and query1 != ''">
-			fr_title LIKE CONCAT('%', #{query1}, '%')
-		</if>
-		<if test="query2 != null and query2 != ''">
-			AND fr_contents LIKE CONCAT('%', #{query2}, '%')
-		</if>
-		<if test="query3 != null and query3 != ''">
-			AND fr_writer LIKE CONCAT('%', #{query2}, '%')
-		</if>
-	</select>
-	
-	
+
+
+
 
 
 

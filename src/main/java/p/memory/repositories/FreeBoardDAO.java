@@ -44,25 +44,25 @@ public class FreeBoardDAO {
 	public int updateViewCount(Integer fr_seq) {
 		return mybatis.update("FreeBoard.updateViewCount", fr_seq);  
 	}
-	// 검색
-	public List<FreeBoardDTO> searchPosts(String field, String query){
-		Map<String, Object> params = new HashMap<>();
-		params.put("field", field);
-		params.put("query", query);
-		return mybatis.selectList("FreeBoard.searchPosts", params); 
-	}
+
 	//게시물 총개수 
-	public int getPostsCount() {
-		return mybatis.selectOne("FreeBoard.getPostsCount"); 
+	public int getPostsCount(String field, String query) throws Exception{
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("field", field);
+		params.put("query", query); 
+		return mybatis.selectOne("FreeBoard.getPostsCount",params); 
 	}
-	//페이징 
-	public List<FreeBoardDTO> selectBound(int start, int end) {
+	//게시판 목록 + 페이징 + 검색  
+	public List<FreeBoardDTO> selectBoundWithSearch(int start, int end, String field, String query) {
 		System.out.println(start);
 		System.out.println(end);
 		Map<String, Object> params = new HashMap<>(); 
 		params.put("start", start);
 		params.put("end", end);
-		return mybatis.selectList("FreeBoard.selectBound", params); 
+		
+		params.put("field", field); 
+		params.put("query", query); 
+		return mybatis.selectList("FreeBoard.selectBoundWithSearch", params); 
 	}
 
 	
