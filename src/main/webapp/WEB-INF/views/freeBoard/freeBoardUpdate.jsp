@@ -118,10 +118,16 @@ h2 {
 				</div>
 			</div>
 			<div class="mb-3">
+				<div class="imageListContainer">
+					<c:forEach items="${imageList}" var="image">
+						<span id="image">${image.oriName}</span>
+						<button id="btnContentsRemove">삭제</button>
+					</c:forEach>
+				</div>
 				<div class="fileWrapper">
 					<fieldset>
 						<legend>이미지 파일 첨부 </legend>
-						<input type="file" id="inputFiles" value="첨부파일" name="files"
+						<input style = "display:none" type="file" id="inputFiles" value="첨부파일" name="files"
 							accept="image/png, image/jpeg, image/jpg" multiple><br>
 					</fieldset>
 				</div>
@@ -141,6 +147,29 @@ h2 {
 		$("#backToList").on("click", function() {
 			history.back();
 		})
+		
+		
+		// 이미지 수정하기 
+		const r = $("#btnContentsRemove");
+		console.log(r); 
+		r.on("click", () => {
+			const f = $("#inputFiles")[0]; 
+			console.log(f.value);
+			
+			if(f.value && f.value !== ""){
+				// 파일 있는지 확인 
+				// 파일 첨부 요소의 값이 비어있지 않고, 비어있지 않은 문자열이라면(파일이 선택된 경우)
+				f.value = ""; //파일 비워준다 -> 선택된 파일 초기화 
+				$("#image").html(""); // 파일 이름 넣어준걸 비워줌
+				r.html("파일첨부"); 
+			}else {
+				// 파일 첨부 요소 값이 비어있을 경우 
+				// 파일 첨부 요소 클릭하여 파일 상자 엶 
+				f.click(); 
+			}
+		});
+		
+	
 	</script>
 
 

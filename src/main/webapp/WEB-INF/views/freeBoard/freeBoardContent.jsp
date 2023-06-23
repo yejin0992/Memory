@@ -18,19 +18,23 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>FreeBoardContent</title>
 <style>
 @font-face {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
 	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2")
-		format("woff2");
-	font-weight: normal;
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
 	font-style: normal;
 }
 
 * {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
 }
 /* 게시판 스타일  */
 h2 {
@@ -191,6 +195,10 @@ textarea.form-control {
 #commentContents {
 	width: 100%;
 }
+
+.fa-bookmark {
+	color: #BE7856;
+}
 </style>
 </head>
 
@@ -220,8 +228,25 @@ textarea.form-control {
 				</div>
 				<!-- 작성자,조회수,날짜 보여주기 -->
 				<div class="row form-group">
-					<span id="writer">아이디:${conts.fr_writer }</span> <span
-						id="viewCount">조회수:${conts.fr_view_count }</span> <span id="time">작성일:${conts.fr_write_date }</span>
+					<span id="writer">작성자 : ${conts.fr_writer }</span>
+					<div class="viewCountWrapper">
+						<i class="fa-solid fa-eye" style="color: #b2a08a;"></i> <span
+							id="viewCount">${conts.fr_view_count }</span>
+					</div>
+					<span id="time">${conts.fr_write_date }</span>
+				</div>
+				<!--북마크 -->
+				<div class="row form-group">
+					<!-- 북마크 없을 때 (빈북마크) -->
+					<div>
+						<i
+							class="fa-bookmark fa-xl ${isBookmarked == 1 ? 'fa-solid' : 'fa-regular' }"></i>
+					</div>
+					<input type="hidden" id="isBookmarked" value=${isBookmarked}>
+					<!-- 북마크 있을 때 (북마크채워짐) -->
+					<!-- 					<div>
+						<i class="fa-solid fa-bookmark fa-xl true"></i>
+					</div> -->
 				</div>
 				<!-- 내용 -->
 				<div class="mb-3">
@@ -352,6 +377,7 @@ textarea.form-control {
 
 
 	<script>
+	
 		$("#backToList").on("click", function() {
 			history.back();
 		})
@@ -404,6 +430,73 @@ textarea.form-control {
 			});
 
 		}
+		// 북마크 
+
+		$(".fa-bookmark").on(
+				"click",
+				function() {
+					if ($(this).hasClass("fa-regular")) {
+						// "fa-regular" 클래스를 가지고 있는 경우의 처리 (빈북마크 아이콘일때)
+						console.log("fa-regular 클래스를 가지고 있습니다.");
+						let isBookmarked = $("#isBookmarked").val();
+
+						let fr_seq = "${conts.fr_seq}";
+
+						// 북마크 상태에 따라 아이콘 업데이트 및 서버 요청 수행
+						if (isBookmarked == "0") {
+							// 북마크가 되어 있지 않은 상태
+							$(this).removeClass("fa-regular false").addClass(
+									"fa-solid true");
+
+							// 북마크 추가를 위한 AJAX 요청
+							$.ajax({
+								url : "/bookmark/insertBookmark",
+								type : "POST",
+								data : {
+									"fr_seq" : fr_seq
+								},
+								success : function(resp) {
+									console.log("북마크 추가 요청 성공");
+									console.log(resp);
+									console.log("북마크 결과: " + isBookmarked);
+								},
+								error : function(xhr, status, error) {
+									console.log("북마크 추가 요청 실패");
+									console.log(xhr);
+									console.log(status);
+									console.log(error);
+								}
+							});
+						}
+					} else {
+						// "fa-regular" 클래스를 가지고 있지 않은 경우의 처리 (꽉찬 북마크 아이콘일 때)
+						console.log("fa-regular 클래스를 가지고 있지 않습니다.");
+						$(this).removeClass("fa-solid true").addClass(
+								"fa-regular false");
+						let fr_seq = "${conts.fr_seq}";
+						let isBookmarked = $("#isBookmarked").val();
+
+						// 북마크 삭제를 위한 AJAX 요청
+						$.ajax({
+							url : "/bookmark/deleteBookmark",
+							type : "POST",
+							data : {
+								"fr_seq" : fr_seq
+							},
+							success : function(resp) {
+								console.log("북마크 삭제 요청 성공");
+								console.log("북마크 결과: " + isBookmarked);
+								console.log(resp);
+							},
+							error : function(xhr, status, error) {
+								console.log("북마크 삭제 요청 실패");
+								console.log(xhr);
+								console.log(status);
+								console.log(error);
+							}
+						});
+					}
+				});
 
 		// ajax로 댓글 작성하기
 		$("#btnAddComment")
