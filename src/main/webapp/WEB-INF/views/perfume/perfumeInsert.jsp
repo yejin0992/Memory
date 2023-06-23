@@ -9,12 +9,26 @@
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src = "https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>Insert title here</title>
     <style>
 .container {
 	max-width: 700px;
+}
+
+* {
+	box-sizing: border-box;
+	font-family: 'Pretendard-Regular';
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 
 #imgOutLine {
@@ -58,6 +72,11 @@
 	position: relative;
 	bottom: 5px;
 }
+
+#img{
+width:100%;
+height:100%;
+}
 </style>
 
 </head>
@@ -77,7 +96,9 @@
             <div class="col-12">
                 <span class="badge bg-secondary w-25 p-2  d-inline-block">이미지</span>
                 <div class="d-flex justify-content-center w-75 " id="genderAlign">
-                <div id="imgOutLine" ></div>
+                <div id="imgOutLine" >
+                
+                </div>
                 </div>
             </div>
          
@@ -85,7 +106,7 @@
         <div class="rowFile">
             <div class="col-12">
                 <div class="mb-3">
-                    <input  type="file" id="formFileSm" class="form-control form-control-sm"  name="files" dir="rtl" accept="image/*">
+                    <input  type="file" id="formFileSm" class="form-control form-control-sm"  name="files" dir="rtl" accept="image/*" onchange="setImage(event)">
                   </div>
             </div>
         </div>
@@ -148,9 +169,11 @@
         <div class="row">
             <hr>
         </div>
+           
         <div class="row ">
+       
             <div class="col-12 input-group">
-                <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">top1</span>
+						<span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">top1</span>
                 <datalist id="datalistOptions">
                     <option value="Bergamot">
                         <option value="Bigarade">
@@ -1538,71 +1561,81 @@
                         
                 </datalist>
                  <input type="text" class="form-control h-75"  list="datalistOptions" name="top1">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote " type="button" >찾기</button>
+                
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">top2</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="top2">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button">버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button">찾기</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group mb-3">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">top3</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="top3">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >찾기</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">middle1</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="middle1">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >찾기</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">middle2</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="middle2">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >찾기</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group mb-3">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">middle3</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="middle3">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >찾기</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">base1</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="base1">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" class="searchNote">버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" class="searchNote">찾기</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">base2</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="base2">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >찾기</button>
             </div>
         </div>
         <div class="row ">
             <div class="col-12 input-group mb-3">
                 <span class="badge bg-secondary w-25 p-3 h-75 d-inline-block">base3</span>
                 <input type="text" class="form-control h-75"  list="datalistOptions"  name="base3">
-                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >버튼</button>
+                <button class="btn btn-outline-secondary h-75 reChoice" type="button" >재선택</button>
+                <button class="btn btn-outline-secondary h-75 searchNote" type="button" >찾기</button>
             </div>
         </div>
         <div class="row">
             
         </div>
-        <div class="row"><button type="submit">입력</button></div>
+        <div class="row">  <button class="btn btn-outline-primary" type="submit">저장</button></div>
+	<div style="height:50px;"></div>
 
-&{list}
     </div>
     </form>
     
@@ -1610,22 +1643,57 @@
     
     <script>
  	$(".searchNote").on("click", function(){
-		$(this).css("background-color", "pink");
-		console.log($(this).prev().val());
+		let noteBtn = $(this);
+		let note = $(this).prev().prev();
+		console.log(note.val());
 		$.ajax({
 			url:"/perfume/noteIsTrue",
 			data : {
-				note : $(this).prev().val(),
+				note : note.val()
 			},
 			type:"post"
 		}).done(function(resp){
-		
-			console.log(resp);
-			console.log("done에 도착");			
+			if(resp == 0){
+				Swal.fire({
+					  icon: 'error',
+					  text: '해당노트가 없습니다 다시 입력해주세요!'
+					});
+				note.val("");
+			}else if(resp == 1){
+				note.attr("readonly",true);
+				note.css("background-color", "lightgrey");
+				noteBtn.text("완료");
+				noteBtn.css("background-color", "lightgrey");
+			}
 		})
 	}); 
+ 	
+ 	$(".reChoice").on("click", function(){
+ 		$(this).prev().attr("readonly", false).css("background-color", "white").val("");
+ 		$(this).next().text("찾기");
+ 	})
     
 
+ 	function setImage(event){
+ 		//filereader객체 생성, 스크립트 내장 함수
+ 		var reader = new FileReader();
+ 		  var file = event.target.files[0];
+ 		$("#imgOutLine").empty();
+ 		reader.onload = function(event){
+ 			var img = $("<img>").attr("id","img");
+ 			// 이미지가 로드되면 이미지라인에 이미지 들어갈 태그 append
+ 			img.on("load", function(){
+ 				 $("#imgOutLine").append(img);
+ 			});
+ 				
+ 			//이미지 표시를 수행
+ 			img.attr("src", event.target.result);
+ 		};
+ 		// 받은 객체를 url형식으로 변환
+ 		reader.readAsDataURL(file);
+ 	};
+ 	
+ 	
     </script>
 </body>
 </html>

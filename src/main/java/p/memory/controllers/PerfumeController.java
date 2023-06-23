@@ -78,7 +78,7 @@ public class PerfumeController {
 		System.out.println("writer값 : "+writer);
 		List<HeartDTO> heart = heartService.selectList("아무개");
 		System.out.println("하트 리스트 사이즈 : "+heart.size());
-
+		
 		List<PerfumeHeartDTO> PHdto = new ArrayList<>();
 		for(PerfumeMainDTO dto : list) {
 			boolean found = false;
@@ -218,7 +218,7 @@ public class PerfumeController {
 		int result = perfumeService.noteIsTrue(note);
 		System.out.println("결과는 : " + result);
 		System.out.println("넘어온 노트는 : " + note);
-		return 1;
+		return result;
 	}
 
 	@ExceptionHandler(Exception.class)
