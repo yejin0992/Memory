@@ -5,56 +5,194 @@
 
 <mapper namespace="Perfume">
 
+	<!--PERFUME INSERT -->
 	<insert id="insert">
-		<selectKey keyProperty="per_seq" resultType="int" order="BEFORE" >
+		<selectKey keyProperty="per_seq" resultType="int"
+			order="BEFORE">
 			select perfume_seq.nextval from dual
 		</selectKey>
-		insert into perfume values(#{per_seq},#{writer},#{per_name},#{per_brand},#{per_volume},#{per_kind},#{per_price},#{per_gender},#{top1},#{top2},#{top3},#{middle1},#{middle2},#{middle3},#{base1},#{base2},#{base3},sysdate)
+		insert into perfume
+		values(#{per_seq},#{writer},#{per_name},#{per_brand},#{per_volume},#{per_kind},#{per_price},#{per_gender},#{top1},#{top2},#{top3},#{middle1},#{middle2},#{middle3},#{base1},#{base2},#{base3},sysdate)
 	</insert>
 
-
-	<select id="selectList" resultType="p.memory.dto.PerfumeMainDTO">
-	select * from(select p.per_seq, p.per_brand, p.per_name, p.per_price,
-	i.sysname,
-	rank() over(order by p.per_seq desc) as rank
-	from perfume p
-	left join perfume_image i on p.per_seq = i.per_seq)
-	where rank between #{start} and #{end}
+	<!-- PERFUME LIST SELECT -->
+	<select id="selectList"
+		resultType="p.memory.dto.PerfumeMainDTO">
+		select * from(select p.per_seq, p.per_brand, p.per_name,
+		p.per_price,
+		i.sysname, p.writer, h.heart_flag,
+		rank() over(order by p.per_seq desc) as rank
+		from perfume p
+		left join perfume_image i on p.per_seq = i.per_seq
+        left join heart h on p.per_seq = h.per_seq)
+		where rank between #{start} and #{end}
 	</select>
 
-	<select id="recordTotalCount" resultType="int">
-		select count(*) from perfume
-	</select>
-	
-	
-	<select id="selectBySeq" resultType="p.memory.dto.PerfumeDTO">
-	select * from perfume where per_seq = #{per_seq}
-	</select>
-	
+	<!-- PERFUME UPDATE -->
 	<update id="update">
-	update perfume
-    set writer = #{writer},
-    per_name = #{per_name},
-    per_brand = #{per_brand},
-    per_volume = #{per_volume},
-    per_kind = #{per_kind},
-    per_price = #{per_price},
-    per_gender = #{per_gender},
-    top1 = #{top1},
-    top2 = #{top2},
-    top3 = #{top3},
-    middle1 = #{middle1},
-    middle2 = #{middle2},
-    middle3 = #{middle3},
-    base1 = #{base1},
-    base2 = #{base2},
-    base3 = #{base3},
-    write_date = sysdate
-	where per_seq=#{per_seq}
+		update perfume
+		set writer = #{writer},
+		per_name =
+		#{per_name},
+		per_brand = #{per_brand},
+		per_volume = #{per_volume},
+		per_kind = #{per_kind},
+		per_price = #{per_price},
+		per_gender =
+		#{per_gender},
+		top1 = #{top1},
+		top2 = #{top2},
+		top3 = #{top3},
+		middle1 =
+		#{middle1},
+		middle2 = #{middle2},
+		middle3 = #{middle3},
+		base1 = #{base1},
+		base2 = #{base2},
+		base3 = #{base3},
+		write_date = sysdate
+		where
+		per_seq=#{per_seq}
 	</update>
-	
+
+	<!-- PERFUME DELETE -->
 	<delete id="delete">
-	 delete from perfume where per_seq=#{per_seq}
+		delete from perfume where per_seq=#{per_seq}
 	</delete>
+
+	<!-- PERFUME TOTAL COUNT -->
+	<select id="recordTotalCount" resultType="int">
+		select count(*) from
+		perfume
+	</select>
+
+	<!-- PERFUME SEARCHED TOTAL COUNT -->
+	<select id="searchedTotalCount" resultType="int">
+		SELECT count(*)
+		FROM (
+		SELECT *
+		FROM perfume p
+		LEFT JOIN perfume_image i
+		ON p.per_seq = i.per_seq
+		<if test="checkedValue != null and checkedValue.size() > 0">
+			where PER_BRAND IN
+			<foreach item="per_brand" collection="checkedValue" open="("
+				separator="," close=")">
+				#{per_brand}
+			</foreach>
+		</if>
+		<if test="checkedValue == null || checkedValue.size()==0">
+			where 1=1
+		</if>
+		<if test="startPrice !=null and endPrice != null ">
+			AND per_price BETWEEN #{startPrice} AND #{endPrice}
+		</if>
+		<if test="startPrice !=null  and endPrice == null ">
+			AND per_price >= #{startPrice}
+		</if>
+		<if test="startPrice == null  and endPrice!=null ">
+			and per_price &lt;= #{endPrice}
+		</if>
+		<if test="startPrice == null and endPrice==null">
+			where 1=1
+		</if>
+		)
+	</select>
+
+	<!-- PERFUME DETAIL SELECT -->
+	<select id="selectBySeq" resultType="p.memory.dto.PerfumeDTO">
+		select * from perfume where
+		per_seq = #{per_seq}
+	</select>
+
+	<!-- PERFUME BRAND KIND -->
+	<select id="selectBrandKind" resultType="String">
+		select distinct
+		per_brand from perfume
+	</select>
+
+	<!-- SELECT BY FILTER -->
+	<select id="selectByBrand"
+		resultType="p.memory.dto.PerfumeMainDTO">
+		SELECT *
+		FROM (
+		SELECT *
+		FROM perfume p
+		LEFT JOIN perfume_image i ON
+		p.per_seq = i.per_seq
+		<if test="checkedValue != null and checkedValue.size()>0 ">
+			WHERE PER_BRAND IN
+			<foreach item="per_brand" collection="checkedValue" open="("
+				separator="," close=")">
+				#{per_brand}
+			</foreach>
+		</if>
+		<if test="startPrice !=null and endPrice != null ">
+			AND per_price BETWEEN #{startPrice} AND #{endPrice}
+
+		</if>
+		<if test="startPrice !=null  and endPrice == null ">
+			AND per_price >= #{startPrice}
+		</if>
+		<if test="startPrice == null  and endPrice!=null ">
+			and per_price &lt;= #{endPrice}
+		</if>
+		<if test="startPrice == null and endPrice==null">
+			and 1=1
+		</if>
+		) p
+	</select>
+
+	<!--PERFUME SEARCHED BY FILTER & TEXT -->
+	<select id="selectBySearch"
+		resultType="p.memory.dto.PerfumeMainDTO">
+		SELECT *
+		FROM perfume p
+		LEFT JOIN perfume_image i ON p.per_seq = i.per_seq
+		<if test="checkedValue != null and checkedValue.size()>0 ">
+			WHERE PER_BRAND IN
+			<foreach item="per_brand" collection="checkedValue" open="("
+				separator="," close=")">
+				#{per_brand}
+			</foreach>
+		</if>
+		<if test="checkedValue == null or checkedValue.isEmpty()">
+			where 1=1
+		</if>
+		<if test="startPrice != 0 and endPrice != 0 ">
+			AND per_price BETWEEN #{startPrice} AND #{endPrice}
+		</if>
+		<if test="startPrice != 0  and endPrice == 0 ">
+			AND per_price >= #{startPrice}
+		</if>
+		<if test="startPrice == 0  and endPrice != 0 ">
+			and per_price &lt;= #{endPrice}
+		</if>
+		<if test="startPrice == 0 and endPrice == 0">
+			and 1=1
+		</if>
+		<if test="category =='name' and searchText != null">
+			and per_name like '%' || #{searchText} || '%'
+		</if>
+		<if test="category == 'note' and searchText != null">
+			AND (top1 LIKE '%'||#{searchText}||'%'
+			OR top2 LIKE '%'||#{searchText}||'%'
+			OR top3 LIKE '%'||#{searchText}||'%'
+			OR middle1 LIKE '%'||#{searchText}||'%'
+			OR middle2 LIKE '%'||#{searchText}||'%'
+			OR middle3 LIKE '%'||#{searchText}||'%'
+			OR base1 LIKE '%'||#{searchText}||'%'
+			OR base2 LIKE '%'||#{searchText}||'%'
+			OR base3 LIKE '%'||#{searchText}||'%')
+		</if>
+		<if test="searchText == null">
+			and 1=1
+		</if>
+	</select>
+
+	<select id="selectPer_seq" resultType="int">
+		select per_seq from perfume
+	</select>
+	
 	
 </mapper>

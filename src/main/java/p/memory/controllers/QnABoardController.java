@@ -1,9 +1,6 @@
 package p.memory.controllers;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import p.memory.dto.QnABoardDTO;
-import p.memory.dto.QnAFileDTO;
 import p.memory.dto.QnAReplyDTO;
 import p.memory.services.QnABoardService;
 import p.memory.services.QnAFileService;

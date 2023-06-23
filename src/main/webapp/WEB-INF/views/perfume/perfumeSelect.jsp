@@ -9,6 +9,7 @@
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src = "https://code.jquery.com/jquery-3.6.4.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 <title>perfume Select</title>
  <style>
@@ -85,6 +86,13 @@ float:right;
 float:right;
 }
 
+.replyUpdBtn{
+display:none;
+}
+
+.replyDelBtn{
+display:none;
+}
 </style>
 
 
@@ -160,29 +168,19 @@ float:right;
 		</div>
 		<div class="row">
             <div class="col heartCol">
-       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg>
+     			<input type="hidden" class="per_seq" name="per_seq" value="${perfume.per_seq}">
+					<c:choose>
+					<c:when test="${heart.heart_flag == 0}">
+					<i class="fa-regular fa-heart false"></i>
+					</c:when>
+					<c:when test="${heart.heart_flag == 1}">
+					<i class="fa-solid fa-heart true"></i>
+					</c:when>
+					</c:choose>	
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <h4>댓글</h4>
-            </div>
-            <hr>
-        </div>
-		<div class="row">
-			<div class="col">
-				<div class="messageBox">
-					<div class="id">아이디</div>
-					<input type="text" name="" placeholder="댓글입력">
-					<div class="com">
-						<button id="msgInsert">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row btnRow">
+        
+        <div class="row btnRow">
             <div class="col-2 btnCol">
                 <button>목록</button>
                 <!-- 삭제, 수정버튼 관리자일때만  -->
@@ -192,17 +190,98 @@ float:right;
                 <button id="updateBtn">수정</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>댓글</h4>
+            </div>
+            <hr>
+        </div>
+        <div class="row replyListRow">
+        <div class="col replyListCol">
+        <c:forEach var="i" items="${reply}">
+					<form action="/perfumeReply/update" method="post">
+						<div class="row">
+							<input type="text" class="col" name="writer" value="${i.writer}" readonly>
+						</div>
+						<div class="row">
+							<input type="text" name="contents" value="${i.contents}" readonly>
+							<input type="hidden" name="per_seq" value="${i.per_seq}">
+							<input type="hidden" name="re_seq" value="${i.re_seq}">
+						</div>
+						<c:if test="${writer eq i.writer}">
+							<div class="row">
+								<div class="col">
+									<button type="button" class="replyModBtn">수정</button>
+									<a href="/perfumeReply/delete?re_seq=${i.re_seq}&per_seq=${perfume.per_seq}">
+									<button type="button" class="replyDelBtn">삭제</button></a>
+									<button class="replyUpdBtn" type="submit">완료</button>
+								</div>
+							</div>
+						</c:if>
+					</form>
+				</c:forEach>
+        </div>
+        </div>
+		<div class="row">
+			<div class="col">
+				<div class="messageBox">
+				<form action="/perfumeReply/insert" method="post">
+					<div class="id">${writer}</div>
+					<input type="hidden" name="per_seq" value="${perfume.per_seq}">
+					<input type="text" name="contents" placeholder="댓글입력">
+					<div class="com">
+						<button type="submit" id="msgInsert">확인</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+        
         <div class="row footer">푸터</div>
     </div>
     
  <script>
 
+ // 게시글 수정
  $("#updateBtn").on("click",function(){
 	 let per_seq = $("#per_seq").val();
 	 console.log("per_seq : " + per_seq);
 	 location.href="/perfume/toUpdate?per_seq="+per_seq;
  });
- 
+ // 댓글 수정
+ $(".replyModBtn").on("click", function(){
+	 let contents = $(this).parent().parent().prev().children();
+	 $(this).css("display","none");
+	 $(this).next().children().css("display","inline-block");
+	 $(this).next().next().css("display","inline-block");
+	 contents.removeAttr("readonly");
+	 alert("readonly 풀림")
+ })
+
+ // 좋아요
+  t = (per_seq, isTrue) => {
+		 console.log("per_seq : "+per_seq);
+		 console.log("isTrue : "+ isTrue);
+		  $.ajax({
+		    url: "/perfume/heartFlagTrue",
+		    type: "post",
+		    data: {
+		      per_seq: per_seq,
+		      isTrue: isTrue
+		    }
+		  });
+		  alert("ajax수행");
+		};
+	  
+ // 좋아요 클릭
+ $(".fa-heart").on("click", function (ev) {
+	 this.className = $(this).hasClass('true') ? "fa-regular fa-heart false" : "fa-solid fa-heart true";	 
+	 console.log($(this).hasClass('true'));
+	 let per_seq =  $(this).prev().val();
+	 // 넘어가는 값은 (id, true인지 false인지)
+	 t(per_seq, $(this).hasClass('true')) 
+ });
+  
  
  </script>
 

@@ -16,91 +16,134 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 <title>Perfume List</title>
 <style>
 * {
 	box-sizing: border-box;
+	font-family: 'Pretendard-Regular';
 }
 
 div {
-	border: 1px solid grey;
+	/* border: 0.5px solid grey; */
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 
 .head {
 	position: sticky;
 	top: 0;
-	height: 100px;
-	background-color: pink;
+	height: 50px;
 	z-index: 2;
+	background-color : white;
 }
 
 .body {
 	position: relative;
-	background-color: aqua;
+	background-color: white;
 }
 
-.image {
+.imageRow {
 	height: 300px;
-	background-color: aquamarine;
 	position: static;
-	top: 100px;
+	top: 50px;
+	display:flex;
+}
+
+#mainImage{
+	width:100%;
+	height:100%;
+	flex:1;
+	padding: 0px;
 }
 
 .contentTop {
 	position: sticky;
-	top: 100px;
-	height: 40px;
+	top: 50px;
+	height: 55px;
 	border-bottom: 1px solid black;
-	background-color: rgb(240, 218, 237);
+	background-color : white;
 	z-index: 2;
 }
+
+.contentTitle {
+	line-height: 55px;
+	color: black;
+	font-size:25px;
+	font-weight: bold;
+	text-align:center;
+}
+
 
 .sideNaviBrand {
 	position: relative;
 	top: 30px;
 	height: 300px;
 	overflow-y: auto;
-	background-color: beige;
+	background-color: white;
 }
 
 .BrandTitle {
 	position: sticky;
 	top: 0px;
-	padding-bottom: 10px;
-	padding-left: 10px;
+	padding-bottom: 0px;
+	padding-right:0px;
 	padding-top: 5px;
+	padding-left:0px;
 	z-index: 1;
+	background-color:white;
+	font-weight: bold;
+	height:40px;
 }
 
 .sideNaviPrice {
 	position: relative;
 	top: 60px;
 	overflow-y: auto;
-	background-color: beige;
+	background-color: white;
 }
 
 .priceTitle {
 	position: sticky;
 	top: 0px;
 	padding-bottom: 10px;
-	padding-left: 10px;
 	padding-top: 5px;
+	padding-left:0px;
+	padding-right:0px;
+	margin-left: 0px;
 	z-index: 1;
+	font-weight: bold;
+}
+
+.searchTitle{
+font-weight: bold;
+margin-bottom:10px;
+padding:0px;
+}
+
+.sideNavi{
+padding-right:30px;
 }
 
 .sideNaviSearch {
 	position: relative;
 	top: 90px;
 	overflow-y: auto;
-	background-color: beige;
+	background-color: white;
 }
 
-.contentTitle {
-	line-height: 30px;
-	color: red;
-	font-weight: bold;
+#contentList {
+	min-height: 1100px;
+	max-height: 1300px;
+	overflow-y: auto;
 }
+
 
 .contentImage {
 	height: 265px;
@@ -109,6 +152,89 @@ div {
 .list-group {
 	border: 0px;
 	z-index: 0;
+}
+
+.heartRow {
+	position:relative;
+	height: 23px;
+	text-align:right;
+	bottom:14px;
+}
+
+.form-check{
+height:20px;
+}
+
+.liImage{
+width:100%;
+height:100%;
+padding:0px;
+}
+
+.btn-warning{
+width:100%;
+height:100%;
+}
+
+.btn-warning {
+    --bs-btn-color: #75451D;
+    --bs-btn-bg: #EBE1C8;
+    --bs-btn-border-color: none;
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: #A37342;
+    --bs-btn-hover-border-color: none;
+    --bs-btn-focus-shadow-rgb: 217,164,6;
+    --bs-btn-active-color: white;
+    --bs-btn-active-bg: #75451D;
+}
+
+#tilde{
+	text-align:center;
+		font-weight: bold;
+}
+
+#category{
+margin-bottom:10px;
+}
+
+.sideHr{
+margin-top:5px;
+margin-bottom:10px;
+}
+
+.list-group {
+    --bs-list-group-border-color: none;
+}
+.list-group-item{
+padding:20px;
+}
+
+.brandRow{
+padding:2px;
+font-size:13px;
+color: grey;
+
+}
+
+.nameRow{
+padding:2px;
+font-size:17px;
+font-weight: 380;
+}
+
+.priceRow{
+padding:2px;
+color : #c28243;
+font-weight:bold;
+}
+
+.priceHr{
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.true{
+color: #c28243;
 }
 </style>
 
@@ -119,107 +245,84 @@ div {
 	<div class="container">
 		<div class="row head">헤더</div>
 		<div class="row body">
-			<div class="col body">
-				<div class="row image">image</div>
-				<div class="row contentTop">
+			<div class="col body p-0">
+				<div class="row imageRow m-0 p-0">
+				<img src="/resources/perfumeMain.jpg" id="mainImage">
+				</div>
+				<div class="row contentTop m-0">
 					<div class="col-12 contentTitle">perfume</div>
 				</div>
-				<div class="row">
-					공백
+				<div class="row m-0">
 					<div class="col">
 						<!-- 관리자 로그인시에만 활성화 -->
-						<button>
-							<a href="/perfume/toInsert"> 글쓰기</a>
-						</button>
+							<a href="/perfume/toInsert"> 글쓰기 </a>
+						
 					</div>
 				</div>
-				<div class="row">
+				<div class="row m-0">
 					<div class="col-4 col-md-3 col-lg-2 sideNavi">
 						<div class="sideNaviBrand row p-2">
-							<div class="BrandTitle">Brand</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckChecked" checked> <label
-									class="form-check-label" for="flexCheckChecked">
-									Checked checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> Default checkbox </label>
-							</div>
+							<div class="BrandTitle">Brand<hr class="sideHr"></div>
+							
+							<c:forEach var="i" items="${brand}">
+								<div class="form-check">
+									<input class="form-check-input brand" type="checkbox"
+										id="flexCheckDefault" value="${i}" name="checkedValue">
+									<label class="form-check-label" for="flexCheckDefault"
+										name="checkedValue"> ${i} </label>
+								</div>
+							</c:forEach>
 						</div>
 						<div class="sideNaviPrice row p-2">
-							<div class="priceTitle col-12">Price</div>
+							<div class="priceTitle col-12">Price<hr class="sideHr"></div>
 							<div class="row p-0 m-0">
-								<input type="text" class="priceText col-5">
-								<div class="col-1">~</div>
-								<input type="text" class="priceText col-5">
+								<input type="text" class="col-12 form-control form-control-sm" id="startPrice"
+									name="startPrice">
+								<div class="col-12" id="tilde">~</div>
+								<input type="text" class="col-12 form-control form-control-sm" id="endPrice"
+									name="endPrice">
 							</div>
 
 						</div>
 						<div class="sideNaviSearch row p-2">
-							<div class="col-12 SearchTitle">Search</div>
-							<input type="text">
-							<button>검색</button>
+							<div class="col-12 searchTitle">Search<hr class="sideHr"></div>
+							<div class="col-12 p-0 m-0 selectCol">
+							<select id="category" class="form-select form-select-sm">
+								<option value="note">노트</option>
+								<option value="name">이름</option>
+							</select>
+							</div> 
+							<div class="col-10 p-0 m-0">
+							<input type="text" id="searchText" class="form-control form-control-sm">
+							<!-- <button type="submit" id="search">검색</button> -->
+							</div>
+							<div class="col-2 p-0 m-0">
+							<button type="submit" id="search" class="btn btn-warning p-0 m-0"><i class="fa-solid fa-magnifying-glass"></i></button>
+							</div>
+
 						</div>
 					</div>
-					<div class="col-8 col-md-9 col-lg-10 contentList p-0">
+					<div class="col-8 col-md-9 col-lg-10 p-0" id="contentList">
 						<ul class="row list-group list-group-horizontal m-0">
 							<c:forEach var="i" items="${list}" begin="0" end="3" step="1">
 								<li class="list-group-item col-sm-6 col-lg-3 boardList" value="${i.per_seq}">
 									<div class="row contentImage">
-										<img src="/perfumeImage/${i.sysName}">
+										<img src="/perfumeImage/${i.sysName}" class="liImage">
 									</div>
+									<div class="row brandRow">${i.per_brand}</div>
+									<div class="row nameRow">${i.per_name }<hr class="priceHr"></div>
+									<div class="row priceRow">${i.per_price}원</div>
+									<div class="row heartRow">
 									<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}">
-									<div class="row">${i.per_brand}</div>
-									<div class="row">${i.per_name }</div>
-									<div class="row">${i.per_price }</div>
+									<c:choose>
+									<c:when test="${i.heart_flag == 0}">
+									
+									<i class="fa-regular fa-heart fa-lg false"></i>
+									</c:when>
+									<c:when test="${i.heart_flag == 1}">
+									<i class="fa-solid fa-heart fa-lg true"></i>
+									</c:when>
+									</c:choose>	</div>										
 								</li>
 							</c:forEach>
 						</ul>
@@ -229,12 +332,22 @@ div {
 								<c:forEach var="i" items="${list }" begin="4" end="7" step="1">
 									<li class="list-group-item col-sm-6 col-lg-3 boardList">
 										<div class="row contentImage">
-											<img src="/perfumeImage/${i.sysName}">
-										</div>
-										<div class="row">${i.per_brand}</div>
-										<div class="row">${i.per_name }</div>
-										<div class="row">${i.per_price }</div>
-									</li>
+											<img src="/perfumeImage/${i.sysName}" class="liImage">
+									</div>
+									<div class="row brandRow">${i.per_brand}</div>
+									<div class="row nameRow">${i.per_name }<hr class="priceHr"></div>
+									<div class="row priceRow">${i.per_price}원</div>
+									<div class="row heartRow">
+									<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}">
+									<c:choose>
+									<c:when test="${i.heart_flag == 0}">
+									<i class="fa-regular fa-heart fa-lg false"></i>
+									</c:when>
+									<c:when test="${i.heart_flag == 1}">
+									<i class="fa-solid fa-heart fa-lg true"></i>
+									</c:when>
+									</c:choose>	</div>										
+								</li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -245,19 +358,31 @@ div {
 								<c:forEach var="i" items="${list }" begin="8" end="11" step="1">
 									<li class="list-group-item col-sm-6 col-lg-3 boardList">
 										<div class="row contentImage">
-											<img src="/perfumeImage/${i.sysName}">
-										</div>
-										<div class="row">${i.per_brand}</div>
-										<div class="row">${i.per_name }</div>
-										<div class="row">${i.per_price }</div>
-									</li>
+										<img src="/perfumeImage/${i.sysName}" class="liImage">
+									</div>
+									<div class="row brandRow">${i.per_brand}</div>
+									<div class="row nameRow">${i.per_name }<hr class="priceHr"></div>
+									<div class="row priceRow">${i.per_price}원</div>
+									<div class="row heartRow">
+									<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}">
+									<c:choose>
+									
+									<c:when test="${i.heart_flag == 0}">
+									<i class="fa-regular fa-heart fa-lg false"></i>
+									</c:when>
+									
+									<c:when test="${i.heart_flag == 1}">
+									<i class="fa-solid fa-heart fa-lg true"></i>
+									</c:when>
+									</c:choose>	</div>										
+								</li>
 								</c:forEach>
 							</c:if>
 						</ul>
 
 					</div>
 					<div class="row pageNavi">
-						<nav aria-label="Page navigation example" align="center">
+						<nav aria-label="Page navigation example" align="center" id="pageNavigation">
 							<ul class="pagination d-flex justify-content-center">
 								<c:forEach var="i" items="${pagination}">
 									<c:choose>
@@ -275,11 +400,10 @@ div {
 										</c:when>
 										<c:when test="${i eq '>>'}">
 											<li class="page-item"><a class="page-link"
-												href="/perfume/perfumeList?cpage=${end}">${i}</a></li>
+												href="/perfume/perfumeList?cpage=${last}">${i}</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="page-item"><a
-												class="page-link ${i == cpage ? 'current-page' : ''}"
+											<li class="page-item"><a class="page-link ${i == cpage ? 'current-page' : ''}"
 												href="/perfume/perfumeList?cpage=${i}"
 												${i == cpage ? "disabled" : ""} onclick="${i == cpage ? "event.preventDefault()" : ""}" >
 													${i} </a></li>
@@ -315,14 +439,119 @@ div {
     }
     
     const currentPage2 = document.querySelector('.current-page');
-    currentPage2.style.backgroundColor = '#1e3c3e';
+    currentPage2.style.backgroundColor = '#AE9C88';
     currentPage2.style.color = 'white';
     
+    // 향수 클릭 시 디테일 뷰 이동
     $(".boardList").on("click", function(){
     	let per_seq = $(this).val();
     	alert(per_seq);
     	location.href="/perfume/select?per_seq="+per_seq;
     })
+    
+    // 동적으로 생긴 향수 목록 클릭 시 디테일 뷰 이동
+     $(document).on("click", ".boardList", function() {
+    	let per_seq = $(this).val();
+    	alert(per_seq);
+    	location.href="/perfume/select?per_seq="+per_seq;
+    }); 
+    
+   
+	// 브랜드, 가격으로 필터
+	function commonFunction(){ 
+			  let checkedValue = [];
+		 $(".brand:checked").each((i,e)=>{
+			 checkedValue.push($(e).val());
+			 console.log(i + " : " + e.value);
+		 });
+		 let startPrice = $("#startPrice").val();
+	 	 if(startPrice == '' ){
+			 startPrice = null;
+		 } 
+		 let endPrice = $("#endPrice").val();
+		  if(endPrice == '' ){
+			 endPrice = null;
+		 } 
+		 let category = $("#category").val();
+		 let searchText = $("#searchText").val();
+		 if(searchText == '' ){
+			 searchText = null;
+		 }
+			 console.log(checkedValue);
+			 console.log(startPrice);
+			 console.log(endPrice); 
+			 console.log(category); 
+			 console.log(searchText); 
+			 
+		 let params = {
+				 checkedValue: checkedValue || null,
+				 startPrice: startPrice || null,
+				 endPrice: endPrice,
+				 category : category,
+				 searchText:searchText
+		 }
+	      $.ajax({
+	        url: "/perfume/entireSearch",
+	        type: "post",
+	        contentType: "application/json",
+	        data: JSON.stringify(params)
+	    }).done(function(resp){
+	    	 $(".list-group").empty();
+	    	$(".pagination").empty();
+	    		let contentList = $("#contentList");
+	    		let ul = $("<ul>").addClass("row list-group list-group-horizontal m-0");
+	    			for(let i=0; i<resp.length; i++){
+	    				let li = $("<li>").addClass("list-group-item col-sm-6 col-lg-3 boardList").val(resp[i].per_seq);
+	    				let imageRow = $("<div>").addClass("row contentImage");
+	    				let image = $("<img>").addClass("liImage").attr("src","/perfumeImage/"+resp[i].sysName);
+	    				let hiddenSeq = $("<input>").attr("type","hidden").addClass("per_seq").attr("name","per_seq").val(resp[i].per_seq);
+	    				let brand = $("<div>").addClass("row").text(resp[i].per_brand);
+	    				let per_name = $("<div>").addClass("row").text(resp[i].per_name);
+	    				let price = $("<div>").addClass("row").text(resp[i].per_price);
+	    				
+	    				imageRow.append(image);
+	    	    		li.append(imageRow);
+	    	    		li.append(brand);
+	    	    		li.append(per_name);
+	    	    		li.append(price);
+	    	    		ul.append(li); 
+	    	     	} 
+	    			contentList.empty(); 
+	    			 contentList.append(ul);
+	    		
+	    })
+	 }; 
+	 
+	 $(".brand").on("click", commonFunction);
+	  $("#startPrice").on("keyup", commonFunction);
+	 $("#endPrice").on("keyup", commonFunction); 
+	 $("#search").on("click", commonFunction);
+	 
+	 t = (per_seq, isTrue) => {
+		 console.log("per_seq : "+per_seq);
+		 console.log("isTrue : "+ isTrue);
+		  $.ajax({
+		    url: "/perfume/heartFlagTrue",
+		    type: "post",
+		    data: {
+		      per_seq: per_seq,
+		      isTrue: isTrue
+		    }
+		  });
+		  alert("ajax수행");
+		};
+	  
+	 // 좋아요 클릭
+	 $(".fa-heart").on("click", function (ev) {
+		 // boardlist 이벤트 막기
+		 ev.stopPropagation();
+		
+		 this.className = $(this).hasClass('true') ? "fa-regular fa-heart fa-lg false" : "fa-solid fa-heart fa-lg true";	 
+		 console.log($(this).hasClass('true'));
+		 let per_seq =  $(this).prev().val();
+		 // 넘어가는 값은 (id, true인지 false인지)
+	 	 t(per_seq, $(this).hasClass('true')) 
+	 });
     
     </script>
 </body>
