@@ -1,5 +1,6 @@
 package p.memory.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,16 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import p.memory.commons.Settings;
 import p.memory.dto.CateDTO;
 import p.memory.dto.FrReplyDTO;
 import p.memory.dto.FreeBoardDTO;
 import p.memory.dto.FreeImageDTO;
+import p.memory.services.BookmarkService;
 import p.memory.services.CateService;
 import p.memory.services.FrReplyService;
 import p.memory.services.FreeBoardService;
 import p.memory.services.FreeImageService;
-import p.memory.statics.FreeBoardSettings;
 
 @Controller
 @RequestMapping("/freeBoard/")
@@ -43,6 +43,9 @@ public class FreeBoardController {
 	// 자유게시판 이미지(첨부파일) 서비스
 	@Autowired
 	private FreeImageService imageService;
+	// 북마크 서비스 
+	@Autowired
+	private BookmarkService bookmarkService; 
 
 	// 글 작성시 말머리 list 가져오기
 	@RequestMapping("toFreeBoardWrite")
@@ -76,46 +79,53 @@ public class FreeBoardController {
 		return "redirect:/freeBoard/selectList";
 	}
 
-	// 글 목록불러오기 + 페이징
+	// 글 목록불러오기 + 페이징 + 검색
 	@RequestMapping("selectList")
-	public String selectList(@RequestParam(defaultValue = "1", name = "cpage") int currentPage, Model model) {
+	public String selectList(@RequestParam(defaultValue = "1", name = "cpage") int currentPage,
+			@RequestParam(value = "field", required = false, defaultValue = "fr_title") String field,
+			@RequestParam(value = "query", required = false, defaultValue = "") String query, Model model)
+			throws Exception {
 //		List<FreeBoardDTO> list = fBservice.selectList();
 //		model.addAttribute("list", list);
 		// <페이징 관련 시작>
-		// 총 게시물 수 
-		int recordsTotalCount = fBservice.getPostsCount(); // 1. 총 게시물수
+		// 총 게시물 수
+		int recordsTotalCount = fBservice.getPostsCount(field, query);
 		// 한페이지에 출력할 게시물 수
 		int recordsPerPage = 10;
 		// 하단 페이징 번호 ([ 게시물 총 갯수 ÷ 한 페이지에 출력할 갯수 ]의 올림)
 		int pageNum = (int) Math.ceil((double) recordsTotalCount / recordsPerPage);
 		System.out.println("하단 페이징 번호 : " + pageNum);
-		// 출력할 게시물 시작 위치 
+		// 출력할 게시물 시작 위치
 		int start = (currentPage - 1) * recordsPerPage;
-		int end = start + recordsPerPage -1 ; 
-		fBservice.selectBound(start, end); 
-		List<FreeBoardDTO> list = fBservice.selectBound(start, end);
-		model.addAttribute("list",list); 
-		model.addAttribute("pageNum", pageNum); 
-		// 한페이지에 표시할 페이징 번호 개수 
+		int end = start + recordsPerPage - 1;
+		List<FreeBoardDTO> list = fBservice.selectBoundWithSearch(start, end, field, query);
+		System.out.println("list: " + list);
+		model.addAttribute("list", list);
+		model.addAttribute("pageNum", pageNum);
+		// 한페이지에 표시할 페이징 번호 개수
 		int naviCountPerPage = 10;
-		// 마지막 페이징 번호 
-		int endNavi = (int)(Math.ceil((double)currentPage / (double)naviCountPerPage) * naviCountPerPage);
+		// 마지막 페이징 번호
+		int endNavi = (int) (Math.ceil((double) currentPage / (double) naviCountPerPage) * naviCountPerPage);
 		// 첫번째 페이징 번호
-		int startNavi = endNavi - (naviCountPerPage-1); 
+		int startNavi = endNavi - (naviCountPerPage - 1);
 		// 마지막 번호 재계산
-		int endPageNum_tmp = (int)(Math.ceil((double)recordsTotalCount / (double)naviCountPerPage));
-		 
-		if(endNavi > endPageNum_tmp) {
-		 endNavi = endPageNum_tmp;
+		int endPageNum_tmp = (int) (Math.ceil((double) recordsTotalCount / (double) naviCountPerPage));
+
+		if (endNavi > endPageNum_tmp) {
+			endNavi = endPageNum_tmp;
 		}
-		
+
 		boolean prev = startNavi != 1;
 		boolean next = endNavi * naviCountPerPage < recordsTotalCount;
 		model.addAttribute("startNavi", startNavi);
-		model.addAttribute("endNavi",endNavi);
+		model.addAttribute("endNavi", endNavi);
 		model.addAttribute("prev", prev);
-		model.addAttribute("next", next); 
-	
+		model.addAttribute("next", next);
+
+		// 검색 조건과 검색어 그대로 jsp에 돌려주기
+		model.addAttribute("field", field);
+		model.addAttribute("query", query);
+
 		return "/freeBoard/freeBoardList";
 	}
 
@@ -146,6 +156,10 @@ public class FreeBoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// 북마크 결과 출력
+		int isBookmarked = bookmarkService.selectBookmark(fr_seq,loggedID); 
+		System.out.println("result 결과 : " + isBookmarked);
+		model.addAttribute("isBookmarked", isBookmarked);
 		return "freeBoard/freeBoardContent";
 	}
 
@@ -164,6 +178,13 @@ public class FreeBoardController {
 		List<CateDTO> list = service.selectCate();
 		System.out.println("업데이트 리스트 확인 : " + list);
 		model.addAttribute("category", list);
+		// 이미지 출력
+		try {
+			List<FreeImageDTO> imageList = imageService.selectImagesByFr_seq(fr_seq);
+			model.addAttribute("imageList", imageList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "freeBoard/freeBoardUpdate";
 	}
 
@@ -203,16 +224,7 @@ public class FreeBoardController {
 		return "redirect:/freeBoard/selectList";
 	}
 
-	// 검색
-	@RequestMapping("searchPosts")
-	public String searchPosts(@RequestParam(value = "field", required = false, defaultValue = "") String field,
-			@RequestParam(value = "query", required = false, defaultValue = "") String query, Model model) {
 
-		List<FreeBoardDTO> searchResults = fBservice.searchPosts(field, query);
-		model.addAttribute("searchResults", searchResults);
-
-		return "freeBoard/searchResult";
-	}
 
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

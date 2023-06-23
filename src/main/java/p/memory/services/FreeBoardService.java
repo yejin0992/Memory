@@ -40,19 +40,22 @@ public class FreeBoardService {
 	public int updateViewCount(Integer fr_seq) {
 		return fBdao.updateViewCount(fr_seq); 
 	}
-	// 검색
-	public List<FreeBoardDTO> searchPosts (String field, String query){
-		return fBdao.searchPosts(field, query); 
-	}
+
 	// 게시물 총 개수  
-	public int getPostsCount () {
-		return fBdao.getPostsCount(); 
+	public int getPostsCount(String field, String query) throws Exception {
+	    try {
+	        return fBdao.getPostsCount(field, query);
+	    } catch (Exception e) {
+	        // 예외 처리를 수행하고, 필요에 따라 로깅 등의 작업을 수행할 수 있습니다.
+	        throw new Exception("게시물 개수를 가져오는 도중 오류가 발생했습니다.", e);
+	    }
 	}
+
 	// 페이징
-	public List<FreeBoardDTO> selectBound(int start, int end){
+	public List<FreeBoardDTO> selectBoundWithSearch(int start, int end,String field, String query){
 		System.out.println(start);
 		System.out.println(end);
-		return fBdao.selectBound(start, end); 
+		return fBdao.selectBoundWithSearch(start, end, field, query); 
 	}
 	
 	

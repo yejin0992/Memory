@@ -103,14 +103,14 @@ h1 {
 					id="btnAdd" class="btn btn-primary">+</button></a>
 		</div>
 		<div class="searchArea">
-			<form class="table-form" action="freeBoard/searchPosts" method="get">
-				<select name="field">
-					<option value="query1">제목</option>
-					<option value="query2">내용</option>
-					<option value="query3">작성자</option>
-				</select> <input type="text" name="query" value="" /> <input
-					class="btn btn-search" type="submit" value="검색">
-			</form>
+			<!-- <form class="table-form" action="freeBoard/searchPosts" method="get"> -->
+				<select id = "field" name="field">
+					<option value="fr_title" <c:if test="${field eq 'fr_title'}">selected</c:if>>제목</option>
+					<option value="fr_contents" <c:if test="${field eq 'fr_content'}">selected</c:if>>내용</option>
+					<option value="fr_writer" <c:if test="${field eq 'fr_writer'}">selected</c:if>>작성자</option>
+				</select> <input type="text" id="query" name="query" value="${query }" />
+				<button type="button" class ="btnSearch" value="검색">검색</button>
+		<!-- 	</form> -->
 		</div>
 		<div class="pageArea">
 			<c:if test="${prev}">
@@ -125,3 +125,19 @@ h1 {
 			</c:if>
 		</div>
 	</div>
+	
+	<script>
+	
+	$(".btnSearch").on("click",function(){
+		let field = $("#field")[0].value; 
+		let query = $("#query")[0].value; 
+		
+		console.log(field);
+		console.log(query); 
+		location.href = "/freeBoard/selectList?cpage=1" + "&field=" + field + "&query=" + query;
+		
+	})
+	
+	
+	
+	</script>
