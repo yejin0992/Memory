@@ -22,8 +22,8 @@ public class PerfumeReplyController {
 	@RequestMapping("insert")
 	public String insert(PerfumeReplyDTO dto) {
 		String writer = (String)session.getAttribute("writer");
-		dto.setWriter(writer);
-		System.out.println("댓글 시퀀스 : " +dto.getRe_seq()+"작성자 : "+dto.getWriter()+"내용 : "+dto.getContents()+"퍼퓸시퀀스 : "+dto.getPer_seq());
+		dto.setId(writer);
+		System.out.println("댓글 시퀀스 : " +dto.getRe_seq()+"작성자 : "+dto.getId()+"내용 : "+dto.getContents()+"퍼퓸시퀀스 : "+dto.getPer_seq());
 		replyService.insert(dto);
 		return "redirect:/perfume/select?per_seq="+dto.getPer_seq();
 	}
