@@ -166,7 +166,7 @@
         </div>
         <div class="buttonBox" align="center">
           <button type="submit" id="loginBtn">Login</button><br>
-          <a href="/member/joinForm">
+          <a href="/member/toJoinForm">
           <button type="button" id="signUpBtn">Sign Up</button>
           </a>
         </div>

@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import p.memory.dto.QnAFileDTO;
 import p.memory.repositories.QnAFileDAO;
@@ -25,6 +27,7 @@ public class QnAFileService {
 			realPathFile.mkdir();
 		}
 		if (files != null) {
+
 			for (MultipartFile file : files) {
 				if (file.isEmpty()) {
 					continue;
@@ -38,4 +41,10 @@ public class QnAFileService {
 			}
 		}
 	}
+
+//파일 리스트 출력
+	public List<QnAFileDTO> selectAll(int qa_seq) {
+		return fdao.selectAll(qa_seq);
+	}
+
 }

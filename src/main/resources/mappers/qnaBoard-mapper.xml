@@ -5,43 +5,78 @@
 
 <mapper namespace="QnABoard">
 
-<!-- 게시글 전체 출력 -->
-<select id="boardList" resultType="p.memory.dto.QnABoardDTO">
-select * from qna_board
-</select>
+	<!-- 게시글 전체 출력 -->
+	<select id="selectNavi" resultType="p.memory.dto.QnABoardDTO">
+		select * from 
+		(select qna_board.*, row_number() over(order by qa_seq desc) rn from qna_board)
+		where rn between ${startNavi} and ${endNavi}
+	</select>
 
+	<!-- 페이징 - 총 게시글 수 -->
+	<select id="selectTotalPost" resultType="_integer">
+		select count(*) from qna_board
+	</select>
 
-<!-- 조회수 -->
-<select id="selectViewCount" resultType="_integer">
-select qa_view_count from qna_board where qa_seq=#{qa_seq}
-</select>
+	<!-- 검색 -->
+	<select id="searchPost" resultType="p.memory.dto.QnABoardDTO">
 
-<update id="updateViewCount">
-update qna_board set qa_view_count=${qa_view_count} where qa_seq=#{qa_seq} 
-</update>
+		select * from 
+		( select rownum as rn, t.* from 
+		( select * from qna_board
+		<if test="searchType.equals('title')">
+			where qa_title like '%' || #{keyword} || '%'
+		</if>
+		<if test="searchType.equals('content')">
+			where qa_contents like '%' || #{keyword} || '%'
+		</if>
+		<if test="searchType.equals('title_content')">
+			where qa_title like '%' || #{keyword} || '%'
+			or qa_contents like '%' || #{keyword} || '%'
+		</if>
+		<if test="searchType.equals('writer')">
+			where qa_writer like '%' || #{keyword} || '%'
+		</if>
+		order by qa_seq desc) t) where rn between #{startPostNum} and #{endPostNum}
+	</select>
 
+	<!-- 조회수 -->
+	<select id="selectViewCount" resultType="_integer">
+		select qa_view_count
+		from qna_board where qa_seq=#{qa_seq}
+	</select>
 
-<!-- 선택한 게시글 보기 -->
-<select id="selectOnePost" resultType="p.memory.dto.QnABoardDTO">
-select * from qna_board where qa_seq=#{qa_seq}
-</select>
+	<update id="updateViewCount">
+		update qna_board set qa_view_count=${qa_view_count}
+		where qa_seq=#{qa_seq}
+	</update>
 
+	<!-- 선택한 게시글 출력 -->
+	<select id="selectOnePost" resultType="p.memory.dto.QnABoardDTO">
+		select * from qna_board
+		where qa_seq=#{qa_seq}
+	</select>
 
-<!-- 게시글 작성 -->
-<insert id="insertPost">
- 	insert into qna_board values (qna_board_seq.nextval,#{qa_writer},#{qa_title},#{qa_contents},0,sysdate)
-</insert>
+	<!-- 게시글 작성 -->
+	<insert id="insert">
+		<selectKey keyProperty="qa_seq" resultType="int"
+			order="BEFORE">
+			select qna_board_seq.nextval from dual
+		</selectKey>
+		insert into qna_board values
+		(#{qa_seq},#{qa_writer},#{qa_title},#{qa_contents},0,sysdate)
+	</insert>
 
+	<!-- 게시글 수정 -->
+	<update id="update">
+		update qna_board set qa_title=#{qa_title},
+		qa_contents=#{qa_contents} where
+		qa_seq=#{qa_seq} and
+		qa_writer=#{qa_writer}
+	</update>
 
-<!-- 게시글 수정 -->
-<update id="update">
-  update qna_board set qa_title=#{qa_title}, qa_contents=#{qa_contents} where qa_seq=#{qa_seq} and qa_writer=#{qa_writer}
-</update>
-
-
-<!-- 게시글 삭제 -->
-<delete id="delete">
-delete from qna_board where qa_seq=#{qa_seq}
-</delete>
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		delete from qna_board where qa_seq=#{qa_seq}
+	</delete>
 
 </mapper>
