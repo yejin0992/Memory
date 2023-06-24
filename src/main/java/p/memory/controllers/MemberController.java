@@ -23,15 +23,15 @@ public class MemberController {
 	@Autowired
 	private HttpSession session;
 
-	// 회원가입폼으로
-	@RequestMapping("joinForm")
+	// 회원가입 페이지으로 이동
+	@RequestMapping("toJoinForm")
 	public String joinForm() {
 		System.out.println("조인폼으로");
 		return "member/joinMember";
 	}
 
-	// 마이페이지폼으로
-	@RequestMapping("mypage")
+	// 마이페이지로 이동
+	@RequestMapping("toMypage")
 	public String mypage() {
 		return "member/myPage";
 	}
@@ -39,16 +39,18 @@ public class MemberController {
 	// 회원가입
 	@RequestMapping("join")
 	public String insert(MemberDTO dto, RedirectAttributes rttb) throws Exception {
-		System.out.println(dto.getId() + "/" + dto.getPw() + "/" + dto.getName() + "/" + dto.getBirth_date() + "/"
-				+ dto.getGender() + "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
-				+ dto.getAddress1() + "/" + dto.getAddress2() + "/" + dto.getJoin_date());
 		dto.setPw(EncryptionUtils.sha256(dto.getPw()));
 		mService.insert(dto);
+		
+		System.out.println(dto.getId() + "/" + dto.getPw() + "/" + dto.getName() + "/" + dto.getBirth_date() + "/"
+				+  "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
+				+ dto.getAddress1() + "/" + dto.getAddress2() + "/" + dto.getJoin_date());
+		
 		rttb.addFlashAttribute("status", "j_s");
 		return "member/loginPage";
 	}
 
-	// id 중복확인
+	// 회원가입_id 중복확인
 	@ResponseBody
 	@RequestMapping(value = "idCheck", produces = "text/html;charset=utf-8")
 	public String idCheck(String id) {
@@ -74,10 +76,10 @@ public class MemberController {
 		dto.setPw(EncryptionUtils.sha256(dto.getPw()));
 		mService.update(dto);
 		System.out.println("업데이트:" + dto.getId() + "/" + dto.getPw() + "/" + dto.getName() + "/" + dto.getBirth_date()
-				+ "/" + dto.getGender() + "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
+				 + "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
 				+ dto.getAddress1() + "/" + dto.getAddress2() + "/" + dto.getJoin_date());
-		rttb.addFlashAttribute("status", "m_u");
-		return "redirect:/member/myInfo";
+		rttb.addFlashAttribute("status", "u_s");
+		return "redirect:/";
 	}
 
 	// 회원 탈퇴
@@ -86,6 +88,13 @@ public class MemberController {
 		mService.delete((String) session.getAttribute("loginID"));
 		session.invalidate();
 		return "home";
+	}
+
+	// 로그인페이지로 이동
+	@RequestMapping("loginForm")
+	public String loginForm() {
+		System.out.println("로그인폼으로");
+		return "member/loginPage";
 	}
 
 	// 로그인
@@ -98,18 +107,11 @@ public class MemberController {
 		if (result) {
 			session.setAttribute("loginID", id);
 			rttb.addFlashAttribute("status", "j_s");
-			return "member/myPage";
+			return "memberHome";
 		} else {
 			rttb.addFlashAttribute("status", "l_f");
 			return "redirect:/member/loginForm";
 		}
-	}
-
-	// 로그인페이지로
-	@RequestMapping("loginForm")
-	public String loginForm() {
-		System.out.println("로그인폼으로");
-		return "member/loginPage";
 	}
 
 	// 로그아웃
@@ -119,6 +121,69 @@ public class MemberController {
 		return "home";
 	}
 
+	// 아이디 찾기 페이지로 이동
+	@RequestMapping("toFindID")
+	public String toFindID() {
+		return "member/findID";
+	}
+
+	// 아이디 찾기
+	@RequestMapping("findID")
+	public String findID(MemberDTO dto, Model model) {
+		System.out.println("아이디찾기: " + dto.getName() + "/" + dto.getEmail());
+		MemberDTO id = mService.findID(dto);
+		System.out.println(dto.getId());
+		if (id == null) {
+			model.addAttribute("check", 1); //check속성의 1 : 실패
+			return "member/findID";
+		} else {
+			model.addAttribute("check", 0); //check속성의 0 : 성공
+			model.addAttribute("findID", dto.getId());
+			return "member/getMyId";
+		}
+		
+	}
+
+	// 비밀번호 찾기 페이지로 이동
+	@RequestMapping("toFindPW")
+	public String toFindPW() {
+		return "member/findPW";
+	}
+
+	// 비밀번호 찾기
+	@RequestMapping("findPW")
+	public String findPW(MemberDTO dto, Model model) throws Exception {
+		System.out.println("pw찾기: " +dto.getId()+"/" + dto.getName() + "/" + dto.getEmail());
+		MemberDTO pw = mService.findPW(dto);
+		if (pw == null) {
+			model.addAttribute("check", 1); 
+			return "member/findPW";
+		} else {
+			model.addAttribute("check", 0); 
+			model.addAttribute("findPw", dto.getId());
+			return "member/getMyPw";
+		}
+		
+	}
+	
+	// 비밀번호 번경 페이지로 이동
+	@RequestMapping("toGetMyPW")
+	public String test() {
+		System.out.println("비번페이지로 이동하자");
+		return "member/getMyPw";
+	}
+	
+	// 비밀번호 변경
+	@RequestMapping("pwUpdate")
+	public String pwUpdate(String id, String pw) throws Exception {
+		System.out.println("비번페이지로 도착" + id +"/"+pw);
+		String encryptionPw = EncryptionUtils.sha256(pw);
+		System.out.println(id+"/"+pw+"/"+encryptionPw);
+		mService.pwUpdate(id,encryptionPw);
+		return "member/loginPage";
+	}
+	
+	// 오류처리
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

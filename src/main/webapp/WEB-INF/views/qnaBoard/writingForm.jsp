@@ -23,7 +23,7 @@
 			</tr>
 			<tr height="20">
 				<td>
-				<input type="text" placeholder="글 제목을 입력하세요" size="130" name="qa_title">
+				<input type="text" id="title" placeholder="글 제목을 입력하세요" size="130" name="qa_title">
 				</td>
 			</tr>
 		 	<tr height="20">
@@ -35,20 +35,33 @@
 		
 			<tr>
 				<td>
-				<textarea placeholder="글 내용을 입력하세요." cols="138" rows="30" name="qa_contents"></textarea>
+				<textarea id="content" placeholder="글 내용을 입력하세요." cols="138" rows="30" name="qa_contents"></textarea>
 				</td>
 			</tr>
 			<tr height="20">
 				<td>
 				<a href="selectAll">
-				<input type="button" value="목록으로" id="toList"></a> 
-				<input type="submit" value="작성완료">
+				<input type="button" id="toList" value="목록으로" ></a> 
+				<input type="submit" id="complete"value="작성완료">
 				</td>
 			</tr>
 		
 	</table>
 </form>
 <script>
+
+$("#complete").on("click",function(){
+	let title = document.getElementById("title").value;
+	let content = document.getElementById("content").value;
+	
+	if(title == ""){
+		alert("제목을 입력하세요.");
+		return false;
+	} else if (content == ""){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+});
 
 </script>
 </body>

@@ -8,7 +8,6 @@ public class MemberDTO {
 	private String pw;
 	private String name;
 	private String birth_date;
-	private String gender;
 	private String contact;
 	private String email;
 	private String zipcode;
@@ -20,14 +19,13 @@ public class MemberDTO {
 		super();
 	}
 
-	public MemberDTO(String id, String pw, String name, String birth_date, String gender, String contact, String email,
+	public MemberDTO(String id, String pw, String name, String birth_date, String contact, String email,
 			String zipcode, String address1, String address2, Timestamp join_date) {
 		super();
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.birth_date = birth_date;
-		this.gender = gender;
 		this.contact = contact;
 		this.email = email;
 		this.zipcode = zipcode;
@@ -66,14 +64,6 @@ public class MemberDTO {
 
 	public void setBirth_date(String birth_date) {
 		this.birth_date = birth_date;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 
 	public String getContact() {

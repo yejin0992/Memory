@@ -57,13 +57,8 @@
 </head>
 <body>
 
-	<%-- <c:if test="${status == b_u }">
-<script>
-				alert("수정 완료 했습니다.");
-			</script>
-</c:if> --%>
 	<form action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}" method="post">
-		<!--  enctype="multipart/form-data" -->
+		
 		<table border="1" width="1000" height="500">
 
 			<tr height="20" >
@@ -72,18 +67,18 @@
 			<tr height="20">
 				<td><input type="text" class="editor" value="${post.qa_title }"
 					size="100" name="qa_title" readonly></td>
-					<td><input type="text" name="qa_view_count" value="${post.qa_view_count }"></td>
-			</tr>
-			<!-- 	<tr height="20">
-				<td>
-				<input type="file" id="addfile">
+				<td><input type="textarea" name="qa_view_count" value="${post.qa_view_count }">
+					<img src="/upload/">
 				</td>
 			</tr>
-		 -->
 			<tr>
 				<td colspan="2">
-				<textarea cols="138" class="editor" rows="30"
-						name="qa_contents" readonly>${post.qa_contents}</textarea>
+				<div cols="138" class="editor" rows="30"
+						name="qa_contents" readonly>
+						<c:forEach var="i" items="${file}">
+				<img src="/qnaUpload/${i.sysName}">
+				</c:forEach>
+						${post.qa_contents}</div>
 				</td>
 			</tr>
 			
@@ -93,14 +88,14 @@
 				<input type="button" id="backBtn" value="목록으로"></a> 
 				<a href="/qnaBoard/delete?qa_seq=${post.qa_seq}">
 				<input type="button" id="deleteBtn" value="삭제"></a> 
-				<inputtype="button" id="updateBtn" value="수정">
+				<input type="button" id="updateBtn" value="수정">
 				</td>
 			</tr>
 
 		</table>
 	</form>
 
-	<!-- 댓글 출력 / 수정 -->
+	<!-- 댓글 출력 / 수정 / 삭제 -->
 	<c:forEach var="r" items="${reply}">
 		<form action="/reply/replyUpdate" method="post">
 			<div id="nextreply">
@@ -113,16 +108,15 @@
 						<td><textarea class="replyforUpdate" name="re_contents"
 								readonly>${r.re_contents}</textarea></td>
 						<td>
-							<button type="button" id="re_updateBtn">수정</button> <a
-							href="/reply/replyDelete?qa_seq=${r.qa_seq}&re_seq=${r.re_seq}">
-								<input type="button" id="re_deleteBtn" value="삭제">
+							<button type="button" id="re_updateBtn">수정</button> 
+							<a href="/reply/replyDelete?qa_seq=${r.qa_seq}&re_seq=${r.re_seq}">
+							<input type="button" id="re_deleteBtn" value="삭제">
 						</a>
 						</td>
 					</tr>
 				</table>
-				<input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
-					type="hidden" name="re_seq" value="${r.re_seq}">
-
+				<input type="hidden" name="qa_seq" value="${r.qa_seq}"> 
+				<input type="hidden" name="re_seq" value="${r.re_seq}">
 			</div>
 		</form>
 	</c:forEach>
@@ -147,6 +141,8 @@
 	</form>
 
 	<script>
+	
+		// 게시글 수정 버튼
 		$("#updateBtn").on("click", function() {
 
 			$(".editor").removeAttr("readonly");
@@ -166,6 +162,7 @@
 			$("#updateBtn").parent("td").append(cancel);
 		});
 
+		// 댓글 수정하기 버튼
 		$("#re_updateBtn").on("click", function() {
 
 			$(".replyforUpdate").removeAttr("readonly");
@@ -185,12 +182,7 @@
 			$("#re_updateBtn").parent("td").append(cancel);
 		});
 
-		/* 	
-			function deleteReply(qa_seq, re_seq) {
-				var url = "/reply/replyDelete?qa_seq=" + parseInt(qa_seq)
-						+ "&re_seq=" + parseInt(re_seq);
-				location.href = url;
-			} */
+		
 	</script>
 
 </body>
