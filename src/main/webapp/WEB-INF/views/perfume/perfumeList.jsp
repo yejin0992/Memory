@@ -339,7 +339,7 @@ color : red;
 						<ul class="row list-group list-group-horizontal m-0">
 							<c:if test="${list.size() > 4 }">
 								<c:forEach var="i" items="${list }" begin="4" end="7" step="1">
-									<li class="list-group-item col-sm-6 col-lg-3 boardList">
+									<li class="list-group-item col-sm-6 col-lg-3 boardList" value="${i.per_seq}">
 										<div class="row contentImage">
 											<img src="/perfumeImage/${i.sysName}" class="liImage">
 										</div>
@@ -368,8 +368,8 @@ color : red;
 
 						<ul class="row list-group list-group-horizontal m-0">
 							<c:if test="${list.size() > 8}">
-								<c:forEach var="i" items="${list }" begin="4" end="7" step="1">
-									<li class="list-group-item col-sm-6 col-lg-3 boardList">
+								<c:forEach var="i" items="${list }" begin="8" end="11" step="1">
+									<li class="list-group-item col-sm-6 col-lg-3 boardList" value="${i.per_seq}">
 										<div class="row contentImage">
 											<img src="/perfumeImage/${i.sysName}" class="liImage">
 										</div>
@@ -415,7 +415,7 @@ color : red;
 										</c:when>
 										<c:when test="${i eq '>>'}">
 											<li class="page-item"><a class="page-link"
-												href="/perfume/perfumeList?cpage=${last}">${i}</a></li>
+												href="/perfume/perfumeList?cpage=${end}">${i}</a></li>
 										</c:when>
 										<c:otherwise>
 											<li class="page-item"><a class="page-link ${i == cpage ? 'current-page' : ''}"
@@ -461,14 +461,14 @@ color : red;
     $(".boardList").on("click", function(){
     	let per_seq = $(this).val();
     	alert(per_seq);
-    	location.href="/perfume/select?per_seq="+per_seq;
+    	location.href="/perfume/select?per_seq="+per_seq+"&cpage="+currentPage;
     })
     
     // 동적으로 생긴 향수 목록 클릭 시 디테일 뷰 이동
      $(document).on("click", ".boardList", function() {
     	let per_seq = $(this).val();
     	alert(per_seq);
-    	location.href="/perfume/select?per_seq="+per_seq;
+    	location.href="/perfume/select?per_seq="+per_seq+"&cpage="+currentPage;
     }); 
     
    
@@ -522,7 +522,7 @@ color : red;
 	    				let hiddenSeq = $("<input>").attr("type","hidden").addClass("per_seq").attr("name","per_seq").val(resp[i].per_seq);
 	    				let brand = $("<div>").addClass("row brandRow").text(resp[i].per_brand);
 	    				let per_name = $("<div>").addClass("row nameRow").text(resp[i].per_name);
-	    				let price = $("<div>").addClass("row priceRow").text(resp[i].per_price);
+	    				let price = $("<div>").addClass("row priceRow").text(resp[i].per_price+"원");
 	    				
 	    				imageRow.append(image);
 	    				per_name.append($("<hr>").addClass("priceHr"));

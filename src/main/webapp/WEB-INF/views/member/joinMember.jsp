@@ -179,15 +179,9 @@ input[type=radio] {
 						<tr>
 							<td class="col1">* 생년월일</td>
 							<td class="col3"><input type="text" id="birth_date"
-								name="birth_date" placeholder="  예시)19990101" maxlength="8" required></td>
+								name="birth_date" placeholder="  예시)19990101111" maxlength="8" required></td>
 						</tr>
-						<tr>
-							<td class="col1">* 성별</td>
-							<td class="col3"><label><input type="radio"
-									class="gender" name="gender">남자</label> <label><input
-									type="radio" class="gender" name="gender">여자</label> <label><input
-									type="radio" class="gender" name="gender">선택안함</label></td>
-						</tr>
+						
 						<tr>
 							<td class="col1">* 연락처</td>
 							<td class="col3"><input type="text" id="contact"
@@ -362,9 +356,7 @@ input[type=radio] {
         } else if (!(pw == repw)) {
           alert("비밀번호가 일치하지 않습니다.");
           return false;
-        }else if (!pwRegex.test(pw)){
-           	alert("비밀번호 형식을 맞춰 입력해주세요.(영문 소문자, 4~16자)")
-           	return false;
+        
         } else if (name == "") {
           alert("이름를 입력해주세요.");
           return false;

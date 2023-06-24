@@ -186,7 +186,7 @@ color: #c28243;
         
         <div class="row btnRow">
             <div class="col-2 btnCol">
-                <button>목록</button>
+                <a href="/perfume/perfumeList?cpage=${cpage}"><button>목록</button></a>
                 <!-- 삭제, 수정버튼 관리자일때만  -->
                 <!-- 삭제하시겠습니까 alert -->
                 <a href="/perfume/delete?per_seq=${perfume.per_seq}"><button>삭제</button></a>

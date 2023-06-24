@@ -13,11 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
-	
+
+	// 게스트 홈
 	@RequestMapping("/")
 	public String home() {
-		
 		return "home";
 	}
-	
+
+	// 멤버 홈
+	@RequestMapping("/toMemberHome")
+	public String memberHome() {
+		return "memberHome";
+	}
+
 }

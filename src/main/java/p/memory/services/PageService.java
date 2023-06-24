@@ -50,7 +50,6 @@ public class PageService {
 	}
 	
 	public List<String> getPageNavi(int currentPage, int recordTotalCount) {
-		
 		// 한 페이지에 표시되는 게시글 수
 		int recordCountPerPage = Settings.PER_BOARD_RECORD_COUNT_PER_PAGE;
 		// 한 페이지에 표시되는 하단 네비 수
@@ -59,9 +58,9 @@ public class PageService {
 		// 토탈 페이지 구하기
 		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
 		//방어코드
-
 		int startNavi = ((currentPage-1)/naviCountPerPage)*naviCountPerPage+1;
 		int endNavi = startNavi + (naviCountPerPage-1);
+		
 		if(endNavi > pageTotalCount) {
 			endNavi = pageTotalCount;
 		}

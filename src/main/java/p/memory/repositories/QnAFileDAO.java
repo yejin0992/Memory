@@ -20,4 +20,9 @@ public class QnAFileDAO {
 		return db.insert("QnAFile.insert",fdto);
 	}
 	
+	// 파일 리스트 출력
+		public List<QnAFileDTO> selectAll (int qa_seq) {
+			System.out.println("파일리스트dao: "+qa_seq);
+			return db.selectList("QnAFile.select", qa_seq);
+		}
 }

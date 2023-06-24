@@ -10,4 +10,9 @@
 insert into qna_image values (qa_im_seq.nextval,#{oriName},#{sysName},#{qa_seq})
 </insert>
 
+<!-- 파일 리스트 출력  -->
+<select id="select" resultType="p.memory.dto.QnAFileDTO">
+select * from qna_image where qa_seq=#{qa_seq}
+</select>
+
 </mapper>
