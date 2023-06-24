@@ -236,6 +236,16 @@ margin-bottom:10px;
 .true{
 color: #c28243;
 }
+
+#reload{
+padding-top:20px;
+padding-left:0px;
+font-weight: bold;
+}
+
+#reload:hover{
+color : red;
+}
 </style>
 
 
@@ -261,6 +271,9 @@ color: #c28243;
 				</div>
 				<div class="row m-0">
 					<div class="col-4 col-md-3 col-lg-2 sideNavi">
+					<div class="row p-2">
+							<div class="col-12" id="reload">Reload   <i class="fa-sharp fa-solid fa-rotate-right"></i></div>
+							</div>
 						<div class="sideNaviBrand row p-2">
 							<div class="BrandTitle">Brand<hr class="sideHr"></div>
 							
@@ -285,6 +298,7 @@ color: #c28243;
 
 						</div>
 						<div class="sideNaviSearch row p-2">
+					
 							<div class="col-12 searchTitle">Search<hr class="sideHr"></div>
 							<div class="col-12 p-0 m-0 selectCol">
 							<select id="category" class="form-select form-select-sm">
@@ -299,7 +313,7 @@ color: #c28243;
 							<div class="col-2 p-0 m-0">
 							<button type="submit" id="search" class="btn btn-warning p-0 m-0"><i class="fa-solid fa-magnifying-glass"></i></button>
 							</div>
-
+							
 						</div>
 					</div>
 					<div class="col-8 col-md-9 col-lg-10 p-0" id="contentList">
@@ -560,6 +574,10 @@ color: #c28243;
 	 	 t(per_seq, $(this).hasClass('true'), id) 
 	 });
     
+	 //  검색 새로고침
+	 $("#reload").on("click", function(){
+		 location.reload();
+	 })
     </script>
 </body>
 </html>

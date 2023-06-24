@@ -198,7 +198,7 @@ nav ul li {
 
 		</ul>
 		<ul class="navbar_icon">
-			<li><a href="#">My Page</a></li>
+			<li><a href="/myPage/toMyPageMain">My Page</a></li>
 			<li><a href="#">SERCH</a></li>
 			<li><a href="/member/toMypage">EJ</a></li>
 		</ul>

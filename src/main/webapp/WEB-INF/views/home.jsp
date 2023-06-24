@@ -316,8 +316,6 @@ nav ul li {
 				TEL : 02-1234-1234<br> MON-FRI AM 9:00 - PM 17:00<br>
 				LUNCH TIME PM 12:00 -PM 13:00
 			</div>
-
-
 			<div class="head">BANK ACCOUNT</div>
 			<div class="line">
 				예금주 홍길동<br> 우리은행 123-4567-8900

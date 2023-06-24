@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MyPage">
+
+<!--내가 쓴 글 총 개수  -->
+
+<select id = "getMyPostsCount" resultType="int">
+	select count(*) from 
+	free_board
+	where fr_writer = #{fr_writer}
+</select>
+
+<!-- 내가 쓴 글 목록 불러오기 + 페이징  -->
+	<select id="selectMyPost" parameterType="hashMap" resultType="p.memory.dto.FreeBoardDTO">
+		select * from (
+		select rownum as rn, t.*
+		from (
+		select *
+		from free_board
+		order by fr_seq desc
+		) t
+		)
+		where rn between #{start} and #{end} and  
+		fr_writer = #{fr_writer}
+	</select>
+	
+	
+<!-- 내가 북마크한 글 불러오기 -->
+<select id="selectBookmarkedPosts" parameterType="hashMap" resultType="p.memory.dto.FreeBoardDTO">
+
+</select>
+
+</mapper> 
