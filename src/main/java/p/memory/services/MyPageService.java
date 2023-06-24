@@ -23,4 +23,14 @@ public class MyPageService {
 	public int getMyPostsCount(String fr_writer) {
 		return myDAO.getMyPostsCount(fr_writer); 
 	}
+	
+	// 북마크 
+	public List<FreeBoardDTO> selectBookmarkedPosts(String loggedID, int start, int end){
+		return myDAO.selectBookmarkedPosts(loggedID, start, end); 
+	}
+	
+	// 북마크 개수 
+	public int getBookmarkedPostsCount(String loggedID) {
+		return myDAO.getBookmarkedPostsCount(loggedID); 
+	}
 }

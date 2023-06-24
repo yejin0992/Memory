@@ -29,6 +29,18 @@ public class MyPageDAO {
 	public int getMyPostsCount(String fr_writer) {
 		return mybatis.selectOne("MyPage.getMyPostsCount", fr_writer); 
 	}
+	// 북마크한 글 불러오기 + 페이징
+	public List<FreeBoardDTO> selectBookmarkedPosts(String loggedID, int start, int end){
+		Map<String, Object> params = new HashMap<>();
+		params.put("id",loggedID); 
+		params.put("start", start);
+		params.put("end", end); 
+		return mybatis.selectList("MyPage.selectBookmarkedPosts", params); 
+	}
+	// 북마크한 개수 
+	public int getBookmarkedPostsCount(String loggedID) {
+		return mybatis.selectOne("MyPage.getBookmarkedPostsCount",loggedID); 
+	}
 	
 
 }
