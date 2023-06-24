@@ -73,7 +73,7 @@ h1 {
 			<table class="table table-bordered table-striped" solid black>
 				<thead>
 					<tr>
-						<th id="no" class="hide-on-mobile">번호</th>
+						<th id="no" class="hide-on-mobile">글번호</th>
 						<th id="cate" class="hide-on-mobile">말머리</th>
 						<th>제목</th>
 						<th id="writer">글쓴이</th>

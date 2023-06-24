@@ -16,6 +16,7 @@
 <a href="/test/heartTest"><button>test</button></button></a><br>
 <a href="/perfume/perfumeList"><button>perfume main</button></button></a><br>
 <a href="/perfume/perfumeBest"><button>perfume Best</button></a><br>
-<a href="/freeBoard/selectList?cpage=1"><button>자유게시판 목록으로(페이징)</button></a>
+<a href="/freeBoard/selectList?cpage=1"><button>자유게시판 목록으로(페이징)</button></a><br>
+<a href="/myPage/toMyPageMain">마이페이지</a>
 </body>
 </html>
