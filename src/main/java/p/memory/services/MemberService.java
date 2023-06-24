@@ -39,8 +39,22 @@ public class MemberService {
 
 	// 로그인
 	public boolean login(String id, String pw) {
-		System.out.println("server:" + pw);
 		return mdao.login(id, pw);
+	}
+	
+	// 아이디 찾기
+	public MemberDTO findID (MemberDTO dto) {
+		return mdao.findID(dto);
+	}
+	
+	// 비밀번호 찾기
+	public MemberDTO findPW (MemberDTO dto) {
+		return mdao.findPW(dto);
+	}
+	
+	// 비밀번호 변경
+	public int pwUpdate (String id, String pw) {
+		return mdao.pwUpdate(id,pw);
 	}
 
 }
