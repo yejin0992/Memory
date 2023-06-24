@@ -62,5 +62,8 @@ public class PerfumeService {
 		return perfumeDAO.selectBySearch(filter);
 	} 
 
-
+	// note 유무 확인
+	public int noteIsTrue(String note) {
+		return perfumeDAO.noteIsTrue(note);
+	}
 }

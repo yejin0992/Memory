@@ -1,19 +1,19 @@
 package p.memory.dto;
 
-public class PerfumeMainDTO {
+public class PerfumeHeartDTO {
 	private int per_seq;
 	private String id;
 	private String per_brand;
 	private String per_name;
 	private int per_price;
 	private String sysName;
-	private int heart_flag;
-	public PerfumeMainDTO() {
+	private int heartFlag;
+	public PerfumeHeartDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PerfumeMainDTO(int per_seq, String id, String per_brand, String per_name, int per_price, String sysName,
-			int heart_flag) {
+	public PerfumeHeartDTO(int per_seq, String id, String per_brand, String per_name, int per_price, String sysName,
+			int heartFlag) {
 		super();
 		this.per_seq = per_seq;
 		this.id = id;
@@ -21,7 +21,7 @@ public class PerfumeMainDTO {
 		this.per_name = per_name;
 		this.per_price = per_price;
 		this.sysName = sysName;
-		this.heart_flag = heart_flag;
+		this.heartFlag = heartFlag;
 	}
 	public int getPer_seq() {
 		return per_seq;
@@ -59,11 +59,13 @@ public class PerfumeMainDTO {
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
 	}
-	public int getHeart_flag() {
-		return heart_flag;
+	public int getHeartFlag() {
+		return heartFlag;
 	}
-	public void setHeart_flag(int heart_flag) {
-		this.heart_flag = heart_flag;
+	public void setHeartFlag(int heartFlag) {
+		this.heartFlag = heartFlag;
 	}
-
+	
+	
+	
 }

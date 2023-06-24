@@ -1,5 +1,7 @@
 package p.memory.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,22 +10,23 @@ import p.memory.repositories.HeartDAO;
 
 @Service
 public class HeartService {
+	
 	@Autowired
 	private HeartDAO heartDAO;
 	
-	public HeartDTO select(int per_seq) {
-		return heartDAO.select(per_seq);
+	public List<HeartDTO> selectList(String writer) {
+		return heartDAO.selectList(writer);
 	}
 	
 	public int insert (HeartDTO dto) {
 		return heartDAO.insert(dto);
 	}
 	
-	public int flagTrue(int per_seq) {
-		return heartDAO.flagTrue(per_seq);
+	public int delete(HeartDTO dto) {
+		return heartDAO.delete(dto);
 	}
 	
-	public int flagFalse(int per_seq) {
-		return heartDAO.flagFalse(per_seq);
+	public int selectHeart(HeartDTO dto) {
+		return heartDAO.selectHeart(dto);
 	}
 }

@@ -236,6 +236,16 @@ margin-bottom:10px;
 .true{
 color: #c28243;
 }
+
+#reload{
+padding-top:20px;
+padding-left:0px;
+font-weight: bold;
+}
+
+#reload:hover{
+color : red;
+}
 </style>
 
 
@@ -256,11 +266,14 @@ color: #c28243;
 					<div class="col">
 						<!-- 관리자 로그인시에만 활성화 -->
 							<a href="/perfume/toInsert"> 글쓰기 </a>
-						
+							<input type="hidden" id="loginID" value="${sessionScope.writer}">
 					</div>
 				</div>
 				<div class="row m-0">
 					<div class="col-4 col-md-3 col-lg-2 sideNavi">
+					<div class="row p-2">
+							<div class="col-12" id="reload">Reload   <i class="fa-sharp fa-solid fa-rotate-right"></i></div>
+							</div>
 						<div class="sideNaviBrand row p-2">
 							<div class="BrandTitle">Brand<hr class="sideHr"></div>
 							
@@ -285,6 +298,7 @@ color: #c28243;
 
 						</div>
 						<div class="sideNaviSearch row p-2">
+					
 							<div class="col-12 searchTitle">Search<hr class="sideHr"></div>
 							<div class="col-12 p-0 m-0 selectCol">
 							<select id="category" class="form-select form-select-sm">
@@ -299,30 +313,25 @@ color: #c28243;
 							<div class="col-2 p-0 m-0">
 							<button type="submit" id="search" class="btn btn-warning p-0 m-0"><i class="fa-solid fa-magnifying-glass"></i></button>
 							</div>
-
+							
 						</div>
 					</div>
 					<div class="col-8 col-md-9 col-lg-10 p-0" id="contentList">
 						<ul class="row list-group list-group-horizontal m-0">
 							<c:forEach var="i" items="${list}" begin="0" end="3" step="1">
-								<li class="list-group-item col-sm-6 col-lg-3 boardList" value="${i.per_seq}">
+								<li class="list-group-item col-sm-6 col-lg-3 boardList"
+									value="${i.per_seq}">
 									<div class="row contentImage">
 										<img src="/perfumeImage/${i.sysName}" class="liImage">
 									</div>
 									<div class="row brandRow">${i.per_brand}</div>
-									<div class="row nameRow">${i.per_name }<hr class="priceHr"></div>
+									<div class="row nameRow">${i.per_name }<hr class="priceHr">
+									</div>
 									<div class="row priceRow">${i.per_price}원</div>
 									<div class="row heartRow">
-									<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}">
-									<c:choose>
-									<c:when test="${i.heart_flag == 0}">
-									
-									<i class="fa-regular fa-heart fa-lg false"></i>
-									</c:when>
-									<c:when test="${i.heart_flag == 1}">
-									<i class="fa-solid fa-heart fa-lg true"></i>
-									</c:when>
-									</c:choose>	</div>										
+										<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}"> 
+												<i class="fa-heart fa-lg ${i.heartFlag==1 ? 'fa-solid true' : 'fa-regular false'}"></i>
+									</div>
 								</li>
 							</c:forEach>
 						</ul>
@@ -333,21 +342,25 @@ color: #c28243;
 									<li class="list-group-item col-sm-6 col-lg-3 boardList">
 										<div class="row contentImage">
 											<img src="/perfumeImage/${i.sysName}" class="liImage">
-									</div>
-									<div class="row brandRow">${i.per_brand}</div>
-									<div class="row nameRow">${i.per_name }<hr class="priceHr"></div>
-									<div class="row priceRow">${i.per_price}원</div>
-									<div class="row heartRow">
-									<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}">
-									<c:choose>
-									<c:when test="${i.heart_flag == 0}">
-									<i class="fa-regular fa-heart fa-lg false"></i>
-									</c:when>
-									<c:when test="${i.heart_flag == 1}">
-									<i class="fa-solid fa-heart fa-lg true"></i>
-									</c:when>
-									</c:choose>	</div>										
-								</li>
+										</div>
+										<div class="row brandRow">${i.per_brand}</div>
+										<div class="row nameRow">${i.per_name }<hr
+												class="priceHr">
+										</div>
+										<div class="row priceRow">${i.per_price}원</div>
+										<div class="row heartRow">
+											<input type="hidden" class="per_seq" name="per_seq"
+												value="${i.per_seq}"> 
+											<c:choose>
+												<c:when test="${i.heartFlag == 0}">
+													<i class="fa-regular fa-heart fa-lg false"></i>
+												</c:when>
+												<c:when test="${i.heartFlag == 1}">
+													<i class="fa-solid fa-heart fa-lg true"></i>
+												</c:when>
+											</c:choose>
+										</div>
+									</li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -355,27 +368,29 @@ color: #c28243;
 
 						<ul class="row list-group list-group-horizontal m-0">
 							<c:if test="${list.size() > 8}">
-								<c:forEach var="i" items="${list }" begin="8" end="11" step="1">
+								<c:forEach var="i" items="${list }" begin="4" end="7" step="1">
 									<li class="list-group-item col-sm-6 col-lg-3 boardList">
 										<div class="row contentImage">
-										<img src="/perfumeImage/${i.sysName}" class="liImage">
-									</div>
-									<div class="row brandRow">${i.per_brand}</div>
-									<div class="row nameRow">${i.per_name }<hr class="priceHr"></div>
-									<div class="row priceRow">${i.per_price}원</div>
-									<div class="row heartRow">
-									<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}">
-									<c:choose>
-									
-									<c:when test="${i.heart_flag == 0}">
-									<i class="fa-regular fa-heart fa-lg false"></i>
-									</c:when>
-									
-									<c:when test="${i.heart_flag == 1}">
-									<i class="fa-solid fa-heart fa-lg true"></i>
-									</c:when>
-									</c:choose>	</div>										
-								</li>
+											<img src="/perfumeImage/${i.sysName}" class="liImage">
+										</div>
+										<div class="row brandRow">${i.per_brand}</div>
+										<div class="row nameRow">${i.per_name }<hr
+												class="priceHr">
+										</div>
+										<div class="row priceRow">${i.per_price}원</div>
+										<div class="row heartRow">
+											<input type="hidden" class="per_seq" name="per_seq"
+												value="${i.per_seq}"> 
+											<c:choose>
+												<c:when test="${i.heartFlag == 0}">
+													<i class="fa-regular fa-heart fa-lg false"></i>
+												</c:when>
+												<c:when test="${i.heartFlag == 1}">
+													<i class="fa-solid fa-heart fa-lg true"></i>
+												</c:when>
+											</c:choose>
+										</div>
+									</li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -505,13 +520,15 @@ color: #c28243;
 	    				let imageRow = $("<div>").addClass("row contentImage");
 	    				let image = $("<img>").addClass("liImage").attr("src","/perfumeImage/"+resp[i].sysName);
 	    				let hiddenSeq = $("<input>").attr("type","hidden").addClass("per_seq").attr("name","per_seq").val(resp[i].per_seq);
-	    				let brand = $("<div>").addClass("row").text(resp[i].per_brand);
-	    				let per_name = $("<div>").addClass("row").text(resp[i].per_name);
-	    				let price = $("<div>").addClass("row").text(resp[i].per_price);
+	    				let brand = $("<div>").addClass("row brandRow").text(resp[i].per_brand);
+	    				let per_name = $("<div>").addClass("row nameRow").text(resp[i].per_name);
+	    				let price = $("<div>").addClass("row priceRow").text(resp[i].per_price);
 	    				
 	    				imageRow.append(image);
+	    				per_name.append($("<hr>").addClass("priceHr"));
 	    	    		li.append(imageRow);
 	    	    		li.append(brand);
+	    	    		
 	    	    		li.append(per_name);
 	    	    		li.append(price);
 	    	    		ul.append(li); 
@@ -527,15 +544,17 @@ color: #c28243;
 	 $("#endPrice").on("keyup", commonFunction); 
 	 $("#search").on("click", commonFunction);
 	 
-	 t = (per_seq, isTrue) => {
+	 t = (per_seq, isTrue, id) => {
 		 console.log("per_seq : "+per_seq);
 		 console.log("isTrue : "+ isTrue);
+		 console.log("id : " + id);
 		  $.ajax({
-		    url: "/perfume/heartFlagTrue",
+		    url: "/perfume/heartChange",
 		    type: "post",
 		    data: {
 		      per_seq: per_seq,
-		      isTrue: isTrue
+		      isTrue: isTrue,
+		      id : id
 		    }
 		  });
 		  alert("ajax수행");
@@ -543,16 +562,22 @@ color: #c28243;
 	  
 	 // 좋아요 클릭
 	 $(".fa-heart").on("click", function (ev) {
+	
 		 // boardlist 이벤트 막기
 		 ev.stopPropagation();
 		
 		 this.className = $(this).hasClass('true') ? "fa-regular fa-heart fa-lg false" : "fa-solid fa-heart fa-lg true";	 
-		 console.log($(this).hasClass('true'));
 		 let per_seq =  $(this).prev().val();
+		 let id = $("#loginID").val();
+		 
 		 // 넘어가는 값은 (id, true인지 false인지)
-	 	 t(per_seq, $(this).hasClass('true')) 
+	 	 t(per_seq, $(this).hasClass('true'), id) 
 	 });
     
+	 //  검색 새로고침
+	 $("#reload").on("click", function(){
+		 location.reload();
+	 })
     </script>
 </body>
 </html>

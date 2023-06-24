@@ -12,40 +12,45 @@
 			select perfume_seq.nextval from dual
 		</selectKey>
 		insert into perfume
-		values(#{per_seq},#{writer},#{per_name},#{per_brand},#{per_volume},#{per_kind},#{per_price},#{per_gender},#{top1},#{top2},#{top3},#{middle1},#{middle2},#{middle3},#{base1},#{base2},#{base3},sysdate)
+		values(#{per_seq},#{id},#{per_name},#{per_brand},#{per_volume},#{per_kind},#{per_price},#{per_gender},#{top1},#{top2},#{top3},#{middle1},#{middle2},#{middle3},#{base1},#{base2},#{base3},sysdate)
 	</insert>
 
 	<!-- PERFUME LIST SELECT -->
-	<select id="selectList"
-		resultType="p.memory.dto.PerfumeMainDTO">
-		select * from(select p.per_seq, p.per_brand, p.per_name,
+	<select id="selectList" resultType="p.memory.dto.PerfumeMainDTO">
+		select * from(select
+		p.per_seq, p.per_brand, p.per_name,
 		p.per_price,
-		i.sysname, p.writer, h.heart_flag,
-		rank() over(order by p.per_seq desc) as rank
+		i.sysname, p.id,
+		rank()
+		over(order by p.per_seq desc) as rank
 		from perfume p
-		left join perfume_image i on p.per_seq = i.per_seq
-        left join heart h on p.per_seq = h.per_seq)
-		where rank between #{start} and #{end}
+		left join
+		perfume_image i on p.per_seq = i.per_seq)
+		where rank between #{start}
+		and #{end}
 	</select>
 
 	<!-- PERFUME UPDATE -->
 	<update id="update">
 		update perfume
-		set writer = #{writer},
+		set id = #{id},
 		per_name =
 		#{per_name},
 		per_brand = #{per_brand},
 		per_volume = #{per_volume},
-		per_kind = #{per_kind},
+		per_kind =
+		#{per_kind},
 		per_price = #{per_price},
 		per_gender =
 		#{per_gender},
-		top1 = #{top1},
+		top1 =
+		#{top1},
 		top2 = #{top2},
 		top3 = #{top3},
 		middle1 =
 		#{middle1},
-		middle2 = #{middle2},
+		middle2 =
+		#{middle2},
 		middle3 = #{middle3},
 		base1 = #{base1},
 		base2 = #{base2},
@@ -148,7 +153,8 @@
 		resultType="p.memory.dto.PerfumeMainDTO">
 		SELECT *
 		FROM perfume p
-		LEFT JOIN perfume_image i ON p.per_seq = i.per_seq
+		LEFT JOIN perfume_image i ON p.per_seq =
+		i.per_seq
 		<if test="checkedValue != null and checkedValue.size()>0 ">
 			WHERE PER_BRAND IN
 			<foreach item="per_brand" collection="checkedValue" open="("
@@ -176,14 +182,18 @@
 		</if>
 		<if test="category == 'note' and searchText != null">
 			AND (top1 LIKE '%'||#{searchText}||'%'
-			OR top2 LIKE '%'||#{searchText}||'%'
+			OR top2 LIKE
+			'%'||#{searchText}||'%'
 			OR top3 LIKE '%'||#{searchText}||'%'
-			OR middle1 LIKE '%'||#{searchText}||'%'
+			OR middle1
+			LIKE '%'||#{searchText}||'%'
 			OR middle2 LIKE '%'||#{searchText}||'%'
 			OR middle3 LIKE '%'||#{searchText}||'%'
-			OR base1 LIKE '%'||#{searchText}||'%'
+			OR base1 LIKE
+			'%'||#{searchText}||'%'
 			OR base2 LIKE '%'||#{searchText}||'%'
-			OR base3 LIKE '%'||#{searchText}||'%')
+			OR base3
+			LIKE '%'||#{searchText}||'%')
 		</if>
 		<if test="searchText == null">
 			and 1=1
@@ -191,8 +201,14 @@
 	</select>
 
 	<select id="selectPer_seq" resultType="int">
-		select per_seq from perfume
+		select per_seq from
+		perfume
 	</select>
-	
-	
+
+	<select id="noteIsTrue" resultType="int">
+		select count(*) from notelist
+		where note=#{note}
+	</select>
+
+
 </mapper>
