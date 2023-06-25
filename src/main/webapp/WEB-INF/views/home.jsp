@@ -56,7 +56,7 @@ a {
 /*  position:fixed;*/
 .rowheader {
 	position: fixed;
-	z-index: 1;
+	z-index: 2;
 	width: 100%;
 }
 
@@ -239,7 +239,7 @@ nav ul li {
 			<ul class="navbar_menu">
 				<li class="dropdown">
 					<a href="/test/heartTest">
-					<div class="dropdown_menu">Test</div></a>
+					<div class="dropdown_menu">테스트용</div></a>
 					
 				</li>
 				<li class="dropdown">
