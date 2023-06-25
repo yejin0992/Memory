@@ -67,6 +67,9 @@ public class PerfumeController {
 		// 페이지 네비 처음부터 끝까지 구하는 함수
 		int recordTotalCount = pageService.recordTotalCount();
 		List<String> pageNavi = pageService.getPageNavi(currentPage, recordTotalCount);
+		for(String a : pageNavi) {
+			System.out.println(a+" , ");
+		}
 		System.out.println("페이지네비 구하는고 완료");
 		// 해당 페이지당 목록으로 나오는 게시글
 		List<PerfumeMainDTO> list = perfumeService.selectList(startRecord, endRecord);
@@ -126,8 +129,8 @@ public class PerfumeController {
 	}
 
 	@RequestMapping("select")
-	public String pefumeselect(int per_seq, Model model) throws Exception {
-
+	public String pefumeselect(int per_seq, int cpage, Model model) throws Exception {
+		System.out.println("넘어온 cpage : "+cpage);
 		System.out.println("Perfume.select 넘어온 시퀀스 : " + per_seq);
 		PerfumeDTO perfume = perfumeService.selectBySeq(per_seq);
 		FileDTO file = fileService.selectByPerSeq(per_seq);
@@ -138,6 +141,7 @@ public class PerfumeController {
 		hDto.setId((String)session.getAttribute("writer"));
 		int heart = heartService.selectHeart(hDto);
 		System.out.println("좋아요있는지 없는지 : " + heart);
+		model.addAttribute("cpage", cpage);
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("file", file);
 		model.addAttribute("reply", reply);

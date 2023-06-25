@@ -5,32 +5,55 @@
 
 <mapper namespace="MyPage">
 
-<!--내가 쓴 글 총 개수  -->
+	<!--내가 쓴 글 총 개수 -->
 
-<select id = "getMyPostsCount" resultType="int">
-	select count(*) from 
-	free_board
-	where fr_writer = #{fr_writer}
-</select>
+	<select id="getMyPostsCount" resultType="int">
+		select count(*) from
+		free_board
+		where fr_writer = #{fr_writer}
+	</select>
 
-<!-- 내가 쓴 글 목록 불러오기 + 페이징  -->
-	<select id="selectMyPost" parameterType="hashMap" resultType="p.memory.dto.FreeBoardDTO">
+	<!-- 내가 쓴 글 목록 불러오기 + 페이징 -->
+	<select id="selectMyPost" parameterType="hashMap"
+		resultType="p.memory.dto.FreeBoardDTO">
 		select * from (
 		select rownum as rn, t.*
 		from (
 		select *
-		from free_board
+		from
+		free_board
 		order by fr_seq desc
 		) t
 		)
-		where rn between #{start} and #{end} and  
+		where rn between #{start} and #{end}
+		and
 		fr_writer = #{fr_writer}
 	</select>
-	
-	
-<!-- 내가 북마크한 글 불러오기 -->
-<select id="selectBookmarkedPosts" parameterType="hashMap" resultType="p.memory.dto.FreeBoardDTO">
 
-</select>
+	<!-- 내가 북마크한 글 불러오기 + 페이징 -->
+	<select id="selectBookmarkedPosts" parameterType="hashMap"
+		resultType="p.memory.dto.FreeBoardDTO">
+		SELECT *
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY fb.fr_seq DESC) AS rn, fb.*
+		FROM free_board fb
+		JOIN bookmark b ON fb.fr_seq = b.fr_seq
+		WHERE b.user_id = #{id}
+		) t
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!--북마크한 글 총 개수 -->
+
+	<select id="getBookmarkedPostsCount" resultType="int">
+		SELECT COUNT(*)
+		AS bookmarked_posts_count
+		FROM free_board fb
+		JOIN bookmark b ON
+		fb.fr_seq = b.fr_seq
+		WHERE b.user_id = #{userId}
+	</select>
+
+
 
 </mapper> 

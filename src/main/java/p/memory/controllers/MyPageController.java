@@ -94,6 +94,64 @@ public class MyPageController {
 		int myPostsCount = myPageService.getMyPostsCount(fr_writer);
 		System.out.println("내가 쓴 글 총 개수 : " + myPostsCount);
 		model.addAttribute("myPostsCount",myPostsCount); 
+		
 		return "/myPage/myPageMain"; 
+	}
+	// 북마크한 글 불러오기 + 페이징 
+	@RequestMapping("selectBookmarkedPosts")
+	public String selectBookmarkedPosts(@RequestParam(defaultValue = "1", name = "cpage") int currentPage,Model model)throws Exception{
+		// 테스트용 id 세션 생성
+		String userId = "tester123";
+		session.setAttribute("loggedID", userId);
+		String loggedID = (String) session.getAttribute("loggedID");
+//		List<FreeBoardDTO> bookmarked = myPageService.selectBookmarkedPosts(loggedID);
+//		model.addAttribute("bookmarked", bookmarked); 
+		// <페이징 관련 시작>
+		// 총 게시물 수
+		int recordsTotalCount = myPageService.getBookmarkedPostsCount(loggedID); 
+		// 한페이지에 출력할 게시물 수
+		int recordsPerPage = 10;
+		// 하단 페이징 번호 ([ 게시물 총 갯수 ÷ 한 페이지에 출력할 갯수 ]의 올림)
+		int pageNum = (int) Math.ceil((double) recordsTotalCount / recordsPerPage);
+		System.out.println("하단 페이징 번호 : " + pageNum);
+		// 출력할 게시물 시작 위치
+		int start = (currentPage - 1) * recordsPerPage;
+		int end = start + recordsPerPage - 1;
+		List<FreeBoardDTO> bookmarkedPostsList = myPageService.selectBookmarkedPosts(loggedID,start, end);
+		System.out.println("북마크한 글 출력 : " + bookmarkedPostsList);
+		model.addAttribute("bookmarked", bookmarkedPostsList);
+		model.addAttribute("pageNum", pageNum);
+		// 한페이지에 표시할 페이징 번호 개수
+		int naviCountPerPage = 10;
+		// 마지막 페이징 번호
+		int endNavi = (int) (Math.ceil((double) currentPage / (double) naviCountPerPage) * naviCountPerPage);
+		// 첫번째 페이징 번호
+		int startNavi = endNavi - (naviCountPerPage - 1);
+		// 마지막 번호 재계산
+		int endPageNum_tmp = (int) (Math.ceil((double) recordsTotalCount / (double) naviCountPerPage));
+
+		if (endNavi > endPageNum_tmp) {
+			endNavi = endPageNum_tmp;
+		}
+
+		boolean prev = startNavi != 1;
+		boolean next = endNavi * naviCountPerPage < recordsTotalCount;
+		model.addAttribute("startNavi", startNavi);
+		model.addAttribute("endNavi", endNavi);
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
+		
+		return "/myPage/bookmarkedPosts"; 
+	}
+	// 북마크한 글 개수 
+	@RequestMapping("getBookmarkedPostsCount")
+	public String getBookmarkedPostsCount(Model model) throws Exception {
+		String userId = "tester123";
+		session.setAttribute("loggedID", userId);
+		String loggedID = (String) session.getAttribute("loggedID");
+		int bookmarkedPostsCount = myPageService.getBookmarkedPostsCount(loggedID);
+		System.out.println("북마크한 글 개수 : " + bookmarkedPostsCount);
+		model.addAttribute("bookmarkedPostsCount", bookmarkedPostsCount); 
+		return "/myPage/bookmarkedPosts"; 
 	}
 }
