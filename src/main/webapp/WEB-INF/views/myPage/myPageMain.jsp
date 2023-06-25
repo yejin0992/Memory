@@ -99,7 +99,7 @@
 				</div>
 				<div class="wrapperBookmarks">
 					<div class="bookmarks">
-						<span>북마크</span> <span>3</span>
+						<span>북마크</span> <span><a href="/myPage/selectBookmarkedPosts">3</a></span>
 					</div>
 				</div>
 			</div>
