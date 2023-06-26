@@ -11,8 +11,8 @@
 <script src = "https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
-<meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<meta charset="UTF-8">
 <title>Insert title here</title>
     <style>
 .container {
@@ -142,7 +142,7 @@ height:100%;
                     <option value="오드퍼퓸">오드퍼퓸</option>
                     <option value="오드뚜왈렛">오드뚜왈렛</option>
                     <option value="오드코롱">오드코롱</option>
-                    <option value="샤워코롱">샤코롱</option>
+                    <option value="샤워코롱">코롱</option>
                 </select>
             </div>
         </div>

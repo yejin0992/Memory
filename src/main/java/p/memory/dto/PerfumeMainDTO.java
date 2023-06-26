@@ -7,22 +7,8 @@ public class PerfumeMainDTO {
 	private String per_name;
 	private int per_price;
 	private String sysName;
-	private int heart_flag;
-	public PerfumeMainDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public PerfumeMainDTO(int per_seq, String id, String per_brand, String per_name, int per_price, String sysName,
-			int heart_flag) {
-		super();
-		this.per_seq = per_seq;
-		this.id = id;
-		this.per_brand = per_brand;
-		this.per_name = per_name;
-		this.per_price = per_price;
-		this.sysName = sysName;
-		this.heart_flag = heart_flag;
-	}
+	
+	
 	public int getPer_seq() {
 		return per_seq;
 	}
@@ -59,11 +45,18 @@ public class PerfumeMainDTO {
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
 	}
-	public int getHeart_flag() {
-		return heart_flag;
+	public PerfumeMainDTO(int per_seq, String id, String per_brand, String per_name, int per_price, String sysName) {
+		super();
+		this.per_seq = per_seq;
+		this.id = id;
+		this.per_brand = per_brand;
+		this.per_name = per_name;
+		this.per_price = per_price;
+		this.sysName = sysName;
 	}
-	public void setHeart_flag(int heart_flag) {
-		this.heart_flag = heart_flag;
+	public PerfumeMainDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-
+	
 }

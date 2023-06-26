@@ -200,11 +200,22 @@
 		</if>
 	</select>
 
-	<select id="selectPer_seq" resultType="int">
-		select per_seq from
-		perfume
+	<!-- SELECT BEST TOP 10 -->
+	<select id="selectBest" resultType="p.memory.dto.PerfumeMainDTO">
+		SELECT h.per_seq,
+		p.id,p.per_brand, p.per_name, p.per_price, h.count, h.rank, i.sysname
+		FROM (
+		SELECT per_seq, COUNT(*) AS count, ROW_NUMBER() OVER (ORDER BY COUNT(*)
+		DESC) AS rank
+		FROM heart
+		GROUP BY per_seq
+		) h
+		JOIN perfume p ON h.per_seq = p.per_seq
+		left JOIN perfume_image i ON h.per_seq = i.per_seq
+		order by h.rank
 	</select>
 
+	<!-- FIND NOTE -->
 	<select id="noteIsTrue" resultType="int">
 		select count(*) from notelist
 		where note=#{note}
