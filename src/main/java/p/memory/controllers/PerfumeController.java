@@ -49,7 +49,7 @@ public class PerfumeController {
 	@RequestMapping("perfumeList")
 	public String PerfumeList(Model model, HttpServletRequest request) {
 		System.out.println("도착");
-		session.setAttribute("writer", "아무개");
+		session.setAttribute("writer", "테스트");
 		String writer = (String) session.getAttribute("writer");
 		int currentPage = request.getParameter("cpage") == null ? 1 : Integer.parseInt(request.getParameter("cpage"));
 		System.out.println("cpage : " + currentPage);
@@ -79,7 +79,7 @@ public class PerfumeController {
 		List<String> brand = perfumeService.selectBrandKind();
 		// 좋아요 목록 가져오기
 		System.out.println("writer값 : "+writer);
-		List<HeartDTO> heart = heartService.selectList("아무개");
+		List<HeartDTO> heart = heartService.selectList("테스트");
 		System.out.println("하트 리스트 사이즈 : "+heart.size());
 		
 		List<PerfumeHeartDTO> PHdto = new ArrayList<>();
@@ -111,7 +111,7 @@ public class PerfumeController {
 	@RequestMapping("toInsert")
 	public String toInsert() throws Exception {
 		System.out.println("글쓰기 도착");
-		session.setAttribute("writer", "아무개");
+		session.setAttribute("writer", "테스트");
 		return "perfume/perfumeInsert";
 	}
 
@@ -163,7 +163,7 @@ public class PerfumeController {
 	@RequestMapping("perfumeUpdate")
 	public String perfumeUpdate(PerfumeDTO pDTO, int file_seq, MultipartFile[] files) throws Exception {
 		// pDTO.setWriter((String)session.getAttribute("writer"));
-		pDTO.setId("아무개");
+		pDTO.setId("테스트");
 		System.out.println(pDTO.getBase3() + pDTO.getPer_kind());
 		int perResult = perfumeService.update(pDTO);
 		System.out.println("파일 시퀀스 : " + file_seq);
@@ -194,13 +194,6 @@ public class PerfumeController {
 			System.out.println("false에 도착");
 		}
 	}
-
-	// @RequestMapping("perfumeBest")
-	// public String perfumeBest(Model model) {
-	// PerfumeMainDTO best = perfumeService.selectBest();
-	// model.addAttribute("best", best);
-	// return "perfume/perfumeBest";
-	// }
 	
 	@ResponseBody
 	@PostMapping(value = "/entireSearch", consumes = MediaType.APPLICATION_JSON_VALUE	)
@@ -224,7 +217,15 @@ public class PerfumeController {
 		System.out.println("넘어온 노트는 : " + note);
 		return result;
 	}
-
+	
+	 @RequestMapping("perfumeBest")
+	 public String perfumeBest(Model model) {
+		 System.out.println("best에 도착");
+	 List<PerfumeMainDTO> best = perfumeService.selectBest();
+	 model.addAttribute("best", best);
+	 return "perfume/perfumeBest";
+	 }
+	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

@@ -76,4 +76,9 @@ public class PerfumeDAO {
 	public int noteIsTrue(String note) {
 		return mybatis.selectOne("Perfume.noteIsTrue", note);
 	}
+	
+	// best TOP 10
+	public List<PerfumeMainDTO> selectBest(){
+		return mybatis.selectList("Perfume.selectBest");
+	}
 }

@@ -13,8 +13,6 @@ import p.memory.repositories.PerfumeDAO;
 @Service
 public class PerfumeService {
 
-
-
 	@Autowired
 	private PerfumeDAO perfumeDAO;
 
@@ -66,4 +64,9 @@ public class PerfumeService {
 	public int noteIsTrue(String note) {
 		return perfumeDAO.noteIsTrue(note);
 	}
+	
+	// best TOP 10
+	public List<PerfumeMainDTO> selectBest(){
+		return perfumeDAO.selectBest();
+	} 
 }

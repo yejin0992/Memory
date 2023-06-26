@@ -16,8 +16,11 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<!-- fontawesome  -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
+
+
 <title>Perfume List</title>
 <style>
 * {
@@ -25,15 +28,16 @@
 	font-family: 'Pretendard-Regular';
 }
 
-div {
-	/* border: 0.5px solid grey; */
-}
 
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
+}
+
+:root {
+    --swiper-theme-color: #544639;
 }
 
 .head {
