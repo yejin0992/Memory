@@ -216,7 +216,7 @@ height: 80%;
                 </div>
              
             </div>
-            <!-- md사이즈때 보이는 친구들 -->
+            <!-- md 사이즈때 보임 -->
             <div class="col-10 top10 d-none d-sm-none d-md-block fullSlide">
             <div class="row swiper mySwiper">
                 <div class="col swiper-wrapper">
@@ -248,7 +248,7 @@ height: 80%;
                 </div>
                
             </div>
-            <!-- xs, sm사이즈때 보이는 친구들 -->
+            <!-- xs, sm사이즈때 보임 -->
             <div class="col-9 top10 d-block d-md-none">
             <div class="row swiper mySwiper2">
                 <div class="col swiper-wrapper">
