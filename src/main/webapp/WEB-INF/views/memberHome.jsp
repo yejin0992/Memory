@@ -53,6 +53,8 @@ a {
 </head>
 
 <body>
+
+
   <div class="rowheader">
    <c:import url="/WEB-INF/views/common/navi.jsp" />
   </div>
@@ -90,6 +92,7 @@ a {
     const hamburgerBtn = document.querySelector('.navbar_hamburgerBtn');
     const menu = document.querySelector('.navbar_menu');
     const icon = document.querySelector('.navbar_icon');
+    
 
     hamburgerBtn.onclick = function () {
       menu.classList.toggle('active');

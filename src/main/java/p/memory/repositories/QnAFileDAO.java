@@ -17,6 +17,7 @@ public class QnAFileDAO {
 	
 	// 파일 업로드
 	public int insert (QnAFileDTO fdto) {
+		System.out.println("파일dao");
 		return db.insert("QnAFile.insert",fdto);
 	}
 	

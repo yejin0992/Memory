@@ -56,7 +56,7 @@ a {
 /*  position:fixed;*/
 .rowheader {
 	position: fixed;
-	z-index: 2;
+	z-index: 3;
 	width: 100%;
 }
 

@@ -21,6 +21,19 @@
 
   <style>
   
+  @font-face {
+   font-family: 'Pretendard-Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
+   font-weight: 400;
+   font-style: normal;
+}
+
+* {
+   font-family: 'Pretendard-Regular';
+}
+  
     .qnaTitle {
       text-align: center;
       font-size: 30px;
@@ -194,6 +207,11 @@
                 <input type="text" id="keyword" name="keyword"  />
                 <button type="button" id="searchBtn">검색</button>
               </div> 
+              <!-- 
+					<form action="/board/searchTitle" method="post">
+						<input type="text" name="title"> <a
+							href="/qnaBoard/searchPost"><button>찾기</button></a>
+					</form> -->
             </td>
           </tr>
         </tfoot>
