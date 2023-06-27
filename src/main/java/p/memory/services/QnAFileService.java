@@ -21,7 +21,7 @@ public class QnAFileService {
 
 // 파일 업로드
 	public void insert(String realPath, MultipartFile[] files, int qa_seq) throws Exception {
-
+System.out.println("파일 서비스");
 		File realPathFile = new File(realPath);
 		if (!realPathFile.exists()) {
 			realPathFile.mkdir();

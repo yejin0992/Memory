@@ -7,7 +7,7 @@
 
 <!-- 파일 업로드 -->
 <insert id="insert">
-insert into qna_image values (qa_im_seq.nextval,#{oriName},#{sysName},#{qa_seq})
+insert into qna_image values (qna_image_seq.nextval,#{oriName},#{sysName},#{qa_seq})
 </insert>
 
 <!-- 파일 리스트 출력  -->
