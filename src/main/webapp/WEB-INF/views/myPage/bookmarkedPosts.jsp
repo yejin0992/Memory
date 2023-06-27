@@ -20,50 +20,113 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>북마크한 글</title>
 <style>
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+* {
+	font-family: 'Pretendard-Regular';
+}
+
+.titleArea {
+	padding: 20px;
+}
+
+.titleArea h1 {
+	font-size: 27px; /* 원하는 크기로 조절해주세요 */
+}
+
+.cont_wrap {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	display: flex;
+	flex-direction: column;
+	display: flex;
+	padding: 10px;
+}
+
+.cont_wrap .item {
+	border-bottom: 1px solid #959595;
+	padding-bottom: 20px; /* 필요한 여백을 설정해주세요 */
+	margin-bottom: 20px; /* 필요한 여백을 설정해주세요 */
+	display: flex; /* 추가된 속성 */
+	flex-direction: column;
+	display: flex; /* 추가된 속성 */
+}
+
+.writer, .date {
+	color: #959595;
+	font-size: 15px;
+}
+
+.title {
+	font-size: 18px;
+}
+
+.title a {
+	color: black;
+	text-decoration: none;
+}
+
+.title a:hover {
+	color: #B2A08A;
+}
+
+.pageArea {
+	margin: 20px 0 20px 10px;
+	text-align: center;
+}
+
+.pageArea a {
+	text-decoration: none;
+	color: #B2A08A;
+}
 </style>
 </head>
 
 <body>
-
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
 	<div class="titleArea">
 		<h1>북마크</h1>
 	</div>
 
 	<div class="container">
 		<div class="totalCount">
-			<span>북마크한 글 ${bookmarkedPostsCount}</span>
+			<span>북마크한 글 <strong><span class="count">${bookmarkedPostsCount}</span></strong></span>
 		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered table-striped" solid black>
-				<thead>
-					<tr>
-						<th>제목</th>
-						<th id="writer">글쓴이</th>
-						<th id="time" align="center">날짜</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="bm" items="${bookmarked}">
-						<tr>
-							<td><a href="/freeBoard/selectBySeq?fr_seq=${bm.fr_seq}">${bm.fr_title}</a></td>
-							<td align="center">${bm.fr_writer }</td>
-							<td align="center">${bm.fr_write_date}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<div class="pageArea">
-				<c:if test="${prev}">
-					<span><a href="myPage/selectBookmarkedPosts?cpage=${startNavi -1}">이전</a></span>
-				</c:if>
-				<c:forEach var="navi" begin="${startNavi }" end="${endNavi }">
-					<span> <a href="/myPage/selectBookmarkedPosts?cpage=${navi}">${navi}</a>
-					</span>
-				</c:forEach>
-				<c:if test="${next}">
-					<span><a href="myPage/selectBookmarkedPosts?cpage=${endNavi +1}">다음</a></span>
-				</c:if>
-			</div>
+		<div class="cont_wrap">
+			<c:forEach var="bm" items="${bookmarked}">
+				<div class="item">
+					<strong class="title"><a
+						href="/freeBoard/selectBySeq?fr_seq=${bm.fr_seq}">${bm.fr_title}</a></strong>
+					<span class="writer">${bm.fr_writer }</span> <span class="date">${bm.fr_write_date}</span>
+				</div>
+			</c:forEach>
 		</div>
+		<div class="pageArea">
+			<c:if test="${prev}">
+				<span><a
+					href="myPage/selectBookmarkedPosts?cpage=${startNavi -1}">이전</a></span>
+			</c:if>
+			<c:forEach var="navi" begin="${startNavi }" end="${endNavi }">
+				<span> <a href="/myPage/selectBookmarkedPosts?cpage=${navi}">${navi}</a>
+				</span>
+			</c:forEach>
+			<c:if test="${next}">
+				<span><a
+					href="myPage/selectBookmarkedPosts?cpage=${endNavi +1}">다음</a></span>
+			</c:if>
+		</div>
+	</div>
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
+	</div>
 </body>
 </html>

@@ -55,9 +55,23 @@ h2 {
 	margin-bottom: 1rem;
 }
 
-/* .title {
-        border-bottom: 1px solid #000;
-      } */
+.cate {
+	color: #B2A08A;
+}
+
+#writer, #viewCount, #time {
+	color: #959595;
+}
+
+.viewCountWrapper {
+	width: 60px;
+	padding: 0px;
+}
+
+#writer {
+	width: max-content;
+}
+/*내용시작  */
 .contents {
 	width: 400px; /* 원하는 가로 크기 */
 	height: 200px; /* 원하는 세로 크기 */
@@ -67,6 +81,10 @@ h2 {
 .imageContainer {
 	max-width: 400px;
 	max-height: auto;
+}
+
+#image {
+	max-width: 100%;
 }
 
 /* 수정완료, 취소버튼 */
@@ -154,10 +172,14 @@ textarea.form-control {
 	height: auto;
 }
 
-.btn-primary {
+.commentForm {
+	margin: 10px;
+}
+
+#btnAddComment, #btnMod {
 	padding: 8px 20px;
 	font-size: 14px;
-	background-color: #007bff;
+	background-color: #b2a08a;
 	color: #fff;
 	border: none;
 	border-radius: 4px;
@@ -206,178 +228,119 @@ textarea.form-control {
 
 	<!-- 게시판 시작  -->
 	<div class="container">
+		<div class="header">
+			<c:import url="/WEB-INF/views/common/navi.jsp" />
+		</div>
+		<div class="titleArea">
+			<h2>게시판</h2>
+		</div>
 
-		<c:choose>
-			<c:when test="${loggedID  eq conts.fr_writer}">
-				<div class="titleArea">
-					<h2>게시판</h2>
-				</div>
+		<!-- 말머리랑 제목 -->
+		<div class="row form-group" style="display: flex;">
+			<div class="mb-3 col-1">
+				<span class="cate">${conts.fr_category }</span>
+			</div>
+			<div class="title col-7">
+				<span>${conts.fr_title }</span>
+			</div>
+			<span class="col-3" id="time">${conts.fr_write_date }</span>
+			<div class="viewCountWrapper col-1">
+				<i class="fa-solid fa-eye" style="color: #b2a08a;"></i> <span
+					id="viewCount">${conts.fr_view_count }</span>
+			</div>
+		</div>
+		<div class="row form-group"
+			style="display: flex; justify-content: space-between;">
+			<span class="col-11" id="writer">${conts.fr_writer }</span>
+			<div class="col-1">
+				<i
+					class="fa-bookmark fa-xl ${isBookmarked == 1 ? 'fa-solid' : 'fa-regular' }"></i>
+				<input type="hidden" id="isBookmarked" value=${isBookmarked}>
+			</div>
+		</div>
 
-				<!-- 말머리랑 제목 -->
-				<div class="row form-group">
-					<div class="col-2">
-						<div class="mb-3">
-							<span class="cate">${conts.fr_category }</span>
-						</div>
-					</div>
-					<div class="col-10">
-						<div class="title">
-							<span>${conts.fr_title }</span>
-						</div>
-					</div>
-				</div>
-				<!-- 작성자,조회수,날짜 보여주기 -->
-				<div class="row form-group">
-					<span id="writer">작성자 : ${conts.fr_writer }</span>
-					<div class="viewCountWrapper">
-						<i class="fa-solid fa-eye" style="color: #b2a08a;"></i> <span
-							id="viewCount">${conts.fr_view_count }</span>
-					</div>
-					<span id="time">${conts.fr_write_date }</span>
-				</div>
-				<!--북마크 -->
-				<div class="row form-group">
-					<!-- 북마크 없을 때 (빈북마크) -->
-					<div>
-						<i
-							class="fa-bookmark fa-xl ${isBookmarked == 1 ? 'fa-solid' : 'fa-regular' }"></i>
-					</div>
-					<input type="hidden" id="isBookmarked" value=${isBookmarked}>
-					<!-- 북마크 있을 때 (북마크채워짐) -->
-					<!-- 					<div>
-						<i class="fa-solid fa-bookmark fa-xl true"></i>
-					</div> -->
-				</div>
-				<!-- 내용 -->
-				<div class="mb-3">
-					<div class="wrContent">
-						<div class="imageContainer">
-							<c:forEach items="${imageList}" var="image">
-								<img src="/freeImages/${image.sysName}" alt="게시판 이미지">
-							</c:forEach>
-						</div>
-						<p id="contents">${conts.fr_contents}</p>
-					</div>
-				</div>
-				<div class="button">
-					<button type="button" id="backToList" class="btn btn-light">목록</button>
-					<a href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
-							type="button" id="btnMod" class="btn btn-primary">수정</button></a> <a
-						href="/freeBoard/deleteBoard?fr_seq=${conts.fr_seq }"><button
-							type="button" id="btnDel" class="btn btn-light">삭제</button></a>
-				</div>
+		<hr class="separator">
 
-			</c:when>
-			<c:otherwise>
-
-
-				<div class="titleArea">
-					<h2>게시판</h2>
+		<!-- 내용 -->
+		<div class="mb-3">
+			<div class="wrContent">
+				<div class="imageContainer">
+					<c:forEach items="${imageList}" var="image">
+						<img id="image" src="/freeImages/${image.sysName}" alt="게시판 이미지">
+					</c:forEach>
 				</div>
-				<!-- 말머리랑 제목 -->
-				<div class="row form-group">
-					<div class="col-2">
-						<div class="mb-3">
-							<select class="form-select" id="category" name="fr_category"
-								disabled>
-								<option value="${conts.fr_category }" disabled selected hidden>말머리
-									선택</option>
-								<option value="잡담">잡담</option>
-								<option value="후기">후기</option>
-								<option value="자유">추천</option>
-								<option value="자유">기타</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-10">
-						<div class="title">
-							<input type="text" class="form-control" id="title"
-								name="fr_title" value="${conts.fr_title }"
-								placeholder="제목을 입력하세요." readonly />
-						</div>
-					</div>
-				</div>
-				<!-- 작성자,조회수,날짜 보여주기 -->
-				<div class="row form-group">
-					<div id="writer">${conts.fr_writer }</div>
-					<div id="viewCount">${conts.fr_view_count }</div>
-					<div id="time">${conts.fr_write_date }</div>
-				</div>
-				<!-- 내용 -->
-				<div class="mb-3">
-					<div class="wrContent">
-						<div class="imageContainer">
-							<c:forEach items="${imageList}" var="image">
-								<img src="/freeImages/${image.sysName}" alt="게시판 이미지">
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-				<div class="button">
-					<a href="/freeBoard/selectList"><button type="button"
-							id="backToList" class="btn btn-light">목록</button></a>
-				</div>
-			</c:otherwise>
-		</c:choose>
-	</div>
-	<!-- 게시판 끝 -->
-	<!-- 댓글창 시작 -->
-	<div class="mb-3 commentContainer">
-		<!-- 댓글들 -->
-		<c:forEach var="i" items="${list}">
-			<div class="comment">
-				<div class="commentHeader">
-					<span class="commentWriter">${i.re_writer}</span> <span
-						class="commentDate">${i.re_write_date}</span> <span
-						class="commentReply">답글달기</span> <input type="hidden"
-						value="${i.re_seq }" id="re_seq" name="re_seq"> <input
-						type="hidden" name="fr_seq" value="${conts.fr_seq}">
-
-					<c:choose>
-						<c:when test="${loggedID eq i.re_writer}">
-							<span class="commentUpdate" onclick="updateComment()">수정</span>
-							<span class="commentDelete" onclick="deleteComment()">삭제</span>
-						</c:when>
-					</c:choose>
-				</div>
-				<form action="/frReply/updateComment" method="post">
-					<div class="commentBody">
-						<input type="text" id="commentContents" value="${i.re_contents}"
-							name="re_contents" readonly> <input type="hidden"
+				<p id="contents">${conts.fr_contents}</p>
+			</div>
+		</div>
+		<hr class="separator">
+		<div class="button">
+			<button type="button" id="backToList" class="btn btn-light">목록</button>
+			<a href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
+					type="button" id="btnMod">수정</button></a> <a
+				href="/freeBoard/deleteBoard?fr_seq=${conts.fr_seq }"><button
+					type="button" id="btnDel" class="btn btn-light">삭제</button></a>
+		</div>
+		<hr class="separator">
+		<!-- 게시판 끝 -->
+		<!-- 댓글창 시작 -->
+		<div class="mb-3 commentContainer">
+			<!-- 댓글들 -->
+			<c:forEach var="i" items="${list}">
+				<div class="comment">
+					<div class="commentHeader">
+						<span class="commentWriter">${i.re_writer}</span> <span
+							class="commentDate">${i.re_write_date}</span> <span
+							class="commentReply">답글달기</span> <input type="hidden"
 							value="${i.re_seq }" id="re_seq" name="re_seq"> <input
 							type="hidden" name="fr_seq" value="${conts.fr_seq}">
+
+						<c:choose>
+							<c:when test="${loginID eq i.re_writer}">
+								<span class="commentUpdate" onclick="updateComment()">수정</span>
+								<span class="commentDelete" onclick="deleteComment()">삭제</span>
+							</c:when>
+						</c:choose>
 					</div>
-				</form>
-			</div>
-		</c:forEach>
+					<form action="/frReply/updateComment" method="post">
+						<div class="commentBody">
+							<input type="text" id="commentContents" value="${i.re_contents}"
+								name="re_contents" readonly> <input type="hidden"
+								value="${i.re_seq }" id="re_seq" name="re_seq"> <input
+								type="hidden" name="fr_seq" value="${conts.fr_seq}">
+						</div>
+					</form>
+				</div>
+			</c:forEach>
 
 
-		<c:if test="${empty loggedID}">
-			<!-- 로그인하지 않은 사용자에게 보여줄 내용 -->
-			<p>댓글을 작성하려면 로그인이 필요합니다.</p>
-		</c:if>
-	</div>
-	<!-- 댓글들 끝 -->
-	<!-- 댓글 다는 창 시작  -->
-	<div class="commentForm">
-		<form>
-			<div class="formGroup">
-				<textarea id="commentContent" name="re_contents"
-					class="form-control" rows="3"
-					placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
-			</div>
-			<button type="button" id="btnAddComment" class="btn btn-primary">댓글
-				작성</button>
-		</form>
-	</div>
-	<!-- 댓글다는창 끝 -->
+		</div>
+		<!-- 댓글들 끝 -->
+		<!-- 댓글 다는 창 시작  -->
+		<div class="commentForm">
+			<form>
+				<div class="formGroup">
+					<textarea id="commentContent" name="re_contents"
+						class="form-control" rows="3"
+						placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
+				</div>
+				<button type="button" id="btnAddComment">등록</button>
+			</form>
+		</div>
+		<!-- 댓글다는창 끝 -->
+		<div class="footer">
+			<c:import url="/WEB-INF/views/common/footer.jsp" />
+		</div>
+
 	</div>
 
 
 
 
 	<script>
-	
+		// 댓글 작성자 및 로그인한 아이디 확인 
+		console.log("loggedID: <c:out value='${loginID}' />");
+		console.log("i.re_writer: <c:out value='${i.re_writer}' />");
+
 		$("#backToList").on("click", function() {
 			history.back();
 		})
