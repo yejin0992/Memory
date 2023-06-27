@@ -64,9 +64,7 @@ public class FreeBoardController {
 	public String insertBoard(FreeBoardDTO dto, MultipartFile[] files) throws Exception {
 		System.out.println("insert컨트롤러 도착");
 		// 테스트용 id 생성
-		String userId = "tester123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
+		String loggedID = (String) session.getAttribute("loginID");
 		// 아이디 세션 가져와서 dto writer에서 넣기
 		dto.setFr_writer(loggedID);
 		System.out.println("세션에서 가져온 로그인 확인 : " + loggedID);
@@ -87,6 +85,7 @@ public class FreeBoardController {
 			throws Exception {
 //		List<FreeBoardDTO> list = fBservice.selectList();
 //		model.addAttribute("list", list);
+	
 		// <페이징 관련 시작>
 		// 총 게시물 수
 		int recordsTotalCount = fBservice.getPostsCount(field, query);
@@ -138,10 +137,7 @@ public class FreeBoardController {
 		System.out.println("조회수 확인 : " + dto.getFr_view_count());
 		System.out.println("작성 날짜 확인 : " + dto.getFr_write_date());
 		System.out.println("카테고리 확인 : " + dto.getFr_category());
-		// 테스트용 id 세션 생성
-		String userId = "tester123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
+		String loggedID = (String) session.getAttribute("loginID");
 		// 조회수 증가 조회
 		fBservice.updateViewCount(fr_seq);
 		model.addAttribute("conts", dto);
@@ -163,11 +159,6 @@ public class FreeBoardController {
 		return "freeBoard/freeBoardContent";
 	}
 
-	// 조회수
-	/*
-	 * @RequestMapping("viewCount") public String viewCount(int fr_seq) { fBservice.
-	 * }
-	 */
 	// 게시판 수정 페이지로 이동
 	@RequestMapping("toUpdateForm")
 	public String toUpdate(Model model, Integer fr_seq) throws Exception {
@@ -191,10 +182,7 @@ public class FreeBoardController {
 	// 게시판 수정
 	@RequestMapping("updateBoard")
 	public String updateBoard(FreeBoardDTO dto) {
-		// 테스트용 id 생성
-		String userId = "tester123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
+		String loggedID = (String) session.getAttribute("loginID");
 		// 아이디 세션 가져와서 dto writer에서 넣기
 		dto.setFr_writer(loggedID);
 		int result = fBservice.updateBoard(dto);
@@ -211,10 +199,6 @@ public class FreeBoardController {
 	@RequestMapping("deleteBoard")
 	public String deleteBoard(Integer fr_seq) {
 		System.out.println("삭제 컨트롤러 도착");
-		// 테스트용 id 생성
-		String userId = "tester123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
 		int result = fBservice.deleteBoard(fr_seq);
 		try {
 			imageService.deleteImages(fr_seq);
