@@ -17,7 +17,7 @@ insert into qna_reply values (qna_reply_seq.nextval,#{re_writer},#{re_contents},
 
 <!-- 댓글 수정 -->
 <update id="update">
-update qna_reply set re_contents=#{re_contents} where re_seq=#{re_seq} and qa_seq=#{qa_seq}
+update qna_reply set re_contents=#{re_contents} where re_seq=#{re_seq} and qa_seq=#{qa_seq} and re_writer=#{re_writer}
 </update>
 
 <!-- 댓글 삭제 -->

@@ -137,7 +137,7 @@
   <form action="/qnaBoard/insertPost" method="post" enctype="multipart/form-data">
     <div class="container">
       <div class="body">
-        <div class="borderName">Q & A 문의하기</div>
+        <div class="borderName">Q & A</div>
         <hr>
         <div><input type="text" id="title" placeholder="  글 제목을 입력하세요" name="qa_title"></div>
 

@@ -40,13 +40,17 @@ input[type="text"] {
 }
 
 #content {
+	overflow: hidden;
+	min-height: 300px;
+	max-height: 100%;
 	width: 100%;
-	height: 300px;
 	margin-top: 22px;
 	font-size: 18px;
 	padding: 20px;
 	resize: none;
 	border-color: #dddddd;
+	pointer-events: none;
+	border: none;
 }
 
 #content:focus {
@@ -91,13 +95,14 @@ input[type="text"] {
 
 #replyHead {
 	height: 30%;
-	padding: 0px 10px;
+	padding: 2px 20px;
 	background-color: #dddddd;
 }
 
 #replyHead>#writer {
 	font-weight: bold;
 	fond-size: 20px;
+	border-bottom:none;
 }
 
 #replyBody {
@@ -144,7 +149,7 @@ input[type="text"] {
 	border: 1px solid #dddddd;
 	width: 100%;
 	height: 140px;
-	padding-left: 8px;
+	padding: 4px 20px;
 	border-radius: 7px;
 }
 
@@ -181,19 +186,18 @@ input[type="text"] {
 
 <body>
 
-
-	<!-- <c:if test="${status == b_u }">
-    <script>
-      alert("수정 완료 했습니다.");
-    </script>
-    </c:if>  -->
+	<c:if test="${param.status == 'update' }">
+		<script>
+			alert("수정 완료 했습니다.");
+		</script>
+	</c:if>
 
 	<div class="head">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="container">
 		<form
-			action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_writer=${post.qa_writer}"
+			action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_write_date=${post.qa_write_date}"
 			method="post">
 
 			<div class="body">
@@ -202,63 +206,75 @@ input[type="text"] {
 				<input type="text" id="title" name="qa_title"
 					value="${post.qa_title }" readonly>
 				<div id="content_info">
-					<span class="content_info_name">작성자|</span> ${post.qa_writer} <span
-						class="content_info_name">작성일|</span> ${post.qa_write_date} <span
-						class="content_info_name">조회수|</span> ${post.qa_view_count}
+					<span class="content_info_name">작성자 |</span> ${post.qa_writer} <span
+						class="content_info_name">작성일 |</span> ${post.qa_write_date} <span
+						class="content_info_name">조회수 |</span> ${post.qa_view_count}
 				</div>
 
-
-
-				<!-- <textarea id="content" name="qa_contents" readonly>
-						<c:forEach var="i" items="${file}">
-				<img src="/qnaUpload/${i.sysName}">
-				</c:forEach>
-						${post.qa_contents}</textarea>   -->
-
-				<div id="content">
-					<div class="editor" name="qa_contents">${post.qa_contents}</div>
+				<div id="contentBox">
+					<textarea id="content" name="qa_contents"
+						value="${post.qa_contents}" readonly>${post.qa_contents}
+		 	        </textarea>
 					<c:forEach var="i" items="${file}">
 						<img src="/qnaUpload/${i.sysName}">
 					</c:forEach>
-					<br>
 				</div>
 
+				<c:choose>
+					<c:when test="${loginID eq post.qa_writer}">
 
-				<div id="btnArea" align="right">
-					<a href="/qnaBoard/boardList"> <input type="button"
-						id="backBtn" class="btn" value="목록"></a> <a
-						href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> <input
-						type="button" id="deleteBtn" class="btn" value="삭제"></a> <input
-						type="button" id="updateBtn" class="btn" value="수정">
-				</div>
+						<div id="btnArea" align="right">
+							<a href="/qnaBoard/boardList"> <input type="button"
+								id="backBtn" class="btn" value="목록"></a> <a
+								href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> <input
+								type="button" id="deleteBtn" class="btn" value="삭제"></a> <input
+								type="button" id="updateBtn" class="btn" value="수정">
+						</div>
+
+
+					</c:when>
+					<c:otherwise>
+
+						<div id="btnArea" align="right">
+							<a href="/qnaBoard/boardList"> <input type="button"
+								id="backBtn" class="btn" value="목록"></a>
+						</div>
+
+					</c:otherwise>
+				</c:choose>
 			</div>
-
+			<input type="hidden" name="qa_seq" value="${post.qa_seq}">
 		</form>
 
 
 		<!-- 댓글 출력 / 수정 / 삭제 -->
+
 		<c:forEach var="r" items="${reply}">
 			<hr>
 			<form action="/reply/replyUpdate" method="post">
 				<div id="nextreply">
 					<div id="reply_id">
-						<b>${sessionScope.loginID}</b>
+						<b>${r.re_writer}</b>
 					</div>
 					<textarea id="nextReply_textarea" class="textarea"
 						name="re_contents" readonly>${r.re_contents}</textarea>
 
-					<div id="box" style="display: flex;">
-						<div id="reply_date">${r.re_write_date}</div>
-						<div id="nextReply_btn" align="right">
-							<input type="button" id="re_updateBtn" class="reply_btn"
-								value="수정"> <a
-								href="/reply/replyDelete?qa_seq=${r.qa_seq}&re_seq=${r.re_seq}">
-								<input type="button" id="re_deleteBtn" class="reply_btn"
-								value="삭제">
-							</a>
-						</div>
-					</div>
+					<c:choose>
+						<c:when test="${loginID eq r.re_writer}">
+							<div id="box" style="display: flex;">
+								<div id="reply_date">${r.re_write_date}</div>
+								<div id="nextReply_btn" align="right">
+									<input type="button" id="re_updateBtn" class="reply_btn"
+										value="수정"> <a
+										href="/reply/replyDelete?qa_seq=${r.qa_seq}&re_seq=${r.re_seq}">
+										<input type="button" id="re_deleteBtn" class="reply_btn"
+										value="삭제">
+									</a>
+								</div>
+							</div>
+						</c:when>
 
+					</c:choose>
 					<input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
 						type="hidden" name="re_seq" value="${r.re_seq}">
 				</div>
@@ -293,88 +309,93 @@ input[type="text"] {
 
 	<script>
 
-	/* 
-	   if (${sessionScope.loginID} != "${post.qa_writer}") {
-		   alert("작성자가 아닙니다.");
-	   }else if (${sessionScope.loginID} === "${post.qa_writer}") {	 */   
-	   
-	
-      // 게시글 수정 버튼
-   $("#updateBtn").on("click", function () {
+		// 게시글 수정 버튼
+		$("#updateBtn").on("click", function() {
+			/* 
+			  // 파일 선택 버튼 클릭 이벤트 핸들러
+			  var fileBox = '<div class="filebox">' +
+			    '<input class="upload-name" value="첨부파일" placeholder="첨부파일">' +
+			    '<label for="file" align="center">파일찾기</label>' +
+			    '<input type="file" id="file" name="files" value="${file}" multiple>' +
+			    '</div>';
+			  
+			  // 파일 선택 창을 추가할 위치를 지정하여 HTML 코드를 추가
+			  $("#someContainer").append(fileBox);
+			 */
+			$("#content").css({
+				"pointer-events" : "auto",
+				"resize" : "auto"
+			});
+			$("#title").removeAttr("readonly");
+			$("#content").removeAttr("readonly");
+			$("#updateBtn,#deleteBtn").css("display", "none");
 
-	   $("#title").removeAttr("readonly");
-	   $("#content").removeAttr("readonly");
-    $("#updateBtn,#deleteBtn").css("display", "none");
+			let updateComplete = $("<input>");
+			updateComplete.attr("value", "완료");
+			updateComplete.attr("type", "submit");
+			updateComplete.css({
+				"border" : "1px solid rgb(210, 210, 210)",
+				"background-color" : "white",
+				"margin-right" : "10px",
+				"margin-top" : "10px",
+				"border-radius" : "3px",
+				"width" : "80px",
+				"height" : "35px"
+			});
 
-    let updateComplete = $("<input>");
-    updateComplete.attr("value", "완료");
-    updateComplete.attr("type", "submit");
-    updateComplete.css({
-        "border": "1px solid rgb(210, 210, 210)",
-        "background-color": "white",
-        "margin-right": "10px",
-        "margin-top": "10px",
-        "border-radius": "3px",
-        "width": "80px",
-        "height": "35px"
-    });
+			let cancel = $("<input>");
+			cancel.attr("type", "button");
+			cancel.attr("value", "취소");
+			cancel.css({
+				"border" : "1px solid rgb(210, 210, 210)",
+				"background-color" : "white",
+				"margin-right" : "10px",
+				"margin-top" : "10px",
+				"border-radius" : "3px",
+				"width" : "80px",
+				"height" : "35px"
+			});
+			cancel.on("click", function() {
+				location.reload();
+			});
+			$("#btnArea").append(updateComplete);
+			$("#btnArea").append(cancel);
+		});
+		
+		// 댓글 수정하기 버튼
+		$("#re_updateBtn").on("click", function() {
 
-    let cancel = $("<input>");
-    cancel.attr("type", "button");
-    cancel.attr("value", "취소");
-    cancel.css({
-        "border": "1px solid rgb(210, 210, 210)",
-        "background-color": "white",
-        "margin-right": "10px",
-        "margin-top": "10px",
-        "border-radius": "3px",
-        "width": "80px",
-        "height": "35px"
-    });
-    cancel.on("click", function () {
-        location.reload();
-    });
-    $("#btnArea").append(updateComplete);
-    $("#btnArea").append(cancel);
-	  
-});
-      // 댓글 수정하기 버튼
-      $("#re_updateBtn").on("click", function () {
+			$("#nextReply_textarea").removeAttr("readonly");
+			$("#re_updateBtn,#re_deleteBtn").css("display", "none");
 
-        $("#nextReply_textarea").removeAttr("readonly");
-        $("#re_updateBtn,#re_deleteBtn").css("display", "none");
+			let updateComplete = $("<input>");
+			updateComplete.attr("type", "submit");
+			updateComplete.attr("value", "완료");
 
-        let updateComplete = $("<input>");
-        updateComplete.attr("type", "submit");
-        updateComplete.attr("value", "완료");
-       
-		 updateComplete.css({
-			 "border": "1px solid rgb(210, 210, 210)",
-	          "background-color": "white",
-	          "border-radius": "3px",
-	          "margin-right": "10px"
-  });
-        
-        let cancel = $("<input>");
-        cancel.attr("type", "button");
-        cancel.attr("value", "취소");
-        cancel.css({
-          "border": "1px solid rgb(210, 210, 210)",
-          "background-color": "white",
-          "border-radius": "3px",
-          "margin-right": "10px"
-        });
-        cancel.on("click", function () {
-        	
-          location.reload();
-        });
-        $("#nextReply_btn").append(updateComplete);
-        $("#nextReply_btn").append(cancel);
-      });
+			updateComplete.css({
+				"border" : "1px solid rgb(210, 210, 210)",
+				"background-color" : "white",
+				"border-radius" : "3px",
+				"margin-right" : "10px"
+			});
 
+			let cancel = $("<input>");
+			cancel.attr("type", "button");
+			cancel.attr("value", "취소");
+			cancel.css({
+				"border" : "1px solid rgb(210, 210, 210)",
+				"background-color" : "white",
+				"border-radius" : "3px",
+				"margin-right" : "10px"
+			});
+			cancel.on("click", function() {
 
-
-    </script>
+				location.reload();
+			});
+			$("#nextReply_btn").append(updateComplete);
+			$("#nextReply_btn").append(cancel);
+		});
+	</script>
 
 </body>
 

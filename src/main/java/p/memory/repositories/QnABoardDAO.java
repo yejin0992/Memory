@@ -68,6 +68,7 @@ public class QnABoardDAO {
 
 	// 게시글 수정
 	public int update(QnABoardDTO qa_dto) {
+		System.out.println("마지막 확인 : "+qa_dto.getQa_seq());
 		return db.update("QnABoard.update", qa_dto);
 	}
 
