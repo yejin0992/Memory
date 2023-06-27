@@ -3,187 +3,380 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+
 <head>
+<!-- JavaScript Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+	crossorigin="anonymous"></script>
+<!-- CSS only -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-
 <style>
+.borderName {
+	font-size: 30px;
+	padding-top: 100px;
+}
+
+input[type="text"] {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid black;
+}
+
+#title {
+	width: 100%;
+	margin-top: 20px;
+	font-size: 30px;
+}
+
+#content {
+	width: 100%;
+	height: 300px;
+	margin-top: 22px;
+	font-size: 18px;
+	padding: 20px;
+	resize: none;
+	border-color: #dddddd;
+}
+
+#content:focus {
+	outline: none;
+}
+
+#content_info {
+	color: #999999;
+	font-size: 13px;
+	padding: 8px;
+}
+
+.content_info_name {
+	font-weight: bold;
+	color: rgb(73, 73, 73);
+}
+
+/* content 버튼 */
+#backBtn, #deleteBtn, #updateBtn {
+	border: 1px solid rgb(210, 210, 210);
+	background-color: white;
+	margin-right: 10px;
+	margin-top: 10px;
+	border-radius: 3px;
+	width: 80px;
+	height: 35px;
+}
+
+/*   .btn:hover{
+      background-color: darkorange;
+      color: white;
+      font-weight: bold;
+      border: none;
+    } */
+
+/* 댓글입력 */
 #replyContainer {
-	width: 1000px;
-	height: 150px;
+	border: 1px solid #dddddd;
+	height: 120px;
+	border-radius: 5px;
 }
 
 #replyHead {
-	height: 20%;
-	background-color: rgb(185, 189, 194);
+	height: 30%;
+	padding: 0px 10px;
+	background-color: #dddddd;
+}
+
+#replyHead>#writer {
+	font-weight: bold;
+	fond-size: 20px;
 }
 
 #replyBody {
-	height: 80%;
+	height: 70%;
 }
 
-#replyBody>div {
-	float: left;
-	height: 100%;
-}
-
-#replyBody>#msg {
-	width: 80%;
-}
-
-#replyBody>#msg>textarea {
-	width: 100%;
+.textarea {
+	width: 90%;
 	height: 100%;
 	resize: none;
+	border: none;
+	padding-left: 20px;
 }
 
-#replyBody>#rightside {
-	width: 20%;
+.textarea:focus {
+	outline: none;
+}
+
+#reply_insert_btn {
+	width: 10%;
 }
 
 #reply {
 	border: none;
-	background-color: none;
-	width: 100%;
-	height: 100%;
+	background-color: #dddddd;
+	border-radius: 3px;
+	margin-top: 25%;
+	margin-right: 10px;
+	padding: 5px 8px;
 }
 
 #reply:hover {
 	cursor: pointer;
+	background-color: darkorange;
+}
+
+#msg {
+	width: 90%;
+	height: 100%;
+}
+
+/* 댓글 수정,삭제,출력 */
+#nextreply {
+	border: 1px solid #dddddd;
+	width: 100%;
+	height: 140px;
+	padding-left: 8px;
+	border-radius: 7px;
+}
+
+#box {
+	padding-bottom: 1%;
+}
+
+#reply_date {
+	color: #999999;
+	width: 80%;
+}
+
+#nextReply_btn {
+	width: 20%;
+}
+
+.reply_btn {
+	border: 1px solid rgb(210, 210, 210);
+	background-color: white;
+	border-radius: 3px;
+	margin-right: 10px;
+}
+
+#nextReply_textarea {
+	height: 50%;
+	width: 100%;
+}
+
+.footer {
+	margin-top: 50px;
 }
 </style>
-
 </head>
+
 <body>
 
-	<form action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}" method="post">
-		
-		<table border="1" width="1000" height="500">
 
-			<tr height="20" >
-				<th colspan="2">자유게시판 글 작성하기</th>
-			</tr>
-			<tr height="20">
-				<td><input type="text" class="editor" value="${post.qa_title }"
-					size="100" name="qa_title" readonly></td>
-				<td><input type="textarea" name="qa_view_count" value="${post.qa_view_count }">
-					<img src="/upload/">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-				<div cols="138" class="editor" rows="30"
-						name="qa_contents" readonly>
+	<!-- <c:if test="${status == b_u }">
+    <script>
+      alert("수정 완료 했습니다.");
+    </script>
+    </c:if>  -->
+
+	<div class="head">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
+	<div class="container">
+		<form
+			action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_writer=${post.qa_writer}"
+			method="post">
+
+			<div class="body">
+				<div class="borderName">Q & A</div>
+				<hr>
+				<input type="text" id="title" name="qa_title"
+					value="${post.qa_title }" readonly>
+				<div id="content_info">
+					<span class="content_info_name">작성자|</span> ${post.qa_writer} <span
+						class="content_info_name">작성일|</span> ${post.qa_write_date} <span
+						class="content_info_name">조회수|</span> ${post.qa_view_count}
+				</div>
+
+
+
+				<!-- <textarea id="content" name="qa_contents" readonly>
 						<c:forEach var="i" items="${file}">
 				<img src="/qnaUpload/${i.sysName}">
 				</c:forEach>
-						${post.qa_contents}</div>
-				</td>
-			</tr>
-			
-			<tr align="right" height="20">
-				<td colspan="2">
-				<a href="/qnaBoard/boardList">
-				<input type="button" id="backBtn" value="목록으로"></a> 
-				<a href="/qnaBoard/delete?qa_seq=${post.qa_seq}">
-				<input type="button" id="deleteBtn" value="삭제"></a> 
-				<input type="button" id="updateBtn" value="수정">
-				</td>
-			</tr>
+						${post.qa_contents}</textarea>   -->
 
-		</table>
-	</form>
+				<div id="content">
+					<div class="editor" name="qa_contents">${post.qa_contents}</div>
+					<c:forEach var="i" items="${file}">
+						<img src="/qnaUpload/${i.sysName}">
+					</c:forEach>
+					<br>
+				</div>
 
-	<!-- 댓글 출력 / 수정 / 삭제 -->
-	<c:forEach var="r" items="${reply}">
-		<form action="/reply/replyUpdate" method="post">
-			<div id="nextreply">
-				<table border="1" width="1000" height="100">
-					<tr>
-						<th>${sessionScope.loginID}</th>
-						<th>${r.re_write_date}</th>
-					</tr>
-					<tr>
-						<td><textarea class="replyforUpdate" name="re_contents"
-								readonly>${r.re_contents}</textarea></td>
-						<td>
-							<button type="button" id="re_updateBtn">수정</button> 
-							<a href="/reply/replyDelete?qa_seq=${r.qa_seq}&re_seq=${r.re_seq}">
-							<input type="button" id="re_deleteBtn" value="삭제">
-						</a>
-						</td>
-					</tr>
-				</table>
-				<input type="hidden" name="qa_seq" value="${r.qa_seq}"> 
-				<input type="hidden" name="re_seq" value="${r.re_seq}">
+
+				<div id="btnArea" align="right">
+					<a href="/qnaBoard/boardList"> <input type="button"
+						id="backBtn" class="btn" value="목록"></a> <a
+						href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> <input
+						type="button" id="deleteBtn" class="btn" value="삭제"></a> <input
+						type="button" id="updateBtn" class="btn" value="수정">
+				</div>
+			</div>
+
+		</form>
+
+
+		<!-- 댓글 출력 / 수정 / 삭제 -->
+		<c:forEach var="r" items="${reply}">
+			<hr>
+			<form action="/reply/replyUpdate" method="post">
+				<div id="nextreply">
+					<div id="reply_id">
+						<b>${sessionScope.loginID}</b>
+					</div>
+					<textarea id="nextReply_textarea" class="textarea"
+						name="re_contents" readonly>${r.re_contents}</textarea>
+
+					<div id="box" style="display: flex;">
+						<div id="reply_date">${r.re_write_date}</div>
+						<div id="nextReply_btn" align="right">
+							<input type="button" id="re_updateBtn" class="reply_btn"
+								value="수정"> <a
+								href="/reply/replyDelete?qa_seq=${r.qa_seq}&re_seq=${r.re_seq}">
+								<input type="button" id="re_deleteBtn" class="reply_btn"
+								value="삭제">
+							</a>
+						</div>
+					</div>
+
+					<input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
+						type="hidden" name="re_seq" value="${r.re_seq}">
+				</div>
+			</form>
+		</c:forEach>
+
+		<!-- 댓글 입력 -->
+		<form action="/reply/replyInsert" method="post">
+			<hr>
+			<div id="replyContainer">
+				<div id="replyHead">
+					<input type="text" id="writer" value="${sessionScope.loginID}"
+						name="re_writer" readonly>
+				</div>
+				<div id="replyBody" style="display: flex;">
+					<div id="msg">
+						<textarea class="textarea" name="re_contents"></textarea>
+					</div>
+					<div id="reply_insert_btn" align="right">
+						<input type="submit" id="reply" value="등록">
+					</div>
+				</div>
+				<input type="hidden" name="qa_seq" value="${post.qa_seq}">
 			</div>
 		</form>
-	</c:forEach>
 
-	<!-- 댓글 입력 -->
-	<form action="/reply/replyInsert" method="post">
-		<div id="replyContainer">
-			<div id="replyHead">
-				<input type="text" id="writer" value="${sessionScope.loginID}"
-					name="re_writer" readonly>
-			</div>
-			<div id="replyBody">
-				<div id="msg">
-					<textarea id="textarea" name="re_contents"></textarea>
-				</div>
-				<div id="rightside">
-					<button id="reply">REPLY</button>
-				</div>
-			</div>
-		</div>
-		<input type="hidden" name="qa_seq" value="${post.qa_seq}">
-	</form>
+	</div>
+
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
+	</div>
 
 	<script>
+
+	/* 
+	   if (${sessionScope.loginID} != "${post.qa_writer}") {
+		   alert("작성자가 아닙니다.");
+	   }else if (${sessionScope.loginID} === "${post.qa_writer}") {	 */   
+	   
 	
-		// 게시글 수정 버튼
-		$("#updateBtn").on("click", function() {
+      // 게시글 수정 버튼
+   $("#updateBtn").on("click", function () {
 
-			$(".editor").removeAttr("readonly");
-			$("#updateBtn,#deleteBtn").css("display", "none");
+	   $("#title").removeAttr("readonly");
+	   $("#content").removeAttr("readonly");
+    $("#updateBtn,#deleteBtn").css("display", "none");
 
-			let updateComplete = $("<button>");
-			updateComplete.text("수정 완료");
-			updateComplete.attr("type", "submit")
+    let updateComplete = $("<input>");
+    updateComplete.attr("value", "완료");
+    updateComplete.attr("type", "submit");
+    updateComplete.css({
+        "border": "1px solid rgb(210, 210, 210)",
+        "background-color": "white",
+        "margin-right": "10px",
+        "margin-top": "10px",
+        "border-radius": "3px",
+        "width": "80px",
+        "height": "35px"
+    });
 
-			let cancel = $("<button>");
-			cancel.attr("type", "button");
-			cancel.text("취소");
-			cancel.on("click", function() {
-				location.reload();
-			});
-			$("#updateBtn").parent("td").append(updateComplete);
-			$("#updateBtn").parent("td").append(cancel);
-		});
+    let cancel = $("<input>");
+    cancel.attr("type", "button");
+    cancel.attr("value", "취소");
+    cancel.css({
+        "border": "1px solid rgb(210, 210, 210)",
+        "background-color": "white",
+        "margin-right": "10px",
+        "margin-top": "10px",
+        "border-radius": "3px",
+        "width": "80px",
+        "height": "35px"
+    });
+    cancel.on("click", function () {
+        location.reload();
+    });
+    $("#btnArea").append(updateComplete);
+    $("#btnArea").append(cancel);
+	  
+});
+      // 댓글 수정하기 버튼
+      $("#re_updateBtn").on("click", function () {
 
-		// 댓글 수정하기 버튼
-		$("#re_updateBtn").on("click", function() {
+        $("#nextReply_textarea").removeAttr("readonly");
+        $("#re_updateBtn,#re_deleteBtn").css("display", "none");
 
-			$(".replyforUpdate").removeAttr("readonly");
-			$("#re_updateBtn,#re_deleteBtn").css("display", "none");
+        let updateComplete = $("<input>");
+        updateComplete.attr("type", "submit");
+        updateComplete.attr("value", "완료");
+       
+		 updateComplete.css({
+			 "border": "1px solid rgb(210, 210, 210)",
+	          "background-color": "white",
+	          "border-radius": "3px",
+	          "margin-right": "10px"
+  });
+        
+        let cancel = $("<input>");
+        cancel.attr("type", "button");
+        cancel.attr("value", "취소");
+        cancel.css({
+          "border": "1px solid rgb(210, 210, 210)",
+          "background-color": "white",
+          "border-radius": "3px",
+          "margin-right": "10px"
+        });
+        cancel.on("click", function () {
+        	
+          location.reload();
+        });
+        $("#nextReply_btn").append(updateComplete);
+        $("#nextReply_btn").append(cancel);
+      });
 
-			let updateComplete = $("<button>");
-			updateComplete.text("수정 완료");
-			updateComplete.attr("type", "submit")
 
-			let cancel = $("<button>");
-			cancel.attr("type", "button");
-			cancel.text("취소");
-			cancel.on("click", function() {
-				location.reload();
-			});
-			$("#re_updateBtn").parent("td").append(updateComplete);
-			$("#re_updateBtn").parent("td").append(cancel);
-		});
 
-		
-	</script>
+    </script>
 
 </body>
+
+
 </html>
