@@ -35,9 +35,11 @@
 		resultType="p.memory.dto.FreeBoardDTO">
 		SELECT *
 		FROM (
-		SELECT ROW_NUMBER() OVER (ORDER BY fb.fr_seq DESC) AS rn, fb.*
+		SELECT ROW_NUMBER() OVER (ORDER BY fb.fr_seq
+		DESC) AS rn, fb.*
 		FROM free_board fb
-		JOIN bookmark b ON fb.fr_seq = b.fr_seq
+		JOIN bookmark b ON fb.fr_seq =
+		b.fr_seq
 		WHERE b.user_id = #{id}
 		) t
 		WHERE rn BETWEEN #{start} AND #{end}
@@ -54,6 +56,27 @@
 		WHERE b.user_id = #{userId}
 	</select>
 
+	<!--내가 좋아요한 향수 총 개수 -->
+	<select id="getLikedPerfumeCount" resultType="int">
+		select count(*) as liked_perfume_count
+		from perfume p
+		join heart h on 
+		p.per_seq = h.per_seq
+		where h.id = #{userId}
+	</select>
+
+	<!--내가 좋아요한 향수 불러오기 -->
+	<select id="selectLikedPerfume" parameterType="String"
+		resultType="p.memory.dto.PerfumeDTO">
+		select p.per_seq, p.per_name, p.per_brand, i.sysname, h.id
+		from perfume
+		p
+		left join perfume_image i on p.per_seq = i.per_seq left
+		join heart h
+		on p.per_seq = h.per_seq
+		where h.id = #{userId} order by
+		p.per_seq asc
+	</select>
 
 
 </mapper> 

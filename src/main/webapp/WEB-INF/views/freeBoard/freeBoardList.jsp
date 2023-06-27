@@ -18,7 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>Insert title here</title>
+<title>자유게시판 목록</title>
 <style>
 @font-face {
 	font-family: "Dovemayo_gothic";
@@ -33,8 +33,12 @@
 	font-family: "Dovemayo_gothic";
 }
 
-table {
+.table {
 	border-collapse: collapse;
+}
+
+.table th, .table td {
+	border: none; /* 테이블 셀의 경계선을 없앰 */
 }
 
 .container {
@@ -61,9 +65,50 @@ h1 {
 #time, #no, #cate, #writer, #viewCount, #replyNum {
 	text-align: center;
 }
+
+.title a {
+	color: black;
+	text-decoration: none;
+}
+
+.title a:hover {
+	color: #B2A08A;
+}
+
+.searchArea {
+	margin-top: 20px;
+}
+
+.btnSearch {
+	border: 1px solid #CBC8BF;
+	background-color: white;
+	color: black;
+	padding: 3px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 3px; /* 버튼을 둥글게 만드는 속성 */
+}
+
+.btnSearch:hover {
+	background-color: #CBC8BF;
+	color: white;
+}
+
+.pageArea {
+	margin: 20px 0 20px 10px;
+	text-align: center;
+}
+
+.pageArea a {
+	text-decoration: none;
+	color: #B2A08A;
+}
 </style>
 </head>
 <body>
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
 	<div class="titleArea">
 		<h1>자유게시판</h1>
 	</div>
@@ -87,30 +132,33 @@ h1 {
 						<tr>
 							<td class="hide-on-mobile" align="center">${i.fr_seq }</td>
 							<td class="hide-on-mobile" align="center">${i.fr_category }</td>
-							<td><a href="/freeBoard/selectBySeq?fr_seq=${i.fr_seq}">${i.fr_title}</a></td>
+							<td class="title"><a
+								href="/freeBoard/selectBySeq?fr_seq=${i.fr_seq}">${i.fr_title}</a></td>
 							<td align="center">${i.fr_writer }</td>
 							<td align="center">${i.fr_write_date}</td>
 							<td class="hide-on-mobile" align="center">${i.fr_view_count }</td>
 							<td align="center">댓글수 아직 미완성이여요</td>
 						</tr>
 					</c:forEach>
-					<!-- 추가적인 게시글 데이터 추가 -->
 				</tbody>
 			</table>
 		</div>
 		<div class="button">
 			<a href="/freeBoard/toFreeBoardWrite"><button type="button"
-					id="btnAdd" class="btn btn-primary">+</button></a>
+					id="btnAdd" class="btn btn-primary">글쓰기</button></a>
 		</div>
 		<div class="searchArea">
 			<!-- <form class="table-form" action="freeBoard/searchPosts" method="get"> -->
-				<select id = "field" name="field">
-					<option value="fr_title" <c:if test="${field eq 'fr_title'}">selected</c:if>>제목</option>
-					<option value="fr_contents" <c:if test="${field eq 'fr_content'}">selected</c:if>>내용</option>
-					<option value="fr_writer" <c:if test="${field eq 'fr_writer'}">selected</c:if>>작성자</option>
-				</select> <input type="text" id="query" name="query" value="${query }" />
-				<button type="button" class ="btnSearch" value="검색">검색</button>
-		<!-- 	</form> -->
+			<select id="field" name="field">
+				<option value="fr_title"
+					<c:if test="${field eq 'fr_title'}">selected</c:if>>제목</option>
+				<option value="fr_contents"
+					<c:if test="${field eq 'fr_content'}">selected</c:if>>내용</option>
+				<option value="fr_writer"
+					<c:if test="${field eq 'fr_writer'}">selected</c:if>>작성자</option>
+			</select> <input type="text" id="query" name="query" value="${query }" />
+			<button type="button" class="btnSearch" value="검색">검색</button>
+			<!-- 	</form> -->
 		</div>
 		<div class="pageArea">
 			<c:if test="${prev}">
@@ -125,19 +173,21 @@ h1 {
 			</c:if>
 		</div>
 	</div>
-	
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
+	</div>
+
 	<script>
-	
-	$(".btnSearch").on("click",function(){
-		let field = $("#field")[0].value; 
-		let query = $("#query")[0].value; 
-		
-		console.log(field);
-		console.log(query); 
-		location.href = "/freeBoard/selectList?cpage=1" + "&field=" + field + "&query=" + query;
-		
-	})
-	
-	
-	
+		$(".btnSearch").on(
+				"click",
+				function() {
+					let field = $("#field")[0].value;
+					let query = $("#query")[0].value;
+
+					console.log(field);
+					console.log(query);
+					location.href = "/freeBoard/selectList?cpage=1" + "&field="
+							+ field + "&query=" + query;
+
+				})
 	</script>

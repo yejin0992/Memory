@@ -30,10 +30,7 @@ public class FrReplyController {
 	public int insertComment(FrReplyDTO dto, int fr_seq) {
 		System.out.println("댓글 작성 controller 도착 ");
 
-		// 테스트용 id 생성
-		String userId = "tester123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
+		String loggedID = (String) session.getAttribute("loginID");
 		// 아이디 세션 가져와서 dto writer에서 넣기
 		dto.setRe_writer(loggedID);
 		// 본문글 시퀀스 설정
@@ -66,9 +63,6 @@ public class FrReplyController {
 		// 테스트용 id 생성
 		System.out.println("jsp에서 re_seq 받는지 확인 : " + re_seq);
 		System.out.println("jsp에서 fr_seq 받는지 확인 : " + fr_seq);
-		String userId = "admin123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
 		int result = replyService.deleteComment(re_seq); 
 		System.out.println("댓삭결과 : " + result);
 		 
@@ -79,10 +73,7 @@ public class FrReplyController {
 	public String updateComment(FrReplyDTO dto,Integer re_seq, Integer fr_seq)throws Exception {
 		String contents = dto.getRe_contents();
 		System.out.println("댓글 수정에서 넘어오는 댓글 내용확인 : " + contents);
-		// 테스트용 id 생성
-		String userId = "admin123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
+		String loggedID = (String) session.getAttribute("loginID");
 		// 아이디 세션 가져와서 dto writer에서 넣기
 		dto.setRe_writer(loggedID);
 		int result = replyService.updateComment(dto);

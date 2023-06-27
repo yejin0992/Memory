@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import p.memory.dto.FreeBoardDTO;
+import p.memory.dto.PerfumeMainDTO;
 import p.memory.repositories.MyPageDAO;
 
 @Service
@@ -32,5 +33,10 @@ public class MyPageService {
 	// 북마크 개수 
 	public int getBookmarkedPostsCount(String loggedID) {
 		return myDAO.getBookmarkedPostsCount(loggedID); 
+	}
+	
+	// 좋아요한 향수 
+	public List<PerfumeMainDTO> selectLikedPerfume(String loggedID){
+		return myDAO.selectLikedPerfume(loggedID); 
 	}
 }

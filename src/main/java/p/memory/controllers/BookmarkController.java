@@ -26,9 +26,7 @@ public class BookmarkController {
 		int fr_seq = dto.getFr_seq(); 
 		System.out.println("ajax에서 fr_seq 잘 받아왔는지 확인 : " + fr_seq);
 		// 테스트용 id 생성
-		String userId = "tester123";
-		session.setAttribute("loggedID", userId);
-		String loggedID = (String) session.getAttribute("loggedID");
+		String loggedID = (String) session.getAttribute("loginID");
 		dto.setUser_id(loggedID);
 		System.out.println("세션에서 가져온 아이디 dto에 넣기 : " + dto.getUser_id());
 		bookmarkService.insertBookmark(dto); 
@@ -38,11 +36,8 @@ public class BookmarkController {
 	@RequestMapping("deleteBookmark")
 	public void deleteBookmark(int fr_seq) {
 	System.out. println("ajax에서 받은 fr_seq : " + fr_seq);
-	// 테스트용 id 생성
-	String userId = "tester123";
-	session.setAttribute("loggedID", userId);
-	String loggedID = (String) session.getAttribute("loggedID");
-	bookmarkService.deleteBookmark(fr_seq, userId); 
+	String loggedID = (String) session.getAttribute("loginID");
+	bookmarkService.deleteBookmark(fr_seq, loggedID); 
 	}
 	
 	

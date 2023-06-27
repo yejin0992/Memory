@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import p.memory.dto.FreeBoardDTO;
+import p.memory.dto.PerfumeMainDTO;
 
 @Repository
 public class MyPageDAO {
@@ -40,6 +41,10 @@ public class MyPageDAO {
 	// 북마크한 개수 
 	public int getBookmarkedPostsCount(String loggedID) {
 		return mybatis.selectOne("MyPage.getBookmarkedPostsCount",loggedID); 
+	}
+	// 좋아요한 향수 불러오기 
+	public List<PerfumeMainDTO> selectLikedPerfume(String loggedID) {
+		return mybatis.selectList("MyPage.selectLikedPerfume", loggedID); 
 	}
 	
 
