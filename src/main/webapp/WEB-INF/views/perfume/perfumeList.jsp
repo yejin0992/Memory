@@ -270,7 +270,7 @@ color : red;
 					<div class="col">
 						<!-- 관리자 로그인시에만 활성화 -->
 							<a href="/perfume/toInsert"> 글쓰기 </a>
-							<input type="hidden" id="loginID" value="${sessionScope.writer}">
+							<input type="hidden" id="loginID" value="${sessionScope.loginID}">
 					</div>
 				</div>
 				<div class="row m-0">
