@@ -93,7 +93,7 @@
       color: darkorange;
     }
 
-    /* -----  버튼 ----- // */
+    /* -----  버튼 -----  */
     button {
       font-size: 15px;
       border: none;
@@ -139,6 +139,13 @@
   <div class="container">
     <div class="row header"></div>
     <div class="row body">
+    
+    <c:if test="${status=='j_s'}">
+		<script>
+			alert("회원가입이 완료 되었습니다.");
+			location.reload();
+		</script>
+	</c:if>
 	
 	<c:if test="${status=='l_f'}">
 		<script>
@@ -162,7 +169,7 @@
           <input type="password" id="pw" name="pw" placeholder="Password">
         </div>
         <div>
-          <a href="#" id="forget">Forget your password?</a>
+          <a href="/member/toFindID" id="forget">Forget your ID , Password?</a>
         </div>
         <div class="buttonBox" align="center">
           <button type="submit" id="loginBtn">Login</button><br>

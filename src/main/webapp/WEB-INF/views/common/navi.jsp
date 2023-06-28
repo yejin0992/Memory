@@ -24,6 +24,8 @@
 	box-sizing: border-box;
 }
 
+
+
 :root { -
 	-text-color: black; -
 	-background-color: pink; -
@@ -41,7 +43,7 @@ a {
 /*  position:fixed;*/
 .rowheader {
 	position: fixed;
-	z-index: 1;
+	z-index: 2;
 	width: 100%;
 }
 
@@ -51,15 +53,17 @@ a {
 	align-items: center;
 	background-color: #ffffff97;
 	padding: 2px 30px;
+	position: sticky;
 }
 
 /* 로고 */
 .navbar_logo {
 	font-size: large;
+	margin-left: 20px;
 }
 
 .navbar_logo>a {
-	color: var(- -a-color);
+	color: rgb(81, 81, 81);
 }
 
 /* 네비메뉴 */
@@ -114,7 +118,7 @@ nav ul li {
 /* 로그인 아이콘 */
 .navbar_icon {
 	list-style: none;
-	padding-right: 150px;
+	padding-right: 20px;
 }
 
 .navbar_icon li {
@@ -122,7 +126,7 @@ nav ul li {
 }
 
 .navbar_icon li a {
-	color: var(- -a-color);
+	color: rgb(81, 81, 81);
 }
 
 .navbar_icon>li>a:hover {
@@ -134,7 +138,7 @@ nav ul li {
 	right: 32px;
 	font-size: 24px;
 	display: none;
-	color: var(- -a-color);
+	color: rgb(81, 81, 81);
 }
 
 @media screen and (max-width:830px) {
@@ -156,12 +160,14 @@ nav ul li {
 	}
 	.navbar_hamburgerBtn {
 		display: block;
+		z-index: 2;
 	}
 	.navbar_icon {
 		display: none;
 	}
 	.navbar_menu.active {
 		display: flex;
+		padding-left: 0px;
 	}
 }
 </style>
@@ -199,7 +205,7 @@ nav ul li {
 		</ul>
 		<ul class="navbar_icon">
 			<li><a href="/myPage/toMyPageMain">My Page</a></li>
-			<li><a href="#">SERCH</a></li>
+			<li><a href="member/logout">LOGOUT</a></li>
 			<li><a href="/member/toMypage">EJ</a></li>
 		</ul>
 		<a href="#" class="navbar_hamburgerBtn"> <i

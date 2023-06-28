@@ -68,9 +68,9 @@
 
 	<!-- 게시글 수정 -->
 	<update id="update">
-		update qna_board set qa_title=#{qa_title}, qa_contents=#{qa_contents}, qa_write_date=#{qa_write_date}
-		where qa_seq=#{qa_seq} and qa_writer=#{qa_writer}
-	</update>
+    update qna_board set qa_title=#{qa_title}, qa_contents=#{qa_contents}, qa_write_date=SYSDATE
+    where qa_seq=#{qa_seq} and qa_writer=#{qa_writer}
+</update>
 
 	<!-- 게시글 삭제 -->
 	<delete id="delete">
