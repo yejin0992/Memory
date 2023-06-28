@@ -25,7 +25,6 @@ div {
 	position: sticky;
 	top: 0;
 	height: 100px;
-	background-color: pink;
 	z-index: 2;
 }
 
@@ -103,9 +102,11 @@ color: #c28243;
 </head>
 
 <body>
+ 
+
     <div class="container">
         <div class="row head">
-
+			 <c:import url="/WEB-INF/views/common/navi.jsp" />
         </div>
         <div class="row">
             <div class="col-12">
@@ -241,7 +242,9 @@ color: #c28243;
 			</div>
 		</div>
         <input type="hidden" id="loginID" value="${sessionScope.writer}">
-        <div class="row footer">푸터</div>
+        <div class="row footer">
+         <c:import url="/WEB-INF/views/common/footer.jsp" />
+        </div>
     </div>
     
  <script>

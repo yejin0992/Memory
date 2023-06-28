@@ -20,16 +20,16 @@
  		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<property name="username" value="memory"></property>
 		<property name="password" value="memory"></property>
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@13.124.36.151:1521:xe"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@15.164.169.212:1521:xe"></property>
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
-	</bean>  
+	</bean>   
 	
-		<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+	<!-- 	 <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<property name="username" value="kh"></property>
 		<property name="password" value="kh"></property>
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
-	</bean> -->
+	</bean>  -->
 
 	<!-- Mybatis -->
 	<bean id="sqlSessionFactory"
@@ -37,18 +37,13 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations"
 			value="classpath:/mappers/*-mapper.xml"></property>
-
 	</bean>
-	
-	
-	
 
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-
 
 	<context:component-scan base-package="p.memory.repositories"/>
 	<context:component-scan base-package="p.memory.services" />

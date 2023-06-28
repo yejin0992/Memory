@@ -167,7 +167,7 @@ public class PerfumeController {
 		String realPath = session.getServletContext().getRealPath("/perfumeImage/");
 		fileService.insert(realPath, 0, files, file_seq);
 		int per_seq = pDTO.getPer_seq();
-		return "redirect:/perfume/select?per_seq=" + per_seq;
+		return "redirect:/perfume/select?per_seq=" + per_seq+"&cpage=1";
 	}
 
 	@RequestMapping("delete")
