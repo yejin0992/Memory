@@ -388,16 +388,14 @@ color : white;
 				</div>
 			</div>
 		</div>
-		
          	<div class="row height40"></div>
-        
         <div class="row btnRow">
         <div class="col-7"></div>
             <div class="col-5 btnCol d-flex flex-row-reverse">
                 <a href="/perfume/perfumeList?cpage=${cpage}"><button class="recordBtn">목록</button></a>
                 <!-- 삭제, 수정버튼 관리자일때만  -->
                 <!-- 삭제하시겠습니까 alert -->
-                <a href="/perfume/delete?per_seq=${perfume.per_seq}"><button class="recordBtn">삭제</button></a>
+                <button id="recordDel" class="recordBtn">삭제</button>
                 <!-- 수정하기 버튼 수정하기 페이지로 -->
                 <button id="updateBtn" class="recordBtn">수정</button>
             </div>
@@ -431,7 +429,7 @@ color : white;
 								<div class="col d-flex flex-row-reverse">
 									<button type="button" class="replyModBtn replyBtn">수정</button>
 									<a href="/perfumeReply/delete?re_seq=${i.re_seq}&per_seq=${perfume.per_seq}&cpage=${cpage}">
-									<button type="button" class="replyDelBtn replyBtn">삭제</button></a>
+									<button type="button" class="replyDelBtn replyBtn" id="${i.re_seq}">삭제</button></a>
 									<button class="replyUpdBtn replyBtn" type="submit">완료</button>
 								</div>
 							</div>
@@ -513,6 +511,24 @@ let replyFlag = true
 	 let id = $("#loginID").val();
 	 t(per_seq, $(this).hasClass('true'),id) 
  });
+ 
+ 	/* 댓글 삭제 확인  */
+		$(".replyDelBtn").on("click", function(){
+			let replySeq = $(this).attr("id");
+			console.log(replySeq);
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				alert("삭제 완료되었습니다.");
+				location.href="/perfumeReply/delete?re_seq="+replySeq+"&per_seq=${perfume.per_seq}&cpage=${cpage}";
+			}
+		})
+		
+		/* 게시글 삭제 확인 */
+	 $("#recordDel").on("click", function(){
+			if(confirm("게시글을 삭제하시겠습니까?")){
+				alert("삭제 완료되었습니다.");
+				 location.href="/perfume/delete?per_seq=${perfume.per_seq}&cpage=${cpage}";
+			}
+		});
  
  </script>
 
