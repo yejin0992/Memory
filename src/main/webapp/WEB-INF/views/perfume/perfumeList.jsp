@@ -286,6 +286,7 @@ color : grey;
 
 </head>
 <body>
+
 	<div class="container">
 		<div class="row listHead">
 			<c:import url="/WEB-INF/views/common/navi.jsp" />
@@ -524,14 +525,12 @@ color : grey;
     // 향수 클릭 시 디테일 뷰 이동
     $(".boardList").on("click", function(){
     	let per_seq = $(this).val();
-    	alert(per_seq);
     	location.href="/perfume/select?per_seq="+per_seq+"&cpage="+currentPage;
     })
     
     // 동적으로 생긴 향수 목록 클릭 시 디테일 뷰 이동
      $(document).on("click", ".boardList", function() {
     	let per_seq = $(this).val();
-    	alert(per_seq);
     	location.href="/perfume/select?per_seq="+per_seq+"&cpage="+currentPage;
     }); 
    

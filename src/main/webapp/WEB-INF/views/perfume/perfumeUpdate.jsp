@@ -184,7 +184,7 @@
 					<div class="d-flex justify-content-center w-75 " id="genderAlign">
 						<input type="radio" id="waman" class="d-inline-block"
 							name="per_gender" value="woman">
-						<lable for="woman" class="gender">WoMAN</lable>
+						<lable for="woman" class="gender">WOMAN</lable>
 						<input type="radio" id="man" class="d-inline-block"
 							name="per_gender" value="man">
 						<lable for="man" class="gender">MAN</lable>

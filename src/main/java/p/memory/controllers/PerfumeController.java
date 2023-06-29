@@ -49,7 +49,7 @@ public class PerfumeController {
 	@RequestMapping("perfumeList")
 	public String PerfumeList(Model model, HttpServletRequest request) {
 		System.out.println("도착");
-		String writer = (String) session.getAttribute("loginID");
+		String loginID = (String) session.getAttribute("loginID");
 		int currentPage = request.getParameter("cpage") == null ? 1 : Integer.parseInt(request.getParameter("cpage"));
 		System.out.println("cpage : " + currentPage);
 		currentPage = pageService.getCurrentPage(currentPage);
@@ -77,8 +77,8 @@ public class PerfumeController {
 		// brand 목록 가져오기
 		List<String> brand = perfumeService.selectBrandKind();
 		// 좋아요 목록 가져오기
-		System.out.println("writer값 : "+writer);
-		List<HeartDTO> heart = heartService.selectList("테스트");
+		System.out.println("loginID : "+loginID);
+		List<HeartDTO> heart = heartService.selectList(loginID);
 		System.out.println("하트 리스트 사이즈 : "+heart.size());
 		
 		List<PerfumeHeartDTO> PHdto = new ArrayList<>();
