@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src = "https://code.jquery.com/jquery-3.6.4.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <meta charset="UTF-8">
 <title>perfume Select</title>
  <style>
@@ -60,7 +62,6 @@ div {
 #pyramid {
 	position: relative;
 }
-
 
 
 #perfumeImage {
@@ -292,11 +293,11 @@ color : white;
 
 <body>
  
-
-    <div class="container">
-        <div class="row head">
+   <div class="row head">
 			 <c:import url="/WEB-INF/views/common/navi.jsp" />
         </div>
+    <div class="container">
+     
         <div class="row">
             <div class="col-12">
                 <h4 class="smTitle">INFORMATION</h4>
@@ -343,8 +344,11 @@ color : white;
 					</div>
 					<div class="row infoRow">
 						<div class="col-3 info">가격</div>
-						<div class="col-9">${perfume.per_price}원</div>
+						<div class="col-9"> 
+						<fmt:formatNumber  type="number" maxFractionDigits="3" value="${perfume.per_price}" />
+					원</div>
 					</div>
+					
 				</div>
 		</div>
 		<div class="row height80"></div>
@@ -457,10 +461,9 @@ color : white;
 		</div>
         <input type="hidden" id="loginID" value="${loginID}">
         <div class="row height40"></div>
-        <div class="row footer">
-       <%--   <c:import url="/WEB-INF/views/common/fsooter.jsp" /> --%>
-        </div>
+        
     </div>
+     <c:import url="/WEB-INF/views/common/footer.jsp" /> 
     
  <script>
 let replyFlag = true
