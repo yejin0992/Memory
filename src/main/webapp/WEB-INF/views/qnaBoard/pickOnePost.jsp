@@ -22,8 +22,9 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <style>
 .borderName {
-	font-size: 30px;
-	padding-top: 100px;
+	font-size: 35px;
+	padding-top: 80px;
+	padding-bottom: 80px;
 }
 
 input[type="text"] {
@@ -37,6 +38,7 @@ input[type="text"] {
 	width: 100%;
 	margin-top: 20px;
 	font-size: 30px;
+	padding-left: 20px;
 }
 
 #content {
@@ -46,7 +48,7 @@ input[type="text"] {
 	width: 100%;
 	margin-top: 22px;
 	font-size: 18px;
-	padding: 20px;
+	padding: 10px;
 	resize: none;
 	border-color: #dddddd;
 	pointer-events: none;
@@ -68,6 +70,10 @@ input[type="text"] {
 	color: rgb(73, 73, 73);
 }
 
+.img {
+	padding-top: 10px;
+}
+
 /* content 버튼 */
 #backBtn, #deleteBtn, #updateBtn {
 	border: 1px solid rgb(210, 210, 210);
@@ -79,30 +85,22 @@ input[type="text"] {
 	height: 35px;
 }
 
-/*   .btn:hover{
-      background-color: darkorange;
-      color: white;
-      font-weight: bold;
-      border: none;
-    } */
-
 /* 댓글입력 */
 #replyContainer {
-	border: 1px solid #dddddd;
-	height: 120px;
+	border: 1px solid #b2a08a;
+	height: 110px;
 	border-radius: 5px;
 }
 
 #replyHead {
 	height: 30%;
 	padding: 2px 20px;
-	background-color: #dddddd;
 }
 
 #replyHead>#writer {
 	font-weight: bold;
 	fond-size: 20px;
-	border-bottom:none;
+	border-bottom: none;
 }
 
 #replyBody {
@@ -125,18 +123,19 @@ input[type="text"] {
 	width: 10%;
 }
 
-#reply {
+#replyBtn {
 	border: none;
-	background-color: #dddddd;
+	background-color: #b2a08a;
 	border-radius: 3px;
-	margin-top: 25%;
-	margin-right: 10px;
+	margin-top: 30px;
+	margin-right: 20px;
 	padding: 5px 8px;
+	color: white;
 }
 
-#reply:hover {
+#replyBtn:hover {
 	cursor: pointer;
-	background-color: darkorange;
+	background-color: #525252;
 }
 
 #msg {
@@ -148,29 +147,24 @@ input[type="text"] {
 #nextreply {
 	border: 1px solid #dddddd;
 	width: 100%;
-	height: 140px;
+	height: 120px;
 	padding: 4px 20px;
 	border-radius: 7px;
 }
 
 #box {
-	padding-bottom: 1%;
+	float: right;
 }
 
 #reply_date {
+	margin-left: 10px;
 	color: #999999;
-	width: 80%;
-}
-
-#nextReply_btn {
-	width: 20%;
 }
 
 .reply_btn {
-	border: 1px solid rgb(210, 210, 210);
+	border: none;
 	background-color: white;
-	border-radius: 3px;
-	margin-right: 10px;
+	margin-right: 1px;
 }
 
 #nextReply_textarea {
@@ -183,8 +177,12 @@ input[type="text"] {
 }
 </style>
 </head>
-
-<body>
+<script>
+    $(document).ready(function () {
+      $('#tableBox').DataTable();
+    });
+  </script>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 
 	<c:if test="${param.status == 'update' }">
 		<script>
@@ -198,11 +196,11 @@ input[type="text"] {
 	<div class="container">
 		<form
 			action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_write_date=${post.qa_write_date}"
-			method="post">
+			id="form" method="post">
 
 			<div class="body">
-				<div class="borderName">Q & A</div>
-				<hr>
+				<div class="borderName" align="center">Q & A</div>
+
 				<input type="text" id="title" name="qa_title"
 					value="${post.qa_title }" readonly>
 				<div id="content_info">
@@ -212,17 +210,16 @@ input[type="text"] {
 				</div>
 
 				<div id="contentBox">
-					<textarea id="content" name="qa_contents"
-						value="${post.qa_contents}" readonly>${post.qa_contents}
-		 	        </textarea>
 					<c:forEach var="i" items="${file}">
 						<img src="/qnaUpload/${i.sysName}">
 					</c:forEach>
+					<textarea id="content" name="qa_contents"
+						value="${post.qa_contents}" readonly>${post.qa_contents}
+		 	        </textarea>
 				</div>
 
 				<c:choose>
 					<c:when test="${loginID eq post.qa_writer}">
-
 						<div id="btnArea" align="right">
 							<a href="/qnaBoard/boardList"> <input type="button"
 								id="backBtn" class="btn" value="목록"></a> <a
@@ -230,7 +227,6 @@ input[type="text"] {
 								type="button" id="deleteBtn" class="btn" value="삭제"></a> <input
 								type="button" id="updateBtn" class="btn" value="수정">
 						</div>
-
 
 					</c:when>
 					<c:otherwise>
@@ -253,28 +249,23 @@ input[type="text"] {
 			<hr>
 			<form action="/reply/replyUpdate" method="post">
 				<div id="nextreply">
-					<div id="reply_id">
-						<b>${r.re_writer}</b>
-					</div>
-					<textarea id="nextReply_textarea" class="textarea"
-						name="re_contents" readonly>${r.re_contents}</textarea>
-
+					<span id="reply_id"> <b>${r.re_writer}</b>
+					</span> <span id="reply_date">${r.re_write_date}</span>
 					<c:choose>
 						<c:when test="${loginID eq r.re_writer}">
-							<div id="box" style="display: flex;">
-								<div id="reply_date">${r.re_write_date}</div>
-								<div id="nextReply_btn" align="right">
-									<input type="button" id="re_updateBtn" class="reply_btn"
-										value="수정"> <a
-										href="/reply/replyDelete?qa_seq=${r.qa_seq}&re_seq=${r.re_seq}">
-										<input type="button" id="re_deleteBtn" class="reply_btn"
-										value="삭제">
-									</a>
+							<div id="box">
+								<div class="nextReply_btn">
+									<input type="button" class="re_deleteBtn reply_btn" value="삭제"
+										seq=${r.re_seq}> <input type="button"
+										class="re_updateBtn reply_btn" value="수정">
 								</div>
 							</div>
 						</c:when>
-
 					</c:choose>
+					<textarea id="nextReply_textarea" class="textarea"
+						name="re_contents" readonly>${r.re_contents}</textarea>
+
+
 					<input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
 						type="hidden" name="re_seq" value="${r.re_seq}">
 				</div>
@@ -291,10 +282,10 @@ input[type="text"] {
 				</div>
 				<div id="replyBody" style="display: flex;">
 					<div id="msg">
-						<textarea class="textarea" name="re_contents"></textarea>
+						<textarea id="replyInsertTextarea" class="textarea" name="re_contents"></textarea>
 					</div>
 					<div id="reply_insert_btn" align="right">
-						<input type="submit" id="reply" value="등록">
+						<input type="submit" id="replyBtn" value="등록">
 					</div>
 				</div>
 				<input type="hidden" name="qa_seq" value="${post.qa_seq}">
@@ -308,20 +299,9 @@ input[type="text"] {
 	</div>
 
 	<script>
-
+	
 		// 게시글 수정 버튼
 		$("#updateBtn").on("click", function() {
-			/* 
-			  // 파일 선택 버튼 클릭 이벤트 핸들러
-			  var fileBox = '<div class="filebox">' +
-			    '<input class="upload-name" value="첨부파일" placeholder="첨부파일">' +
-			    '<label for="file" align="center">파일찾기</label>' +
-			    '<input type="file" id="file" name="files" value="${file}" multiple>' +
-			    '</div>';
-			  
-			  // 파일 선택 창을 추가할 위치를 지정하여 HTML 코드를 추가
-			  $("#someContainer").append(fileBox);
-			 */
 			$("#content").css({
 				"pointer-events" : "auto",
 				"resize" : "auto"
@@ -361,39 +341,79 @@ input[type="text"] {
 			$("#btnArea").append(updateComplete);
 			$("#btnArea").append(cancel);
 		});
+
+		
+		let updateFlag = true;
 		
 		// 댓글 수정하기 버튼
-		$("#re_updateBtn").on("click", function() {
-
-			$("#nextReply_textarea").removeAttr("readonly");
-			$("#re_updateBtn,#re_deleteBtn").css("display", "none");
+		$(".re_updateBtn").on("click", function() {
+			if(updateFlag == true) {
+			$(this).css("background-color", "red");
+			$(this).parent().parent().next().removeAttr("readonly");
+			$(this).css("display", "none"); 
+			$(this).siblings().css("display", "none");
 
 			let updateComplete = $("<input>");
 			updateComplete.attr("type", "submit");
 			updateComplete.attr("value", "완료");
 
 			updateComplete.css({
-				"border" : "1px solid rgb(210, 210, 210)",
+				"border" : "none",
 				"background-color" : "white",
-				"border-radius" : "3px",
-				"margin-right" : "10px"
+				"margin-right" : "1px"
+			});
+			updateComplete.on("click", function() {
+				alert("댓글 수정 완료되었습니다.")
 			});
 
 			let cancel = $("<input>");
 			cancel.attr("type", "button");
 			cancel.attr("value", "취소");
 			cancel.css({
-				"border" : "1px solid rgb(210, 210, 210)",
+				"border" : "none",
 				"background-color" : "white",
-				"border-radius" : "3px",
-				"margin-right" : "10px"
+				"margin-right" : "1px"
 			});
 			cancel.on("click", function() {
-
 				location.reload();
 			});
-			$("#nextReply_btn").append(updateComplete);
-			$("#nextReply_btn").append(cancel);
+
+			let updateBox = $(this).parent();
+			updateBox.append(updateComplete);
+			updateBox.append(cancel);
+			updateFlag = false;
+			
+			}else if(updateFlag == false){
+				alert("댓글 수정을 완료해 주세요.");
+				return false;
+			}
+		});
+
+		// 댓글 삭제
+		$("#re_deleteBtn")
+				.on(
+						"click",
+						function() {
+							let replySeq = $(this).attr("seq");
+							var result = confirm("댓글을 삭제하시겠습니까?");
+							if (result) {
+								alert("삭제 완료 되었습니다.");
+								location.href = "/reply/replyDelete?qa_seq=${post.qa_seq}&re_seq="
+										+ replySeq;
+							} else {
+							}
+						});
+
+		// 댓글 등록 
+		$("#replyBtn").on("click", function() {
+			let replyInsert = $("#replyInsertTextarea").val();
+			console.log(replyInsert);
+			if (replyInsert.trim() == "") {
+				alert("댓글을 입력하세요.");
+				return false;
+			} else {
+				$("#form").submit();
+			}
 		});
 	</script>
 
