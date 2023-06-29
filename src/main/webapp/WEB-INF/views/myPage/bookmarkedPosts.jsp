@@ -39,6 +39,7 @@
 
 .titleArea h1 {
 	font-size: 27px; /* 원하는 크기로 조절해주세요 */
+	text-align: center;
 }
 
 .cont_wrap {
@@ -106,7 +107,7 @@
 				<div class="item">
 					<strong class="title"><a
 						href="/freeBoard/selectBySeq?fr_seq=${bm.fr_seq}">${bm.fr_title}</a></strong>
-					<span class="writer">${bm.fr_writer }</span> <span class="date">${bm.fr_write_date}</span>
+					<span class="writer">${bm.fr_writer }</span> <span class="date">${bm.formattedDate}</span>
 				</div>
 			</c:forEach>
 		</div>

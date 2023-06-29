@@ -46,7 +46,8 @@
 	</update>
 
 	<!--게시물 총개수 + 검색ver -->
-	<select id="getPostsCount" resultType="int" parameterType="hashMap">
+	<select id="getPostsCount" resultType="int"
+		parameterType="hashMap">
 		select count(*) from
 		free_board
 		<if test="field.equals('fr_title')">
@@ -60,7 +61,7 @@
 		</if>
 	</select>
 
-	<!--목록 불러오기 + 페이징 + 검색-->
+	<!--목록 불러오기 + 페이징 + 검색 -->
 	<select id="selectBoundWithSearch" parameterType="hashMap"
 		resultType="p.memory.dto.FreeBoardDTO">
 		SELECT * FROM (
@@ -82,6 +83,7 @@
 		)
 		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
+
 
 
 
