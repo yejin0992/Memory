@@ -45,6 +45,13 @@ h2 {
 	color: #555555;
 }
 
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
+}
+
 .container {
 	max-width: 800px;
 	margin: 0 auto;
@@ -218,6 +225,13 @@ textarea.form-control {
 	margin-top: 10px;
 }
 
+.btnZone {
+	position: relative;
+	bottom: 30px;
+	float: right;
+}
+
+}
 .commentUpdate:hover, .commentDelete:hover, .commentReply:hover {
 	cursor: pointer;
 }
@@ -246,6 +260,7 @@ textarea.form-control {
 
 #commentContents {
 	width: 100%;
+	margin-top: -20px;
 }
 
 .fa-bookmark {
@@ -262,27 +277,29 @@ textarea.form-control {
 <body>
 
 	<!-- 게시판 시작  -->
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
+	<div class="titleArea">
+		<h2>COMMUNITY</h2>
+	</div>
 	<div class="container">
-		<div class="header">
-			<c:import url="/WEB-INF/views/common/navi.jsp" />
-		</div>
-		<div class="titleArea">
-			<h2>COMMUNITY</h2>
-		</div>
 
 		<!-- 말머리랑 제목 -->
 		<div class="row form-group" style="display: flex;">
 			<div class="mb-3 col-1">
 				<span class="cate">${conts.fr_category }</span>
 			</div>
-			<div class="title col-8">
+			<div class="title col-7">
 				<span>${conts.fr_title }</span>
 			</div>
-			<div class="postMeta col-3">
-				<span id="time">${conts.formattedDate }</span>
-					<i class="fa-solid fa-eye" style="color: #b2a08a;"></i> <span
-						id="viewCount">${conts.fr_view_count }</span> <i
-						class="fa-solid fa-comment" style="color: #b2a08a;"></i><span id="commentCount">${conts.commentCount}</span>
+			<div class="postMeta col-4 d-flex justify-content-end">
+				<span id="time" style="margin-right: 10px;">${conts.formattedDate }</span>
+				<i class="fa-solid fa-eye" style="color: #b2a08a;"></i> <span
+					id="viewCount" style="margin-left: 5px;">${conts.fr_view_count }</span>
+				<i class="fa-solid fa-comment"
+					style="color: #b2a08a; margin-left: 5px;"></i><span
+					id="commentCount" style="margin-right: 10px; margin-left: 5px;">${conts.commentCount}</span>
 			</div>
 		</div>
 		<div class="row form-group"
@@ -310,8 +327,9 @@ textarea.form-control {
 		</div>
 		<hr class="separator">
 		<div class="button">
-			<a href="/freeBoard/selectList?cpage="><button type="button" id="backToList">목록</button></a>
-			<a href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
+			<a href="/freeBoard/selectList?cpage="><button type="button"
+					id="backToList">목록</button></a> <a
+				href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
 					type="button" id="btnMod">수정</button></a>
 			<button type="button" id="btnDel">삭제</button>
 		</div>
@@ -328,15 +346,16 @@ textarea.form-control {
 							class="commentReply">답글달기</span> <input type="hidden"
 							value="${i.re_seq }" id="re_seq" name="re_seq"> <input
 							type="hidden" name="fr_seq" value="${conts.fr_seq}">
-
-						<c:choose>
-							<c:when test="${loginID eq i.re_writer}">
-								<span class="commentUpdate" onclick="updateComment()">수정</span>
-								<span class="commentDelete" onclick="deleteComment()">삭제</span>
-							</c:when>
-						</c:choose>
 					</div>
 					<form action="/frReply/updateComment" method="post">
+						<c:choose>
+							<c:when test="${loginID eq i.re_writer}">
+								<div class="btnZone">
+									<span class="commentUpdate" onclick="updateComment()">수정</span>
+									<span class="commentDelete" onclick="deleteComment()">삭제</span>
+								</div>
+							</c:when>
+						</c:choose>
 						<div class="commentBody">
 							<textarea id="commentContents" class="autosize"
 								name="re_contents" maxlength="250" readonly>${i.re_contents}</textarea>
@@ -365,10 +384,9 @@ textarea.form-control {
 			</form>
 		</div>
 		<!-- 댓글다는창 끝 -->
-		<div class="footer">
-			<c:import url="/WEB-INF/views/common/footer.jsp" />
-		</div>
-
+	</div>
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
 
@@ -402,7 +420,8 @@ textarea.form-control {
 			//find, parent, next, prev 
 			// 삭제 span태그 요소 가져오기 
 			console.log("삭제버튼 클릭하면");
-			let re_seq = $(event.target).parent().find('#re_seq').val();
+			let btn_zone = $(event.target).parent();
+			let re_seq = btn_zone.parent().find('#re_seq').val();
 			//event.target은 이벤트 핸들러가 호출될 때 해당 이벤트가 발생한 요소를 가리키는 jQuery 객체
 			console.log("re_seq: " + re_seq);
 			let fr_seq = "${conts.fr_seq}";
@@ -419,20 +438,17 @@ textarea.form-control {
 		//댓수정
 		function updateComment() {
 			console.log("수정버튼 클릭하면");
-			let re_seq = $(event.target).parent().find('#re_seq').val();
+			let btn_zone = $(event.target).parent();
+			btn_zone.empty();
+			let re_seq = btn_zone.parent().find('#re_seq').val();
 			console.log("re_seq : " + re_seq);
-			$(event.target).parent().next().children().find("#commentContents")
-					.removeAttr("readonly");
+			btn_zone.next().find("#commentContents").removeAttr("readonly");
 
-			$(event.target).parent().find(".commentDate").hide();// 날짜
-			$(event.target).parent().find(".commentReply").hide();// 답글달기
-			$(event.target).hide();// 수정
-			$(event.target).next().hide();//삭제 
+			btn_zone.parent().prev().find(".commentDate").hide();// 날짜
+			btn_zone.parent().prev().find(".commentReply").hide();// 답글달기
 
 			let saveUpdate = $("<button>").attr("id", "saveUpdate");
-			console.log(saveUpdate)
 			let cancel = $("<button>").attr("id", "cancel");
-			console.log(cancel);
 			saveUpdate.text("등록");
 			cancel.text("취소");
 
@@ -446,11 +462,10 @@ textarea.form-control {
 			cancel.css("border", "none");
 			cancel.css("padding", "0");
 			cancel.css("cursor", "pointer");
-			cancel.css("margin", "5px");
+			cancel.css("margin-left", "10px");
 
-			$(event.target).parent().next().find(".commentBody").append(
-					saveUpdate);
-			$(event.target).parent().next().find(".commentBody").append(cancel);
+			btn_zone.append(saveUpdate);
+			btn_zone.append(cancel);
 
 			$("#cancel").on("click", function() {
 				history.back();

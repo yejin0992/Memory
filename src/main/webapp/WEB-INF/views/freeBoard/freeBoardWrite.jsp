@@ -38,6 +38,13 @@ h2 {
 	color: #555555;
 }
 
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
+}
+
 .container {
 	max-width: 800px;
 	margin: 0 auto;
@@ -51,9 +58,22 @@ h2 {
 	margin-bottom: 1rem;
 }
 
-/* .title {
-        border-bottom: 1px solid #000;
-      } */
+#category {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid #dddddd;
+	border-bottom: 0;
+}
+
+#title {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid #dddddd;
+	border-bottom: 0;
+}
+
 .wrContent textarea {
 	max-width: 100%;
 }
@@ -74,10 +94,10 @@ h2 {
 	<div class="header">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
+	<div class="titleArea">
+		<h2>COMMUNITY</h2>
+	</div>
 	<div class="container">
-		<div class="titleArea">
-			<h2>COMMUNITY</h2>
-		</div>
 		<!-- 말머리랑 제목  -->
 
 		<form action="/freeBoard/insertBoard" method="post"
@@ -97,7 +117,7 @@ h2 {
 				<div class="col-10">
 					<div class="title">
 						<input type="text" class="form-control" id="title" name="fr_title"
-							maxlength ="60" placeholder="제목을 입력하세요." required />
+							maxlength="60" placeholder="제목을 입력하세요." required />
 					</div>
 				</div>
 			</div>
@@ -111,11 +131,9 @@ h2 {
 			<!-- 첨부파일 -->
 			<div class="mb-3">
 				<div class="fileWrapper">
-					<fieldset>
-						<legend>이미지 파일 첨부 </legend>
-						<input type="file" id="inputFiles" value="첨부파일" name="files"
-							accept="image/png, image/jpeg, image/jpg" multiple><br>
-					</fieldset>
+					<label for="file">이미지 파일 첨부</label> <br> <input type="file"
+						id="inputFiles" value="첨부파일" name="files"
+						accept="image/png, image/jpeg, image/jpg" multiple><br>
 				</div>
 			</div>
 			<!-- 버튼  -->
@@ -124,7 +142,6 @@ h2 {
 				<button type="button" id="btnCancel" class="btn btn-light">취소</button>
 			</div>
 		</form>
-
 	</div>
 	<div class="footer">
 		<c:import url="/WEB-INF/views/common/footer.jsp" />

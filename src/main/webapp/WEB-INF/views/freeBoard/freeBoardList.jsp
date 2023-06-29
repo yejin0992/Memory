@@ -31,13 +31,23 @@
 }
 
 @font-face {
-    font-family: 'KorailRoundGothicBold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+	font-family: 'KorailRoundGothicBold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
 }
+
 * {
 	font-family: 'Pretendard-Regular';
+}
+
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
 }
 
 .commentCount {
@@ -79,6 +89,20 @@ h1 {
 	overflow-x: auto;
 }
 
+table td {
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+thead th {
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: rgb(45, 45, 45);
+	border-bottom: 3px solid rgb(52, 52, 52);
+}
+
 #time, #no, #cate, #writer, #viewCount, #replyNum {
 	text-align: center;
 }
@@ -96,6 +120,11 @@ h1 {
 	margin-top: 20px;
 	display: flex;
 	justify-content: center;
+}
+
+.button {
+	display: flex;
+	justify-content: flex-end;
 }
 
 #btnAdd {
@@ -140,7 +169,7 @@ h1 {
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h1>COMMUNITY</h1>
+		<h2>COMMUNITY</h2>
 	</div>
 
 	<div class="container">
@@ -154,7 +183,6 @@ h1 {
 						<th id="writer">WRITER</th>
 						<th id="time" align="center">DATE</th>
 						<th id="viewCount" class="hide-on-mobile">HIT</th>
-						<!-- <th id="replyNum" align="center">COMMENT</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -171,7 +199,6 @@ h1 {
 							<td align="center">${i.fr_writer }</td>
 							<td align="center">${i.formattedDate}</td>
 							<td class="hide-on-mobile" align="center">${i.fr_view_count }</td>
-							<%-- <td align="center">${i.commentCount}</td> --%>
 						</tr>
 					</c:forEach>
 				</tbody>
