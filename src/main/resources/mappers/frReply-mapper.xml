@@ -12,21 +12,27 @@
 
 		)
 	</insert>
-	
+
 	<select id="selectComments" resultType="p.memory.dto.FrReplyDTO">
-	select * from fr_reply where fr_seq = #{fr_seq} order by re_seq
-	
+		select * from fr_reply where fr_seq = #{fr_seq} order by re_seq
+
 	</select>
-	
+
 	<delete id="deleteComment">
 		delete from fr_reply where re_seq = #{re_seq}
 	</delete>
-	
+
 	<update id="updateComment">
 		update fr_reply set re_contents = #{re_contents}
 		where re_seq = #{re_seq}
 	</update>
 
-	
+	<!-- 댓글수 출력 -->
+	<select id="getCommentsCount" resultType="int">
+		select count(*) from
+		fr_reply where fr_seq = #{fr_seq}
+	</select>
+
+
 
 </mapper>

@@ -1,8 +1,12 @@
 package p.memory.controllers;
 
-import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +47,9 @@ public class FreeBoardController {
 	// 자유게시판 이미지(첨부파일) 서비스
 	@Autowired
 	private FreeImageService imageService;
-	// 북마크 서비스 
+	// 북마크 서비스
 	@Autowired
-	private BookmarkService bookmarkService; 
+	private BookmarkService bookmarkService;
 
 	// 글 작성시 말머리 list 가져오기
 	@RequestMapping("toFreeBoardWrite")
@@ -77,7 +81,7 @@ public class FreeBoardController {
 		return "redirect:/freeBoard/selectList";
 	}
 
-	// 글 목록불러오기 + 페이징 + 검색
+	// 글 목록불러오기 + 페이징 + 검색 + 댓글수 출력하기
 	@RequestMapping("selectList")
 	public String selectList(@RequestParam(defaultValue = "1", name = "cpage") int currentPage,
 			@RequestParam(value = "field", required = false, defaultValue = "fr_title") String field,
@@ -85,7 +89,7 @@ public class FreeBoardController {
 			throws Exception {
 //		List<FreeBoardDTO> list = fBservice.selectList();
 //		model.addAttribute("list", list);
-	
+
 		// <페이징 관련 시작>
 		// 총 게시물 수
 		int recordsTotalCount = fBservice.getPostsCount(field, query);
@@ -98,9 +102,30 @@ public class FreeBoardController {
 		int start = (currentPage - 1) * recordsPerPage;
 		int end = start + recordsPerPage - 1;
 		List<FreeBoardDTO> list = fBservice.selectBoundWithSearch(start, end, field, query);
+		// 시간 표기 형식 변경
+		for (FreeBoardDTO dto : list) {
+			Timestamp writeDate = dto.getFr_write_date();
+			System.out.println("dto에서 꺼내온 writeDate: " + writeDate);
+			String formattedDate = dto.formatWriteDate();
+			dto.setFormattedDate(formattedDate);
+			System.out.println("형식 변환된 날짜 : " + dto.getFormattedDate());
+		}
+		// 각 게시물 댓글 개수 설정
+		for (FreeBoardDTO dto : list) {
+			int commentCount = replyService.getCommentsCount(dto.getFr_seq());
+			System.out.println("각 게시판 별 댓글 개수 : " + commentCount);
+			dto.setCommentCount(commentCount);
+			System.out.println("게시물 댓글 개수 확인 : " + dto.getCommentCount());
+		}
+
+//		FreeBoardDTO dto = new FreeBoardDTO();
+//		Timestamp writeDate = dto.getFr_write_date(); 
+//		String formattedDate = dto.getFormedDate(); 
+//		dto.setFormattedDate(formattedDate); 
 		System.out.println("list: " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pageNum);
+
 		// 한페이지에 표시할 페이징 번호 개수
 		int naviCountPerPage = 10;
 		// 마지막 페이징 번호
@@ -124,25 +149,70 @@ public class FreeBoardController {
 		// 검색 조건과 검색어 그대로 jsp에 돌려주기
 		model.addAttribute("field", field);
 		model.addAttribute("query", query);
+		// 댓글 수 출력하기
+//		FreeBoardDTO dto = new FreeBoard(); 
+//		replyService.selectCommentsCount(fr_seq); 
 
 		return "/freeBoard/freeBoardList";
 	}
 
 	// 게시물 상세페이지 조회 (댓글포함)
 	@RequestMapping("selectBySeq")
-	public String selectBySeq(Model model, Integer fr_seq) {
+	public String selectBySeq(HttpServletRequest request, HttpServletResponse response, Model model, Integer fr_seq) {
 		System.out.println("시퀀스는 잘 받아오는지 확인 : " + fr_seq);
-		FreeBoardDTO dto = fBservice.selectBySeq(fr_seq);
-		System.out.println("작성자 확인 : " + dto.getFr_writer());
-		System.out.println("조회수 확인 : " + dto.getFr_view_count());
-		System.out.println("작성 날짜 확인 : " + dto.getFr_write_date());
-		System.out.println("카테고리 확인 : " + dto.getFr_category());
 		String loggedID = (String) session.getAttribute("loginID");
 		// 조회수 증가 조회
-		fBservice.updateViewCount(fr_seq);
+		// 쿠키 이름 설정
+		String cookieName = "free_board_viewed" + fr_seq;
+		System.out.println("쿠키 이름 : " + cookieName);
+		// 쿠키 값 가져오기
+		Cookie[] cookies = request.getCookies();
+		System.out.println("쿠키값 가져오는지 확인 : " + cookies);
+		boolean isViewed = false;
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					isViewed = true;
+					break;
+				}
+			}
+		}
+		if (!isViewed) {
+			fBservice.updateViewCount(fr_seq);
+			// 조회수 증가 로직 수행
+			Cookie viewedCookie = new Cookie(cookieName, "true");
+			// 헤당 게시물을 이미 조회하는 것을 나타냄
+			viewedCookie.setMaxAge(2 * 60 * 60); // 쿠키 유효 기간 설정 (사이트 전역에서 사용)
+			viewedCookie.setPath("/"); // 쿠키의 유효 경로 설정
+			response.addCookie(viewedCookie);
+		}
+		// 게시물 조회 및 뷰 페이지로 출력
+		FreeBoardDTO dto = fBservice.selectBySeq(fr_seq);
+		// 시간 표기 형식 변경
+		Timestamp writeDate = dto.getFr_write_date();
+		System.out.println("dto에서 꺼내온 writeDate: " + writeDate);
+		String formattedDate = dto.formatWriteDate();
+		dto.setFormattedDate(formattedDate);
+		//
+		System.out.println("형식 변환된 날짜 : " + dto.getFormattedDate());
+		System.out.println("작성자 확인 : " + dto.getFr_writer());
+		// 댓글 수 불러오기
+		int commentCount = replyService.getCommentsCount(fr_seq);
+		System.out.println("각 게시판 별 댓글 개수 : " + commentCount);
+		dto.setCommentCount(commentCount);
+		System.out.println("게시물 댓글 개수 확인 : " + dto.getCommentCount());
 		model.addAttribute("conts", dto);
+		// 댓글
 		// 댓글리스트 출력
 		List<FrReplyDTO> list = replyService.selectComments(fr_seq);
+		// 댓글 시간 표기 형식 변경
+		for (FrReplyDTO frdto : list) {
+			Timestamp reWriteDate = frdto.getRe_write_date();
+			System.out.println("dto에서 꺼내온 writeDate: " + writeDate);
+			String formattedReDate = frdto.formatWriteDate();
+			frdto.setFormattedDate(formattedReDate);
+			System.out.println("형식 변환된 날짜 : " + frdto.getFormattedDate());
+		}
 		System.out.println("댓글리스트 서비스에서 가져오기 : " + list);
 		model.addAttribute("list", list);
 		// 이미지 출력
@@ -153,7 +223,7 @@ public class FreeBoardController {
 			e.printStackTrace();
 		}
 		// 북마크 결과 출력
-		int isBookmarked = bookmarkService.selectBookmark(fr_seq,loggedID); 
+		int isBookmarked = bookmarkService.selectBookmark(fr_seq, loggedID);
 		System.out.println("result 결과 : " + isBookmarked);
 		model.addAttribute("isBookmarked", isBookmarked);
 		return "freeBoard/freeBoardContent";
@@ -188,9 +258,6 @@ public class FreeBoardController {
 		int result = fBservice.updateBoard(dto);
 		int seq = dto.getFr_seq();
 		System.out.println("게시판 수정 시퀀스 확인 : " + seq);
-		// 1) 글만 있는데 사진을 추가해서 게시글을 수정할 경우
-		// 2) 글이랑 사진 둘다있고 사진을 삭제해서 게시글을 수정할 경우
-		// 3) 글이랑 사진 둘 다 있고 사진을 수정해서 게시글을 수정할 경우
 		return "redirect:/freeBoard/selectBySeq?fr_seq=" + seq;
 
 	}
@@ -207,8 +274,6 @@ public class FreeBoardController {
 		}
 		return "redirect:/freeBoard/selectList";
 	}
-
-
 
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

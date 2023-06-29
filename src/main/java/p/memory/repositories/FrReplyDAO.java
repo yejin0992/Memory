@@ -35,8 +35,8 @@ public class FrReplyDAO {
 	public int updateComment(FrReplyDTO dto) {
 		return mybatis.update("FrReply.updateComment", dto); 
 	}
-	// 댓 출력
-	public int selectCommentsCount(int fr_seq) {
-		return mybatis.selectOne("FrReply.selectCommentsCount",fr_seq); 
+	// 댓글 수 출력
+	public int getCommentsCount(int fr_seq) {
+		return mybatis.selectOne("FrReply.getCommentsCount",fr_seq); 
 	}
 }
