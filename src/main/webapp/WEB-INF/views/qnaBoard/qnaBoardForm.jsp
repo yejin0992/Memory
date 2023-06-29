@@ -117,8 +117,13 @@
 
   </style>
 </head>
+ <script type="text/javascript">
+ window.history.forward();
+ function noBack(){window.history.forward();}
+</script>
 
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+
   <script>
     $(document).ready(function () {
       $('#tableBox').DataTable();
@@ -147,7 +152,7 @@
               <td width="10" height="20">${i.qa_seq}</td>
               <td width="570" height="20"><a href="/qnaBoard/viewCount?qa_seq=${i.qa_seq}">${i.qa_title}</a></td>
               <td width="160" height="20">${i.qa_writer}</td>
-              <td width="40" height="20" id="date">${i.qa_write_date}</td>
+              <td width="40" height="20" id="date">${i.detailDate}</td>
               <td width="10" height="20" id="hit">${i.qa_view_count}</td>
             </tr>
           </c:forEach>

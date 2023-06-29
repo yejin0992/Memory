@@ -46,7 +46,7 @@ public class MemberController {
 				+  "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
 				+ dto.getAddress1() + "/" + dto.getAddress2() + "/" + dto.getJoin_date());
 		
-		rttb.addFlashAttribute("status", "j_s");
+		rttb.addFlashAttribute("status", "insert");
 		return "member/loginPage";
 	}
 
@@ -78,8 +78,8 @@ public class MemberController {
 		System.out.println("업데이트:" + dto.getId() + "/" + dto.getPw() + "/" + dto.getName() + "/" + dto.getBirth_date()
 				 + "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
 				+ dto.getAddress1() + "/" + dto.getAddress2() + "/" + dto.getJoin_date());
-		rttb.addFlashAttribute("status", "u_s");
-		return "redirect:/";
+		rttb.addFlashAttribute("status", "update");
+		return "redirect:/member/myInfo?id"+dto.getId();
 	}
 
 	// 회원 탈퇴
@@ -106,10 +106,10 @@ public class MemberController {
 
 		if (result) {
 			session.setAttribute("loginID", id);
-			rttb.addFlashAttribute("status", "j_s");
+			rttb.addFlashAttribute("status", "login");
 			return "memberHome";
 		} else {
-			rttb.addFlashAttribute("status", "l_f");
+			rttb.addFlashAttribute("status", "unableLogin");
 			return "redirect:/member/loginForm";
 		}
 	}

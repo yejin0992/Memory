@@ -44,7 +44,9 @@ public class QnABoardController {
 	@RequestMapping("boardList")
 	public String boardList(QnABoardDTO qa_dto, Model model,
 			@RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage) {
+		
 		System.out.println("게시판 전체출력");
+		
 
 		// 총게시글수
 		int totalPosts = qnaService.selectTotalPost();
@@ -70,6 +72,7 @@ public class QnABoardController {
         // 게시판글전체출력
 		List<QnABoardDTO> list = qnaService.selectAll(startPostNum, endPostNum);
 		System.out.println(startPostNum + "/" + endPostNum);
+		
 		// 페이징
 		List<String> pageNavi = qnaService.getPageNavi(totalPages, currentPage);
 

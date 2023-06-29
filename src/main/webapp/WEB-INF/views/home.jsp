@@ -20,8 +20,10 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap"
 	rel="stylesheet">
-<title>Home</title>
-
+	
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
 <!-- bootstrap cdn -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -60,21 +62,32 @@ a {
 	width: 100%;
 }
 
-.navbar {
+.navibar {
 	display: flex;
-	justify-content: space-between;
+
 	align-items: center;
 	background-color: #ffffff97;
+	
 	padding: 2px 30px;
+}
+
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
 }
 
 /* 로고 */
 .navbar_logo {
-	font-size: large;
+font-family: 'Taviraj', serif;
+	font-size: 30px;
+	font-weight: bold;
 }
 
 .navbar_logo>a {
-	color: var(- -a-color);
+	color: #525252;
 }
 
 /* 네비메뉴 */
@@ -129,6 +142,7 @@ nav ul li {
 /* 로그인 아이콘 */
 .navbar_icon {
 	list-style: none;
+	float: right;
 }
 
 .navbar_icon li {
@@ -136,7 +150,7 @@ nav ul li {
 }
 
 .navbar_icon li a {
-	color: var(- -a-color);
+	color: #525252;
 }
 
 .navbar_icon>li>a:hover {
@@ -232,9 +246,9 @@ nav ul li {
 
 <body>
 	<div class="rowheader">
-		<nav class="navbar">
+		<nav class="navibar">
 			<div class="navbar_logo">
-				<a href="/">MEMORY</a>
+				<a href="/">The Memory</a>
 			</div>
 			<ul class="navbar_menu">
 				<li class="dropdown">
@@ -256,7 +270,7 @@ nav ul li {
 					</div>
 				</li>
 				<li class="dropdown">
-					<div class="dropdown_menu">CUMMUNITY</div>
+					<div class="dropdown_menu">CMMUNITY</div>
 					<div class="dropdown_content">
 						<a href="/freeBoard/selectList?cpage=1">Free Board</a> 
 						<a href="/qnaBoard/boardList">Q&A</a>
@@ -266,7 +280,7 @@ nav ul li {
 			</ul>
 			<ul class="navbar_icon">
 				<li><a href="/member/loginForm">LOGIN</a></li>
-				<li><a href="/member/toJoinForm">Sign up</a></li>
+				<li><a href="/member/toJoinForm">SIGN UP</a></li>
 				<li><a href="#">SERCH</a></li>
 			</ul>
 			<a href="#" class="navbar_hamburgerBtn"> <i
@@ -311,7 +325,7 @@ nav ul li {
 			<div class="line">BUSINESS LICENSE : 000-00-00000</div>
 		</div>
 		<div class="footer_menu2">
-			<div class="head">CONTECT</div>
+			<div class="head">CONTACT</div>
 			<div class="line">
 				TEL : 02-1234-1234<br> MON-FRI AM 9:00 - PM 17:00<br>
 				LUNCH TIME PM 12:00 -PM 13:00

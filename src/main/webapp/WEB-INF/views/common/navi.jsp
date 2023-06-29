@@ -4,18 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- JavaScript Bundle with Popper -->
-<!-- <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-	crossorigin="anonymous"></script> -->
-<!-- CSS only -->
-<!-- <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.6.4.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
@@ -23,9 +13,6 @@
 * {
 	box-sizing: border-box;
 }
-
-
-
 :root { -
 	-text-color: black; -
 	-background-color: pink; -
@@ -34,6 +21,7 @@
 
 body {
 	margin: 0%;
+	
 }
 /* font-family: 'Source Sans Pro'; */
 a {
@@ -41,11 +29,6 @@ a {
 }
 /* ----- 네비바 ----- */
 /*  position:fixed;*/
-.rowheader {
-	position: fixed;
-	z-index: 2;
-	width: 100%;
-}
 
 .navbar {
 	display: flex;
@@ -53,7 +36,10 @@ a {
 	align-items: center;
 	background-color: #ffffff97;
 	padding: 2px 30px;
-	position: sticky;
+	z-index: 2;
+	position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 /* 로고 */
@@ -173,6 +159,7 @@ nav ul li {
 </style>
 </head>
 <body>
+<div class="rowheader">
 	<nav class="navbar">
 		<div class="navbar_logo">
 			<a href="/toMemberHome">MEMORY</a>
@@ -205,11 +192,23 @@ nav ul li {
 		</ul>
 		<ul class="navbar_icon">
 			<li><a href="/myPage/toMyPageMain">My Page</a></li>
-			<li><a href="member/logout">LOGOUT</a></li>
+			<li><a href="/member/logout">LOGOUT</a></li>
 			<li><a href="/member/toMypage">EJ</a></li>
 		</ul>
 		<a href="#" class="navbar_hamburgerBtn"> <i
 			class="fa-solid fa-bars"></i></a>
 	</nav>
+	</div>
+<script>
+		// 햄버거 바 클릭했을때
+		const hamburgerBtn = document.querySelector('.navbar_hamburgerBtn');
+		const menu = document.querySelector('.navbar_menu');
+		const icon = document.querySelector('.navbar_icon');
+
+		hamburgerBtn.onclick = function() {
+			menu.classList.toggle('active');
+			icon.classList.toggle('active');
+		};
+	</script>
 </body>
 </html>

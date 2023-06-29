@@ -51,8 +51,12 @@ a {
 
  </style>
 </head>
-
-<body>
+<script>
+    $(document).ready(function () {
+      $('#tableBox').DataTable();
+    });
+  </script>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 
 
   <div class="rowheader">

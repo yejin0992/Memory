@@ -131,8 +131,12 @@
   </style>
 </head>
 
-<body>
-
+<script>
+    $(document).ready(function () {
+      $('#tableBox').DataTable();
+    });
+  </script>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
   <div class="head"><c:import url="/WEB-INF/views/common/navi.jsp" /></div>
   <form action="/qnaBoard/insertPost" method="post" enctype="multipart/form-data">
     <div class="container">
