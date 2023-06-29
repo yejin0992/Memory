@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Reply">
+
 	<insert id="insert">
 		insert into perfume_reply values(perfume_reply_seq.nextval, #{id},
 		#{contents}, sysdate, #{per_seq})
@@ -25,7 +26,5 @@
 	<delete id="delete">
 		delete from perfume_reply where re_seq=#{re_seq}
 	</delete>
-
-
 
 </mapper>

@@ -1866,7 +1866,7 @@
 			alert("용량은 숫자로 입력해주세요");
 			return false;
 		}
-		
+		// test
 	    	  if (!flags.top1) {
 		          alert("top1의 값을 올바르게 입력해주세요.");
 		          return false;

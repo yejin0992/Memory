@@ -123,7 +123,8 @@
 					<div class="mb-3">
 						<input type="hidden" name="file_seq" value="${file.file_seq}">
 						<input type="file" id="formFileSm"
-							class="form-control form-control-sm" name="files " dir="rtl" accept="image/*" onchange="setImage(event)">
+							class="form-control form-control-sm" name="files " dir="rtl"
+							accept="image/*" onchange="setImage(event)">
 					</div>
 				</div>
 			</div>
@@ -183,7 +184,7 @@
 					<div class="d-flex justify-content-center w-75 " id="genderAlign">
 						<input type="radio" id="waman" class="d-inline-block"
 							name="per_gender" value="woman">
-						<lable for="woman" class="gender">WoMAN</lable>
+						<lable for="woman" class="gender">WOMAN</lable>
 						<input type="radio" id="man" class="d-inline-block"
 							name="per_gender" value="man">
 						<lable for="man" class="gender">MAN</lable>
@@ -1691,86 +1692,87 @@
 	</form>
 
 	<script>
-	
-  	// select, checkbox 데이터 불러와 입력
-    window.onload=function(){
-    	 // per_kind select된 값 불러오기
-    	let selectedValue = "${perfume.per_kind}";
-    	let selectElement = document.getElementById("select");
-    	let options = selectElement.options;
-    	  for (var i = 0; i < options.length; i++) {
-    		  options[i].selected = false;
-    		}
-    	  for(var i = 0; i<options.length; i++){
-    		  if(options[i].value==selectedValue){
-    			  options[i].selected = true;
-    		  }
-    	  }
-    	  // per_gender select된 값 불러오기
-    	  let checkedValue="${perfume.per_gender}";
-    	  let radios = document.getElementsByName("per_gender");
-    	  console.log(checkedValue);
-    	  for (var i = 0; i < radios.length; i++) {
-    		  if (radios[i].value === checkedValue) {
-    		    radios[i].checked = true; // 체크 상태로 변경
-    		    break; // 일치하는 값이 있으면 루프 종료
-    		  }
-    		}
-      }
-    
-    // 해당 노트가 있는지 확인
-    $(".searchNote").on("click", function(){
-		let noteBtn = $(this);
-		let note = $(this).prev().prev();
-		console.log(note.val());
-		$.ajax({
-			url:"/perfume/noteIsTrue",
-			data : {
-				note : note.val()
-			},
-			type:"post"
-		}).done(function(resp){
-			if(resp == 0){
-				Swal.fire({
-					  icon: 'error',
-					  text: '해당노트가 없습니다 다시 입력해주세요!'
-					});
-				note.val("");
-			}else if(resp == 1){
-				note.attr("readonly",true);
-				note.css("background-color", "lightgrey");
-				noteBtn.text("완료");
-				noteBtn.css("background-color", "lightgrey");
+		// select, checkbox 데이터 불러와 입력
+		window.onload = function() {
+			// per_kind select된 값 불러오기
+			let selectedValue = "${perfume.per_kind}";
+			let selectElement = document.getElementById("select");
+			let options = selectElement.options;
+			for (var i = 0; i < options.length; i++) {
+				options[i].selected = false;
 			}
-		})
-	}); 
- 	
-    // 재선택
- 	$(".reChoice").on("click", function(){
- 		$(this).prev().attr("readonly", false).css("background-color", "white").val("");
- 		$(this).next().text("찾기");
- 	})
-	
- 	// 이미지 미리보기
- 	function setImage(event){
- 		//filereader객체 생성, 스크립트 내장 함수
- 		var reader = new FileReader();
- 		  var file = event.target.files[0];
- 		$("#imgOutLine").empty();
- 		reader.onload = function(event){
- 			var img = $("<img>").attr("id","updateImg");
- 			// 이미지가 로드되면 이미지라인에 이미지 들어갈 태그 append
- 			img.on("load", function(){
- 				 $("#imgOutLine").append(img);
- 			});
- 				
- 			//이미지 표시를 수행
- 			img.attr("src", event.target.result);
- 		};
- 		// 받은 객체를 url형식으로 변환
- 		reader.readAsDataURL(file);
- 	};
- 	
-    </script>
+			for (var i = 0; i < options.length; i++) {
+				if (options[i].value == selectedValue) {
+					options[i].selected = true;
+				}
+			}
+			// per_gender select된 값 불러오기
+			let checkedValue = "${perfume.per_gender}";
+			let radios = document.getElementsByName("per_gender");
+			console.log(checkedValue);
+			for (var i = 0; i < radios.length; i++) {
+				if (radios[i].value === checkedValue) {
+					radios[i].checked = true; // 체크 상태로 변경
+					break; // 일치하는 값이 있으면 루프 종료
+				}
+			}
+		}
+
+		// 해당 노트가 있는지 확인
+		$(".searchNote").on("click", function() {
+			let noteBtn = $(this);
+			let note = $(this).prev().prev();
+			console.log(note.val());
+			$.ajax({
+				url : "/perfume/noteIsTrue",
+				data : {
+					note : note.val()
+				},
+				type : "post"
+			}).done(function(resp) {
+				if (resp == 0) {
+					Swal.fire({
+						icon : 'error',
+						text : '해당노트가 없습니다 다시 입력해주세요!'
+					});
+					note.val("");
+				} else if (resp == 1) {
+					note.attr("readonly", true);
+					note.css("background-color", "lightgrey");
+					noteBtn.text("완료");
+					noteBtn.css("background-color", "lightgrey");
+				}
+			})
+		});
+
+		// 재선택
+		$(".reChoice").on(
+				"click",
+				function() {
+					$(this).prev().attr("readonly", false).css(
+							"background-color", "white").val("");
+					$(this).next().text("찾기");
+				})
+
+		// 이미지 미리보기
+		function setImage(event) {
+			//filereader객체 생성, 스크립트 내장 함수
+			var reader = new FileReader();
+			var file = event.target.files[0];
+			$("#imgOutLine").empty();
+			reader.onload = function(event) {
+				var img = $("<img>").attr("id", "updateImg");
+				// 이미지가 로드되면 이미지라인에 이미지 들어갈 태그 append
+				img.on("load", function() {
+					$("#imgOutLine").append(img);
+				});
+
+				//이미지 표시를 수행
+				img.attr("src", event.target.result);
+			};
+			// 받은 객체를 url형식으로 변환
+			reader.readAsDataURL(file);
+		};
+	</script>
 </body>
 </html>
