@@ -114,26 +114,24 @@
 	align-items: stretch;
 	justify-content: space-between;
 	width: 100%;
+	height: calc(100% -194px);
 }
 
 .myRecords {
+	height: 68px;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	width: 75%;
 }
 
 .wrapperBookmarks {
-	width: 20%;
-	float:right; 
+	
 }
 
 .bookmarks {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
-	padding: 10px;
 	justify-content: space-between;
 }
 
@@ -143,6 +141,10 @@
 
 .likeContainer {
 	margin-left: 80px;
+}
+
+.myComments {
+	font-size: 14px;
 }
 </style>
 </head>
@@ -163,7 +165,7 @@
 				</div>
 				<div class="wrapperBtnEdit">
 					<button class="editProfileButton">
-						<a href="/myPage/toUpdateMyInfo">edit</a>
+						<a href="/myPage/toUpdateMyInfo">Edit</a>
 					</button>
 				</div>
 			</div>
@@ -173,16 +175,17 @@
 						<span><a href="/myPage/selectMyPost?cpage=1">작성한 글</a></span> <span>${myPostsCount}</span>
 					</div>
 					<div class="myComments">
-						<span>작성한 댓글</span> <span>1000</span>
+						<span>작성한 댓글 999+</span>
 					</div>
 				</div>
 				<div class="wrapperBookmarks">
 					<div class="bookmarks">
 						<div class="bookmarkIcon">
 							<a href="/myPage/selectBookmarkedPosts"><i
-								class="fa-regular fa-bookmark fa-2xl" style="color: #cbc8bf;"></i></a>
+								class="fa-regular fa-bookmark fa-2xl" style="color: #b2a08a;"></i></a>
 						</div>
-						<span>북마크</span> <span>3</span>
+						<span style="text-align: center;">북마크
+							${bookmarkedPostsCount }</span>
 					</div>
 				</div>
 			</div>

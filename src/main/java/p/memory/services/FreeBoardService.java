@@ -57,7 +57,7 @@ public class FreeBoardService {
 		System.out.println(end);
 		return fBdao.selectBoundWithSearch(start, end, field, query); 
 	}
-	
+
 	
 	
 

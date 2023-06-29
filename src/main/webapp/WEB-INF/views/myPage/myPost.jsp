@@ -32,18 +32,62 @@
 * {
 	font-family: 'Pretendard-Regular';
 }
+
+h2 {
+	text-align: center;
+	color: #555555;
+}
+
+.table {
+	border-collapse: collapse;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+table.table {
+	background-color: white;
+}
+
+.table th, .table td {
+	border: none; /* 테이블 셀의 경계선을 없앰 */
+}
+
+#time, #no, #cate, #writer, #viewCount, #replyNum {
+	text-align: center;
+}
+
+.title a {
+	color: black;
+	text-decoration: none;
+}
+
+.title a:hover {
+	color: #B2A08A;
+}
+
+.pageArea {
+	margin: 30px 0 20px 10px;
+	text-align: center;
+}
+
+.pageArea a {
+	text-decoration: none;
+	color: #B2A08A;
+}
 </style>
 </head>
 
 <body>
-
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
 	<div class="titleArea">
-		<h1>내가 쓴 글</h1>
+		<h2>내가 쓴 글</h2>
 	</div>
 
 	<div class="container">
 		<div class="table-responsive">
-			<table class="table table-bordered table-striped" solid black>
+			<table class="table table-bordered" solid black>
 				<thead>
 					<tr>
 						<th id="no" class="hide-on-mobile">글번호</th>
@@ -57,8 +101,9 @@
 					<c:forEach var="my" items="${myPosts}">
 						<tr>
 							<td class="hide-on-mobile" align="center">${my.fr_seq }</td>
-							<td><a href="/freeBoard/selectBySeq?fr_seq=${my.fr_seq}">${my.fr_title}</a></td>
-							<td align="center">${my.fr_write_date}</td>
+							<td class="title"><a
+								href="/freeBoard/selectBySeq?fr_seq=${my.fr_seq}">${my.fr_title}</a></td>
+							<td align="center">${my.formattedDate}</td>
 							<td class="hide-on-mobile" align="center">${my.fr_view_count }</td>
 							<td align="center">댓글수 아직 미완성이여요</td>
 						</tr>
@@ -78,6 +123,9 @@
 				</c:if>
 			</div>
 
+		</div>
+		<div class="footer">
+			<c:import url="/WEB-INF/views/common/footer.jsp" />
 		</div>
 </body>
 </html>

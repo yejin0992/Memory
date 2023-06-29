@@ -35,5 +35,9 @@ public class FrReplyService {
 	public int updateComment(FrReplyDTO dto) {
 		return FRdao.updateComment(dto); 
 	}
+	// 댓글 수 출력 
+	public int getCommentsCount (int fr_seq) {
+		return FRdao.getCommentsCount(fr_seq); 
+	}
 
 }

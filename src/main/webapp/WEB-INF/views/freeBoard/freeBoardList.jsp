@@ -21,20 +21,37 @@
 <title>자유게시판 목록</title>
 <style>
 @font-face {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
 	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2")
-		format("woff2");
-	font-weight: normal;
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
 	font-style: normal;
+	font-weight: 400;
 }
 
+@font-face {
+    font-family: 'KorailRoundGothicBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
 * {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
+}
+
+.commentCount {
+	font-family: 'KorailRoundGothicBold';
+	color: red;
+	margin-left: 5px;
 }
 
 .table {
 	border-collapse: collapse;
+}
+
+table.table {
+	background-color: white;
 }
 
 .table th, .table td {
@@ -77,6 +94,18 @@ h1 {
 
 .searchArea {
 	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+#btnAdd {
+	padding: 8px 20px;
+	font-size: 14px;
+	background-color: #b2a08a;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 .btnSearch {
@@ -87,6 +116,7 @@ h1 {
 	font-size: 16px;
 	cursor: pointer;
 	border-radius: 3px; /* 버튼을 둥글게 만드는 속성 */
+	margin-left: 5px;
 }
 
 .btnSearch:hover {
@@ -110,34 +140,38 @@ h1 {
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h1>자유게시판</h1>
+		<h1>COMMUNITY</h1>
 	</div>
 
 	<div class="container">
 		<div class="table-responsive">
-			<table class="table table-bordered table-striped" solid black>
+			<table class="table table-bordered" solid black>
 				<thead>
 					<tr>
-						<th id="no" class="hide-on-mobile">글번호</th>
-						<th id="cate" class="hide-on-mobile">말머리</th>
-						<th>제목</th>
-						<th id="writer">글쓴이</th>
-						<th id="time" align="center">날짜</th>
-						<th id="viewCount" class="hide-on-mobile">조회수</th>
-						<th id="replyNum" align="center">댓글수</th>
+						<th id="no" class="hide-on-mobile">NO</th>
+						<th id="cate" class="hide-on-mobile">CATE</th>
+						<th>TITLE</th>
+						<th id="writer">WRITER</th>
+						<th id="time" align="center">DATE</th>
+						<th id="viewCount" class="hide-on-mobile">HIT</th>
+						<!-- <th id="replyNum" align="center">COMMENT</th> -->
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="i" items="${list}">
+						<c:set var="commentCount" value="${i.commentCount}" />
 						<tr>
 							<td class="hide-on-mobile" align="center">${i.fr_seq }</td>
 							<td class="hide-on-mobile" align="center">${i.fr_category }</td>
 							<td class="title"><a
-								href="/freeBoard/selectBySeq?fr_seq=${i.fr_seq}">${i.fr_title}</a></td>
+								href="/freeBoard/selectBySeq?fr_seq=${i.fr_seq}">${i.fr_title}</a>
+								<c:if test="${i.commentCount > 0}">
+									<span class="commentCount">${i.commentCount}</span>
+								</c:if></td>
 							<td align="center">${i.fr_writer }</td>
-							<td align="center">${i.fr_write_date}</td>
+							<td align="center">${i.formattedDate}</td>
 							<td class="hide-on-mobile" align="center">${i.fr_view_count }</td>
-							<td align="center">댓글수 아직 미완성이여요</td>
+							<%-- <td align="center">${i.commentCount}</td> --%>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -145,7 +179,7 @@ h1 {
 		</div>
 		<div class="button">
 			<a href="/freeBoard/toFreeBoardWrite"><button type="button"
-					id="btnAdd" class="btn btn-primary">글쓰기</button></a>
+					id="btnAdd">글쓰기</button></a>
 		</div>
 		<div class="searchArea">
 			<!-- <form class="table-form" action="freeBoard/searchPosts" method="get"> -->
