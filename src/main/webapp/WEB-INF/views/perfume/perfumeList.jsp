@@ -17,7 +17,10 @@
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <!-- fontawesome  -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 
 
@@ -28,24 +31,25 @@
 	font-family: 'Pretendard-Regular';
 }
 
-
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
-:root {
-    --swiper-theme-color: #544639;
+:root { -
+	-swiper-theme-color: #544639;
 }
 
-.head {
+.listHead {
 	position: sticky;
 	top: 0;
 	height: 50px;
 	z-index: 2;
-	background-color : white;
+	background-color: white;
 }
 
 .body {
@@ -54,17 +58,19 @@
 }
 
 .imageRow {
-	height: 300px;
+	height: 350px;
 	position: static;
 	top: 50px;
-	display:flex;
+	display: flex;
 }
 
-#mainImage{
-	width:100%;
-	height:100%;
-	flex:1;
+#mainImage {
+	width: 100%;
+	height: 100%;
+	flex: 1;
 	padding: 0px;
+	background-color: black;
+	opacity: 0.7;
 }
 
 .contentTop {
@@ -72,18 +78,16 @@
 	top: 50px;
 	height: 55px;
 	border-bottom: 1px solid black;
-	background-color : white;
+	background-color: white;
 	z-index: 2;
 }
 
 .contentTitle {
 	line-height: 55px;
 	color: black;
-	font-size:25px;
-	font-weight: bold;
-	text-align:center;
+	font-size: 20px;
+	text-align: left;
 }
-
 
 .sideNaviBrand {
 	position: relative;
@@ -97,13 +101,13 @@
 	position: sticky;
 	top: 0px;
 	padding-bottom: 0px;
-	padding-right:0px;
+	padding-right: 0px;
 	padding-top: 5px;
-	padding-left:0px;
+	padding-left: 0px;
 	z-index: 1;
-	background-color:white;
+	background-color: white;
 	font-weight: bold;
-	height:40px;
+	height: 40px;
 }
 
 .sideNaviPrice {
@@ -118,21 +122,21 @@
 	top: 0px;
 	padding-bottom: 10px;
 	padding-top: 5px;
-	padding-left:0px;
-	padding-right:0px;
+	padding-left: 0px;
+	padding-right: 0px;
 	margin-left: 0px;
 	z-index: 1;
 	font-weight: bold;
 }
 
-.searchTitle{
-font-weight: bold;
-margin-bottom:10px;
-padding:0px;
+.searchTitle {
+	font-weight: bold;
+	margin-bottom: 10px;
+	padding: 0px;
 }
 
-.sideNavi{
-padding-right:30px;
+.sideNavi {
+	padding-right: 30px;
 }
 
 .sideNaviSearch {
@@ -148,120 +152,155 @@ padding-right:30px;
 	overflow-y: auto;
 }
 
-
 .contentImage {
 	height: 265px;
 }
 
+ 
 .list-group {
-	border: 0px;
-	z-index: 0;
+    --bs-list-group-border-color: none; 
+    --bs-list-group-border-width: opx; 
+    --bs-list-group-border-radius: 0px; 
 }
 
 .heartRow {
-	position:relative;
+	position: relative;
 	height: 23px;
-	text-align:right;
-	bottom:14px;
+	text-align: right;
+	bottom: 14px;
 }
 
-.form-check{
-height:20px;
+.form-check {
+	height: 20px;
 }
 
-.liImage{
-width:100%;
-height:100%;
-padding:0px;
-}
-
-.btn-warning{
-width:100%;
-height:100%;
+.liImage {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
 }
 
 .btn-warning {
-    --bs-btn-color: #75451D;
-    --bs-btn-bg: #EBE1C8;
-    --bs-btn-border-color: none;
-    --bs-btn-hover-color: white;
-    --bs-btn-hover-bg: #A37342;
-    --bs-btn-hover-border-color: none;
-    --bs-btn-focus-shadow-rgb: 217,164,6;
-    --bs-btn-active-color: white;
-    --bs-btn-active-bg: #75451D;
+	width: 100%;
+	height: 100%;
 }
 
-#tilde{
-	text-align:center;
-		font-weight: bold;
+.btn-warning { 
+	-bs-btn-color: #75451D; -
+	-bs-btn-bg: #EBE1C8; -
+	-bs-btn-border-color: none; -
+	-bs-btn-hover-color: white; -
+	-bs-btn-hover-bg: #A37342; -
+	-bs-btn-hover-border-color: none; -
+	-bs-btn-focus-shadow-rgb: 217, 164, 6; -
+	-bs-btn-active-color: white; -
+	-bs-btn-active-bg: #75451D;
 }
 
-#category{
-margin-bottom:10px;
+#tilde {
+	text-align: center;
+	font-weight: bold;
 }
 
-.sideHr{
-margin-top:5px;
-margin-bottom:10px;
+#category {
+	margin-bottom: 10px;
 }
 
-.list-group {
-    --bs-list-group-border-color: none;
-}
-.list-group-item{
-padding:20px;
+.sideHr {
+	margin-top: 5px;
+	margin-bottom: 10px;
 }
 
-.brandRow{
-padding:2px;
-font-size:13px;
-color: grey;
-
+.list-group-item {
+	padding: 20px;
 }
 
-.nameRow{
-padding:2px;
-font-size:17px;
-font-weight: 380;
+.pageNavi{
+height:100px;
+padding-top:30px;
 }
 
-.priceRow{
-padding:2px;
-color : #c28243;
-font-weight:bold;
+.brandRow {
+	margin-top : 5px;
+	padding: 2px;
+	font-size: 13px;
+	color: grey;
 }
 
-.priceHr{
-margin-top:10px;
-margin-bottom:10px;
+.nameRow {
+	padding: 2px;
+	font-size: 17px;
+	font-weight: 380;
 }
 
-.true{
-color: #c28243;
+.priceRow {
+	padding: 2px;
+	color: #c28243;
+	font-weight: bold;
 }
 
-#reload{
-padding-top:20px;
-padding-left:0px;
-font-weight: bold;
+.priceHr {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-#reload:hover{
-color : red;
+.true {
+	color: #c28243;
 }
+
+#reload {
+	padding-top: 20px;
+	padding-left: 0px;
+	font-weight: bold;
+}
+
+#reload:hover {
+	color: red;
+}
+
+.textRow {
+	text-align: center;
+	height: 150px;
+	padding-top: 70px;
+}
+
+#perfume {
+	font-size: 25px;
+	font-weight: 200;
+}
+
+.pageList{
+width:30px;
+height:30px;
+line-height:30px;
+color : grey;
+}
+
+.page{
+color : grey;
+}
+
 </style>
 
 
 
 </head>
 <body>
+
 	<div class="container">
-		<div class="row head">헤더</div>
+		<div class="row listHead">
+			<c:import url="/WEB-INF/views/common/navi.jsp" />
+		</div>
+
 		<div class="row body">
 			<div class="col body p-0">
 				<div class="row imageRow m-0 p-0">
-				<img src="/resources/perfumeMain.jpg" id="mainImage">
+					<img src="/resources/perfume1_1.jpg" id="mainImage">
+				</div>
+				<div class="row textRow">
+					<div class=col-12>
+						<span id="perfume">perfume</span><br> 원하는 향수를 자유롭게 찾아보세요
+					</div>
 				</div>
 				<div class="row contentTop m-0">
 					<div class="col-12 contentTitle">perfume</div>
@@ -269,18 +308,23 @@ color : red;
 				<div class="row m-0">
 					<div class="col">
 						<!-- 관리자 로그인시에만 활성화 -->
-							<a href="/perfume/toInsert"> 글쓰기 </a>
-							<input type="hidden" id="loginID" value="${sessionScope.loginID}">
+						<a href="/perfume/toInsert"> 글쓰기 </a> <input type="hidden"
+							id="loginID" value="${sessionScope.loginID}">
 					</div>
 				</div>
 				<div class="row m-0">
 					<div class="col-4 col-md-3 col-lg-2 sideNavi">
-					<div class="row p-2">
-							<div class="col-12" id="reload">Reload   <i class="fa-sharp fa-solid fa-rotate-right"></i></div>
+						<div class="row p-2">
+							<div class="col-12" id="reload">
+								Reload <i class="fa-sharp fa-solid fa-rotate-right"></i>
 							</div>
+						</div>
 						<div class="sideNaviBrand row p-2">
-							<div class="BrandTitle">Brand<hr class="sideHr"></div>
-							
+							<div class="BrandTitle">
+								Brand
+								<hr class="sideHr">
+							</div>
+
 							<c:forEach var="i" items="${brand}">
 								<div class="form-check">
 									<input class="form-check-input brand" type="checkbox"
@@ -291,33 +335,43 @@ color : red;
 							</c:forEach>
 						</div>
 						<div class="sideNaviPrice row p-2">
-							<div class="priceTitle col-12">Price<hr class="sideHr"></div>
+							<div class="priceTitle col-12">
+								Price
+								<hr class="sideHr">
+							</div>
 							<div class="row p-0 m-0">
-								<input type="text" class="col-12 form-control form-control-sm" id="startPrice"
-									name="startPrice">
+								<input type="text" class="col-12 form-control form-control-sm"
+									id="startPrice" name="startPrice">
 								<div class="col-12" id="tilde">~</div>
-								<input type="text" class="col-12 form-control form-control-sm" id="endPrice"
-									name="endPrice">
+								<input type="text" class="col-12 form-control form-control-sm"
+									id="endPrice" name="endPrice">
 							</div>
 
 						</div>
 						<div class="sideNaviSearch row p-2">
-					
-							<div class="col-12 searchTitle">Search<hr class="sideHr"></div>
+
+							<div class="col-12 searchTitle">
+								Search
+								<hr class="sideHr">
+							</div>
 							<div class="col-12 p-0 m-0 selectCol">
-							<select id="category" class="form-select form-select-sm">
-								<option value="note">노트</option>
-								<option value="name">이름</option>
-							</select>
-							</div> 
+								<select id="category" class="form-select form-select-sm">
+									<option value="note">노트</option>
+									<option value="name">이름</option>
+								</select>
+							</div>
 							<div class="col-10 p-0 m-0">
-							<input type="text" id="searchText" class="form-control form-control-sm">
-							<!-- <button type="submit" id="search">검색</button> -->
+								<input type="text" id="searchText"
+									class="form-control form-control-sm">
+								<!-- <button type="submit" id="search">검색</button> -->
 							</div>
 							<div class="col-2 p-0 m-0">
-							<button type="submit" id="search" class="btn btn-warning p-0 m-0"><i class="fa-solid fa-magnifying-glass"></i></button>
+								<button type="submit" id="search"
+									class="btn btn-warning p-0 m-0">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
 							</div>
-							
+
 						</div>
 					</div>
 					<div class="col-8 col-md-9 col-lg-10 p-0" id="contentList">
@@ -329,12 +383,14 @@ color : red;
 										<img src="/perfumeImage/${i.sysName}" class="liImage">
 									</div>
 									<div class="row brandRow">${i.per_brand}</div>
-									<div class="row nameRow">${i.per_name }<hr class="priceHr">
+									<div class="row nameRow">${i.per_name }<hr
+											class="priceHr">
 									</div>
 									<div class="row priceRow">${i.per_price}원</div>
 									<div class="row heartRow">
-										<input type="hidden" class="per_seq" name="per_seq" value="${i.per_seq}"> 
-												<i class="fa-heart fa-lg ${i.heartFlag==1 ? 'fa-solid true' : 'fa-regular false'}"></i>
+										<input type="hidden" class="per_seq" name="per_seq"
+											value="${i.per_seq}"> <i
+											class="fa-heart fa-lg ${i.heartFlag==1 ? 'fa-solid true' : 'fa-regular false'}"></i>
 									</div>
 								</li>
 							</c:forEach>
@@ -343,7 +399,8 @@ color : red;
 						<ul class="row list-group list-group-horizontal m-0">
 							<c:if test="${list.size() > 4 }">
 								<c:forEach var="i" items="${list }" begin="4" end="7" step="1">
-									<li class="list-group-item col-sm-6 col-lg-3 boardList" value="${i.per_seq}">
+									<li class="list-group-item col-sm-6 col-lg-3 boardList"
+										value="${i.per_seq}">
 										<div class="row contentImage">
 											<img src="/perfumeImage/${i.sysName}" class="liImage">
 										</div>
@@ -354,7 +411,7 @@ color : red;
 										<div class="row priceRow">${i.per_price}원</div>
 										<div class="row heartRow">
 											<input type="hidden" class="per_seq" name="per_seq"
-												value="${i.per_seq}"> 
+												value="${i.per_seq}">
 											<c:choose>
 												<c:when test="${i.heartFlag == 0}">
 													<i class="fa-regular fa-heart fa-lg false"></i>
@@ -373,7 +430,8 @@ color : red;
 						<ul class="row list-group list-group-horizontal m-0">
 							<c:if test="${list.size() > 8}">
 								<c:forEach var="i" items="${list }" begin="8" end="11" step="1">
-									<li class="list-group-item col-sm-6 col-lg-3 boardList" value="${i.per_seq}">
+									<li class="list-group-item col-sm-6 col-lg-3 boardList"
+										value="${i.per_seq}">
 										<div class="row contentImage">
 											<img src="/perfumeImage/${i.sysName}" class="liImage">
 										</div>
@@ -384,7 +442,7 @@ color : red;
 										<div class="row priceRow">${i.per_price}원</div>
 										<div class="row heartRow">
 											<input type="hidden" class="per_seq" name="per_seq"
-												value="${i.per_seq}"> 
+												value="${i.per_seq}">
 											<c:choose>
 												<c:when test="${i.heartFlag == 0}">
 													<i class="fa-regular fa-heart fa-lg false"></i>
@@ -400,29 +458,32 @@ color : red;
 						</ul>
 
 					</div>
+					</div>
 					<div class="row pageNavi">
-						<nav aria-label="Page navigation example" align="center" id="pageNavigation">
+						<nav aria-label="Page navigation example" align="center"
+							id="pageNavigation">
 							<ul class="pagination d-flex justify-content-center">
 								<c:forEach var="i" items="${pagination}">
 									<c:choose>
 										<c:when test="${i eq '<<'}">
-											<li class="page-item"><a class="page-link"
+											<li class="pageList"><a class="page"
 												href="/perfume/perfumeList?cpage=${start}">${i}</a></li>
 										</c:when>
 										<c:when test="${i eq '<'}">
-											<li class="page-item"><a class="page-link"
+											<li class="pageList"><a class="page"
 												href="/perfume/perfumeList?cpage=${cpage - 10}">${i}</a></li>
 										</c:when>
 										<c:when test="${i eq '>'}">
-											<li class="page-item"><a class="page-link"
+											<li class="pageList"><a class="page"
 												href="/perfume/perfumeList?cpage=${cpage + 10}">${i}</a></li>
 										</c:when>
 										<c:when test="${i eq '>>'}">
-											<li class="page-item"><a class="page-link"
+											<li class="pageList"><a class="page"
 												href="/perfume/perfumeList?cpage=${end}">${i}</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="page-item"><a class="page-link ${i == cpage ? 'current-page' : ''}"
+											<li class="pageList"><a
+												class="page ${i == cpage ? 'current-page' : ''}"
 												href="/perfume/perfumeList?cpage=${i}"
 												${i == cpage ? "disabled" : ""} onclick="${i == cpage ? "event.preventDefault()" : ""}" >
 													${i} </a></li>
@@ -432,7 +493,9 @@ color : red;
 							</ul>
 						</nav>
 					</div>
-					<div class="row footer">푸터</div>
+					<div class="row footer">
+						<c:import url="/WEB-INF/views/common/footer.jsp" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -440,7 +503,7 @@ color : red;
 
 		<script>
     var currentPage = ${cpage}; // 현재 페이지 번호
-    var pageLinks = document.querySelectorAll(".page-link"); // 페이지 링크 요소들을 가져옴
+    var pageLinks = document.querySelectorAll(".page"); // 페이지 링크 요소들을 가져옴
 
     for (var i = 0; i < pageLinks.length; i++) {
       // 페이지 링크 요소들에 클릭 이벤트를 추가
@@ -448,33 +511,28 @@ color : red;
         if (parseInt(event.target.textContent) === currentPage) {
           // 현재 페이지 번호와 클릭한 페이지 번호가 같으면 클릭 이벤트를 막음
           event.preventDefault();
-          
         } else {
           // 현재 페이지 번호와 클릭한 페이지 번호가 다르면 링크를 따라 이동
           window.location.href = event.target.getAttribute("href");
         }
-        
       });
     }
     
     const currentPage2 = document.querySelector('.current-page');
-    currentPage2.style.backgroundColor = '#AE9C88';
-    currentPage2.style.color = 'white';
+    currentPage2.style.color = 'black';
+    currentPage2.style.fontWeight='500';
     
     // 향수 클릭 시 디테일 뷰 이동
     $(".boardList").on("click", function(){
     	let per_seq = $(this).val();
-    	alert(per_seq);
     	location.href="/perfume/select?per_seq="+per_seq+"&cpage="+currentPage;
     })
     
     // 동적으로 생긴 향수 목록 클릭 시 디테일 뷰 이동
      $(document).on("click", ".boardList", function() {
     	let per_seq = $(this).val();
-    	alert(per_seq);
     	location.href="/perfume/select?per_seq="+per_seq+"&cpage="+currentPage;
     }); 
-    
    
 	// 브랜드, 가격으로 필터
 	function commonFunction(){ 
@@ -539,7 +597,6 @@ color : red;
 	    	     	} 
 	    			contentList.empty(); 
 	    			 contentList.append(ul);
-	    		
 	    })
 	 }; 
 	 

@@ -6,23 +6,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
-		<property name="username" value="memory"></property>
-		<property name="password" value="memory"></property>
-		<property name="jdbcUrl"
-			value="jdbc:oracle:thin:@15.164.169.212:1521:xe"></property>
-		<property name="driverClassName"
-			value="oracle.jdbc.OracleDriver"></property>
-	</bean>
 	
-<!--  		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
-		<property name="username" value="final"></property>
-		<property name="password" value="final"></property>
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@13.124.36.151:1521:xe"></property>
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
-	</bean>   -->
 	
 <!-- 	 <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<property name="username" value="final"></property>
@@ -31,24 +15,34 @@
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
 	</bean>  -->
 
+ 		<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="username" value="memory"></property>
+		<property name="password" value="memory"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@15.164.169.212:1521:xe"></property>
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+	</bean>    
+	
+		<!--  <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="username" value="kh"></property>
+		<property name="password" value="kh"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+	</bean>  
+ -->
+ 
 	<!-- Mybatis -->
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations"
 			value="classpath:/mappers/*-mapper.xml"></property>
-
 	</bean>
-	
-	
-	
 
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-
 
 	<context:component-scan base-package="p.memory.repositories"/>
 	<context:component-scan base-package="p.memory.services" />

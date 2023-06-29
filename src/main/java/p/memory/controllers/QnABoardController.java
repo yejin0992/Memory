@@ -44,7 +44,9 @@ public class QnABoardController {
 	@RequestMapping("boardList")
 	public String boardList(QnABoardDTO qa_dto, Model model,
 			@RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage) {
+		
 		System.out.println("게시판 전체출력");
+		
 
 		// 총게시글수
 		int totalPosts = qnaService.selectTotalPost();
@@ -70,6 +72,7 @@ public class QnABoardController {
         // 게시판글전체출력
 		List<QnABoardDTO> list = qnaService.selectAll(startPostNum, endPostNum);
 		System.out.println(startPostNum + "/" + endPostNum);
+		
 		// 페이징
 		List<String> pageNavi = qnaService.getPageNavi(totalPages, currentPage);
 
@@ -157,8 +160,9 @@ public class QnABoardController {
 		System.out.println("수정수정 : " + qa_dto.getQa_seq() + "/" + qa_dto.getQa_writer() + "/" + qa_dto.getQa_title()
 				+ "/" + qa_dto.getQa_contents() + "/" + qa_dto.getQa_view_count() + "/" + qa_dto.getQa_write_date());
 		qnaService.update(qa_dto);
-		rttb.addFlashAttribute("status", "b_u");
-		return "redirect:/qnaBoard/selectOnePost";
+		rttb.addFlashAttribute("status", "update");
+		System.out.println("update완료");
+		return "redirect:/qnaBoard/selectOnePost?qa_seq="+qa_dto.getQa_seq()+ "&status=update";
 	}
 
 	// 게시글 삭제

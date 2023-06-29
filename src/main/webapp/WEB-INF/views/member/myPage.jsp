@@ -6,7 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<script>
+    $(document).ready(function () {
+      $('#tableBox').DataTable();
+    });
+  </script>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 
 	<table border=1 align=center>
 		<tr>

@@ -179,9 +179,10 @@ input[type=radio] {
 						<tr>
 							<td class="col1">* 생년월일</td>
 							<td class="col3"><input type="text" id="birth_date"
-								name="birth_date" placeholder="  예시)19990101111" maxlength="8" required></td>
+								name="birth_date" placeholder="  예시)19990101111" maxlength="8"
+								required></td>
 						</tr>
-						
+
 						<tr>
 							<td class="col1">* 연락처</td>
 							<td class="col3"><input type="text" id="contact"
@@ -227,7 +228,12 @@ input[type=radio] {
 
       //아이디중복확인
        let idChecked = false; // 아이디 중복 체크 상태 변수 (기본값: false)
-      
+       
+       // 아이디 변경 시 중복 확인 여부 리셋
+       document.getElementById("id").addEventListener("input", function() {
+         idChecked = false;
+       });
+       
       $("#idCheck").on("click", function () {
         const id = $("#id").val();
         let idRegex = /^[a-z0-9]{4,16}$/;
@@ -336,10 +342,24 @@ input[type=radio] {
         let idRegex = /^[a-z0-9]{4,16}$/;
         let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
         let nameRegex = /^[가-힣]{2,5}$/;
-        let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
         let contactRegex = /^01\d{8,9}$/;
         let emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
+        let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
+        let currentDate = new Date(); //현재날짜
+        let insertBirthDate = new Date(birth_date.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')); // 유저가 입력한 날짜
+        if (insertBirthDate > currentDate) {
+            alert("미래의 날짜는 입력할 수 없습니다.");
+            return false;
+        } else if (birth_date == "") {
+              alert("생년월일을 입력해주세요.");
+              return false;
+        } else if (!birth_dateRegex.test(birth_date)) {
+              alert('생년월일 형식을 맞춰 입력해주세요.(예시, 19990101)');
+              return false;
+        }
+        
+        
         if (!idChecked) {
           alert("아이디 중복 체크를 해주세요.");
           return false;
@@ -356,19 +376,16 @@ input[type=radio] {
         } else if (!(pw == repw)) {
           alert("비밀번호가 일치하지 않습니다.");
           return false;
-        
+        }else if (!pwRegex.test(pw)){
+        	alert("비밀번호 형식을 맞춰 입력해주세요.(영문 대소문자, 숫자, 특수문자, 8~20자)")
+        	return false;
         } else if (name == "") {
           alert("이름를 입력해주세요.");
           return false;
         } else if (!nameRegex.test(name)) {
           alert('이름 형식을 맞춰 입력해주세요.(한글, 2자~5자)');
           return false;
-        } else if (birth_date == "") {
-            alert("생년월일을 입력해주세요.");
-            return false;
-          } else if (!birth_dateRegex.test(birth_date)) {
-            alert('생년월일 형식을 맞춰 입력해주세요.(예시, 19990101)');
-            return false;
+        
         }else if (contact == "") {
           alert("휴대폰 번호를 입력해주세요.");
           return false;
