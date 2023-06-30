@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src = "https://code.jquery.com/jquery-3.6.4.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <meta charset="UTF-8">
 <title>perfume Select</title>
  <style>
@@ -60,7 +62,6 @@ div {
 #pyramid {
 	position: relative;
 }
-
 
 
 #perfumeImage {
@@ -292,11 +293,11 @@ color : white;
 
 <body>
  
-
-    <div class="container">
-        <div class="row head">
+   <div class="row head">
 			 <c:import url="/WEB-INF/views/common/navi.jsp" />
         </div>
+    <div class="container">
+     
         <div class="row">
             <div class="col-12">
                 <h4 class="smTitle">INFORMATION</h4>
@@ -343,8 +344,11 @@ color : white;
 					</div>
 					<div class="row infoRow">
 						<div class="col-3 info">가격</div>
-						<div class="col-9">${perfume.per_price}원</div>
+						<div class="col-9"> 
+						<fmt:formatNumber  type="number" maxFractionDigits="3" value="${perfume.per_price}" />
+					원</div>
 					</div>
+					
 				</div>
 		</div>
 		<div class="row height80"></div>
@@ -388,16 +392,14 @@ color : white;
 				</div>
 			</div>
 		</div>
-		
          	<div class="row height40"></div>
-        
         <div class="row btnRow">
         <div class="col-7"></div>
             <div class="col-5 btnCol d-flex flex-row-reverse">
                 <a href="/perfume/perfumeList?cpage=${cpage}"><button class="recordBtn">목록</button></a>
                 <!-- 삭제, 수정버튼 관리자일때만  -->
                 <!-- 삭제하시겠습니까 alert -->
-                <a href="/perfume/delete?per_seq=${perfume.per_seq}"><button class="recordBtn">삭제</button></a>
+                <button id="recordDel" class="recordBtn">삭제</button>
                 <!-- 수정하기 버튼 수정하기 페이지로 -->
                 <button id="updateBtn" class="recordBtn">수정</button>
             </div>
@@ -431,7 +433,7 @@ color : white;
 								<div class="col d-flex flex-row-reverse">
 									<button type="button" class="replyModBtn replyBtn">수정</button>
 									<a href="/perfumeReply/delete?re_seq=${i.re_seq}&per_seq=${perfume.per_seq}&cpage=${cpage}">
-									<button type="button" class="replyDelBtn replyBtn">삭제</button></a>
+									<button type="button" class="replyDelBtn replyBtn" id="${i.re_seq}">삭제</button></a>
 									<button class="replyUpdBtn replyBtn" type="submit">완료</button>
 								</div>
 							</div>
@@ -459,10 +461,9 @@ color : white;
 		</div>
         <input type="hidden" id="loginID" value="${loginID}">
         <div class="row height40"></div>
-        <div class="row footer">
-       <%--   <c:import url="/WEB-INF/views/common/fsooter.jsp" /> --%>
-        </div>
+        
     </div>
+     <c:import url="/WEB-INF/views/common/footer.jsp" /> 
     
  <script>
 let replyFlag = true
@@ -513,6 +514,24 @@ let replyFlag = true
 	 let id = $("#loginID").val();
 	 t(per_seq, $(this).hasClass('true'),id) 
  });
+ 
+ 	/* 댓글 삭제 확인  */
+		$(".replyDelBtn").on("click", function(){
+			let replySeq = $(this).attr("id");
+			console.log(replySeq);
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				alert("삭제 완료되었습니다.");
+				location.href="/perfumeReply/delete?re_seq="+replySeq+"&per_seq=${perfume.per_seq}&cpage=${cpage}";
+			}
+		})
+		
+		/* 게시글 삭제 확인 */
+	 $("#recordDel").on("click", function(){
+			if(confirm("게시글을 삭제하시겠습니까?")){
+				alert("삭제 완료되었습니다.");
+				 location.href="/perfume/delete?per_seq=${perfume.per_seq}&cpage=${cpage}";
+			}
+		});
  
  </script>
 

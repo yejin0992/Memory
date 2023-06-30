@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -286,11 +287,11 @@ color : grey;
 
 </head>
 <body>
-
-	<div class="container">
-		<div class="row listHead">
+	<div class="row listHead">
 			<c:import url="/WEB-INF/views/common/navi.jsp" />
 		</div>
+	<div class="container">
+	
 
 		<div class="row body">
 			<div class="col body p-0">
@@ -386,7 +387,9 @@ color : grey;
 									<div class="row nameRow">${i.per_name }<hr
 											class="priceHr">
 									</div>
-									<div class="row priceRow">${i.per_price}원</div>
+									<div class="row priceRow">
+									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+									</div>
 									<div class="row heartRow">
 										<input type="hidden" class="per_seq" name="per_seq"
 											value="${i.per_seq}"> <i
@@ -493,12 +496,13 @@ color : grey;
 							</ul>
 						</nav>
 					</div>
-					<div class="row footer">
-						<c:import url="/WEB-INF/views/common/footer.jsp" />
-					</div>
+					
 				</div>
 			</div>
 		</div>
+		<div class="row footer">
+						<c:import url="/WEB-INF/views/common/footer.jsp" />
+					</div>
 
 
 		<script>
@@ -584,13 +588,11 @@ color : grey;
 	    				let hiddenSeq = $("<input>").attr("type","hidden").addClass("per_seq").attr("name","per_seq").val(resp[i].per_seq);
 	    				let brand = $("<div>").addClass("row brandRow").text(resp[i].per_brand);
 	    				let per_name = $("<div>").addClass("row nameRow").text(resp[i].per_name);
-	    				let price = $("<div>").addClass("row priceRow").text(resp[i].per_price+"원");
-	    				
+	    				let price = $("<div>").addClass("row priceRow").text(resp[i].per_price.toLocaleString()+"원");
 	    				imageRow.append(image);
 	    				per_name.append($("<hr>").addClass("priceHr"));
 	    	    		li.append(imageRow);
 	    	    		li.append(brand);
-	    	    		
 	    	    		li.append(per_name);
 	    	    		li.append(price);
 	    	    		ul.append(li); 

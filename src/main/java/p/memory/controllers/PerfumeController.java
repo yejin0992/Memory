@@ -171,9 +171,9 @@ public class PerfumeController {
 	}
 
 	@RequestMapping("delete")
-	public String delete(int per_seq) throws Exception {
+	public String delete(int per_seq, int cpage) throws Exception {
 		perfumeService.delete(per_seq);
-		return "redirect:/perfume/perfumeList";
+		return "redirect:/perfume/perfumeList?cpage="+cpage;
 	}
 
 	@ResponseBody
