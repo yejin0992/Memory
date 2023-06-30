@@ -1,6 +1,8 @@
 package p.memory.repositories;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,6 @@ public class FrReplyDAO {
 	}
 	
 	public List<FrReplyDTO> selectComments(int fr_seq) {
-		System.out.println("댓글 출력하기 dao 도착");
 		System.out.println("서비스에서 전달받은 시퀀스 : " + fr_seq);
 		return mybatis.selectList("FrReply.selectComments", fr_seq); 
 	}
