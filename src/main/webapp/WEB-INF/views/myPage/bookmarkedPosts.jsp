@@ -35,6 +35,11 @@
 
 .titleArea {
 	padding: 20px;
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
+}
 }
 
 .titleArea h1 {
@@ -95,7 +100,7 @@
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h1>북마크</h1>
+		<h2>북마크</h2>
 	</div>
 
 	<div class="container">

@@ -158,7 +158,7 @@ public class FreeBoardController {
 
 	// 게시물 상세페이지 조회 (댓글포함)
 	@RequestMapping("selectBySeq")
-	public String selectBySeq(HttpServletRequest request, HttpServletResponse response, Model model, Integer fr_seq) {
+	public String selectBySeq(@RequestParam(defaultValue = "1", name = "cpage") int currentPage, HttpServletRequest request, HttpServletResponse response, Model model, Integer fr_seq) {
 		System.out.println("시퀀스는 잘 받아오는지 확인 : " + fr_seq);
 		String loggedID = (String) session.getAttribute("loginID");
 		// 조회수 증가 조회
@@ -196,7 +196,7 @@ public class FreeBoardController {
 		//
 		System.out.println("형식 변환된 날짜 : " + dto.getFormattedDate());
 		System.out.println("작성자 확인 : " + dto.getFr_writer());
-		// 댓글 수 불러오기
+		// 댓글 수 불러오기 (총 댓글수)
 		int commentCount = replyService.getCommentsCount(fr_seq);
 		System.out.println("각 게시판 별 댓글 개수 : " + commentCount);
 		dto.setCommentCount(commentCount);
@@ -205,6 +205,7 @@ public class FreeBoardController {
 		// 댓글
 		// 댓글리스트 출력
 		List<FrReplyDTO> list = replyService.selectComments(fr_seq);
+
 		// 댓글 시간 표기 형식 변경
 		for (FrReplyDTO frdto : list) {
 			Timestamp reWriteDate = frdto.getRe_write_date();

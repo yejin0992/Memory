@@ -13,9 +13,11 @@
 		)
 	</insert>
 
-	<select id="selectComments" resultType="p.memory.dto.FrReplyDTO">
-		select * from fr_reply where fr_seq = #{fr_seq} order by re_seq
 
+	<select id="selectComments" resultType="p.memory.dto.FrReplyDTO">
+		select * from fr_reply
+		where fr_seq = #{fr_seq}
+		order by fr_seq asc
 	</select>
 
 	<delete id="deleteComment">
@@ -32,6 +34,8 @@
 		select count(*) from
 		fr_reply where fr_seq = #{fr_seq}
 	</select>
+
+
 
 
 

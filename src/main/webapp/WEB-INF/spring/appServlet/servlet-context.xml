@@ -31,8 +31,8 @@
 	<!-- 자유게시판 이미지 파일 서비스 매핑 설정 -->
 	<resources mapping="/freeImages/**" location="/upload/" />
 
-	<resources location="/profileImages/"
-		mapping="/profileImages/**">
+	<resources location="/profileImage/"
+		mapping="/resources/profileImage/**">
 	</resources>
 
 

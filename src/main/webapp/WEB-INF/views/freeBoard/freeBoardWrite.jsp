@@ -116,8 +116,8 @@ h2 {
 				</div>
 				<div class="col-10">
 					<div class="title">
-						<input type="text" class="form-control" id="title" name="fr_title"
-							maxlength="60" placeholder="제목을 입력하세요." required />
+						<input type="text" class="form-control" id="title" wrap="hard"
+							name="fr_title" maxlength="60" placeholder="제목을 입력하세요." required />
 					</div>
 				</div>
 			</div>
@@ -153,6 +153,16 @@ h2 {
 		$("#btnCancel").on("click", function() {
 			history.back();
 		})
+
+		const textarea = document.getElementById('content');
+
+		textarea.addEventListener('keydown', function(event) {
+			if (event.keyCode === 13 && !event.shiftKey) {
+				event.preventDefault();
+				const currentValue = this.value;
+				this.value = currentValue + '\n';
+			}
+		});
 	</script>
 
 
