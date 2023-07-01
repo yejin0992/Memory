@@ -55,10 +55,8 @@ a {
     $(document).ready(function () {
       $('#tableBox').DataTable();
     });
-  </script>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
-
-
+  </script> 
+<body> 
   <div class="rowheader">
    <c:import url="/WEB-INF/views/common/navi.jsp" />
   </div>

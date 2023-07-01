@@ -11,10 +11,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src = "https://code.jquery.com/jquery-3.6.4.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script
-	src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
+
 <meta charset="UTF-8">
-<title>perfume Select</title>
+<title>perfume Best Select</title>
  <style>
  
  @font-face {
@@ -90,10 +89,7 @@ position:relative;
 bottom:2px;
 }
 
-textarea.form-control {
-	resize: vertical;
-	height: auto;
-}
+
 
 .messageBox{
 display:flex;
@@ -223,8 +219,6 @@ border : none;
 .replyConCol{
 padding:none;
 border : none;
-min-height:40px;
-max-height:250px;
 }
 
 .replyIdRow{
@@ -241,7 +235,6 @@ border : none;
 width:100%;
 padding-left : 20px;
 min-height:50px;
-max-height:100px;
 }
 
 .height15{
@@ -403,10 +396,10 @@ color : white;
         <div class="row btnRow">
         <div class="col-7"></div>
             <div class="col-5 btnCol d-flex flex-row-reverse">
-                <a href="/perfume/perfumeList?cpage=${cpage}"><button class="recordBtn">목록</button></a>
+                <a href="/perfume/perfumeBest"><button class="recordBtn">목록</button></a>
                 <!-- 삭제, 수정버튼 관리자일때만  -->
                 <!-- 삭제하시겠습니까 alert -->
-                <c:if test="${loginID eq perfume.id}">
+                <c:if test="${loginID == asdfg123 }">
                 <button id="recordDel" class="recordBtn">삭제</button>
                 <!-- 수정하기 버튼 수정하기 페이지로 -->
                 <button id="updateBtn" class="recordBtn">수정</button>
@@ -431,8 +424,7 @@ color : white;
 							<span id="formDate">${i.formedDate}</span>
 						</div>
 						<div class="col-12 replyConCol">
-<%-- 							<input type="text" class="row replyConRow" name="contents" value="${i.contents}" readonly> --%>
-							<textarea class="row replyConRow autosize" name="contents" maxlength="100" readonly>${i.contents}</textarea>
+							<input type="text" class="row replyConRow" name="contents" value="${i.contents}" readonly>
 							<input type="hidden" name="cpage" value="${cpage}">
 							<input type="hidden" name="per_seq" value="${i.per_seq}">
 							<input type="hidden" name="re_seq" value="${i.re_seq}">
@@ -460,8 +452,7 @@ color : white;
 				<form action="/perfumeReply/insert" method="post" >
 					<div class="sessionID col-12">${loginID}</div>
 					<input type="hidden" name="per_seq" value="${perfume.per_seq}">
-					<!-- <input type="text" id="replyInput"class="col-12" name="contents" placeholder="댓글을 입력해주세요."> -->
-					<textarea id="replyInput" class="col-12 autosize" name="contents" maxlength="100" placeholder="댓글을 입력해주세요."></textarea>
+					<input type="text" id="replyInput"class="col-12" name="contents" placeholder="댓글을 입력해주세요.">
 					<input type="hidden" name="cpage" value="${cpage}">
 					<div class="col-12 d-flex flex-row-reverse">
 						<button type="submit" id="replyComplete" class="replyBtn">확인</button>
@@ -514,6 +505,7 @@ let replyFlag = true
 		      id : id
 		    }
 		  });
+		  alert("ajax수행");
 		};
 	  
  // 좋아요 클릭
@@ -541,10 +533,6 @@ let replyFlag = true
 				alert("삭제 완료되었습니다.");
 				 location.href="/perfume/delete?per_seq=${perfume.per_seq}&cpage=${cpage}";
 			}
-		});
- 	
-		document.addEventListener('DOMContentLoaded', function() {
-			autosize(document.querySelectorAll('.autosize'));
 		});
  
  </script>

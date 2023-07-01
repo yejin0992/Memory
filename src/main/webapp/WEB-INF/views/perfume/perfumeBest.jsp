@@ -300,7 +300,8 @@ height:200px;
 				<div class="row swiper mySwiper">
 					<div class="col swiper-wrapper">
 						<c:forEach var="i" items="${best}">
-							<div class="row swiper-slide img">
+							<div class="row swiper-slide img" >
+						<input type="hidden" value="${i.per_seq}">
 								<div class="col description">
 									<div class="row thumbnail">
 										<img src="/perfumeImage/${i.sysName}" class="image">
@@ -337,6 +338,7 @@ height:200px;
 						<c:forEach var="i" items="${best}">
 							<div class="row swiper-slide img smSlide">
 								<div class="col description">
+								<input type="hidden" value="${i.per_seq}">
 									<div class="row thumbnail">
 										<img src="/perfumeImage/${i.sysName}" class="image">
 									</div>
@@ -404,6 +406,11 @@ height:200px;
         prevEl: ".swiper-button-prev",
       },
     });
+    
+    $(".swiper-slide").on("click", function(){
+    	let per_seq = $(this).children().val();
+    	location.href="/perfume/bestSelect?per_seq="+per_seq;
+    })
 
 
 //     var swiper = new Swiper('.swiper-container', {

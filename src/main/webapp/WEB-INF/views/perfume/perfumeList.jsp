@@ -620,7 +620,6 @@ color : grey;
 		      id : id
 		    }
 		  });
-		  alert("ajax수행");
 		};
 	  
 	 // 좋아요 클릭

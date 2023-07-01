@@ -147,6 +147,27 @@ public class PerfumeController {
 		System.out.println("댓글 불러오기 성공");
 		return "perfume/perfumeSelect";
 	}
+	
+
+	@RequestMapping("bestSelect")
+	public String bestSelect(int per_seq, Model model) throws Exception {
+		System.out.println("Perfume.select 넘어온 시퀀스 : " + per_seq);
+		PerfumeDTO perfume = perfumeService.selectBySeq(per_seq);
+		FileDTO file = fileService.selectByPerSeq(per_seq);
+		List<PerfumeReplyDTO> reply = replyService.selectByPerSeq(per_seq);
+		HeartDTO hDto = new HeartDTO();
+		hDto.setPer_seq(per_seq);
+		System.out.println((String)session.getAttribute("loginID"));
+		hDto.setId((String)session.getAttribute("loginID"));
+		int heart = heartService.selectHeart(hDto);
+		System.out.println("좋아요있는지 없는지 : " + heart);
+		model.addAttribute("perfume", perfume);
+		model.addAttribute("file", file);
+		model.addAttribute("reply", reply);
+		 model.addAttribute("heart", heart);
+		System.out.println("댓글 불러오기 성공");
+		return "perfume/perfumeBestSelect";
+	}
 
 	@RequestMapping("toUpdate")
 	public String toUpdate(int per_seq, Model model) throws Exception {
