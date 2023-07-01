@@ -61,43 +61,40 @@ a {
 </style>
 </head>
 <script>
-	$(document).ready(function() {
-		$('#tableBox').DataTable();
-	});
-</script>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();"
-	onunload="">
+    $(document).ready(function () {
+      $('#tableBox').DataTable();
+    });
+  </script> 
+<body> 
+  <div class="rowheader">
+   <c:import url="/WEB-INF/views/common/navi.jsp" />
+  </div>
+  <div class="rowbody">
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+          <img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="/resources/y_1_u.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="/resources/b_1_u.jpg" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
 
-
-	<div class="rowheader">
-		<c:import url="/WEB-INF/views/common/navi.jsp" />
-	</div>
-	<div class="rowbody">
-		<div id="carouselExampleInterval" class="carousel slide"
-			data-bs-ride="carousel">
-			<div class="carousel-inner">
-				<div class="carousel-item active" data-bs-interval="3000">
-					<img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item" data-bs-interval="3000">
-					<img src="/resources/y_1_u.jpg" class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item" data-bs-interval="3000">
-					<img src="/resources/b_1_u.jpg" class="d-block w-100" alt="...">
-				</div>
-			</div>
-			<button class="carousel-control-prev" type="button"
-				data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next" type="button"
-				data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Next</span>
-			</button>
-		</div>
-	</div>
 
 	<div class="rowfooter">
 		<c:import url="/WEB-INF/views/common/footer.jsp" />
@@ -107,8 +104,7 @@ a {
 		const hamburgerBtn = document.querySelector('.navbar_hamburgerBtn');
 		const menu = document.querySelector('.navbar_menu');
 		const icon = document.querySelector('.navbar_icon');
-
-
+		
 		hamburgerBtn.onclick = function() {
 			menu.classList.toggle('active');
 			icon.classList.toggle('active');
