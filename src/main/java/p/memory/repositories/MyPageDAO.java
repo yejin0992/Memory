@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import p.memory.dto.FrReplyDTO;
 import p.memory.dto.FreeBoardDTO;
 import p.memory.dto.PerfumeMainDTO;
 
@@ -46,6 +47,7 @@ public class MyPageDAO {
 	public List<PerfumeMainDTO> selectLikedPerfume(String loggedID) {
 		return mybatis.selectList("MyPage.selectLikedPerfume", loggedID); 
 	}
+
 	
 
 }
