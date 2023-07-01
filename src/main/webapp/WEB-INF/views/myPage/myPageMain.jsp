@@ -186,7 +186,7 @@
 				</div>
 				<div class="wrapperBtnEdit">
 					<button class="editProfileButton">
-						<a href="/myPage/toUpdateMyInfo">Edit</a>
+						<a href="/member/myInfo">Edit</a>
 					</button>
 				</div>
 			</div>
