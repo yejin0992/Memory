@@ -58,9 +58,10 @@
 
 	<!--내가 좋아요한 향수 총 개수 -->
 	<select id="getLikedPerfumeCount" resultType="int">
-		select count(*) as liked_perfume_count
+		select count(*) as
+		liked_perfume_count
 		from perfume p
-		join heart h on 
+		join heart h on
 		p.per_seq = h.per_seq
 		where h.id = #{userId}
 	</select>
@@ -78,5 +79,8 @@
 		p.per_seq asc
 	</select>
 
+	<!--내가 작성한 댓글 -->
+	<!-- <select id="selectMyComments" resultType="p.memory.dto.FrReply"> select 
+		* from fr_reply where re_writer = #{re_writer} </select> -->
 
 </mapper> 

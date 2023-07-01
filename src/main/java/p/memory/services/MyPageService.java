@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import p.memory.dto.FrReplyDTO;
 import p.memory.dto.FreeBoardDTO;
 import p.memory.dto.PerfumeMainDTO;
 import p.memory.repositories.MyPageDAO;
@@ -39,4 +40,5 @@ public class MyPageService {
 	public List<PerfumeMainDTO> selectLikedPerfume(String loggedID){
 		return myDAO.selectLikedPerfume(loggedID); 
 	}
+
 }

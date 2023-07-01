@@ -6,6 +6,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,10 +21,12 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap"
 	rel="stylesheet">
-	
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap"
+	rel="stylesheet">
 <!-- bootstrap cdn -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -64,24 +67,22 @@ a {
 
 .navibar {
 	display: flex;
-
 	align-items: center;
 	background-color: #ffffff97;
-	
 	padding: 2px 30px;
 }
 
 .navbar {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: var(- -bs-navbar-padding-y) var(- -bs-navbar-padding-x);
 }
 
 /* 로고 */
 .navbar_logo {
-font-family: 'Taviraj', serif;
+	font-family: 'Taviraj', serif;
 	font-size: 30px;
 	font-weight: bold;
 }
@@ -251,16 +252,14 @@ nav ul li {
 				<a href="/">The Memory</a>
 			</div>
 			<ul class="navbar_menu">
-				<li class="dropdown">
-					<a href="/test/heartTest">
-					<div class="dropdown_menu">테스트용</div></a>
-					
-				</li>
+				<li class="dropdown"><a href="/test/heartTest">
+						<div class="dropdown_menu">테스트용</div>
+				</a></li>
 				<li class="dropdown">
 					<div class="dropdown_menu">BEST</div>
 					<div class="dropdown_content">
-						<a href="/perfume/perfumeList">perfume main</a> 
-						<a href="/perfume/perfumeBest">perfume Best</a>
+						<a href="/perfume/perfumeList">perfume main</a> <a
+							href="/perfume/perfumeBest">perfume Best</a>
 					</div>
 				</li>
 				<li class="dropdown">
@@ -272,11 +271,11 @@ nav ul li {
 				<li class="dropdown">
 					<div class="dropdown_menu">CMMUNITY</div>
 					<div class="dropdown_content">
-						<a href="/freeBoard/selectList?cpage=1">Free Board</a> 
-						<a href="/qnaBoard/boardList">Q&A</a>
+						<a href="/freeBoard/selectList?cpage=1">Free Board</a> <a
+							href="/qnaBoard/boardList">Q&A</a>
 					</div>
 				</li>
-				
+
 			</ul>
 			<ul class="navbar_icon">
 				<li><a href="/member/loginForm">LOGIN</a></li>
@@ -353,7 +352,13 @@ nav ul li {
 			menu.classList.toggle('active');
 			icon.classList.toggle('active');
 		};
+
 	</script>
+
+	</script>
+
+	</script>
+
 
 </body>
 

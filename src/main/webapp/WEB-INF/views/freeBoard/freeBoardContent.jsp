@@ -331,7 +331,7 @@ textarea.form-control {
 		</div>
 		<hr class="separator">
 		<div class="button">
-			<button type="button" id="backToList">목록</button>
+			<a href="${cpage}"><button type="button" id="backToList">목록</button></a>
 			<a href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
 					type="button" id="btnMod">수정</button></a>
 			<button type="button" id="btnDel">삭제</button>
@@ -402,9 +402,6 @@ textarea.form-control {
 			autosize(document.querySelectorAll('.autosize'));
 		});
 
-		$("#backToList").on("click", function() {
-			history.back();
-		})
 		//게시글 삭제 
 		const btnDel = document.getElementById('btnDel');
 		btnDel.addEventListener('click', function() {

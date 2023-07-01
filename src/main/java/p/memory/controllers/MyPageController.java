@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import p.memory.dto.FrReplyDTO;
 import p.memory.dto.FreeBoardDTO;
 import p.memory.dto.PerfumeMainDTO;
 import p.memory.services.FrReplyService;
