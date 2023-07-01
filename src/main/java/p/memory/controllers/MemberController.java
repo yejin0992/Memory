@@ -1,5 +1,7 @@
 package p.memory.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +43,11 @@ public class MemberController {
 	public String insert(MemberDTO dto, RedirectAttributes rttb) throws Exception {
 		dto.setPw(EncryptionUtils.sha256(dto.getPw()));
 		mService.insert(dto);
-		
-		System.out.println(dto.getId() + "/" + dto.getPw() + "/" + dto.getName() + "/" + dto.getBirth_date() + "/"
-				+  "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
-				+ dto.getAddress1() + "/" + dto.getAddress2() + "/" + dto.getJoin_date());
-		
+
+		System.out.println(dto.getId() + "/" + dto.getPw() + "/" + dto.getName() + "/" + dto.getBirth_date() + "/" + "/"
+				+ dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/" + dto.getAddress1() + "/"
+				+ dto.getAddress2() + "/" + dto.getJoin_date());
+
 		rttb.addFlashAttribute("status", "insert");
 		return "member/loginPage";
 	}
@@ -76,10 +78,10 @@ public class MemberController {
 		dto.setPw(EncryptionUtils.sha256(dto.getPw()));
 		mService.update(dto);
 		System.out.println("업데이트:" + dto.getId() + "/" + dto.getPw() + "/" + dto.getName() + "/" + dto.getBirth_date()
-				 + "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/"
-				+ dto.getAddress1() + "/" + dto.getAddress2() + "/" + dto.getJoin_date());
+				+ "/" + dto.getContact() + "/" + dto.getEmail() + "/" + dto.getZipcode() + "/" + dto.getAddress1() + "/"
+				+ dto.getAddress2() + "/" + dto.getJoin_date());
 		rttb.addFlashAttribute("status", "update");
-		return "redirect:/member/myInfo?id"+dto.getId();
+		return "redirect:/member/myInfo?id" + dto.getId();
 	}
 
 	// 회원 탈퇴
@@ -106,8 +108,9 @@ public class MemberController {
 
 		if (result) {
 			session.setAttribute("loginID", id);
+			System.out.println("세션이 넣은 아이디 : "+session.getAttribute("loginID"));
 			rttb.addFlashAttribute("status", "login");
-			return "memberHome";
+			return "home";
 		} else {
 			rttb.addFlashAttribute("status", "unableLogin");
 			return "redirect:/member/loginForm";
@@ -116,7 +119,7 @@ public class MemberController {
 
 	// 로그아웃
 	@RequestMapping("logout")
-	public String logout() {
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "home";
 	}
@@ -134,14 +137,14 @@ public class MemberController {
 		MemberDTO id = mService.findID(dto);
 		System.out.println(dto.getId());
 		if (id == null) {
-			model.addAttribute("check", 1); //check속성의 1 : 실패
+			model.addAttribute("check", 1); // check속성의 1 : 실패
 			return "member/findID";
 		} else {
-			model.addAttribute("check", 0); //check속성의 0 : 성공
+			model.addAttribute("check", 0); // check속성의 0 : 성공
 			model.addAttribute("findID", dto.getId());
 			return "member/getMyId";
 		}
-		
+
 	}
 
 	// 비밀번호 찾기 페이지로 이동
@@ -153,36 +156,36 @@ public class MemberController {
 	// 비밀번호 찾기
 	@RequestMapping("findPW")
 	public String findPW(MemberDTO dto, Model model) throws Exception {
-		System.out.println("pw찾기: " +dto.getId()+"/" + dto.getName() + "/" + dto.getEmail());
+		System.out.println("pw찾기: " + dto.getId() + "/" + dto.getName() + "/" + dto.getEmail());
 		MemberDTO pw = mService.findPW(dto);
 		if (pw == null) {
-			model.addAttribute("check", 1); 
+			model.addAttribute("check", 1);
 			return "member/findPW";
 		} else {
-			model.addAttribute("check", 0); 
+			model.addAttribute("check", 0);
 			model.addAttribute("findPw", dto.getId());
 			return "member/getMyPw";
 		}
-		
+
 	}
-	
+
 	// 비밀번호 번경 페이지로 이동
 	@RequestMapping("toGetMyPW")
 	public String test() {
 		System.out.println("비번페이지로 이동하자");
 		return "member/getMyPw";
 	}
-	
+
 	// 비밀번호 변경
 	@RequestMapping("pwUpdate")
 	public String pwUpdate(String id, String pw) throws Exception {
-		System.out.println("비번페이지로 도착" + id +"/"+pw);
+		System.out.println("비번페이지로 도착" + id + "/" + pw);
 		String encryptionPw = EncryptionUtils.sha256(pw);
-		System.out.println(id+"/"+pw+"/"+encryptionPw);
-		mService.pwUpdate(id,encryptionPw);
+		System.out.println(id + "/" + pw + "/" + encryptionPw);
+		mService.pwUpdate(id, encryptionPw);
 		return "member/loginPage";
 	}
-	
+
 	// 오류처리
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

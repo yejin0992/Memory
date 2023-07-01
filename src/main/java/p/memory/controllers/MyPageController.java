@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import p.memory.dto.FrReplyDTO;
 import p.memory.dto.FreeBoardDTO;
 import p.memory.dto.PerfumeMainDTO;
+import p.memory.services.FrReplyService;
 import p.memory.services.MyPageService;
 
 @Controller
@@ -26,6 +28,10 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 
+	// 댓글 서비스 소환
+	@Autowired
+	private FrReplyService replyService;
+
 	// 마이페이지로 가서 좋아요한 향수 불러오기 + 로그인한 아이디 불러오기 + 내가 쓴 글 총 개수 + 북마크한 글 개수
 	@RequestMapping("toMyPageMain")
 	public String toMyPgae(Model model) {
@@ -36,7 +42,7 @@ public class MyPageController {
 		System.out.println("좋아요한 향수 : " + likedPerfume);
 		model.addAttribute("likedPerfume", likedPerfume);
 		model.addAttribute("loggedID", loggedID);
-		// 내가 쓴 글 총 개수 
+		// 내가 쓴 글 총 개수
 		FreeBoardDTO dto = new FreeBoardDTO();
 		// 로그인한 세션 넣어주기
 		dto.setFr_writer(loggedID);
@@ -45,7 +51,7 @@ public class MyPageController {
 		int myPostsCount = myPageService.getMyPostsCount(fr_writer);
 		System.out.println("내가 쓴 글 총 개수 : " + myPostsCount);
 		model.addAttribute("myPostsCount", myPostsCount);
-		// 북마크한 글 개수 
+		// 북마크한 글 개수
 		int bookmarkedPostsCount = myPageService.getBookmarkedPostsCount(loggedID);
 		System.out.println("북마크한 글 개수 : " + bookmarkedPostsCount);
 		model.addAttribute("bookmarkedPostsCount", bookmarkedPostsCount);
@@ -75,13 +81,20 @@ public class MyPageController {
 		int start = (currentPage - 1) * recordsPerPage;
 		int end = start + recordsPerPage - 1;
 		List<FreeBoardDTO> myPostsList = myPageService.selectMyPost(loggedID, start, end);
-		// 시간 표기 형식 변경 
+		// 시간 표기 형식 변경
 		for (FreeBoardDTO dto : myPostsList) {
-			Timestamp writeDate = dto.getFr_write_date(); 
+			Timestamp writeDate = dto.getFr_write_date();
 			System.out.println("dto에서 꺼내온 writeDate: " + writeDate);
-			String formattedDate = dto.formatWriteDate(); 
+			String formattedDate = dto.formatWriteDate();
 			dto.setFormattedDate(formattedDate);
-			System.out.println("형식 변환된 날짜 : " +  dto.getFormattedDate());
+			System.out.println("형식 변환된 날짜 : " + dto.getFormattedDate());
+		}
+		// 각 게시물 댓글 개수 설정
+		for (FreeBoardDTO dto : myPostsList) {
+			int commentCount = replyService.getCommentsCount(dto.getFr_seq());
+			System.out.println("각 게시판 별 댓글 개수 : " + commentCount);
+			dto.setCommentCount(commentCount);
+			System.out.println("게시물 댓글 개수 확인 : " + dto.getCommentCount());
 		}
 		System.out.println("내가 쓴 글 출력 : " + myPostsList);
 		model.addAttribute("myPosts", myPostsList);
@@ -108,9 +121,7 @@ public class MyPageController {
 		return "/myPage/myPost";
 	}
 
-
-
-	// 북마크한 글 불러오기 + 페이징 + 북마크한 글 개수 
+	// 북마크한 글 불러오기 + 페이징 + 북마크한 글 개수
 	@RequestMapping("selectBookmarkedPosts")
 	public String selectBookmarkedPosts(@RequestParam(defaultValue = "1", name = "cpage") int currentPage, Model model)
 			throws Exception {
@@ -129,13 +140,14 @@ public class MyPageController {
 		int start = (currentPage - 1) * recordsPerPage;
 		int end = start + recordsPerPage - 1;
 		List<FreeBoardDTO> bookmarkedPostsList = myPageService.selectBookmarkedPosts(loggedID, start, end);
-		// 시간 표기 형식 변경 
+
+		// 시간 표기 형식 변경
 		for (FreeBoardDTO dto : bookmarkedPostsList) {
-			Timestamp writeDate = dto.getFr_write_date(); 
+			Timestamp writeDate = dto.getFr_write_date();
 			System.out.println("dto에서 꺼내온 writeDate: " + writeDate);
-			String formattedDate = dto.formatWriteDate(); 
+			String formattedDate = dto.formatWriteDate();
 			dto.setFormattedDate(formattedDate);
-			System.out.println("형식 변환된 날짜 : " +  dto.getFormattedDate());
+			System.out.println("형식 변환된 날짜 : " + dto.getFormattedDate());
 		}
 		System.out.println("북마크한 글 출력 : " + bookmarkedPostsList);
 		model.addAttribute("bookmarked", bookmarkedPostsList);
@@ -159,7 +171,7 @@ public class MyPageController {
 		model.addAttribute("endNavi", endNavi);
 		model.addAttribute("prev", prev);
 		model.addAttribute("next", next);
-		// 북마크한 글 개수 
+		// 북마크한 글 개수
 		int bookmarkedPostsCount = myPageService.getBookmarkedPostsCount(loggedID);
 		System.out.println("북마크한 글 개수 : " + bookmarkedPostsCount);
 		model.addAttribute("bookmarkedPostsCount", bookmarkedPostsCount);
@@ -177,13 +189,11 @@ public class MyPageController {
 //		model.addAttribute("likedPerfume", likedPerfume);
 //		return "/myPage/myPageMain";
 //	}
-	
-	// 회원정보 수정하기 
+
+	// 회원정보 수정하기
 	@RequestMapping("toUpdateMyInfo")
-	public String toUpdateMyInfo () throws Exception {
-		return "/member/myPageInfo"; 
+	public String toUpdateMyInfo() throws Exception {
+		return "/member/myPageInfo";
 	}
-
-
 
 }

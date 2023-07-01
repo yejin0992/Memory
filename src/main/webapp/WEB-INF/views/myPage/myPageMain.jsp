@@ -15,6 +15,10 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -34,8 +38,18 @@
 }
 
 .container {
-	margin: 80px;
+	/* margin: 80px; */
 	display: flex;
+	padding: 80px;
+	0
+	px;
+}
+
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
 }
 
 .profileBox {
@@ -143,6 +157,10 @@
 	margin-left: 80px;
 }
 
+.myPosts {
+	font-size: 14px;
+}
+
 .myComments {
 	font-size: 14px;
 }
@@ -153,11 +171,14 @@
 	<div class="header">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
+	<div class="titleArea">
+		<h2>MYPAGE</h2>
+	</div>
 	<div class="container">
 		<div class="profileBox">
 			<div class="profilePicture">
 				<!-- 프로필 사진이 들어갈 부분 -->
-				<img src="주소 어쩌구" alt="" />
+				<img src="/resources/profileImage/smile.png" alt="프로필 이미지" />
 			</div>
 			<div class="profileInfo">
 				<div class="userName">

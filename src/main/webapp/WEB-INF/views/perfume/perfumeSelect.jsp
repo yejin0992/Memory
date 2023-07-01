@@ -472,7 +472,6 @@ color : white;
 		</div>
         <input type="hidden" id="loginID" value="${loginID}">
         <div class="row height40"></div>
-        
     </div>
      <c:import url="/WEB-INF/views/common/footer.jsp" /> 
     

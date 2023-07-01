@@ -34,6 +34,13 @@
    font-family: 'Pretendard-Regular';
 }
   
+  a {
+  color: #525252;
+  }
+  a:hover {
+  color: #b2a08a;
+  font-weight: bold;
+  }
     .qnaTitle {
       text-align: center;
       font-size: 30px;
@@ -84,15 +91,14 @@
     button {
       border: none;
 			font-size: 14px;
-      background-color: rgb(82, 82, 82);
+      background-color: #b2a08a;
 			color: white;
       border-radius: 2px;
       box-shadow: 0 5px 4px rgba(0, 0, 0, 0.2);
     }
 
     button:hover {
-			background-color: darkorange;
-			font-weight: bold;
+			background-color: #525252;
 			cursor: pointer;
 		}
 
@@ -103,33 +109,50 @@
     #keyword {
       width: 30%;
       border-radius: 2px;
-      border: 1px solid rgb(82, 82, 82);
+      border: 1px solid #dddddd;
       height: 25px;
     }
     
-    #selectOprion {
+    #selectOption {
       height: 25px;
+      border: 1px solid #dddddd;
     }
     
+     #selectOption:hover {
+      cursor: pointer;
+     }
     .searchBox {
     padding:50px;
     }
 
+	/* 페이징 */
+	.page {
+	padding-top: 20px;
+	}
+
+	.page-link {
+	color: #b2a08a;
+	margin: 3px;
+	}
+	
   </style>
 </head>
- <script type="text/javascript">
- window.history.forward();
- function noBack(){window.history.forward();}
-</script>
-
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+ <body>
 
   <script>
     $(document).ready(function () {
       $('#tableBox').DataTable();
     });
   </script>
- 
+  
+  <c:if test="${empty loginID}">
+	<script>
+	alert("로그인 해주세요.");
+	location.href="/member/loginForm";
+	</script>
+  </c:if>
+  
+ <input type="hidden" value="${loginID}">
     <div class="header">
       <c:import url="/WEB-INF/views/common/navi.jsp" />
     </div>
@@ -156,6 +179,9 @@
               <td width="10" height="20" id="hit">${i.qa_view_count}</td>
             </tr>
           </c:forEach>
+          
+
+          
         </tbody>
 
         <tfoot>
@@ -163,24 +189,24 @@
           <tr>
             <td colspan="5">
               <!-- 페이징 -->
-              <nav aria-label="Page navigation example" align="center">
-                <ul class="pagination d-flex justify-content-center">
+              <nav class="page" align="center">
+                <ul >
                   <c:forEach var="i" items="${pageNavi}">
                     <c:choose>
                       <c:when test="${i eq '<<'}">
-                        <li class="page-item"><a class="page-link"
+                        <li class="pageLi"><a class="page-link"
                             href="/qnaBoard/boardList?cpage=${firstNavi}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '<'}">
-                        <li class="page-item"><a class="page-link"
-                            href="/qnaBoard/boardList?cpage=${cpage - 10}">${i}</a></li>
+                        <li class="pageLi"><a class="page-link"
+                            href="/qnaBoard/boardList?cpage=${cpage - 3}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '>'}">
-                        <li class="page-item"><a class="page-link"
-                            href="/qnaBoard/boardList?cpage=${cpage + 10}">${i}</a></li>
+                        <li class="pageLi"><a class="page-link"
+                            href="/qnaBoard/boardList?cpage=${cpage + 3}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '>>'}">
-                        <li class="page-item"><a class="page-link" href="/qnaBoard/boardList?cpage=${lastNavi}">${i}</a>
+                        <li class="pageLi"><a class="page-link" href="/qnaBoard/boardList?cpage=${lastNavi}">${i}</a>
                         </li>
                       </c:when>
                       <c:otherwise>
@@ -203,7 +229,7 @@
             <td colspan="5" align="center">
 
               <div class="searchBox">
-                <select id="selectOprion" name="searchType">
+                <select id="selectOption" name="searchType">
                   <option value="title">제목</option>
                   <option value="content">내용</option>
                   <option value="title_content">제목+내용</option>
@@ -212,11 +238,6 @@
                 <input type="text" id="keyword" name="keyword"  />
                 <button type="button" id="searchBtn">검색</button>
               </div> 
-              <!-- 
-					<form action="/board/searchTitle" method="post">
-						<input type="text" name="title"> <a
-							href="/qnaBoard/searchPost"><button>찾기</button></a>
-					</form> -->
             </td>
           </tr>
         </tfoot>
