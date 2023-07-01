@@ -107,20 +107,13 @@ border-radius : 10px;
 .messageSelect{
 border : 0.5px solid lightgrey;
 border-radius : 10px;
-
-}
-
-#msgInsert{
-float:right;
+min-height:100px;
 }
 
 .replyUpdBtn{
 display:none;
 }
 
-.replyDelBtn{
-display:none;
-}
 
 .true{
 color: #c28243;
@@ -234,6 +227,7 @@ padding-top : 10px;
 padding-right:0px;
 border: none;
 font-weight:bold;
+width:150px;
 }
 
 .replyConRow{
@@ -242,6 +236,10 @@ width:100%;
 padding-left : 20px;
 min-height:50px;
 max-height:100px;
+}
+
+.replyConRow:focus{
+outline:none;
 }
 
 .height15{
@@ -255,6 +253,7 @@ padding-top : 100px;
 .replyRow{
 padding:0;
 padding-bottom : 2px;
+margin-top : 10px;
 }
 
 #replyInput{
@@ -262,6 +261,10 @@ width:100%;
 min-height:60px;
 border : none;
 margin-bottom:2px;
+}
+
+#replyInput:focus{
+outline : none;
 }
 
 .sessionID{
@@ -290,6 +293,10 @@ color : white;
 #replyComplete:hover{
 background-color : #525252 ;
 color : white;
+}
+
+.replyCancel{
+display:none;
 }
 
 
@@ -382,7 +389,7 @@ color : white;
 				<div class="text-overlay2">
 					<span class="note">${perfume.middle1}</span> 
 					<c:if test="${perfume.middle2 != null }">
-					<span class="note">, ${perfume.middle2},</span>
+					<span class="note">, ${perfume.middle2}</span>
 					</c:if>
 					<c:if test="${perfume.middle3 != null }">
 					<span class="note">, ${perfume.middle3}</span>
@@ -391,7 +398,7 @@ color : white;
 				<div class="text-overlay3">
 					<span class="note">${perfume.base1}</span> 
 					<c:if test="${perfume.base2 != null }">
-					<span class="note">, ${perfume.base2},</span>
+					<span class="note">, ${perfume.base2}</span>
 					</c:if>
 					<c:if test="${perfume.base3 != null }">
 					<span class="note">, ${perfume.base3}</span>
@@ -426,25 +433,24 @@ color : white;
         <c:forEach var="i" items="${reply}">
 					<form action="/perfumeReply/update" method="post" class="row messageSelect">
 						<div class="col-12 replyIdCol">
-						<div class="row" ></div>
 							<input type="text" class="replyIdRow" name="id" value="${i.id}" readonly>
 							<span id="formDate">${i.formedDate}</span>
 						</div>
 						<div class="col-12 replyConCol">
-<%-- 							<input type="text" class="row replyConRow" name="contents" value="${i.contents}" readonly> --%>
 							<textarea class="row replyConRow autosize" name="contents" maxlength="100" readonly>${i.contents}</textarea>
 							<input type="hidden" name="cpage" value="${cpage}">
 							<input type="hidden" name="per_seq" value="${i.per_seq}">
 							<input type="hidden" name="re_seq" value="${i.re_seq}">
 						</div>
 						<c:if test="${loginID eq i.id}">
-						<div class="row height15"></div>
 							<div class="row replyRow">
 								<div class="col d-flex flex-row-reverse">
 									<button type="button" class="replyModBtn replyBtn">수정</button>
 									<a href="/perfumeReply/delete?re_seq=${i.re_seq}&per_seq=${perfume.per_seq}&cpage=${cpage}">
-									<button type="button" class="replyDelBtn replyBtn" id="${i.re_seq}">삭제</button></a>
+										<button type="button" class="replyDelBtn replyBtn" id="${i.re_seq}">삭제</button>
+									</a>
 									<button class="replyUpdBtn replyBtn" type="submit">완료</button>
+									<button type="button" class="replyBtn replyCancel" >취소</button>
 								</div>
 							</div>
 						</c:if>
@@ -488,8 +494,9 @@ let replyFlag = true
 	 if(replyFlag==true){
 	 let contents = $(this).parent().parent().prev().prev().children();
 	 $(this).css("display","none"); 
-	 $(this).next().children().css("display","inline-block");
+	 $(this).next().css("display", "none");
 	 $(this).next().next().css("display","inline-block");
+	 $(this).next().next().next().css("display","inline-block");
 	 contents.removeAttr("readonly");
 	 replyFlag = false;
 	 }
@@ -531,20 +538,27 @@ let replyFlag = true
 			if(confirm("댓글을 삭제하시겠습니까?")){
 				alert("삭제 완료되었습니다.");
 				location.href="/perfumeReply/delete?re_seq="+replySeq+"&per_seq=${perfume.per_seq}&cpage=${cpage}";
+			}else{
+				return false;
 			}
-		})
+		});
 		
 		/* 게시글 삭제 확인 */
 	 $("#recordDel").on("click", function(){
 			if(confirm("게시글을 삭제하시겠습니까?")){
 				alert("삭제 완료되었습니다.");
 				 location.href="/perfume/delete?per_seq=${perfume.per_seq}&cpage=${cpage}";
+			}else{
 			}
 		});
  	
 		document.addEventListener('DOMContentLoaded', function() {
 			autosize(document.querySelectorAll('.autosize'));
 		});
+		
+		$(".replyCancel").on("click",function(){
+			history.back();
+		})
  
  </script>
 
