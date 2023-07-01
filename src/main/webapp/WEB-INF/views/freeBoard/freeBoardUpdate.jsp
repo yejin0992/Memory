@@ -18,24 +18,31 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>FreeBoardContent</title>
+<title>자게 수정폼</title>
 <style>
 @font-face {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
 	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2")
-		format("woff2");
-	font-weight: normal;
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
 	font-style: normal;
 }
 
 * {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
 }
 
 h2 {
 	text-align: center;
 	color: #555555;
+}
+
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
 }
 
 .container {
@@ -51,30 +58,52 @@ h2 {
 	margin-bottom: 1rem;
 }
 
-/* .title {
-        border-bottom: 1px solid #000;
-      } */
+#category {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid #dddddd;
+	border-bottom: 0;
+}
+
+#title {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid #dddddd;
+	border-bottom: 0;
+}
+
 .wrContent textarea {
 	width: 100%;
 }
 
 /* 수정완료, 취소버튼 */
+.button {
+	display: flex;
+	justify-content: flex-end;
+}
+
 #btnSave {
 	display: inline-block;
-	padding: 10px 20px;
 	font-size: 16px;
-	font-weight: bold;
 	text-align: center;
 	text-decoration: none;
-	background-color: #8fd4e9;
+	background-color: #b2a08a;
 	color: #ffffff;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	height: 38px;
+	width: 53px;
 }
 
 #btnSave:hover {
-	background-color: #0a75c7;
+	background-color: #525252;
+}
+
+#btnCancel {
+	margin-left: 10px;
 }
 </style>
 </head>
@@ -82,19 +111,20 @@ h2 {
 <body>
 
 	<!-- 게시판 시작  -->
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
+	<div class="titleArea">
+		<h2>COMMUNITY</h2>
+	</div>
 	<div class="container">
 		<form action="/freeBoard/updateBoard" method="post">
-
-			<div class="titleArea">
-				<h2>게시판</h2>
-			</div>
-			<!-- 말머리랑 제목 -->
 			<div class="row form-group">
 				<div class="col-2">
 					<div class="mb-3">
 						<select class="form-select" id="category" name="fr_category"
 							required>
-							<option value="" disabled selected hidden>말머리</option>
+							<option value="" disabled selected hidden>${conts.fr_category}</option>
 							<c:forEach var="c" items="${category }">
 								<option value="${c.cate_name }">${c.cate_name }</option>
 							</c:forEach>
@@ -104,8 +134,9 @@ h2 {
 				<div class="col-10">
 					<div class="title">
 						<input type="text" class="form-control" id="title" name="fr_title"
-							value="${conts.fr_title }" placeholder="제목을 입력하세요." required />
-						<input type="hidden" name="fr_seq" value="${conts.fr_seq}">
+							value="${conts.fr_title }" maxlength="60"
+							placeholder="제목을 입력하세요." required /> <input type="hidden"
+							name="fr_seq" value="${conts.fr_seq}">
 					</div>
 				</div>
 			</div>
@@ -124,28 +155,31 @@ h2 {
 						<button id="btnContentsRemove">삭제</button>
 					</c:forEach>
 				</div>
-				<div class="fileWrapper">
-					<fieldset>
-						<legend>이미지 파일 첨부 </legend>
-						<input style = "display:none" type="file" id="inputFiles" value="첨부파일" name="files"
+				<div class="mb-3">
+					<div class="fileWrapper">
+						<label for="file">이미지 파일 첨부</label> <br> <input type="file"
+							id="inputFiles" value="첨부파일" name="files"
 							accept="image/png, image/jpeg, image/jpg" multiple><br>
-					</fieldset>
+					</div>
 				</div>
 			</div>
 			<div class="button">
-				<button type="submit" id="btnSave" class="btn btn-primary">수정완료</button>
-				<button type="button" id="backToList" class="btn btn-light">취소</button>
+				<button type="submit" id="btnSave" class="btn btn-primary">등록</button>
+				<button type="button" id="btnCancel" class="btn btn-light">취소</button>
 			</div>
-
-
 		</form>
+	</div>
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
 	<!-- 게시판 끝 -->
 
 	<script>
-		$("#backToList").on("click", function() {
-			history.back();
+		$("#btnCancel").on("click", function() {
+			let fr_seq = ${conts.fr_seq}; 
+			console.log(fr_seq); 
+			location.href= "selectBySeq?fr_seq="+fr_seq; 
 		})
 		
 		

@@ -35,10 +35,16 @@
 
 .titleArea {
 	padding: 20px;
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
+}
 }
 
 .titleArea h1 {
 	font-size: 27px; /* 원하는 크기로 조절해주세요 */
+	text-align: center;
 }
 
 .cont_wrap {
@@ -94,7 +100,7 @@
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h1>북마크</h1>
+		<h2>북마크</h2>
 	</div>
 
 	<div class="container">
@@ -106,7 +112,7 @@
 				<div class="item">
 					<strong class="title"><a
 						href="/freeBoard/selectBySeq?fr_seq=${bm.fr_seq}">${bm.fr_title}</a></strong>
-					<span class="writer">${bm.fr_writer }</span> <span class="date">${bm.fr_write_date}</span>
+					<span class="writer">${bm.fr_writer }</span> <span class="date">${bm.formattedDate}</span>
 				</div>
 			</c:forEach>
 		</div>

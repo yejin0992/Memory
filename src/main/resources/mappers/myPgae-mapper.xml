@@ -67,7 +67,7 @@
 
 	<!--내가 좋아요한 향수 불러오기 -->
 	<select id="selectLikedPerfume" parameterType="String"
-		resultType="p.memory.dto.PerfumeDTO">
+		resultType="p.memory.dto.PerfumeMainDTO">
 		select p.per_seq, p.per_name, p.per_brand, i.sysname, h.id
 		from perfume
 		p

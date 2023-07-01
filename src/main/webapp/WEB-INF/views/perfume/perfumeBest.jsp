@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -270,10 +271,10 @@ height:200px;
 </head>
 
 <body>
-	<div class="container">
-		<div class="row naviHead">
+	<div class="row naviHead">
 			<c:import url="/WEB-INF/views/common/navi.jsp" />
 		</div>
+	<div class="container">
 		<div class="row imageRow m-0 p-0">
 			<img src="/resources/perfume2_2.jpg" id="mainImage">
 		</div>
@@ -306,7 +307,9 @@ height:200px;
 									</div>
 									<div class="row brandRow info">${i.per_brand }</div>
 									<div class="row nameRow info">${i.per_name }</div>
-									<div class="row priceRow info">${i.per_price }원</div>
+									<div class="row priceRow info">
+<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -339,7 +342,9 @@ height:200px;
 									</div>
 									<div class="row brandRow info">${i.per_brand }</div>
 									<div class="row nameRow info">${i.per_name }</div>
-									<div class="row priceRow info">${i.per_price }원</div>
+									<div class="row priceRow info">
+									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+									</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -352,12 +357,12 @@ height:200px;
 		</div>
 		
 		<div class="row margin"></div>
-		<div class="row footer">
-			<c:import url="/WEB-INF/views/common/footer.jsp" />
-		</div>
+		
 
 	</div>
-
+<div class="row footer">
+			<c:import url="/WEB-INF/views/common/footer.jsp" />
+		</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 

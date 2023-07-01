@@ -22,7 +22,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<title>FreeBoardContent</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
+
+<title>자유게시판 상세 내역</title>
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';
@@ -42,6 +45,13 @@ h2 {
 	color: #555555;
 }
 
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
+}
+
 .container {
 	max-width: 800px;
 	margin: 0 auto;
@@ -59,7 +69,7 @@ h2 {
 	color: #B2A08A;
 }
 
-#writer, #viewCount, #time {
+#writer, #viewCount, #time, #commentCount {
 	color: #959595;
 }
 
@@ -76,6 +86,15 @@ h2 {
 	width: 400px; /* 원하는 가로 크기 */
 	height: 200px; /* 원하는 세로 크기 */
 	overflow: auto; /* 내용이 넘칠 경우 스크롤 생성 */
+}
+
+#contents {
+	white-space: pre-line;
+}
+
+.wrContent {
+	max-height: auto;
+	min-height: 300px;
 }
 
 .imageContainer {
@@ -116,6 +135,10 @@ h2 {
 	border: 1px solid #ccc;
 	padding: 10px;
 	margin-bottom: 10px;
+	min-height: 90px;
+	height: auto;
+	max-height: 200px; /* 최대 높이 */
+	overflow-y: auto; /* 세로 스크롤 생성 */
 }
 
 .commentHeader {
@@ -176,7 +199,7 @@ textarea.form-control {
 	margin: 10px;
 }
 
-#btnAddComment, #btnMod {
+#btnAddComment {
 	padding: 8px 20px;
 	font-size: 14px;
 	background-color: #b2a08a;
@@ -186,10 +209,33 @@ textarea.form-control {
 	cursor: pointer;
 }
 
+.button {
+	display: flex;
+	justify-content: flex-end;
+}
+
+#backToList, #btnMod, #btnDel {
+	padding: 8px 20px;
+	font-size: 14px;
+	background-color: white;
+	color: black;
+	border: 1px solid #525252;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
 #btnAddComment {
 	margin-top: 10px;
 }
 
+.btnZone {
+	position: relative;
+	bottom: 30px;
+	float: right;
+}
+
+}
 .commentUpdate:hover, .commentDelete:hover, .commentReply:hover {
 	cursor: pointer;
 }
@@ -212,14 +258,22 @@ textarea.form-control {
 	outline: none;
 	background: transparent;
 	padding: 0;
+	height: auto;
+	min-height: 40px;
 }
 
 #commentContents {
 	width: 100%;
+	margin-top: -20px;
 }
 
 .fa-bookmark {
 	color: #BE7856;
+}
+
+.addComment {
+	display: flex;
+	justify-content: flex-end;
 }
 </style>
 </head>
@@ -227,13 +281,13 @@ textarea.form-control {
 <body>
 
 	<!-- 게시판 시작  -->
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
+	<div class="titleArea">
+		<h2>COMMUNITY</h2>
+	</div>
 	<div class="container">
-		<div class="header">
-			<c:import url="/WEB-INF/views/common/navi.jsp" />
-		</div>
-		<div class="titleArea">
-			<h2>게시판</h2>
-		</div>
 
 		<!-- 말머리랑 제목 -->
 		<div class="row form-group" style="display: flex;">
@@ -243,10 +297,13 @@ textarea.form-control {
 			<div class="title col-7">
 				<span>${conts.fr_title }</span>
 			</div>
-			<span class="col-3" id="time">${conts.fr_write_date }</span>
-			<div class="viewCountWrapper col-1">
+			<div class="postMeta col-4 d-flex justify-content-end">
+				<span id="time" style="margin-right: 10px;">${conts.formattedDate }</span>
 				<i class="fa-solid fa-eye" style="color: #b2a08a;"></i> <span
-					id="viewCount">${conts.fr_view_count }</span>
+					id="viewCount" style="margin-left: 5px;">${conts.fr_view_count }</span>
+				<i class="fa-solid fa-comment"
+					style="color: #b2a08a; margin-left: 5px;"></i><span
+					id="commentCount" style="margin-right: 10px; margin-left: 5px;">${conts.commentCount}</span>
 			</div>
 		</div>
 		<div class="row form-group"
@@ -274,11 +331,10 @@ textarea.form-control {
 		</div>
 		<hr class="separator">
 		<div class="button">
-			<button type="button" id="backToList" class="btn btn-light">목록</button>
+			<button type="button" id="backToList">목록</button>
 			<a href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
-					type="button" id="btnMod">수정</button></a> <a
-				href="/freeBoard/deleteBoard?fr_seq=${conts.fr_seq }"><button
-					type="button" id="btnDel" class="btn btn-light">삭제</button></a>
+					type="button" id="btnMod">수정</button></a>
+			<button type="button" id="btnDel">삭제</button>
 		</div>
 		<hr class="separator">
 		<!-- 게시판 끝 -->
@@ -289,24 +345,26 @@ textarea.form-control {
 				<div class="comment">
 					<div class="commentHeader">
 						<span class="commentWriter">${i.re_writer}</span> <span
-							class="commentDate">${i.re_write_date}</span> <span
+							class="commentDate">${i.formattedDate}</span> <span
 							class="commentReply">답글달기</span> <input type="hidden"
 							value="${i.re_seq }" id="re_seq" name="re_seq"> <input
 							type="hidden" name="fr_seq" value="${conts.fr_seq}">
-
-						<c:choose>
-							<c:when test="${loginID eq i.re_writer}">
-								<span class="commentUpdate" onclick="updateComment()">수정</span>
-								<span class="commentDelete" onclick="deleteComment()">삭제</span>
-							</c:when>
-						</c:choose>
 					</div>
 					<form action="/frReply/updateComment" method="post">
+						<c:choose>
+							<c:when test="${loginID eq i.re_writer}">
+								<div class="btnZone">
+									<span class="commentUpdate" onclick="updateComment()">수정</span>
+									<span class="commentDelete" onclick="deleteComment()">삭제</span>
+								</div>
+							</c:when>
+						</c:choose>
 						<div class="commentBody">
-							<input type="text" id="commentContents" value="${i.re_contents}"
-								name="re_contents" readonly> <input type="hidden"
-								value="${i.re_seq }" id="re_seq" name="re_seq"> <input
-								type="hidden" name="fr_seq" value="${conts.fr_seq}">
+							<textarea id="commentContents" class="autosize"
+								name="re_contents" maxlength="250" readonly>${i.re_contents}</textarea>
+							<input type="hidden" value="${i.re_seq }" id="re_seq"
+								name="re_seq"> <input type="hidden" name="fr_seq"
+								value="${conts.fr_seq}">
 						</div>
 					</form>
 				</div>
@@ -314,42 +372,60 @@ textarea.form-control {
 
 
 		</div>
+
 		<!-- 댓글들 끝 -->
 		<!-- 댓글 다는 창 시작  -->
 		<div class="commentForm">
 			<form>
 				<div class="formGroup">
 					<textarea id="commentContent" name="re_contents"
-						class="form-control" rows="3"
+						class="form-control" rows="3" maxlength="250"
 						placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
 				</div>
-				<button type="button" id="btnAddComment">등록</button>
+				<div class="addComment">
+					<button type="button" id="btnAddComment">등록</button>
+				</div>
 			</form>
 		</div>
 		<!-- 댓글다는창 끝 -->
-		<div class="footer">
-			<c:import url="/WEB-INF/views/common/footer.jsp" />
-		</div>
-
+	</div>
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
 
 
 
 	<script>
-		// 댓글 작성자 및 로그인한 아이디 확인 
-		console.log("loggedID: <c:out value='${loginID}' />");
-		console.log("i.re_writer: <c:out value='${i.re_writer}' />");
+		//댓글창 출력시 크기 자동조절 
+		document.addEventListener('DOMContentLoaded', function() {
+			autosize(document.querySelectorAll('.autosize'));
+		});
 
 		$("#backToList").on("click", function() {
 			history.back();
 		})
+		//게시글 삭제 
+		const btnDel = document.getElementById('btnDel');
+		btnDel.addEventListener('click', function() {
+			console.log("게시판 삭제버튼 클릭함");
+			let fr_seq = "${conts.fr_seq}";
+			console.log("게시판 시퀀스 잘 가져왔는지 확인 : " + fr_seq);
+			if (confirm("이 글을 삭제하시겠습니까?")) {
+				console.log("삭제 확인 버튼 클릭함");
+				location.href = "/freeBoard/deleteBoard?fr_seq=" + fr_seq;
+			} else {
+				// 취소시 아무런 동작 안함
+			}
+		});
+
 		// 댓삭
 		function deleteComment() {
 			//find, parent, next, prev 
 			// 삭제 span태그 요소 가져오기 
 			console.log("삭제버튼 클릭하면");
-			let re_seq = $(event.target).parent().find('#re_seq').val();
+			let btn_zone = $(event.target).parent();
+			let re_seq = btn_zone.parent().find('#re_seq').val();
 			//event.target은 이벤트 핸들러가 호출될 때 해당 이벤트가 발생한 요소를 가리키는 jQuery 객체
 			console.log("re_seq: " + re_seq);
 			let fr_seq = "${conts.fr_seq}";
@@ -366,27 +442,34 @@ textarea.form-control {
 		//댓수정
 		function updateComment() {
 			console.log("수정버튼 클릭하면");
-			let re_seq = $(event.target).parent().find('#re_seq').val();
+			let btn_zone = $(event.target).parent();
+			btn_zone.empty();
+			let re_seq = btn_zone.parent().find('#re_seq').val();
 			console.log("re_seq : " + re_seq);
-			$(event.target).parent().next().children().find("#commentContents")
-					.removeAttr("readonly");
+			btn_zone.next().find("#commentContents").removeAttr("readonly");
 
-			$(".commentDate").hide();
-			$(".commentReply").hide();
-			$(".commentUpdate").hide();
-			$(".commentDelete").hide();
+			btn_zone.parent().prev().find(".commentDate").hide();// 날짜
+			btn_zone.parent().prev().find(".commentReply").hide();// 답글달기
 
 			let saveUpdate = $("<button>").attr("id", "saveUpdate");
-			console.log(saveUpdate)
 			let cancel = $("<button>").attr("id", "cancel");
-			console.log(cancel);
-			saveUpdate.html("등록");
-			cancel.html("취소");
+			saveUpdate.text("등록");
+			cancel.text("취소");
 
 			saveUpdate.attr("type", "submit");
-			$(event.target).parent().next().find(".commentBody").append(
-					saveUpdate);
-			$(event.target).parent().next().find(".commentBody").append(cancel);
+			saveUpdate.css("background-color", "transparent");
+			saveUpdate.css("border", "none");
+			saveUpdate.css("padding", "0");
+			saveUpdate.css("cursor", "pointer");
+
+			cancel.css("background-color", "transparent");
+			cancel.css("border", "none");
+			cancel.css("padding", "0");
+			cancel.css("cursor", "pointer");
+			cancel.css("margin-left", "10px");
+
+			btn_zone.append(saveUpdate);
+			btn_zone.append(cancel);
 
 			$("#cancel").on("click", function() {
 				history.back();

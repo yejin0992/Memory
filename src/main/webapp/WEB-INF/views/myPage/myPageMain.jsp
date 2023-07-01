@@ -15,6 +15,10 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -36,6 +40,13 @@
 .container {
 	margin: 80px;
 	display: flex;
+}
+
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
 }
 
 .profileBox {
@@ -114,26 +125,24 @@
 	align-items: stretch;
 	justify-content: space-between;
 	width: 100%;
+	height: calc(100% -194px);
 }
 
 .myRecords {
+	height: 68px;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	width: 75%;
 }
 
 .wrapperBookmarks {
-	width: 20%;
-	float:right; 
+	
 }
 
 .bookmarks {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
-	padding: 10px;
 	justify-content: space-between;
 }
 
@@ -144,6 +153,10 @@
 .likeContainer {
 	margin-left: 80px;
 }
+
+.myComments {
+	font-size: 14px;
+}
 </style>
 </head>
 
@@ -151,11 +164,14 @@
 	<div class="header">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
+	<div class="titleArea">
+		<h2>MYPAGE</h2>
+	</div>
 	<div class="container">
 		<div class="profileBox">
 			<div class="profilePicture">
 				<!-- 프로필 사진이 들어갈 부분 -->
-				<img src="주소 어쩌구" alt="" />
+				<img src="/resources/profileImage/smile.png" alt="프로필 이미지" />
 			</div>
 			<div class="profileInfo">
 				<div class="userName">
@@ -163,7 +179,7 @@
 				</div>
 				<div class="wrapperBtnEdit">
 					<button class="editProfileButton">
-						<a href="/myPage/toUpdateMyInfo">edit</a>
+						<a href="/myPage/toUpdateMyInfo">Edit</a>
 					</button>
 				</div>
 			</div>
@@ -173,16 +189,17 @@
 						<span><a href="/myPage/selectMyPost?cpage=1">작성한 글</a></span> <span>${myPostsCount}</span>
 					</div>
 					<div class="myComments">
-						<span>작성한 댓글</span> <span>1000</span>
+						<span>작성한 댓글 999+</span>
 					</div>
 				</div>
 				<div class="wrapperBookmarks">
 					<div class="bookmarks">
 						<div class="bookmarkIcon">
 							<a href="/myPage/selectBookmarkedPosts"><i
-								class="fa-regular fa-bookmark fa-2xl" style="color: #cbc8bf;"></i></a>
+								class="fa-regular fa-bookmark fa-2xl" style="color: #b2a08a;"></i></a>
 						</div>
-						<span>북마크</span> <span>3</span>
+						<span style="text-align: center;">북마크
+							${bookmarkedPostsCount }</span>
 					</div>
 				</div>
 			</div>

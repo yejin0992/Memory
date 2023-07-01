@@ -32,35 +32,103 @@
 * {
 	font-family: 'Pretendard-Regular';
 }
+
+@font-face {
+	font-family: 'KorailRoundGothicBold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+.commentCount {
+	font-family: 'KorailRoundGothicBold';
+	color: blue;
+	margin-left: 5px;
+}
+
+h2 {
+	text-align: center;
+	color: #555555;
+}
+
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
+}
+
+.table {
+	border-collapse: collapse;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+table.table {
+	background-color: white;
+}
+
+.table th, .table td {
+	border: none; /* 테이블 셀의 경계선을 없앰 */
+}
+
+#time, #no, #cate, #writer, #viewCount, #replyNum {
+	text-align: center;
+}
+
+.title a {
+	color: black;
+	text-decoration: none;
+}
+
+.title a:hover {
+	color: #B2A08A;
+}
+
+.pageArea {
+	margin: 50px 0 20px 10px;
+	text-align: center;
+}
+
+.pageArea a {
+	text-decoration: none;
+	color: #B2A08A;
+}
 </style>
 </head>
 
 <body>
-
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
 	<div class="titleArea">
-		<h1>내가 쓴 글</h1>
+		<h2>내가 쓴 글</h2>
 	</div>
 
 	<div class="container">
 		<div class="table-responsive">
-			<table class="table table-bordered table-striped" solid black>
+			<table class="table table-bordered" solid black>
 				<thead>
 					<tr>
-						<th id="no" class="hide-on-mobile">글번호</th>
-						<th>제목</th>
-						<th id="time" align="center">날짜</th>
-						<th id="viewCount" class="hide-on-mobile">조회수</th>
-						<th id="replyNum" align="center">댓글수</th>
+						<th id="no" class="hide-on-mobile">NO</th>
+						<th>TITLE</th>
+						<th id="time" align="center">DATE</th>
+						<th id="viewCount" class="hide-on-mobile">HIT</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="my" items="${myPosts}">
 						<tr>
 							<td class="hide-on-mobile" align="center">${my.fr_seq }</td>
-							<td><a href="/freeBoard/selectBySeq?fr_seq=${my.fr_seq}">${my.fr_title}</a></td>
-							<td align="center">${my.fr_write_date}</td>
+							<td class="title"><a
+								href="/freeBoard/selectBySeq?fr_seq=${my.fr_seq}">${my.fr_title}</a>
+								<c:if test="${my.commentCount > 0}">
+									<span class="commentCount">${my.commentCount}</span>
+								</c:if></td>
+							<td align="center">${my.formattedDate}</td>
 							<td class="hide-on-mobile" align="center">${my.fr_view_count }</td>
-							<td align="center">댓글수 아직 미완성이여요</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -78,6 +146,9 @@
 				</c:if>
 			</div>
 
+		</div>
+		<div class="footer">
+			<c:import url="/WEB-INF/views/common/footer.jsp" />
 		</div>
 </body>
 </html>

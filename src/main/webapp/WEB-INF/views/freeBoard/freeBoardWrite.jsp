@@ -18,24 +18,31 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>Insert title here</title>
+<title>글작성 폼</title>
 <style>
 @font-face {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
 	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2")
-		format("woff2");
-	font-weight: normal;
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
 	font-style: normal;
 }
 
 * {
-	font-family: "Dovemayo_gothic";
+	font-family: 'Pretendard-Regular';
 }
 
 h2 {
 	text-align: center;
 	color: #555555;
+}
+
+.titleArea {
+	text-align: center;
+	font-size: 30px;
+	padding-top: 100px;
+	padding-bottom: 50px;
 }
 
 .container {
@@ -51,21 +58,48 @@ h2 {
 	margin-bottom: 1rem;
 }
 
-/* .title {
-        border-bottom: 1px solid #000;
-      } */
+#category {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid #dddddd;
+	border-bottom: 0;
+}
+
+#title {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid #dddddd;
+	border-bottom: 0;
+}
+
 .wrContent textarea {
-	width: 100%;
+	max-width: 100%;
+}
+
+.btnAdd {
+	padding: 8px 20px;
+	font-size: 14px;
+	background-color: #b2a08a;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 5px;
 }
 </style>
 </head>
 <body>
-	<!-- 게시판 시작  -->
+	<div class="header">
+		<c:import url="/WEB-INF/views/common/navi.jsp" />
+	</div>
+	<div class="titleArea">
+		<h2>COMMUNITY</h2>
+	</div>
 	<div class="container">
-		<div class="titleArea">
-			<h2>게시판</h2>
-		</div>
 		<!-- 말머리랑 제목  -->
+
 		<form action="/freeBoard/insertBoard" method="post"
 			enctype="multipart/form-data">
 			<div class="row form-group">
@@ -82,8 +116,8 @@ h2 {
 				</div>
 				<div class="col-10">
 					<div class="title">
-						<input type="text" class="form-control" id="title" name="fr_title"
-							placeholder="제목을 입력하세요." required />
+						<input type="text" class="form-control" id="title" wrap="hard"
+							name="fr_title" maxlength="60" placeholder="제목을 입력하세요." required />
 					</div>
 				</div>
 			</div>
@@ -97,30 +131,38 @@ h2 {
 			<!-- 첨부파일 -->
 			<div class="mb-3">
 				<div class="fileWrapper">
-					<fieldset>
-						<legend>이미지 파일 첨부 </legend>
-						<input type="file" id="inputFiles" value="첨부파일" name="files"
-							accept="image/png, image/jpeg, image/jpg" multiple><br>
-					</fieldset>
+					<label for="file">이미지 파일 첨부</label> <br> <input type="file"
+						id="inputFiles" value="첨부파일" name="files"
+						accept="image/png, image/jpeg, image/jpg" multiple><br>
 				</div>
 			</div>
 			<!-- 버튼  -->
 			<div class="button">
-				<button type="submit" class="btn btn-primary">등록</button>
-				<button type="button" class="btn btn-light">취소</button>
+				<button type="submit" class="btnAdd">등록</button>
+				<button type="button" id="btnCancel" class="btn btn-light">취소</button>
 			</div>
 		</form>
+	</div>
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
 	<!-- 게시판 끝 -->
 
 	<script>
 		$("#btnCancel").on("click", function() {
-
+			history.back();
 		})
 
+		const textarea = document.getElementById('content');
 
-
+		textarea.addEventListener('keydown', function(event) {
+			if (event.keyCode === 13 && !event.shiftKey) {
+				event.preventDefault();
+				const currentValue = this.value;
+				this.value = currentValue + '\n';
+			}
+		});
 	</script>
 
 
