@@ -38,8 +38,11 @@
 }
 
 .container {
-	margin: 80px;
+	/* margin: 80px; */
 	display: flex;
+	padding: 80px;
+	0
+	px;
 }
 
 .titleArea {
@@ -152,6 +155,10 @@
 
 .likeContainer {
 	margin-left: 80px;
+}
+
+.myPosts {
+	font-size: 14px;
 }
 
 .myComments {

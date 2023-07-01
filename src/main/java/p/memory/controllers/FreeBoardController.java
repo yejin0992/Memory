@@ -85,11 +85,16 @@ public class FreeBoardController {
 	@RequestMapping("selectList")
 	public String selectList(@RequestParam(defaultValue = "1", name = "cpage") int currentPage,
 			@RequestParam(value = "field", required = false, defaultValue = "fr_title") String field,
-			@RequestParam(value = "query", required = false, defaultValue = "") String query, Model model)
+			@RequestParam(value = "query", required = false, defaultValue = "") String query, Model model, HttpServletRequest request, HttpSession session)
 			throws Exception {
 //		List<FreeBoardDTO> list = fBservice.selectList();
 //		model.addAttribute("list", list);
-
+		// cpage 받아오기 
+		// 현재 요청의 URL 생성
+		String currentURL = request.getRequestURI() + "?" + request.getQueryString();
+		// 세션에 cpage 값 저장
+		session.setAttribute("cpage",currentURL);
+		
 		// <페이징 관련 시작>
 		// 총 게시물 수
 		int recordsTotalCount = fBservice.getPostsCount(field, query);
@@ -161,6 +166,9 @@ public class FreeBoardController {
 	public String selectBySeq(@RequestParam(defaultValue = "1", name = "cpage") int currentPage, HttpServletRequest request, HttpServletResponse response, Model model, Integer fr_seq) {
 		System.out.println("시퀀스는 잘 받아오는지 확인 : " + fr_seq);
 		String loggedID = (String) session.getAttribute("loginID");
+		// 세션에서 cpage 값 가져오기
+		String cpage = (String) session.getAttribute("cpage");
+		model.addAttribute("cpage", cpage); 
 		// 조회수 증가 조회
 		// 쿠키 이름 설정
 		String cookieName = "free_board_viewed" + fr_seq;
@@ -234,6 +242,10 @@ public class FreeBoardController {
 	@RequestMapping("toUpdateForm")
 	public String toUpdate(Model model, Integer fr_seq) throws Exception {
 		System.out.println("업데이트 폼 시퀀스 확인 : " + fr_seq);
+		// 세션에서 cpage 값 가져오기
+		String cpage = (String) session.getAttribute("cpage");
+		System.out.println("cpage: " + cpage);
+		model.addAttribute("cpage", cpage); 
 		FreeBoardDTO dto = fBservice.selectBySeq(fr_seq);
 		model.addAttribute("conts", dto);
 		// 카테고리 리스트 가져오기
