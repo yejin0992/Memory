@@ -106,8 +106,9 @@ public class MemberController {
 
 		if (result) {
 			session.setAttribute("loginID", id);
+			System.out.println("세션이 넣은 아이디 : "+session.getAttribute("loginID"));
 			rttb.addFlashAttribute("status", "login");
-			return "memberHome";
+			return "home";
 		} else {
 			rttb.addFlashAttribute("status", "unableLogin");
 			return "redirect:/member/loginForm";

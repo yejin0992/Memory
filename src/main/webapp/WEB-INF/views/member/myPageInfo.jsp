@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join</title>
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- 카카오 우편먼호 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 
 <style>
 body {
@@ -124,7 +125,8 @@ input[type="password"]:focus {
 	margin: 8px;
 }
 
-#idCheck:hover, #searchZipcode:hover, #update:hover, #back:hover, #memberOut:hover {
+#idCheck:hover, #searchZipcode:hover, #update:hover, #back:hover,
+	#memberOut:hover {
 	background-color: #525252;
 	cursor: pointer;
 }
@@ -139,106 +141,117 @@ input[type=radio] {
 }
 
 .readOnly {
-background-color: #f7f7f7;
+	background-color: #f7f7f7;
 }
+
+/* 비밀번호 변경 */
+#updatePW {
+	border: none;
+	background-color: #b2a08a;
+	color: aliceblue;
+	height: 30px;
+	border-radius: 3px;
+	padding: 1px 15px;
+	font-size: medium;
+} 
+
 </style>
 </head>
-<script>
-    $(document).ready(function () {
-      $('#tableBox').DataTable();
-    });
-  </script>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
-   <c:if test="${status == 'update'}">
+
+<body>
+	<c:if test="${status == 'update'}">
 		<script>
 			alert("수정 완료 되었습니다.");
 			location.reload();
 		</script>
 	</c:if>
- <c:import url="/WEB-INF/views/common/navi.jsp" />
+	<c:import url="/WEB-INF/views/common/navi.jsp" />
 	<form action="/member/update" id="form" method="post">
 		<div class="container">
-			
+
 			<div class="row body">
 				<div class="joinBox">
 					<table>
-					<caption align="center">
-					<h2>회원 정보</h2>
-						<%-- <p>${sessionScope.loginID}님 환영합니다.</p> --%>
-					</caption>
+						<caption align="center">
+							<h2>회원 정보</h2>
+						</caption>
 						<tr>
-							<td class="col1"> 아이디</td>
-							<td class="col3"><input type="text" id="id" class="readOnly" name="id" 
-								value="${myInfo.id}" readonly>
+							<td class="col1">아이디</td>
+							<td class="col3"><input type="text" id="id" class="readOnly"
+								name="id" value="${myInfo.id}" readonly>
 						</tr>
-						<!-- <tr>
-						<td>
-						<input type="button" id="updatePW" value="비밀번호 변경" onclick="showPopup();"/>
-						</td>
+						<tr>
+							<td></td>
+							<td><button type="button" id="updatePW" style="display: none;">비밀번호 변경</button></td>
 						</tr>
-						<div id="result"></div> -->
-						 <tr>
+
+						<tr class="hiddenPW" style="display: none;">
 							<td class="col1">* 비밀번호</td>
-							<td class="col3"><input type="password" id="pw" class="readLater" name="pw" 
-								required readonly>
+							<td class="col3"><input type="password" id="pw"
+								class="readLater" name="pw" required readonly>
 								<div class="condition">
 									<span id="check1">✔영문 대소문자</span> <span id="check2">✔숫자</span>
 									<span id="check3">✔특수문자</span> <span id="check4">✔8~20자</span>
 								</div></td>
 						</tr>
-						<tr>
+						<tr class="hiddenPW" style="display: none;">
 							<td class="col1">* 비밀번호 확인</td>
-							<td class="col3"><input type="password" id="repw" class="readLater"
-								name="repw" maxlength="20" required readonly>
+							<td class="col3"><input type="password" id="repw"
+								class="readLater" name="repw" maxlength="20" required readonly>
 								<div class="condition">
 									<span id="check5">✔비밀번호 일치</span>
 								</div></td>
 						</tr>
 						<tr>
-							<td class="col1"> 이름</td>
-							<td class="col3"><input type="text" id="name" class="readOnly" name="name" value="${myInfo.name}"
+							<td class="col1">이름</td>
+							<td class="col3"><input type="text" id="name"
+								class="readOnly" name="name" value="${myInfo.name}"
 								maxlength="5" readonly></td>
 						</tr>
 						<tr>
-							<td class="col1"> 생년월일</td>
-							<td class="col3"><input type="text" id="birth_date" class="readOnly"
-								name="birth_date" value="${myInfo.birth_date}" maxlength="8"  readonly></td>
+							<td class="col1">생년월일</td>
+							<td class="col3"><input type="text" id="birth_date"
+								class="readOnly" name="birth_date" value="${myInfo.birth_date}"
+								maxlength="8" readonly></td>
 						</tr>
-						
+
 						<tr>
 							<td class="col1">* 연락처</td>
-							<td class="col3"><input type="text" id="contact" class="readLater"
-								name="contact" value="${myInfo.contact}" placeholder="  휴대폰 번호 입력('-'제외 입력)" readonly></td>
+							<td class="col3"><input type="text" id="contact"
+								class="readLater" name="contact" value="${myInfo.contact}"
+								placeholder="  휴대폰 번호 입력('-'제외 입력)" readonly></td>
 						</tr>
 						<tr>
 							<td class="col1">* 이메일</td>
-							<td class="col3"><input type="text" id="email" class="readLater" name="email" value="${myInfo.email}"
-								readonly></td>
+							<td class="col3"><input type="text" id="email"
+								class="readLater" name="email" value="${myInfo.email}" readonly></td>
 						</tr>
 						<tr>
 							<td class="col1" id="address">주소</td>
 							<td class="col3">
 								<div>
-									<input type="text" id="zipcode" class="readOnly" name="zipcode" value="${myInfo.zipcode}" readonly>
+									<input type="text" id="zipcode" class="readOnly" name="zipcode"
+										value="${myInfo.zipcode}" readonly>
 									<button type="button" id="searchZipcode">우편번호</button>
 								</div>
 								<div>
-									<input type="text" id="address1" class="readLater" name="address1" value="${myInfo.address1}"
+									<input type="text" id="address1" class="readLater"
+										name="address1" value="${myInfo.address1}"
 										placeholder="  기본주소" readonly></input>
 								</div>
 								<div>
-									<input type="text" id="address2" class="readLater" name="address2" value="${myInfo.address2}"
+									<input type="text" id="address2" class="readLater"
+										name="address2" value="${myInfo.address2}"
 										placeholder="  나머지주소(선택 입력가능)" readonly></input>
 								</div>
 
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center" id="joinBtnTable">
-								<a href="/myPage/myPageMain"><button type="button" id="back">돌아가기</button></a>
-								<button type="button" id="update">정보수정</button> 
-								<button type="button" id="memberOut">회원탈퇴</button>
-							</td>
+							<td colspan="2" align="center" id="joinBtnTable"><a
+								href="/myPage/myPageMain"><button type="button" id="back">돌아가기</button></a>
+								<button type="button" id="update">정보수정</button>
+								<button type="button" id="memberOut">회원탈퇴</button></td>
 						</tr>
 					</table>
 				</div>
@@ -248,20 +261,19 @@ background-color: #f7f7f7;
 	</form>
 
 	<script>
+	let pwRejexFlag = true;
 	
-	$("#memberOut").on("click", function() {
-	    var result = confirm("정말 회원 탈퇴 하시겠습니까?");
-	    if (result) {
-	        location.href = "/member/memberOut";
-	    } else {
-	    }
+	$("#updatePW").on("click", function(){
+		pwRejexFlag = false;	
 	});
+		
 	$("#update").on("click", function() {
 		console.log("수정버튼 클릭");
 		$(".readLater").removeAttr("readonly");
 		$("#update,#back,#memberOut").css("display", "none");
 
 		let updateComplete = $("<button>");
+		updateComplete.attr("id", "complete");
 		updateComplete.text("완료");
 		updateComplete.attr("type", "submit");
 		updateComplete.css({
@@ -289,8 +301,73 @@ background-color: #f7f7f7;
 				  }
 				);
 		
+		console.log(2);
+		
+		
+		
+	
+
+		// 수정 완료 버튼
 		updateComplete.on("click", function() {
 			event.preventDefault(); // 폼 바로 제출 막기
+			
+			let form = document.getElementById("form");
+	        
+	        let repw = document.getElementById("repw").value;
+	        let birth_date = document.getElementById("birth_date").value;
+	        let contact = document.getElementById("contact").value;
+	        let email = document.getElementById("email").value;
+	        let zipcode = document.getElementById("zipcode").value;
+	        let address1 = document.getElementById("address1").value;
+	        let address2 = document.getElementById("address2").value;
+	      	        let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
+	        let contactRegex = /^01\d{8,9}$/;
+	        let emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+
+	        console.log(3);
+	      if (birth_date == "") {
+	            alert("생년월일을 입력해주세요.");
+	            return false;
+	          } else if (!birth_dateRegex.test(birth_date)) {
+	            alert('생년월일 형식을 맞춰 입력해주세요.(예시, 19990101)');
+	            return false;
+	        }else if (contact == "") {
+	          alert("휴대폰 번호를 입력해주세요.");
+	          return false;
+	        } else if (!contactRegex.test(contact)) {
+	          alert('휴대폰 번호 형식을 맞춰 입력해주세요.');
+	          return false;
+	        } else if (email == "") {
+	          alert("이메일을 입력해주세요.");
+	          return false;
+	        } else if (!emailRegex.test(email)) {
+	          alert('이메일 형식을 맞춰 입력해주세요.');
+	          return false;
+	        }
+	     
+	      
+	        if (pwRejexFlag == true) { 
+	        	console.log(11);
+	        }else if(pwRejexFlag == false) {
+	        	console.log(00);
+	          let pw = document.getElementById("pw").value;
+	          let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+
+	          if (pw == "") {
+	            alert("비밀번호를 입력해주세요.");
+	            return false;
+	          } else if (!(pw == repw)) {
+	            alert("비밀번호가 일치하지 않습니다.");
+	            return false;
+	          } else if (!pwRegex.test(pw)) {
+	            alert("비밀번호 형식을 맞춰 입력해주세요.(영문 소문자, 4~16자)")
+	            return false;
+	          }
+	        pwRejexFlag = true;
+		      }
+	      
+	    
+	      
 		    var result = confirm("정보를 수정하시겠습니까?");
 		    if (result) {
 		        $("#form").submit();
@@ -298,7 +375,7 @@ background-color: #f7f7f7;
 		    }
 		});
 		
-
+		console.log(4);
 		let cancel = $("<button>");
 		cancel.attr("type", "button");
 		cancel.text("취소");
@@ -333,10 +410,27 @@ background-color: #f7f7f7;
 
 		$("#joinBtnTable").append(cancel);
 		$("#joinBtnTable").prepend(updateComplete);
-
-	})
-
-	  //비밀번호 확인
+			
+		 $("#updatePW").show();
+		
+		 // 비밀번호 수정 버튼
+		 let updatePwFlag = true;
+		  $("#updatePW").on("click",function(){
+		 let update = $(this);
+			  if(updatePwFlag) { 
+				  update.text("비밀번호 변경 안함");
+				    $(".hiddenPW").show();
+				    updatePwFlag = false;
+			  }else {
+					update.text("비밀번호 변경");
+		    	    $(".hiddenPW").hide();
+		    	    updatePwFlag = true;
+			  }
+		  });
+	});
+	console.log(5);
+	
+	  //비밀번호 즉시 확인
       let check1 = document.getElementById("check1");
       let check2 = document.getElementById("check2");
       let check3 = document.getElementById("check3");
@@ -383,7 +477,6 @@ background-color: #f7f7f7;
         	check5.style.color = "";
         } 
       });
-      
       $("#repw").on("keyup", function () {
     	  let pw = document.getElementById("pw").value;
           let repw = document.getElementById("repw").value;
@@ -397,60 +490,11 @@ background-color: #f7f7f7;
           	check5.style.color = "";
           } 
     	});
-      
-      
-      //정규화
-      document.getElementById("joinBtn").onclick = () => {
-
-        let form = document.getElementById("form");
-        let pw = document.getElementById("pw").value;
-        let repw = document.getElementById("repw").value;
-        let birth_date = document.getElementById("birth_date").value;
-        let contact = document.getElementById("contact").value;
-        let email = document.getElementById("email").value;
-        let zipcode = document.getElementById("zipcode").value;
-        let address1 = document.getElementById("address1").value;
-        let address2 = document.getElementById("address2").value;
-
-        let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-        let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
-        let contactRegex = /^01\d{8,9}$/;
-        let emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-
-       
-       if (pw == "") {
-          alert("비밀번호를 입력해주세요.");
-          return false;
-        } else if (!(pw == repw)) {
-          alert("비밀번호가 일치하지 않습니다.");
-          return false;
-        }else if (!pwRegex.test(pw)){
-           	alert("비밀번호 형식을 맞춰 입력해주세요.(영문 소문자, 4~16자)")
-           	return false;
-        } else if (birth_date == "") {
-            alert("생년월일을 입력해주세요.");
-            return false;
-          } else if (!birth_dateRegex.test(birth_date)) {
-            alert('생년월일 형식을 맞춰 입력해주세요.(예시, 19990101)');
-            return false;
-        }else if (contact == "") {
-          alert("휴대폰 번호를 입력해주세요.");
-          return false;
-        } else if (!contactRegex.test(contact)) {
-          alert('휴대폰 번호 형식을 맞춰 입력해주세요.');
-          return false;
-        } else if (email == "") {
-          alert("이메일을 입력해주세요.");
-          return false;
-        } else if (!emailRegex.test(email)) {
-          alert('이메일 형식을 맞춰 입력해주세요.');
-          return false;
-        }
-      }
 
       // 카카오 우편번호 API
       document.getElementById("searchZipcode").onclick = function () {
         new daum.Postcode(
+        
           {
             oncomplete: function (data) {
               document.getElementById("zipcode").value = data.zonecode;
@@ -458,6 +502,16 @@ background-color: #f7f7f7;
             },
           }).open();
       };
+      
+	// 수정 완료 버튼
+  	$("#memberOut").on("click", function() {
+  	    var result = confirm("정말 회원 탈퇴 하시겠습니까?");
+  	    if (result) {
+  	        location.href = "/member/memberOut";
+  	    } else {
+  	    }
+  	});
+	
     </script>
 </body>
 

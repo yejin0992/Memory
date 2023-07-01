@@ -131,16 +131,14 @@
   </style>
 </head>
 
-<script>
-    $(document).ready(function () {
-      $('#tableBox').DataTable();
-    });
-  </script>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
-  <div class="head"><c:import url="/WEB-INF/views/common/navi.jsp" /></div>
+ <body>
+  <div class="rowheader">
+  <c:import url="/WEB-INF/views/common/navi.jsp" />
+  </div>
+  
   <form action="/qnaBoard/insertPost" method="post" enctype="multipart/form-data">
     <div class="container">
-      <div class="body">
+      <div class="rowbody">
         <div class="borderName">Q & A</div>
         <hr>
         <div><input type="text" id="title" placeholder="  글 제목을 입력하세요" name="qa_title"></div>
@@ -160,6 +158,7 @@
       </div>
   </form>
   </div>
+  
   <div class="footer">
   <c:import url="/WEB-INF/views/common/footer.jsp" />
   </div>

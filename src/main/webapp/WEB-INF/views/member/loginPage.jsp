@@ -140,14 +140,14 @@
     <div class="row header"></div>
     <div class="row body">
     
-    <c:if test="${status=='j_s'}">
+    <c:if test="${status=='insert'}">
 		<script>
 			alert("회원가입이 완료 되었습니다.");
 			location.reload();
 		</script>
 	</c:if>
 	
-	<c:if test="${status=='l_f'}">
+	<c:if test="${status=='unableLogin'}">
 		<script>
 			alert("ID, 비밀번호를 다시 확인해주세요.");
 			location.reload();

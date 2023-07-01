@@ -460,7 +460,7 @@ color : white;
         <input type="hidden" id="loginID" value="${loginID}">
         <div class="row height40"></div>
         <div class="row footer">
-       <%--   <c:import url="/WEB-INF/views/common/fsooter.jsp" /> --%>
+ <c:import url="/WEB-INF/views/common/fsooter.jsp" />
         </div>
     </div>
     
