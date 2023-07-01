@@ -354,8 +354,8 @@ textarea.form-control {
 						<c:choose>
 							<c:when test="${loginID eq i.re_writer}">
 								<div class="btnZone">
-									<span class="commentUpdate" onclick="updateComment()">수정</span>
-									<span class="commentDelete" onclick="deleteComment()">삭제</span>
+									<span class="commentUpdate" onclick="updateComment()" style="cursor: pointer;">수정</span>
+									<span class="commentDelete" onclick="deleteComment()" style="cursor: pointer;">삭제</span>
 								</div>
 							</c:when>
 						</c:choose>

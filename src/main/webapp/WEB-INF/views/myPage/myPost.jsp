@@ -145,10 +145,10 @@ table.table {
 					<span><a href="myPage/selectMyPost?cpage=${endNavi +1}">다음</a></span>
 				</c:if>
 			</div>
-
 		</div>
-		<div class="footer">
-			<c:import url="/WEB-INF/views/common/footer.jsp" />
-		</div>
+	</div>
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
+	</div>
 </body>
 </html>
