@@ -192,12 +192,14 @@ nav ul li {
 		</ul>
 		<ul class="navbar_icon">
 			<li><a href="/myPage/toMyPageMain">My Page</a></li>
-			<li><a href="/member/logout">LOGOUT</a></li>
+			<li><a href="/member/logout" >LOGOUT</a></li>
 			<li><a href="/member/toMypage">EJ</a></li>
 		</ul>
 		<a href="#" class="navbar_hamburgerBtn"> <i
 			class="fa-solid fa-bars"></i></a>
 	</nav>
+	
+	
 	</div>
 <script>
 		// 햄버거 바 클릭했을때
@@ -209,6 +211,17 @@ nav ul li {
 			menu.classList.toggle('active');
 			icon.classList.toggle('active');
 		};
+		
+		
+		$(".btn").on("click", function(){
+			if(${sessionScople.loginID == null}){
+				alert("로그인 먼저 진행");
+				location.href="/에러페이지주소/";
+			}else {
+				return true;
+			}
+		})
+	
 	</script>
 </body>
 </html>

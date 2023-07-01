@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -246,6 +246,7 @@ nav ul li {
 </head>
 
 <body>
+	<input type="hidden" value="${loginID}">
 	<div class="rowheader">
 		<nav class="navibar">
 			<div class="navbar_logo">
@@ -274,14 +275,25 @@ nav ul li {
 						<a href="/freeBoard/selectList?cpage=1">Free Board</a> <a
 							href="/qnaBoard/boardList">Q&A</a>
 					</div>
+					<input type="hidden" value="${loginID}">
 				</li>
+</ul>
+			
+				<c:if test="${loginID == null}">
+					<ul class="navbar_icon">
+						<li><a href="/member/loginForm">LOGIN</a></li>
+						<li><a href="/member/toJoinForm">SIGN UP</a></li>
+					</ul>
+				</c:if>
+				<c:if test="${loginID != null}">
+					<ul class="navbar_icon">
+						<li><a href="/myPage/toMyPageMain">My Page</a></li>
+						<li><a href="/member/logout">LOGOUT</a></li>
+						<li><a href="/member/toMypage">EJj</a></li>
+					</ul>
+				</c:if>
+			
 
-			</ul>
-			<ul class="navbar_icon">
-				<li><a href="/member/loginForm">LOGIN</a></li>
-				<li><a href="/member/toJoinForm">SIGN UP</a></li>
-				<li><a href="#">SERCH</a></li>
-			</ul>
 			<a href="#" class="navbar_hamburgerBtn"> <i
 				class="fa-solid fa-bars"></i></a>
 		</nav>
@@ -355,9 +367,6 @@ nav ul li {
 
 	</script>
 
-	</script>
-
-	</script>
 
 
 </body>
