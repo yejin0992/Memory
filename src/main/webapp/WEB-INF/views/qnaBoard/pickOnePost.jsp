@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -26,6 +27,7 @@
 	padding-top: 80px;
 	padding-bottom: 80px;
 }
+
 
 input[type="text"] {
 	border: none;
@@ -53,6 +55,7 @@ input[type="text"] {
 	border-color: #dddddd;
 	pointer-events: none;
 	border: none;
+	
 }
 
 #content:focus {
@@ -70,8 +73,18 @@ input[type="text"] {
 	color: rgb(73, 73, 73);
 }
 
-.img {
-	padding-top: 10px;
+#contentBox {
+padding: 10px;
+
+}
+#imgBox {
+    position: relative;
+    max-width: 100%;
+    min-height: max-content;
+}
+
+img {
+    width: 100%;
 }
 
 /* content 버튼 */
@@ -177,12 +190,9 @@ input[type="text"] {
 }
 </style>
 </head>
-<script>
-    $(document).ready(function () {
-      $('#tableBox').DataTable();
-    });
-  </script>
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+
+<body>
+
 
 	<c:if test="${param.status == 'update' }">
 		<script>
@@ -193,6 +203,14 @@ input[type="text"] {
 	<div class="head">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
+    
+    <c:choose>
+    <c:when test="${loginID==null}">
+	<script>
+	location.href="/";
+	</script>
+	</c:when>
+	<c:otherwise>
 	<div class="container">
 		<form
 			action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_write_date=${post.qa_write_date}"
@@ -211,21 +229,25 @@ input[type="text"] {
 
 				<div id="contentBox">
 					<c:forEach var="i" items="${file}">
+					<div id="imgBox">
 						<img src="/qnaUpload/${i.sysName}">
+		            </div>
 					</c:forEach>
+					<div>
 					<textarea id="content" name="qa_contents"
 						value="${post.qa_contents}" readonly>${post.qa_contents}
 		 	        </textarea>
+		 	        </div>
 				</div>
 
 				<c:choose>
 					<c:when test="${loginID eq post.qa_writer}">
 						<div id="btnArea" align="right">
-							<a href="/qnaBoard/boardList"> <input type="button"
-								id="backBtn" class="btn" value="목록"></a> <a
-								href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> <input
-								type="button" id="deleteBtn" class="btn" value="삭제"></a> <input
-								type="button" id="updateBtn" class="btn" value="수정">
+							<a href="/qnaBoard/boardList?cpage=${cpage}">
+							<input type="button" id="backBtn" class="btn" value="목록">
+								<a href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> 
+								<input type="button" id="deleteBtn" class="btn" value="삭제"></a> 
+								<input type="button" id="updateBtn" class="btn" value="수정">
 						</div>
 
 					</c:when>
@@ -282,7 +304,8 @@ input[type="text"] {
 				</div>
 				<div id="replyBody" style="display: flex;">
 					<div id="msg">
-						<textarea id="replyInsertTextarea" class="textarea" name="re_contents"></textarea>
+						<textarea id="replyInsertTextarea" class="textarea"
+							name="re_contents"></textarea>
 					</div>
 					<div id="reply_insert_btn" align="right">
 						<input type="submit" id="replyBtn" value="등록">
@@ -294,12 +317,15 @@ input[type="text"] {
 
 	</div>
 
+</c:otherwise>
+	</c:choose>
+
+
 	<div class="footer">
 		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
 	<script>
-	
 		// 게시글 수정 버튼
 		$("#updateBtn").on("click", function() {
 			$("#content").css({
@@ -322,6 +348,8 @@ input[type="text"] {
 				"width" : "80px",
 				"height" : "35px"
 			});
+			
+
 
 			let cancel = $("<input>");
 			cancel.attr("type", "button");
@@ -338,60 +366,75 @@ input[type="text"] {
 			cancel.on("click", function() {
 				location.reload();
 			});
+			
+			let backBtn = $("#backBtn");
+			backBtn.css({
+			    "margin-right": "5px",
+			    "margin-bottom": "15px",
+			});
 			$("#btnArea").append(updateComplete);
 			$("#btnArea").append(cancel);
 		});
+		
+		// 게시글 삭제
+		$("#deleteBtn").on("click",function(){
+			var delet = confirm("댓글을 삭제하시겠습니까?");
+			if (result) {
+				alert("삭제 완료 되었습니다.");
+				location.href = "/reply/replyDelete?qa_seq=${post.qa_seq}&re_seq="
+						+ replySeq;
+			} else {
+			}
+		});
 
-		
-		let updateFlag = true;
-		
 		// 댓글 수정하기 버튼
 		$(".re_updateBtn").on("click", function() {
-			if(updateFlag == true) {
-			$(this).css("background-color", "red");
-			$(this).parent().parent().next().removeAttr("readonly");
-			$(this).css("display", "none"); 
-			$(this).siblings().css("display", "none");
+			let updateFlag = true;
+			if (updateFlag == true) {
+				$(this).css("background-color", "red");
+				$(this).parent().parent().next().removeAttr("readonly");
+				$(this).css("display", "none");
+				$(this).siblings().css("display", "none");
 
-			let updateComplete = $("<input>");
-			updateComplete.attr("type", "submit");
-			updateComplete.attr("value", "완료");
+				let updateComplete = $("<input>");
+				updateComplete.attr("type", "submit");
+				updateComplete.attr("value", "완료");
 
-			updateComplete.css({
-				"border" : "none",
-				"background-color" : "white",
-				"margin-right" : "1px"
-			});
-			updateComplete.on("click", function() {
-				alert("댓글 수정 완료되었습니다.")
-			});
+				updateComplete.css({
+					"border" : "none",
+					"background-color" : "white",
+					"margin-right" : "1px"
+				});
+				updateComplete.on("click", function() {
+					alert("댓글 수정 완료되었습니다.")
+				});
 
-			let cancel = $("<input>");
-			cancel.attr("type", "button");
-			cancel.attr("value", "취소");
-			cancel.css({
-				"border" : "none",
-				"background-color" : "white",
-				"margin-right" : "1px"
-			});
-			cancel.on("click", function() {
-				location.reload();
-			});
+				let cancel = $("<input>");
+				cancel.attr("type", "button");
+				cancel.attr("value", "취소");
+				cancel.css({
+					"border" : "none",
+					"background-color" : "white",
+					"margin-right" : "1px"
+				});
+				cancel.on("click", function() {
+					location.reload();
+				});
 
-			let updateBox = $(this).parent();
-			updateBox.append(updateComplete);
-			updateBox.append(cancel);
-			updateFlag = false;
-			
-			}else if(updateFlag == false){
+				let updateBox = $(this).parent();
+				updateBox.append(updateComplete);
+				updateBox.append(cancel);
+				
+				updateFlag = false;
+				
+			} else if (updateFlag == false) {
 				alert("댓글 수정을 완료해 주세요.");
 				return false;
 			}
 		});
 
 		// 댓글 삭제
-		$("#re_deleteBtn")
-				.on(
+		$("#re_deleteBtn").on(
 						"click",
 						function() {
 							let replySeq = $(this).attr("seq");

@@ -32,7 +32,7 @@ public class QnABoardService {
 	public List<String> getPageNavi(int totalPages, int currentPage) {
 
 		int startPostNum = (currentPage - 1) / Settings.BOARD_NAVI_COUNT_PER_PAGE * Settings.BOARD_NAVI_COUNT_PER_PAGE+ 1;
-		int endNavi = currentPage * Settings.BOARD_NAVI_COUNT_PER_PAGE;
+		int endNavi = (startPostNum) + (Settings.BOARD_NAVI_COUNT_PER_PAGE -1);
 
 		boolean beforBtn = true;
 		boolean nextBtn = true;

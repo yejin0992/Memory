@@ -44,10 +44,7 @@ public class QnABoardController {
 	@RequestMapping("boardList")
 	public String boardList(QnABoardDTO qa_dto, Model model,
 			@RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage) {
-		
 		System.out.println("게시판 전체출력");
-		
-
 		// 총게시글수
 		int totalPosts = qnaService.selectTotalPost();
 		int postPerPage = Settings.BOARD_POST_COUNT_PER_PAGE; 
@@ -57,6 +54,7 @@ public class QnABoardController {
 		int endPostNum = currentPage * naviesPerPage; //
 		int firstNavi = 1;
 
+		
 		if (totalPosts % postPerPage > 0) { 
 			totalPages = totalPosts / postPerPage + 1;
 		} else {
@@ -75,10 +73,13 @@ public class QnABoardController {
 		
 		// 페이징
 		List<String> pageNavi = qnaService.getPageNavi(totalPages, currentPage);
-
+		for(String a : pageNavi) {
+			System.out.println(a+", " );
+		}
+		
 		model.addAttribute("list", list);
-		model.addAttribute("firstNavi", firstNavi);
-		model.addAttribute("lastNavi", totalPages);
+		model.addAttribute("firstNavi", firstNavi); //첫페이지
+		model.addAttribute("lastNavi", totalPages); //마지막페이지(총페이지수)
 		model.addAttribute("cpage", currentPage);
 		model.addAttribute("pageNavi", pageNavi);
 
