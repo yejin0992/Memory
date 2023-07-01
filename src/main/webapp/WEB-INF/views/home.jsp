@@ -288,7 +288,6 @@ nav ul li {
 					<ul class="navbar_icon">
 						<li><a href="/myPage/toMyPageMain">My Page</a></li>
 						<li><a href="/member/logout">LOGOUT</a></li>
-						<li><a href="/member/toMypage">EJj</a></li>
 					</ul>
 				</c:if>
 			
