@@ -1778,7 +1778,6 @@
  	
  	// 선택안했을 때 true로 반환
  	$(".flagTrue").on("click", function(){
- 		alert("선택되었음");
  		let noteID = $(this).prev().prev().prev().attr("id");
  		let note = $(this).prev().prev().prev();
  		console.log(noteID);
