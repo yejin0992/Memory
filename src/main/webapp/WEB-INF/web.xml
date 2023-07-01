@@ -58,13 +58,22 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+<<<<<<< HEAD
+<!-- 	<filter>
+=======
 <!-- 	 <filter>
+>>>>>>> 3fcf7c20c72f281d6de15e4dac89a6f32302133b
 		<filter-name>multipartFilter</filter-name>
 		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>multipartFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+<<<<<<< HEAD
+	</filter-mapping> -->
+
+
+=======
 	</filter-mapping>  -->
 	
 	<!-- 세션 시간  -->
@@ -72,4 +81,5 @@
 		<session-timeout>120</session-timeout>
 	</session-config>
 	
+>>>>>>> 3fcf7c20c72f281d6de15e4dac89a6f32302133b
 </web-app>

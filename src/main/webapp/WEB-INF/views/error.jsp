@@ -14,6 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-에러페이지
+<b>에러페이지</b>
+로그인 한 사람만 들어 갈 수 있음
 </body>
 </html>
