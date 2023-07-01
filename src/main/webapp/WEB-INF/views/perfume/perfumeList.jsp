@@ -381,11 +381,10 @@ color : grey;
 								<li class="list-group-item col-sm-6 col-lg-3 boardList"
 									value="${i.per_seq}">
 									<div class="row contentImage">
-										<img src="/perfumeImage/${i.sysName}" class="liImage">
+										 <img src="/perfumeImage/${i.sysName}" class="liImage"> 
 									</div>
 									<div class="row brandRow">${i.per_brand}</div>
-									<div class="row nameRow">${i.per_name }<hr
-											class="priceHr">
+									<div class="row nameRow">${i.per_name }<hr class="priceHr">
 									</div>
 									<div class="row priceRow">
 									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
@@ -405,11 +404,10 @@ color : grey;
 									<li class="list-group-item col-sm-6 col-lg-3 boardList"
 										value="${i.per_seq}">
 										<div class="row contentImage">
-											<img src="/perfumeImage/${i.sysName}" class="liImage">
+											 <img src="/perfumeImage/${i.sysName}" class="liImage"> 
 										</div>
 										<div class="row brandRow">${i.per_brand}</div>
-										<div class="row nameRow">${i.per_name }<hr
-												class="priceHr">
+										<div class="row nameRow">${i.per_name }<hr class="priceHr">
 										</div>
 										<div class="row priceRow">${i.per_price}원</div>
 										<div class="row heartRow">
@@ -436,11 +434,10 @@ color : grey;
 									<li class="list-group-item col-sm-6 col-lg-3 boardList"
 										value="${i.per_seq}">
 										<div class="row contentImage">
-											<img src="/perfumeImage/${i.sysName}" class="liImage">
+											<img src="/perfumeImage/${i.sysName}" class="liImage"> 
 										</div>
 										<div class="row brandRow">${i.per_brand}</div>
-										<div class="row nameRow">${i.per_name }<hr
-												class="priceHr">
+										<div class="row nameRow">${i.per_name }<hr class="priceHr">
 										</div>
 										<div class="row priceRow">${i.per_price}원</div>
 										<div class="row heartRow">

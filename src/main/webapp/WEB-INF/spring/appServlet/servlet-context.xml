@@ -18,23 +18,21 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/qnaUpload/**" location="/qnaUpload/" />
-	<resources mapping="/perfumeImage/**" location="/resources/perfume" />
+	<resources mapping="/perfumeImage/**" location="/resources/perfume/" />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 <!-- 	<resources mapping="/perfumeImage/**"
 		location="/perfumeImage/" /> -->
-		
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+		<!-- 업로드사이즈 제한두지 않음 -->
+		<!-- <beans:property name="maxUploadSize" value="10485760"></beans:property> -->
 	</beans:bean>
 	<!-- 자유게시판 이미지 파일 서비스 매핑 설정 -->
 	<resources mapping="/freeImages/**" location="/upload/" />
-
-	<resources location="/profileImage/"
-		mapping="/resources/profileImage/**">
+	<resources location="/profileImage/" mapping="/resources/profileImage/**">
 	</resources>
 
 
