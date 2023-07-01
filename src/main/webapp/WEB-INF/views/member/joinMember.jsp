@@ -114,8 +114,8 @@ input[type="password"]:focus {
 /* 버튼 */
 #idCheck, #searchZipcode, #joinBtn, #cancel {
 	border: none;
-	background-color: rgb(82, 82, 82);
-	color: aliceblue;
+	background-color: #b2a08a;
+	color: white;
 	height: 30px;
 	border-radius: 3px;
 	padding: 1px 15px;
@@ -127,7 +127,7 @@ input[type="password"]:focus {
 }
 
 #idCheck:hover, #searchZipcode:hover, #joinBtn:hover, #cancel:hover {
-	background-color: darkorange;
+	background-color: #525252;
 	cursor: pointer;
 }
 
@@ -227,7 +227,7 @@ input[type=radio] {
 
       //아이디중복확인
        let idChecked = false; // 아이디 중복 체크 상태 변수 (기본값: false)
-       
+        
        // 아이디 변경 시 중복 확인 여부 리셋
        document.getElementById("id").addEventListener("input", function() {
          idChecked = false;

@@ -1,56 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Insert title here</title>
+<!-- 아이콘 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap"
+	rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
 <style>
+
 * {
 	box-sizing: border-box;
-}
-:root { -
-	-text-color: black; -
-	-background-color: pink; -
-	-a-color: rgb(108, 108, 108);
 }
 
 body {
 	margin: 0%;
-	
 }
-/* font-family: 'Source Sans Pro'; */
+
 a {
 	text-decoration: none;
+	color: #525252;
 }
-/* ----- 네비바 ----- */
-/*  position:fixed;*/
 
-.navbar {
+/* ----- 네비바 ----- */
+.rowheader {
+	position: fixed;
+	z-index: 3;
+	width: 100%;
+}
+
+.navibar {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	background-color: #ffffff97;
 	padding: 2px 30px;
-	z-index: 2;
-	position: fixed;
-    top: 0;
-    width: 100%;
+	position: relative;
+}
+
+.navbar {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: var(- -bs-navbar-padding-y) var(- -bs-navbar-padding-x);
 }
 
 /* 로고 */
 .navbar_logo {
-	font-size: large;
-	margin-left: 20px;
+	font-family: 'Taviraj', serif;
+	font-size: 30px;
+	font-weight: bold;
 }
 
-.navbar_logo>a {
-	color: rgb(81, 81, 81);
-}
 
 /* 네비메뉴 */
 nav ul {
@@ -73,38 +92,18 @@ nav ul li {
 	cursor: pointer;
 }
 
-.dropdown_content {
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	display: none;
-}
-
-.dropdown_content a {
-	color: black;
-	padding: 7px 16px;
-	text-decoration: none;
-	display: block;
-}
-
-.dropdown_content a:hover {
-	color: rgb(167, 167, 167);
-}
-
-.dropdown_menu:hover:not(.home) {
-	background-color: darkorange;
+.dropdown_menu:hover {
+	background-color: #b2a08a ;
 	color: white;
 }
 
-.dropdown:hover .dropdown_content {
-	display: block;
-}
 
 /* 로그인 아이콘 */
 .navbar_icon {
 	list-style: none;
-	padding-right: 20px;
+	float: right;
+	position: absolute;
+    right: 20px;
 }
 
 .navbar_icon li {
@@ -112,11 +111,12 @@ nav ul li {
 }
 
 .navbar_icon li a {
-	color: rgb(81, 81, 81);
+	color: #525252;
 }
 
 .navbar_icon>li>a:hover {
-	color: darkorange;
+	color: #b2a08a;
+	font-weight: bold;
 }
 
 .navbar_hamburgerBtn {
@@ -124,7 +124,7 @@ nav ul li {
 	right: 32px;
 	font-size: 24px;
 	display: none;
-	color: rgb(81, 81, 81);
+	color: var(- -a-color);
 }
 
 @media screen and (max-width:830px) {
@@ -146,62 +146,59 @@ nav ul li {
 	}
 	.navbar_hamburgerBtn {
 		display: block;
-		z-index: 2;
 	}
 	.navbar_icon {
 		display: none;
+		padding-right: 150px;
 	}
 	.navbar_menu.active {
 		display: flex;
-		padding-left: 0px;
 	}
 }
 </style>
 </head>
 <body>
-<div class="rowheader">
-	<nav class="navbar">
-		<div class="navbar_logo">
-			<a href="/toMemberHome">MEMORY</a>
-		</div>
-		<ul class="navbar_menu">
-			<li class="dropdown"><a href="/test/heartTest">
-					<div class="dropdown_menu">Test</div>
-			</a></li>
-			<li class="dropdown">
-				<div class="dropdown_menu">BEST</div>
-				<div class="dropdown_content">
-					<a href="/perfume/perfumeList">perfume main</a> <a
-						href="/perfume/perfumeBest">perfume Best</a>
-				</div>
-			</li>
-			<li class="dropdown">
-				<div class="dropdown_menu">SHOP</div>
-				<div class="dropdown_content">
-					<a href="#">1</a> <a href="#">2</a>
-				</div>
-			</li>
-			<li class="dropdown">
-				<div class="dropdown_menu">CUMMUNITY</div>
-				<div class="dropdown_content">
-					<a href="/freeBoard/selectList?cpage=1">Free Board</a> <a
-						href="/qnaBoard/boardList">Q&A</a>
-				</div>
-			</li>
+	<input type="hidden" value="${loginID}">
+	
+		<nav class="navibar">
+			<div class="navbar_logo">
+				<a href="/">The Memory</a>
+			</div>
+			<ul class="navbar_menu">
+				<li class="dropdown"><a href="/test/heartTest">
+						<div class="dropdown_menu">
+							<a href="/perfume/perfumeList">PERFUME</a>
+						</div>
+				</a></li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/perfume/perfumeBest">BEST</a>
+					</div>
 
-		</ul>
-		<ul class="navbar_icon">
-			<li><a href="/myPage/toMyPageMain">My Page</a></li>
-			<li><a href="/member/logout" >LOGOUT</a></li>
-			<li><a href="/member/toMypage">EJ</a></li>
-		</ul>
-		<a href="#" class="navbar_hamburgerBtn"> <i
-			class="fa-solid fa-bars"></i></a>
-	</nav>
-	
-	
-	</div>
-<script>
+				</li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/freeBoard/selectList?cpage=1">COMMUNITY</a>
+					</div>
+
+				</li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/qnaBoard/boardList">Q&A</a>
+					</div> <input type="hidden" value="${loginID}">
+				</li>
+			</ul>
+
+			<ul class="navbar_icon">
+				<li><a href="/myPage/toMyPageMain">My Page</a></li>
+				<li><a href="/member/logout">LOGOUT</a></li>
+			</ul>
+
+			<a href="#" class="navbar_hamburgerBtn"> <i
+				class="fa-solid fa-bars"></i></a>
+		</nav>
+
+	<script>
 		// 햄버거 바 클릭했을때
 		const hamburgerBtn = document.querySelector('.navbar_hamburgerBtn');
 		const menu = document.querySelector('.navbar_menu');

@@ -55,6 +55,7 @@ body {
 /* font-family: 'Source Sans Pro'; */
 a {
 	text-decoration: none;
+	color: #525252;
 }
 
 /* ----- 네비바 ----- */
@@ -70,6 +71,7 @@ a {
 	align-items: center;
 	background-color: #ffffff97;
 	padding: 2px 30px;
+	position: relative;
 }
 
 .navbar {
@@ -87,9 +89,6 @@ a {
 	font-weight: bold;
 }
 
-.navbar_logo>a {
-	color: #525252;
-}
 
 /* 네비메뉴 */
 nav ul {
@@ -112,38 +111,18 @@ nav ul li {
 	cursor: pointer;
 }
 
-.dropdown_content {
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	display: none;
-}
-
-.dropdown_content a {
-	color: black;
-	padding: 7px 16px;
-	text-decoration: none;
-	display: block;
-}
-
-.dropdown_content a:hover {
-	color: rgb(167, 167, 167);
-}
-
-.dropdown_menu:hover:not(.home) {
-	background-color: darkorange;
+.dropdown_menu:hover {
+	background-color: #b2a08a ;
 	color: white;
 }
 
-.dropdown:hover .dropdown_content {
-	display: block;
-}
 
 /* 로그인 아이콘 */
 .navbar_icon {
 	list-style: none;
 	float: right;
+	position: absolute;
+    right: 20px;
 }
 
 .navbar_icon li {
@@ -155,7 +134,8 @@ nav ul li {
 }
 
 .navbar_icon>li>a:hover {
-	color: darkorange;
+	color: #b2a08a;
+	font-weight: bold;
 }
 
 .navbar_hamburgerBtn {
@@ -254,44 +234,42 @@ nav ul li {
 			</div>
 			<ul class="navbar_menu">
 				<li class="dropdown"><a href="/test/heartTest">
-						<div class="dropdown_menu">테스트용</div>
+						<div class="dropdown_menu">
+							<a href="/perfume/perfumeList">PERFUME</a>
+						</div>
 				</a></li>
 				<li class="dropdown">
-					<div class="dropdown_menu">BEST</div>
-					<div class="dropdown_content">
-						<a href="/perfume/perfumeList">perfume main</a> <a
-							href="/perfume/perfumeBest">perfume Best</a>
+					<div class="dropdown_menu">
+						<a href="/perfume/perfumeBest">BEST</a>
 					</div>
+					
 				</li>
 				<li class="dropdown">
-					<div class="dropdown_menu">SHOP</div>
-					<div class="dropdown_content">
-						<a href="#">1</a> <a href="#">2</a>
+					<div class="dropdown_menu">
+						<a href="/freeBoard/selectList?cpage=1">COMMUNITY</a>
 					</div>
+					
 				</li>
 				<li class="dropdown">
-					<div class="dropdown_menu">CMMUNITY</div>
-					<div class="dropdown_content">
-						<a href="/freeBoard/selectList?cpage=1">Free Board</a> <a
-							href="/qnaBoard/boardList">Q&A</a>
-					</div>
-					<input type="hidden" value="${loginID}">
+					<div class="dropdown_menu">
+						<a href="/qnaBoard/boardList">Q&A</a>
+					</div> <input type="hidden" value="${loginID}">
 				</li>
-</ul>
-			
-				<c:if test="${loginID == null}">
-					<ul class="navbar_icon">
-						<li><a href="/member/loginForm">LOGIN</a></li>
-						<li><a href="/member/toJoinForm">SIGN UP</a></li>
-					</ul>
-				</c:if>
-				<c:if test="${loginID != null}">
-					<ul class="navbar_icon">
-						<li><a href="/myPage/toMyPageMain">My Page</a></li>
-						<li><a href="/member/logout">LOGOUT</a></li>
-					</ul>
-				</c:if>
-			
+			</ul>
+
+			<c:if test="${loginID == null}">
+				<ul class="navbar_icon">
+					<li><a href="/member/loginForm">LOGIN</a></li>
+					<li><a href="/member/toJoinForm">SIGN UP</a></li>
+				</ul>
+			</c:if>
+			<c:if test="${loginID != null}">
+				<ul class="navbar_icon">
+					<li><a href="/myPage/toMyPageMain">My Page</a></li>
+					<li><a href="/member/logout">LOGOUT</a></li>
+				</ul>
+			</c:if>
+
 
 			<a href="#" class="navbar_hamburgerBtn"> <i
 				class="fa-solid fa-bars"></i></a>
@@ -363,7 +341,6 @@ nav ul li {
 			menu.classList.toggle('active');
 			icon.classList.toggle('active');
 		};
-
 	</script>
 
 

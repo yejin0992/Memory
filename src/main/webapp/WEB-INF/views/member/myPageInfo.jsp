@@ -79,6 +79,7 @@ input {
 	border-bottom: 1px solid #ccc;
 }
 
+
 /* 외각라인 지우기 */
 input::after {
 	content: '';
@@ -227,12 +228,12 @@ input[type=radio] {
 								class="readLater" name="email" value="${myInfo.email}" readonly></td>
 						</tr>
 						<tr>
-							<td class="col1" id="address">주소</td>
+							<td class="col1" id="address" valign="top"><br>주소</td>
 							<td class="col3">
 								<div>
 									<input type="text" id="zipcode" class="readOnly" name="zipcode"
 										value="${myInfo.zipcode}" readonly>
-									<button type="button" id="searchZipcode">우편번호</button>
+									<button type="button" id="searchZipcode" style="display: none;">우편번호</button>
 								</div>
 								<div>
 									<input type="text" id="address1" class="readLater"
@@ -249,7 +250,7 @@ input[type=radio] {
 						</tr>
 						<tr>
 							<td colspan="2" align="center" id="joinBtnTable"><a
-								href="/myPage/myPageMain"><button type="button" id="back">돌아가기</button></a>
+								href="/myPage/toMyPageMain"><button type="button" id="back">돌아가기</button></a>
 								<button type="button" id="update">정보수정</button>
 								<button type="button" id="memberOut">회원탈퇴</button></td>
 						</tr>
@@ -269,6 +270,7 @@ input[type=radio] {
 		
 	$("#update").on("click", function() {
 		console.log("수정버튼 클릭");
+		$("#searchZipcode").show();
 		$(".readLater").removeAttr("readonly");
 		$("#update,#back,#memberOut").css("display", "none");
 

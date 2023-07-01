@@ -199,11 +199,11 @@
                       </c:when>
                       <c:when test="${i eq '<'}">
                         <li class="pageLi"><a class="page-link"
-                            href="/qnaBoard/boardList?cpage=${cpage - 3}">${i}</a></li>
+                            href="/qnaBoard/boardList?cpage=${cpage - 10}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '>'}">
                         <li class="pageLi"><a class="page-link"
-                            href="/qnaBoard/boardList?cpage=${cpage + 3}">${i}</a></li>
+                            href="/qnaBoard/boardList?cpage=${cpage + 10}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '>>'}">
                         <li class="pageLi"><a class="page-link" href="/qnaBoard/boardList?cpage=${lastNavi}">${i}</a>
