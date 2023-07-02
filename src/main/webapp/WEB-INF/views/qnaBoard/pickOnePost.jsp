@@ -32,6 +32,12 @@ a {
 text-decoration: none;
 color: #b2a08a;
 }
+
+a:hover {
+color: #b2a08a;
+font-weight: bold;
+}
+
 input[type="text"] {
 	border: none;
 	outline: none;
@@ -195,10 +201,19 @@ width: 100%;
 .footer {
 	margin-top: 50px;
 }
-</style>
+	
+  @font-face {
+   font-family: 'Pretendard-Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
+   font-weight: 400;
+   font-style: normal;
+}
+	
+  </style>
 </head>
-
-<body>
+ <body style="font-family: 'Pretendard-Regular', sans-serif;">
 
 
 	<c:if test="${param.status == 'update' }">
@@ -224,7 +239,7 @@ width: 100%;
 			id="form" method="post">
 
 			<div class="body">
-				<div class="borderName" align="center"><a href="/qnaBoard/boardList?cpage=1">Q & A</a></div>
+				<div class="borderName" align="center"><a href="/qnaBoard/boardList?qnaCpage=${qnaCpage}">Q & A</a></div>
 
 				<input type="text" id="title" name="qa_title"
 					value="${post.qa_title }" readonly>
@@ -250,7 +265,7 @@ width: 100%;
 				<c:choose>
 					<c:when test="${loginID eq post.qa_writer}">
 						<div id="btnArea" align="right">
-							<a href="/qnaBoard/boardList?cpage=${cpage}">
+							<a href="/qnaBoard/boardList?qnaCpagee=${qnaCpage}">
 							<input type="button" id="backBtn" class="btn toList" value="목록">
 								<a href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> 
 								<input type="button" id="deleteBtn" class="btn" value="삭제"></a> 

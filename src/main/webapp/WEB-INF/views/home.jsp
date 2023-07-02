@@ -4,7 +4,7 @@
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<title>Memory Home</title>
 <head>
 
 <meta charset="UTF-8">
@@ -52,17 +52,17 @@
 body {
 	margin: 0%;
 }
-/* font-family: 'Source Sans Pro'; */
+
 a {
 	text-decoration: none;
 	color: #525252;
 }
 
+
 /* ----- 네비바 ----- */
-/*  position:fixed;*/
 .rowheader {
 	position: fixed;
-	z-index: 3;
+	z-index: 2;
 	width: 100%;
 }
 
@@ -112,8 +112,11 @@ nav ul li {
 }
 
 .dropdown_menu:hover {
-	background-color: #b2a08a ;
-	color: white;
+	color: darkorange;
+	font-weight: bold;
+}
+.menu:hover {
+color: darkorange;
 }
 
 
@@ -134,7 +137,7 @@ nav ul li {
 }
 
 .navbar_icon>li>a:hover {
-	color: #b2a08a;
+	color: darkorange;
 	font-weight: bold;
 }
 
@@ -179,6 +182,11 @@ nav ul li {
 		flex-direction: column;
 		height: 100%;
 	}
+	
+	
+	.imgTextBox{
+   display: none;
+}
 }
 
 /* ----- 바디 ----- */
@@ -186,42 +194,21 @@ nav ul li {
 	height: 80%;
 }
 
-/* ----- 푸터 ----- */
-.rowfooter {
-	width: 100%;
-	height: 100%;
-	background-color: rgb(232, 232, 232);
-	padding: 20px;
-	display: flex;
+.carousel-item {
+position: relative;
+}
+.imgTextBox {
+position: absolute;
+top: 40%;
+right: 15%;
+z-index: 5;
+}
+.perfumeName{
+font-size: 50px;
+cloro:  #525252;
+margin: 0;
 }
 
-.rowfooter>.footer_menu1 {
-	flex-grow: 3;
-}
-
-.rowfooter>.footer_menu2 {
-	flex-grow: 3;
-}
-
-.rowfooter>.footer_menu3 {
-	flex-grow: 2;
-}
-
-.rowfooter .head {
-	font-weight: bold;
-	font-size: x-large;
-}
-
-.rowfooter .line {
-	width: 90%;
-	color: rgb(128, 128, 128);
-}
-
-.rowfooter i {
-	font-size: 30px;
-	padding-right: 10px;
-	color: grey;
-}
 </style>
 </head>
 
@@ -235,24 +222,24 @@ nav ul li {
 			<ul class="navbar_menu">
 				<li class="dropdown"><a href="/test/heartTest">
 						<div class="dropdown_menu">
-							<a href="/perfume/perfumeList">PERFUME</a>
+							<a href="/perfume/perfumeList" class="menu">PERFUME</a>
 						</div>
 				</a></li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/perfume/perfumeBest">BEST</a>
+						<a href="/perfume/perfumeBest" class="menu">BEST</a>
 					</div>
 					
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/freeBoard/selectList?cpage=1">COMMUNITY</a>
+						<a href="/freeBoard/selectList?cpage=1" class="menu">COMMUNITY</a>
 					</div>
 					
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/qnaBoard/boardList">Q&A</a>
+						<a href="/qnaBoard/boardList" class="menu">Q&A</a>
 					</div> <input type="hidden" value="${loginID}">
 				</li>
 			</ul>
@@ -281,9 +268,13 @@ nav ul li {
 			<div class="carousel-inner">
 				<div class="carousel-item active" data-bs-interval="3000">
 					<img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
+					
+					<input type="button" value="자세히 보기">
+					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/y_1_u.jpg" class="d-block w-100" alt="...">
+					
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/b_1_u.jpg" class="d-block w-100" alt="...">
@@ -301,36 +292,10 @@ nav ul li {
 			</button>
 		</div>
 	</div>
-
-	<div class="rowfooter">
-		<div class="footer_menu1">
-			<div class="head">COMPANY INFO</div>
-			<div class="line">COMPANY : PERFUME</div>
-			<div class="line">OWNER :홍길동</div>
-			<div class="line">ADDRESS : 서울특별시 중구 남대문로 120 그레이츠 청계(구 대일빌딩)
-				2F, 3F</div>
-			<div class="line">CPO : 홍길동(hgd@naver.com)</div>
-			<div class="line">BUSINESS LICENSE : 000-00-00000</div>
-		</div>
-		<div class="footer_menu2">
-			<div class="head">CONTACT</div>
-			<div class="line">
-				TEL : 02-1234-1234<br> MON-FRI AM 9:00 - PM 17:00<br>
-				LUNCH TIME PM 12:00 -PM 13:00
-			</div>
-			<div class="head">BANK ACCOUNT</div>
-			<div class="line">
-				예금주 홍길동<br> 우리은행 123-4567-8900
-			</div>
-		</div>
-		<div class="footer_menu3">
-			<div class="head">SNS</div>
-			<a href="#"><i class="fa-brands fa-square-instagram"></i></a> <a
-				href="#"> <i class="fa-brands fa-square-facebook"></i></a> <a
-				href="#"><i class="fa-brands fa-square-youtube"></i></a>
-
-		</div>
+	<div class="footer">
+		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
+	
 	<script>
 		// 햄버거 바 클릭했을때
 		const hamburgerBtn = document.querySelector('.navbar_hamburgerBtn');
