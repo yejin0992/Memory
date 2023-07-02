@@ -29,7 +29,6 @@
 <style>
 * {
 	box-sizing: border-box;
-	font-family: 'Pretendard-Regular';
 }
 
 @font-face {
@@ -56,6 +55,7 @@
 .body {
 	position: relative;
 	background-color: white;
+	font-family: 'Pretendard-Regular';
 }
 
 .imageRow {
@@ -80,7 +80,7 @@
 	height: 55px;
 	border-bottom: 1px solid black;
 	background-color: white;
-	z-index: 1;
+	z-index: 2;
 }
 
 .contentTitle {
@@ -100,7 +100,7 @@
 
 .BrandTitle {
 	position: sticky;
-	top: 0px;
+	top: -10px;
 	padding-bottom: 0px;
 	padding-right: 0px;
 	padding-top: 5px;
@@ -326,7 +326,7 @@ color : lightgrey;
 					<div class="col-4 col-md-3 col-lg-2 sideNavi">
 						
 						<div class="sideNaviBrand row p-2">
-							<div class="BrandTitle">
+							<div class="col-12 BrandTitle">
 								Brand
 								<hr class="sideHr">
 							</div>

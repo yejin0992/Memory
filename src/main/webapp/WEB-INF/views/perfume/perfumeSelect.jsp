@@ -230,6 +230,11 @@ font-weight:bold;
 width:150px;
 }
 
+.replyIdRow:focus{
+outline:none;
+}
+
+
 .replyConRow{
 border : none;
 width:100%;
@@ -241,6 +246,7 @@ max-height:100px;
 .replyConRow:focus{
 outline:none;
 }
+
 
 .height15{
 height:15px;
@@ -466,7 +472,6 @@ display:none;
 				<form action="/perfumeReply/insert" method="post" >
 					<div class="sessionID col-12">${loginID}</div>
 					<input type="hidden" name="per_seq" value="${perfume.per_seq}">
-					<!-- <input type="text" id="replyInput"class="col-12" name="contents" placeholder="댓글을 입력해주세요."> -->
 					<textarea id="replyInput" class="col-12 autosize" name="contents" maxlength="100" placeholder="댓글을 입력해주세요."></textarea>
 					<input type="hidden" name="cpage" value="${cpage}">
 					<div class="col-12 d-flex flex-row-reverse">
@@ -492,7 +497,7 @@ let replyFlag = true
  // 댓글 수정
  $(".replyModBtn").on("click", function(){
 	 if(replyFlag==true){
-	 let contents = $(this).parent().parent().prev().prev().children();
+	 let contents = $(this).parent().parent().prev().children();
 	 $(this).css("display","none"); 
 	 $(this).next().css("display", "none");
 	 $(this).next().next().css("display","inline-block");
@@ -557,7 +562,18 @@ let replyFlag = true
 		});
 		
 		$(".replyCancel").on("click",function(){
-			history.back();
+			 location.reload();
+		})
+		
+		/* 댓글 null 방지 */
+		$("#replyComplete").on("click", function(){
+			let replyContents = $("#replyInput").val();
+			console.log("입력한 값 : " + replyContents);
+			if (replyContents.trim() == "") {
+				alert("댓글을 입력하세요.");
+				return false;
+			} else {
+			}
 		})
  
  </script>
