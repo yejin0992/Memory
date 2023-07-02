@@ -266,11 +266,9 @@ margin: 0;
 		<div id="carouselExampleInterval" class="carousel slide"
 			data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item active" data-bs-interval="3000">
+				<div class="carousel-item active" data-bs-interval="300000">
 					<img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
 					
-					<input type="button" value="자세히 보기">
-					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/y_1_u.jpg" class="d-block w-100" alt="...">
