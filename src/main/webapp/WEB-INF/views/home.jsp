@@ -216,8 +216,45 @@ margin: 0;
 	<input type="hidden" value="${loginID}">
 	<div class="rowheader">
 		<nav class="navibar">
-			<div class="navbar_logo">
+		
+
+			<c:if test="${loginID == null}">
+				<div class="navbar_logo">
 				<a href="/">The Memory</a>
+			</div>
+			<ul class="navbar_menu">
+				<li class="dropdown"><a href="/test/heartTest">
+						<div class="dropdown_menu">
+							<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">PERFUME</a>
+						</div>
+				</a></li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">BEST</a>
+					</div>
+					
+				</li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">COMMUNITY</a>
+					</div>
+					
+		
+				</li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">Q&A</a>
+					</div> <input type="hidden" value="${loginID}">
+				</li>
+			</ul>
+				<ul class="navbar_icon">
+					<li><a href="/member/loginForm">LOGIN</a></li>
+					<li><a href="/member/toJoinForm">SIGN UP</a></li>
+				</ul>
+			</c:if>
+			<c:if test="${loginID != null}">
+				<div id="navbar_logo">
+				<a href="/">The Memorys</a>
 			</div>
 			<ul class="navbar_menu">
 				<li class="dropdown"><a href="/test/heartTest">
@@ -229,13 +266,13 @@ margin: 0;
 					<div class="dropdown_menu">
 						<a href="/perfume/perfumeBest" class="menu">BEST</a>
 					</div>
-					
+
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
 						<a href="/freeBoard/selectList?cpage=1" class="menu">COMMUNITY</a>
 					</div>
-					
+
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
@@ -243,16 +280,8 @@ margin: 0;
 					</div> <input type="hidden" value="${loginID}">
 				</li>
 			</ul>
-
-			<c:if test="${loginID == null}">
 				<ul class="navbar_icon">
-					<li><a href="/member/loginForm">LOGIN</a></li>
-					<li><a href="/member/toJoinForm">SIGN UP</a></li>
-				</ul>
-			</c:if>
-			<c:if test="${loginID != null}">
-				<ul class="navbar_icon">
-					<li><a href="/myPage/toMyPageMain">My Page</a></li>
+					<li><a href="/myPage/toMyPageMain">MYPAGE</a></li>
 					<li><a href="/member/logout">LOGOUT</a></li>
 				</ul>
 			</c:if>
@@ -266,11 +295,9 @@ margin: 0;
 		<div id="carouselExampleInterval" class="carousel slide"
 			data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item active" data-bs-interval="3000">
+				<div class="carousel-item active" data-bs-interval="300000">
 					<img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
 					
-					<input type="button" value="자세히 보기">
-					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/y_1_u.jpg" class="d-block w-100" alt="...">
