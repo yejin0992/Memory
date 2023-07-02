@@ -16,7 +16,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
 <!-- 폰트 -->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
@@ -32,6 +31,7 @@ body {
 
 a {
 	text-decoration: none;
+	color: #525252;
 }
 
 /* ----- 네비바 ----- */
@@ -64,6 +64,9 @@ a {
 	font-weight: bold;
 }
 
+#navbar_logo a:hover {
+color: #525252;
+}
 
 /* 네비메뉴 */
 nav ul {
@@ -186,7 +189,7 @@ color: darkorange;
 			</ul>
 
 			<ul class="navbar_icon">
-				<li><a href="/myPage/toMyPageMain">My Page</a></li>
+				<li><a href="/myPage/toMyPageMain">MYPAGE</a></li>
 				<li><a href="/member/logout">LOGOUT</a></li>
 			</ul>
 

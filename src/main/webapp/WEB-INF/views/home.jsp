@@ -222,24 +222,25 @@ margin: 0;
 			<ul class="navbar_menu">
 				<li class="dropdown"><a href="/test/heartTest">
 						<div class="dropdown_menu">
-							<a href="/perfume/perfumeList" class="menu">PERFUME</a>
+							<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">PERFUME</a>
 						</div>
 				</a></li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/perfume/perfumeBest" class="menu">BEST</a>
+						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">BEST</a>
 					</div>
 					
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/freeBoard/selectList?cpage=1" class="menu">COMMUNITY</a>
+						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">COMMUNITY</a>
 					</div>
 					
+		
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/qnaBoard/boardList" class="menu">Q&A</a>
+						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">Q&A</a>
 					</div> <input type="hidden" value="${loginID}">
 				</li>
 			</ul>
@@ -252,7 +253,7 @@ margin: 0;
 			</c:if>
 			<c:if test="${loginID != null}">
 				<ul class="navbar_icon">
-					<li><a href="/myPage/toMyPageMain">My Page</a></li>
+					<li><a href="/myPage/toMyPageMain">MYPAGE</a></li>
 					<li><a href="/member/logout">LOGOUT</a></li>
 				</ul>
 			</c:if>
