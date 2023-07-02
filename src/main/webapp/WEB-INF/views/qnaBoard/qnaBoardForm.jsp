@@ -20,9 +20,7 @@
   <title>Board</title>
 
   <style>
-  
- 
-  
+
   a {
   color: #525252;
   }
@@ -124,9 +122,19 @@
 	margin: 3px;
 	}
 	
+	
+  @font-face {
+   font-family: 'Pretendard-Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
+   font-weight: 400;
+   font-style: normal;
+}
+	
   </style>
 </head>
- <body>
+ <body style="font-family: 'Pretendard-Regular', sans-serif;">
 
   <script>
     $(document).ready(function () {
@@ -162,7 +170,7 @@
           <c:forEach var="i" items="${list}">
             <tr align="center">
               <td width="10" height="20">${i.qa_seq}</td>
-              <td width="570" height="20"><a href="/qnaBoard/viewCount?qa_seq=${i.qa_seq}">${i.qa_title}</a></td>
+              <td width="570" height="20"><a href="/qnaBoard/viewCount?qa_seq=${i.qa_seq}&qnaCpage=${qnaCpage}">${i.qa_title}</a></td>
               <td width="160" height="20">${i.qa_writer}</td>
               <td width="40" height="20" id="date">${i.detailDate}</td>
               <td width="10" height="20" id="hit">${i.qa_view_count}</td>
@@ -184,22 +192,22 @@
                     <c:choose>
                       <c:when test="${i eq '<<'}">
                         <li class="pageLi"><a class="page-link"
-                            href="/qnaBoard/boardList?cpage=${firstNavi}">${i}</a></li>
+                            href="/qnaBoard/boardList?qnaCpage=${firstNavi}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '<'}">
                         <li class="pageLi"><a class="page-link"
-                            href="/qnaBoard/boardList?cpage=${cpage - 10}">${i}</a></li>
+                            href="/qnaBoard/boardList?qnaCpage=${qnaCpage - 10}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '>'}">
                         <li class="pageLi"><a class="page-link"
-                            href="/qnaBoard/boardList?cpage=${cpage + 10}">${i}</a></li>
+                            href="/qnaBoard/boardList?qnaCpage=${qnaCpage + 10}">${i}</a></li>
                       </c:when>
                       <c:when test="${i eq '>>'}">
-                        <li class="pageLi"><a class="page-link" href="/qnaBoard/boardList?cpage=${lastNavi}">${i}</a>
+                        <li class="pageLi"><a class="page-link" href="/qnaBoard/boardList?qnaCpage=${lastNavi}">${i}</a>
                         </li>
                       </c:when>
                       <c:otherwise>
-                        <li>&nbsp;<a href="/qnaBoard/boardList?cpage=${i}">${i}</a>&nbsp;
+                        <li>&nbsp;<a href="/qnaBoard/boardList?qnaCpage=${i}">${i}</a>&nbsp;
                         </li>
                       </c:otherwise>
                     </c:choose>
@@ -243,7 +251,7 @@
       let searchType = document.getElementsByName("searchType")[0].value;
       let keyword = document.getElementsByName("keyword")[0].value;
 
-      location.href = "/qnaBoard/searchPost?cpage=1" + "&searchType="
+      location.href = "/qnaBoard/searchPost?qnaCpage=1" + "&searchType="
         + searchType + "&keyword=" + keyword;
 
       console.log(searchType)

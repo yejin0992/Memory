@@ -30,6 +30,10 @@ a {
 	text-decoration: none;
 	color: #b2a08a;
 }
+a:hover {
+color: #b2a08a;
+font-weight: bold;
+}
 
 input[type="text"] {
 	border: none;
@@ -134,10 +138,19 @@ input[type="text"] {
 		width: 27%;
 	}
 }
-</style>
+	
+  @font-face {
+   font-family: 'Pretendard-Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
+   font-weight: 400;
+   font-style: normal;
+}
+	
+  </style>
 </head>
-
-<body>
+ <body style="font-family: 'Pretendard-Regular', sans-serif;">
 	<div class="rowheader">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
@@ -160,12 +173,12 @@ input[type="text"] {
 						name="qa_contents"></textarea>
 				</div>
 
-				<div class="filebox">
+		<!-- 		<div class="filebox">
 					<input class="upload-name" value="첨부파일" placeholder="첨부파일">
 					<label for="file" align="center">파일찾기</label> <input type="file"
 						id="file" name="files" multiple>
 				</div>
-
+ -->
 				<div align="center">
 					<a href="selectAll"> <a href="/qnaBoard/boardList?cpage=1"><input
 							type="button" id="toList" class="btn" value="취소"></a> <input

@@ -43,8 +43,10 @@ public class QnABoardController {
 	// 게시판 출력 + 페이징 + 총게시글수
 	@RequestMapping("boardList")
 	public String boardList(QnABoardDTO qa_dto, Model model,
-			@RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage) {
+			@RequestParam(value = "qnaCpage", required = false, defaultValue = "1") int currentPage) {
 		System.out.println("게시판 전체출력");
+		
+		session.setAttribute("qnaCpage",currentPage);
 		// 총게시글수
 		int totalPosts = qnaService.selectTotalPost();
 		int postPerPage = Settings.BOARD_POST_COUNT_PER_PAGE; 
@@ -80,7 +82,7 @@ public class QnABoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("firstNavi", firstNavi); //첫페이지
 		model.addAttribute("lastNavi", totalPages); //마지막페이지(총페이지수)
-		model.addAttribute("cpage", currentPage);
+		model.addAttribute("qnaCpage", currentPage);
 		model.addAttribute("pageNavi", pageNavi);
 
 		return "/qnaBoard/qnaBoardForm";
@@ -112,15 +114,17 @@ public class QnABoardController {
 
 	// 조회수
 	@RequestMapping("viewCount")
-	public String viewCount(int qa_seq) {
+	public String viewCount(int qa_seq, int qnaCpage) {
 		qnaService.viewCount(qa_seq);
-		return "redirect:/qnaBoard/selectOnePost?qa_seq=" + qa_seq;
+		return "redirect:/qnaBoard/selectOnePost?qa_seq=" + qa_seq+"&qnaCpage="+qnaCpage;
 	}
 
 	// 선택한 게시글 출력
 	@RequestMapping("selectOnePost")
-	public String selectOnePost(int qa_seq, Model model) {
+	public String selectOnePost(int qa_seq, Model model, int qnaCpage) {
 		System.out.println("thispost: " + qa_seq);
+		int currentPage = (int) session.getAttribute("qnaCpage"); 
+		System.out.println("현재페이지: "+currentPage);
 		QnABoardDTO dto = qnaService.selectOnePost(qa_seq);
 		model.addAttribute("post", dto);
 		// 댓글출력

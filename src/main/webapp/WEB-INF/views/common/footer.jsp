@@ -22,11 +22,11 @@ a {
 /* ----- 푸터 ----- */
 .rowfooter {
 	width: 100%;
-
 	background-color: rgb(232, 232, 232);
-	padding: 20px;
+	padding: 3%;
+	padding-left: 6%;
 	display: flex;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .rowfooter>.footer_menu1 {
@@ -43,12 +43,14 @@ a {
 
 .rowfooter .head {
 	font-weight: bold;
-	font-size: x-large;
+	font-size: 20px;
+	color:  #525252;
 }
 
 .rowfooter .line {
 	width: 90%;
 	color: rgb(128, 128, 128);
+	font-size: 15px;
 }
 
 .rowfooter i {
@@ -63,10 +65,19 @@ a {
 		height: 100%;
 	}
 }
-</style>
-</head>
 
-<body>
+  @font-face {
+   font-family: 'Pretendard-Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
+   font-weight: 400;
+   font-style: normal;
+}
+	
+  </style>
+</head>
+ <body style="font-family: 'Pretendard-Regular', sans-serif;">
 	<div class="rowfooter">
 		<div class="footer_menu1">
 			<div class="head">COMPANY INFO</div>
