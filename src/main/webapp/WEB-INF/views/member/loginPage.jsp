@@ -16,7 +16,7 @@
     }
 
     body {
-      background-color: #adadad;
+      background-color:  #dddddd;
     }
 
     .container {

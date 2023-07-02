@@ -1,20 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+
 <!-- JavaScript Bundle with Popper -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 	crossorigin="anonymous"></script>
-<!-- CSS only -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+
+<!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <title>Password Update</title>
@@ -34,6 +30,7 @@
 
 .findBox {
 	width: 400px;
+	margin-bottom: 50px;
 }
 
 .findHeader {
@@ -61,17 +58,17 @@ li {
 }
 
 #idBtn {
-	background-color: rgb(82, 82, 82);
-	color: white;
-}
-
-#pwBtn {
 	background-color: white;
 	color: rgb(82, 82, 82);
 }
 
-#pwBtn:hover {
-	color: darkorange;
+#pwBtn {
+	background-color: rgb(82, 82, 82);
+	color: white;
+}
+
+#idBtn:hover {
+	color: #b2a08a;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -82,12 +79,6 @@ li {
 	padding: 0%;
 }
 
-#explain {
-	height: 70px;
-	width: 400px;
-	text-align: center;
-	margin-top: 25%;
-}
 
 input {
 	width: 100%;
@@ -95,14 +86,14 @@ input {
 	margin-top: 15px;
 }
 
-#findIdBtn {
-	margin-top: 5%;
-	background-color: rgb(82, 82, 82);
+#pwUpdateBtn {
+	margin-top: 6%;
+	background-color: #525252;
 	color: white;
 }
 
-#findIdBtn:hover {
-	background-color: darkorange;
+#pwUpdateBtn:hover {
+	background-color:  #b2a08a;
 	cursor: pointer;
 }
 
@@ -111,12 +102,12 @@ input {
 }
 
 .gotoPage>a {
-	color: darkorange;
+	color: #b2a08a;
 }
 
 .condition {
 	font-size: 12px;
-	color: gray;
+	color: #dddddd;
 }
 </style>
 
@@ -135,13 +126,14 @@ input {
 					<b>내 계정 찾기</b>
 				</div>
 				<ul>
-					<li><button type="button" id="idBtn">아이디</button>
-						<div class="line"></div></li>
+					<li><a href="/member/toFindID">
+					<button type="button" id="idBtn">아이디</button>
+						<div class="line"></div><a></a></li>
 					<li><a href="/member/toFindPW"><button type="button"
 								id="pwBtn">비밀번호</button></a>
 						<div class="line"></div></li>
 				</ul>
-				<div id="explain"></div>
+				
 				<div id="inputMyInfo">
 					<input type="password" id="pw" name="pw" placeholder="  비밀번호"
 						maxlength="20" required>
@@ -180,25 +172,25 @@ input {
       let repw = document.getElementById("repw").value;
 
       if (check1Regex.test(pw)) {
-        check1.style.color = "darkorange";
+        check1.style.color = "#525252";
       } else {
         check1.style.color = "";
       }
 
       if (check2Regex.test(pw)) {
-        check2.style.color = "darkorange";
+        check2.style.color = "#525252";
       } else {
         check2.style.color = "";
       }
 
       if (check3Regex.test(pw)) {
-        check3.style.color = "darkorange";
+        check3.style.color = "#525252";
       } else {
         check3.style.color = "";
       }
 
       if (pw.length >= 8 && pw.length <= 20) {
-        check4.style.color = "darkorange";
+        check4.style.color = "#525252";
       } else {
         check4.style.color = "";
       }
@@ -207,7 +199,7 @@ input {
       	check5.style.color = "";
       } else if 
       	(pw === repw) {
-          	check5.style.color = "darkorange";
+          	check5.style.color = "#525252";
       } else {
       	check5.style.color = "";
       } 
@@ -221,7 +213,7 @@ input {
         	check5.style.color = "";
         } else if 
         	(repw === pw) {
-            	check5.style.color = "darkorange";
+            	check5.style.color = "#525252";
         } else {
         	check5.style.color = "";
         } 

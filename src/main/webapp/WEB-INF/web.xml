@@ -64,7 +64,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<filter>
+ 	 <filter>
 		<filter-name>multipartFilter</filter-name>
 		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
 	</filter>
@@ -73,7 +73,8 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- 세션 시간 -->
+	
+	<!-- 세션 시간  -->
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
