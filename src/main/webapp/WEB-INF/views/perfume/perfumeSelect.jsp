@@ -472,7 +472,6 @@ display:none;
 				<form action="/perfumeReply/insert" method="post" >
 					<div class="sessionID col-12">${loginID}</div>
 					<input type="hidden" name="per_seq" value="${perfume.per_seq}">
-					<!-- <input type="text" id="replyInput"class="col-12" name="contents" placeholder="댓글을 입력해주세요."> -->
 					<textarea id="replyInput" class="col-12 autosize" name="contents" maxlength="100" placeholder="댓글을 입력해주세요."></textarea>
 					<input type="hidden" name="cpage" value="${cpage}">
 					<div class="col-12 d-flex flex-row-reverse">
@@ -564,6 +563,17 @@ let replyFlag = true
 		
 		$(".replyCancel").on("click",function(){
 			 location.reload();
+		})
+		
+		/* 댓글 null 방지 */
+		$("#replyComplete").on("click", function(){
+			let replyContents = $("#replyInput").val();
+			console.log("입력한 값 : " + replyContents);
+			if (replyContents.trim() == "") {
+				alert("댓글을 입력하세요.");
+				return false;
+			} else {
+			}
 		})
  
  </script>
