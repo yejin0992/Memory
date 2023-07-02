@@ -138,10 +138,6 @@
 	flex-grow: 1;
 }
 
-.wrapperBookmarks {
-	
-}
-
 .bookmarks {
 	display: flex;
 	flex-direction: column;
@@ -185,9 +181,8 @@
 					<span class="username"><strong>${loggedID}</strong></span>
 				</div>
 				<div class="wrapperBtnEdit">
-					<button class="editProfileButton">
-						<a href="/member/myInfo">Edit</a>
-					</button>
+					<a href="/member/myInfo"><button class="editProfileButton">
+							Edit</button></a>
 				</div>
 			</div>
 			<div class="profileStats">
@@ -196,7 +191,8 @@
 						<span><a href="/myPage/selectMyPost?cpage=1">작성한 글</a></span> <span>${myPostsCount}</span>
 					</div>
 					<div class="myComments">
-						<span id="writtenComments" style="cursor: pointer;">작성한 댓글 999+</span>
+						<span id="writtenComments" style="cursor: pointer;">작성한 댓글
+							999+</span>
 					</div>
 				</div>
 				<div class="wrapperBookmarks">
@@ -205,7 +201,7 @@
 							<a href="/myPage/selectBookmarkedPosts"><i
 								class="fa-regular fa-bookmark fa-2xl" style="color: #b2a08a;"></i></a>
 						</div>
-						<span style="text-align: center; font-size: 14px; ">북마크
+						<span style="text-align: center; font-size: 14px;">북마크
 							${bookmarkedPostsCount }</span>
 					</div>
 				</div>
@@ -227,11 +223,11 @@
 	<div class="footer">
 		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
-<script>
-$("#writtenComments").on("click",function(){
-	alert("미구현 기능입니다."); 
-}); 
-</script>
+	<script>
+		$("#writtenComments").on("click", function() {
+			alert("미구현 기능입니다.");
+		});
+	</script>
 
 
 

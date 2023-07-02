@@ -29,9 +29,10 @@
 }
 
 a {
-text-decoration: none;
-color: #b2a08a;
+	text-decoration: none;
+	color: #b2a08a;
 }
+
 input[type="text"] {
 	border: none;
 	outline: none;
@@ -58,7 +59,6 @@ input[type="text"] {
 	border-color: #dddddd;
 	pointer-events: none;
 	border: none;
-	
 }
 
 #content:focus {
@@ -77,17 +77,17 @@ input[type="text"] {
 }
 
 #contentBox {
-padding: 10px;
-
+	padding: 10px;
 }
+
 #imgBox {
-    position: relative;
-    max-width: 100%;
-    min-height: max-content;
+	position: relative;
+	max-width: 100%;
+	min-height: max-content;
 }
 
 img {
-    width: 100%;
+	width: 100%;
 }
 
 /* content 버튼 */
@@ -160,7 +160,7 @@ img {
 }
 
 #replyInsertTextarea {
-width: 100%;
+	width: 100%;
 }
 
 /* 댓글 수정,삭제,출력 */
@@ -210,121 +210,123 @@ width: 100%;
 	<div class="head">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
-    
-    <c:choose>
-    <c:when test="${loginID==null}">
-	<script>
-	location.href="/";
-	</script>
-	</c:when>
-	<c:otherwise>
-	<div class="container">
-		<form
-			action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_write_date=${post.qa_write_date}"
-			id="form" method="post">
 
-			<div class="body">
-				<div class="borderName" align="center"><a href="/qnaBoard/boardList?cpage=1">Q & A</a></div>
+	<c:choose>
+		<c:when test="${loginID==null}">
+			<script>
+				location.href = "/";
+			</script>
+		</c:when>
+		<c:otherwise>
+			<div class="container">
+				<form
+					action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_write_date=${post.qa_write_date}"
+					id="form" method="post">
 
-				<input type="text" id="title" name="qa_title"
-					value="${post.qa_title }" readonly>
-				<div id="content_info">
-					<span class="content_info_name">작성자 |</span> ${post.qa_writer} <span
-						class="content_info_name">작성일 |</span> ${post.qa_write_date} <span
-						class="content_info_name">조회수 |</span> ${post.qa_view_count}
-				</div>
-
-				<div id="contentBox">
-					<c:forEach var="i" items="${file}">
-					<div id="imgBox">
-						<img src="/qnaUpload/${i.sysName}">
-		            </div>
-					</c:forEach>
-					<div>
-					<textarea id="content" name="qa_contents"
-						value="${post.qa_contents}" readonly>${post.qa_contents}
-		 	        </textarea>
-		 	        </div>
-				</div>
-
-				<c:choose>
-					<c:when test="${loginID eq post.qa_writer}">
-						<div id="btnArea" align="right">
-							<a href="/qnaBoard/boardList?cpage=${cpage}">
-							<input type="button" id="backBtn" class="btn toList" value="목록">
-								<a href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> 
-								<input type="button" id="deleteBtn" class="btn" value="삭제"></a> 
-								<input type="button" id="updateBtn" class="btn" value="수정">
+					<div class="body">
+						<div class="borderName" align="center">
+							<a href="/qnaBoard/boardList?cpage=1">Q & A</a>
 						</div>
 
-					</c:when>
-					<c:otherwise>
-
-						<div id="btnArea" align="right">
-							<a href="/qnaBoard/boardList"> <input type="button"
-								id="backBtn" class="btn" value="목록"></a>
+						<input type="text" id="title" name="qa_title"
+							value="${post.qa_title }" readonly>
+						<div id="content_info">
+							<span class="content_info_name">작성자 |</span> ${post.qa_writer} <span
+								class="content_info_name">작성일 |</span> ${post.qa_write_date} <span
+								class="content_info_name">조회수 |</span> ${post.qa_view_count}
 						</div>
 
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<input type="hidden" name="qa_seq" value="${post.qa_seq}">
-		</form>
-
-
-		<!-- 댓글 출력 / 수정 / 삭제 -->
-
-		<c:forEach var="r" items="${reply}">
-			<hr>
-			<form action="/reply/replyUpdate" method="post">
-				<div id="nextreply">
-					<span id="reply_id"> <b>${r.re_writer}</b>
-					</span> <span id="reply_date">${r.re_write_date}</span>
-					<c:choose>
-						<c:when test="${loginID eq r.re_writer}">
-							<div id="box">
-								<div class="nextReply_btn">
-									<input type="button" class="re_deleteBtn reply_btn" value="삭제"
-										seq=${r.re_seq}> <input type="button"
-										class="re_updateBtn reply_btn" value="수정">
+						<div id="contentBox">
+							<c:forEach var="i" items="${file}">
+								<div id="imgBox">
+									<img src="/qnaUpload/${i.sysName}">
 								</div>
+							</c:forEach>
+							<div>
+								<textarea id="content" name="qa_contents"
+									value="${post.qa_contents}" readonly>${post.qa_contents}
+		 	        </textarea>
 							</div>
-						</c:when>
-					</c:choose>
-					<textarea id="nextReply_textarea" class="textarea"
-						name="re_contents" readonly>${r.re_contents}</textarea>
+						</div>
 
+						<c:choose>
+							<c:when test="${loginID eq post.qa_writer}">
+								<div id="btnArea" align="right">
+									<a href="/qnaBoard/boardList?cpage=${cpage}"> <input
+										type="button" id="backBtn" class="btn toList" value="목록">
+										<a href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> <input
+											type="button" id="deleteBtn" class="btn" value="삭제"></a>
+										<input type="button" id="updateBtn" class="btn" value="수정">
+								</div>
 
-					<input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
-						type="hidden" name="re_seq" value="${r.re_seq}">
-				</div>
-			</form>
-		</c:forEach>
+							</c:when>
+							<c:otherwise>
 
-		<!-- 댓글 입력 -->
-		<form action="/reply/replyInsert" method="post">
-			<hr>
-			<div id="replyContainer">
-				<div id="replyHead">
-					<input type="text" id="writer" value="${sessionScope.loginID}"
-						name="re_writer" readonly>
-				</div>
-				<div id="replyBody" style="display: flex;">
-					<div id="msg">
-						<textarea id="replyInsertTextarea" class="textarea"
-							name="re_contents"></textarea>
+								<div id="btnArea" align="right">
+									<a href="/qnaBoard/boardList"> <input type="button"
+										id="backBtn" class="btn" value="목록"></a>
+								</div>
+
+							</c:otherwise>
+						</c:choose>
 					</div>
-					<div id="reply_insert_btn" align="right">
-						<input type="submit" id="replyBtn" value="등록">
+					<input type="hidden" name="qa_seq" value="${post.qa_seq}">
+				</form>
+
+
+				<!-- 댓글 출력 / 수정 / 삭제 -->
+
+				<c:forEach var="r" items="${reply}">
+					<hr>
+					<form action="/reply/replyUpdate" method="post">
+						<div id="nextreply">
+							<span id="reply_id"> <b>${r.re_writer}</b>
+							</span> <span id="reply_date">${r.re_write_date}</span>
+							<c:choose>
+								<c:when test="${loginID eq r.re_writer}">
+									<div id="box">
+										<div class="nextReply_btn">
+											<input type="button" class="re_deleteBtn reply_btn"
+												value="삭제" seq=${r.re_seq}> <input type="button"
+												class="re_updateBtn reply_btn" value="수정">
+										</div>
+									</div>
+								</c:when>
+							</c:choose>
+							<textarea id="nextReply_textarea" class="textarea"
+								name="re_contents" readonly>${r.re_contents}</textarea>
+
+
+							<input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
+								type="hidden" name="re_seq" value="${r.re_seq}">
+						</div>
+					</form>
+				</c:forEach>
+
+				<!-- 댓글 입력 -->
+				<form action="/reply/replyInsert" method="post">
+					<hr>
+					<div id="replyContainer">
+						<div id="replyHead">
+							<input type="text" id="writer" value="${sessionScope.loginID}"
+								name="re_writer" readonly>
+						</div>
+						<div id="replyBody" style="display: flex;">
+							<div id="msg">
+								<textarea id="replyInsertTextarea" class="textarea"
+									name="re_contents"></textarea>
+							</div>
+							<div id="reply_insert_btn" align="right">
+								<input type="submit" id="replyBtn" value="등록">
+							</div>
+						</div>
+						<input type="hidden" name="qa_seq" value="${post.qa_seq}">
 					</div>
-				</div>
-				<input type="hidden" name="qa_seq" value="${post.qa_seq}">
+				</form>
+
 			</div>
-		</form>
 
-	</div>
-
-</c:otherwise>
+		</c:otherwise>
 	</c:choose>
 
 
@@ -355,8 +357,6 @@ width: 100%;
 				"width" : "80px",
 				"height" : "35px"
 			});
-			
-
 
 			let cancel = $("<input>");
 			cancel.attr("type", "button");
@@ -373,26 +373,29 @@ width: 100%;
 			cancel.on("click", function() {
 				location.reload();
 			});
-			
+
 			let backBtn = $("#backBtn");
 			backBtn.css({
-			    "margin-right": "5px",
-			    "margin-bottom": "15px",
+				"margin-right" : "5px",
+				"margin-bottom" : "15px",
 			});
 			$("#btnArea").append(updateComplete);
 			$("#btnArea").append(cancel);
 		});
-		
+
 		// 게시글 삭제
-		$("#deleteBtn").on("click",function(){
-			var delet = confirm("댓글을 삭제하시겠습니까?");
-			if (result) {
-				alert("삭제 완료 되었습니다.");
-				location.href = "/reply/replyDelete?qa_seq=${post.qa_seq}&re_seq="
-						+ replySeq;
-			} else {
-			}
-		});
+		$("#deleteBtn")
+				.on(
+						"click",
+						function() {
+							var delet = confirm("댓글을 삭제하시겠습니까?");
+							if (result) {
+								alert("삭제 완료 되었습니다.");
+								location.href = "/reply/replyDelete?qa_seq=${post.qa_seq}&re_seq="
+										+ replySeq;
+							} else {
+							}
+						});
 
 		// 댓글 수정하기 버튼
 		$(".re_updateBtn").on("click", function() {
@@ -431,9 +434,9 @@ width: 100%;
 				let updateBox = $(this).parent();
 				updateBox.append(updateComplete);
 				updateBox.append(cancel);
-				
+
 				updateFlag = false;
-				
+
 			} else if (updateFlag == false) {
 				alert("댓글 수정을 완료해 주세요.");
 				return false;
@@ -441,7 +444,8 @@ width: 100%;
 		});
 
 		// 댓글 삭제
-		$(".re_deleteBtn").on(
+		$(".re_deleteBtn")
+				.on(
 						"click",
 						function() {
 							let replySeq = $(this).attr("seq");

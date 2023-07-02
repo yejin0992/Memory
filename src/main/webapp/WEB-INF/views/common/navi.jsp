@@ -24,9 +24,10 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap"
+	rel="stylesheet">
 <style>
-
 * {
 	box-sizing: border-box;
 }
@@ -70,7 +71,6 @@ a {
 	font-weight: bold;
 }
 
-
 /* 네비메뉴 */
 nav ul {
 	list-style-type: none;
@@ -93,17 +93,16 @@ nav ul li {
 }
 
 .dropdown_menu:hover {
-	background-color: #b2a08a ;
+	background-color: #b2a08a;
 	color: white;
 }
-
 
 /* 로그인 아이콘 */
 .navbar_icon {
 	list-style: none;
 	float: right;
 	position: absolute;
-    right: 20px;
+	right: 20px;
 }
 
 .navbar_icon li {
@@ -159,44 +158,44 @@ nav ul li {
 </head>
 <body>
 	<input type="hidden" value="${loginID}">
-	
-		<nav class="navibar">
-			<div class="navbar_logo">
-				<a href="/">The Memory</a>
-			</div>
-			<ul class="navbar_menu">
-				<li class="dropdown"><a href="/test/heartTest">
-						<div class="dropdown_menu">
-							<a href="/perfume/perfumeList">PERFUME</a>
-						</div>
-				</a></li>
-				<li class="dropdown">
+
+	<nav class="navibar">
+		<div class="navbar_logo">
+			<a href="/">The Memory</a>
+		</div>
+		<ul class="navbar_menu">
+			<li class="dropdown"><a href="/test/heartTest">
 					<div class="dropdown_menu">
-						<a href="/perfume/perfumeBest">BEST</a>
+						<a href="/perfume/perfumeList">PERFUME</a>
 					</div>
+			</a></li>
+			<li class="dropdown">
+				<div class="dropdown_menu">
+					<a href="/perfume/perfumeBest">BEST</a>
+				</div>
 
-				</li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/freeBoard/selectList?cpage=1">COMMUNITY</a>
-					</div>
+			</li>
+			<li class="dropdown">
+				<div class="dropdown_menu">
+					<a href="/freeBoard/selectList?cpage=1">COMMUNITY</a>
+				</div>
 
-				</li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/qnaBoard/boardList">Q&A</a>
-					</div> <input type="hidden" value="${loginID}">
-				</li>
-			</ul>
+			</li>
+			<li class="dropdown">
+				<div class="dropdown_menu">
+					<a href="/qnaBoard/boardList">Q&A</a>
+				</div> <input type="hidden" value="${loginID}">
+			</li>
+		</ul>
 
-			<ul class="navbar_icon">
-				<li><a href="/myPage/toMyPageMain">My Page</a></li>
-				<li><a href="/member/logout">LOGOUT</a></li>
-			</ul>
+		<ul class="navbar_icon">
+			<li><a href="/myPage/toMyPageMain">My Page</a></li>
+			<li><a href="/member/logout">LOGOUT</a></li>
+		</ul>
 
-			<a href="#" class="navbar_hamburgerBtn"> <i
-				class="fa-solid fa-bars"></i></a>
-		</nav>
+		<a href="#" class="navbar_hamburgerBtn"> <i
+			class="fa-solid fa-bars"></i></a>
+	</nav>
 
 	<script>
 		// 햄버거 바 클릭했을때

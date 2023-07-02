@@ -178,7 +178,6 @@ h2 {
 }
 
 .
-
 .form-label {
 	display: block;
 	font-weight: bold;
@@ -351,9 +350,9 @@ textarea.form-control {
 						<div class="commentHeader">
 							<span class="commentWriter">${i.re_writer}</span> <span
 								class="commentDate">${i.formattedDate}</span> <span
-								class="commentReply">답글달기</span> <input type="hidden"
-								value="${i.re_seq }" id="re_seq" name="re_seq"> <input
-								type="hidden" name="fr_seq" value="${conts.fr_seq}">
+								class="commentReply" style="cursor: pointer;">답글달기</span> <input
+								type="hidden" value="${i.re_seq }" id="re_seq" name="re_seq">
+							<input type="hidden" name="fr_seq" value="${conts.fr_seq}">
 							<c:choose>
 								<c:when test="${loginID eq i.re_writer}">
 									<div class="btnZone">
@@ -365,9 +364,10 @@ textarea.form-control {
 								</c:when>
 							</c:choose>
 						</div>
-						<div class="commentBody" >
+						<div class="commentBody">
 							<textarea id="commentContents" class="autosize"
-								name="re_contents" maxlength="250" style="margin-top: auto;" readonly >${i.re_contents}</textarea>
+								name="re_contents" maxlength="250" style="margin-top: auto;"
+								readonly>${i.re_contents}</textarea>
 							<input type="hidden" value="${i.re_seq }" id="re_seq"
 								name="re_seq"> <input type="hidden" name="fr_seq"
 								value="${conts.fr_seq}">
@@ -449,7 +449,8 @@ textarea.form-control {
 			btn_zone.empty();
 			let re_seq = btn_zone.parent().find('#re_seq').val();
 			console.log("re_seq : " + re_seq);
-			btn_zone.parent().next().find("#commentContents").removeAttr("readonly");
+			btn_zone.parent().next().find("#commentContents").removeAttr(
+					"readonly");
 
 			btn_zone.parent().find(".commentDate").hide();// 날짜
 			btn_zone.parent().find(".commentReply").hide();// 답글달기
@@ -585,6 +586,12 @@ textarea.form-control {
 												console.log(error);
 											});
 						});
+		
+		$(".commentReply").on("click", function() {
+			console.log("클릭"); 
+			alert("미구현 기능입니다."); 
+		});
+
 	</script>
 
 
