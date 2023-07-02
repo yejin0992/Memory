@@ -37,6 +37,9 @@ h2 {
 	text-align: center;
 	color: #555555;
 }
+h2 a{
+ text-decoration: none; /* 링크의 밑줄 제거 */
+}
 
 .titleArea {
 	text-align: center;
@@ -115,7 +118,7 @@ h2 {
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h2>COMMUNITY</h2>
+		<a href="/freeBoard/selectList?cpage=1"><h2>COMMUNITY</h2></a>
 	</div>
 	<div class="container">
 		<form action="/freeBoard/updateBoard" method="post">

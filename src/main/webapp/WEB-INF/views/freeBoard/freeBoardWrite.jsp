@@ -95,7 +95,7 @@ h2 {
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h2>COMMUNITY</h2>
+		<a href="/freeBoard/selectList?cpage=1"><h2>COMMUNITY</h2></a>
 	</div>
 	<div class="container">
 		<!-- 말머리랑 제목  -->
