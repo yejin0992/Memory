@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,18 +23,18 @@ body {
 	background-size: cover;
 }
 
-.joinBox {
-	background-color: rgb(255, 255, 255);
-	width: 650px;
-	border-radius: 20px;
-}
-
 /* ----- row body ----- */
 .container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
+}
+
+.joinBox {
+	background-color: rgb(255, 255, 255);
+	width: 650px;
+	border-radius: 20px;
 }
 
 table {
