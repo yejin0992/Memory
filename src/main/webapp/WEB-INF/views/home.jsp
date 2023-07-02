@@ -216,7 +216,10 @@ margin: 0;
 	<input type="hidden" value="${loginID}">
 	<div class="rowheader">
 		<nav class="navibar">
-			<div class="navbar_logo">
+		
+
+			<c:if test="${loginID == null}">
+				<div class="navbar_logo">
 				<a href="/">The Memory</a>
 			</div>
 			<ul class="navbar_menu">
@@ -244,14 +247,39 @@ margin: 0;
 					</div> <input type="hidden" value="${loginID}">
 				</li>
 			</ul>
-
-			<c:if test="${loginID == null}">
 				<ul class="navbar_icon">
 					<li><a href="/member/loginForm">LOGIN</a></li>
 					<li><a href="/member/toJoinForm">SIGN UP</a></li>
 				</ul>
 			</c:if>
 			<c:if test="${loginID != null}">
+				<div id="navbar_logo">
+				<a href="/">The Memorys</a>
+			</div>
+			<ul class="navbar_menu">
+				<li class="dropdown"><a href="/test/heartTest">
+						<div class="dropdown_menu">
+							<a href="/perfume/perfumeList" class="menu">PERFUME</a>
+						</div>
+				</a></li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/perfume/perfumeBest" class="menu">BEST</a>
+					</div>
+
+				</li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/freeBoard/selectList?cpage=1" class="menu">COMMUNITY</a>
+					</div>
+
+				</li>
+				<li class="dropdown">
+					<div class="dropdown_menu">
+						<a href="/qnaBoard/boardList" class="menu">Q&A</a>
+					</div> <input type="hidden" value="${loginID}">
+				</li>
+			</ul>
 				<ul class="navbar_icon">
 					<li><a href="/myPage/toMyPageMain">MYPAGE</a></li>
 					<li><a href="/member/logout">LOGOUT</a></li>

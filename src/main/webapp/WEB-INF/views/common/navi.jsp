@@ -161,7 +161,7 @@ color: darkorange;
 	
 		<nav class="navibar">
 			<div id="navbar_logo">
-				<a href="/">The Memorys</a>
+				<a href="/">The Memory</a>
 			</div>
 			<ul class="navbar_menu">
 				<li class="dropdown"><a href="/test/heartTest">
