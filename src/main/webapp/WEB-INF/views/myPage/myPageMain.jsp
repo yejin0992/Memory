@@ -153,6 +153,10 @@
 	margin-left: 80px;
 }
 
+.myRecords {
+	margin-top: 3px;
+}
+
 .myPosts {
 	font-size: 14px;
 }

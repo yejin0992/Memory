@@ -466,6 +466,7 @@ textarea.form-control {
 			saveUpdate.css("padding", "0");
 			saveUpdate.css("cursor", "pointer");
 
+			cancel.attr("type", "button"); 
 			cancel.css("background-color", "transparent");
 			cancel.css("border", "none");
 			cancel.css("padding", "0");
@@ -476,7 +477,8 @@ textarea.form-control {
 			btn_zone.append(cancel);
 
 			$("#cancel").on("click", function() {
-				history.back();
+				console.log("취소버튼 클릭"); 
+				location.reload(); 
 			});
 
 		}
