@@ -198,6 +198,7 @@
 		<if test="searchText == null">
 			and 1=1
 		</if>
+		 order by p.per_seq desc
 	</select>
 
 	<!-- SELECT BEST TOP 10 -->

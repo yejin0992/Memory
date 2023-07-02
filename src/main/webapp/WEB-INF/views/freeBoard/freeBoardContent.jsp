@@ -177,6 +177,8 @@ h2 {
 	margin-bottom: 15px;
 }
 
+.
+
 .form-label {
 	display: block;
 	font-weight: bold;
@@ -231,7 +233,6 @@ textarea.form-control {
 
 .btnZone {
 	position: relative;
-	bottom: 30px;
 	float: right;
 }
 
@@ -265,6 +266,7 @@ textarea.form-control {
 #commentContents {
 	width: 100%;
 	margin-top: -20px;
+	margin-top: auto;
 }
 
 .fa-bookmark {
@@ -285,7 +287,7 @@ textarea.form-control {
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h2>COMMUNITY</h2>
+		<a href="/freeBoard/selectList?cpage=1"><h2>COMMUNITY</h2></a>
 	</div>
 	<div class="container">
 
@@ -332,9 +334,11 @@ textarea.form-control {
 		<hr class="separator">
 		<div class="button">
 			<a href="${cpage}"><button type="button" id="backToList">목록</button></a>
-			<a href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
-					type="button" id="btnMod">수정</button></a>
-			<button type="button" id="btnDel">삭제</button>
+			<c:if test="${loginID eq conts.fr_writer}">
+				<a href="/freeBoard/toUpdateForm?fr_seq=${conts.fr_seq }"><button
+						type="button" id="btnMod">수정</button></a>
+				<button type="button" id="btnDel">삭제</button>
+			</c:if>
 		</div>
 		<hr class="separator">
 		<!-- 게시판 끝 -->
@@ -342,35 +346,35 @@ textarea.form-control {
 		<div class="mb-3 commentContainer">
 			<!-- 댓글들 -->
 			<c:forEach var="i" items="${list}">
-				<div class="comment">
-					<div class="commentHeader">
-						<span class="commentWriter">${i.re_writer}</span> <span
-							class="commentDate">${i.formattedDate}</span> <span
-							class="commentReply">답글달기</span> <input type="hidden"
-							value="${i.re_seq }" id="re_seq" name="re_seq"> <input
-							type="hidden" name="fr_seq" value="${conts.fr_seq}">
-					</div>
-					<form action="/frReply/updateComment" method="post">
-						<c:choose>
-							<c:when test="${loginID eq i.re_writer}">
-								<div class="btnZone">
-									<span class="commentUpdate" onclick="updateComment()" style="cursor: pointer;">수정</span>
-									<span class="commentDelete" onclick="deleteComment()" style="cursor: pointer;">삭제</span>
-								</div>
-							</c:when>
-						</c:choose>
-						<div class="commentBody">
+				<form action="/frReply/updateComment" method="post">
+					<div class="comment">
+						<div class="commentHeader">
+							<span class="commentWriter">${i.re_writer}</span> <span
+								class="commentDate">${i.formattedDate}</span> <span
+								class="commentReply">답글달기</span> <input type="hidden"
+								value="${i.re_seq }" id="re_seq" name="re_seq"> <input
+								type="hidden" name="fr_seq" value="${conts.fr_seq}">
+							<c:choose>
+								<c:when test="${loginID eq i.re_writer}">
+									<div class="btnZone">
+										<span class="commentUpdate" onclick="updateComment()"
+											style="cursor: pointer;">수정</span> <span
+											class="commentDelete" onclick="deleteComment()"
+											style="cursor: pointer;">삭제</span>
+									</div>
+								</c:when>
+							</c:choose>
+						</div>
+						<div class="commentBody" >
 							<textarea id="commentContents" class="autosize"
-								name="re_contents" maxlength="250" readonly>${i.re_contents}</textarea>
+								name="re_contents" maxlength="250" style="margin-top: auto;" readonly >${i.re_contents}</textarea>
 							<input type="hidden" value="${i.re_seq }" id="re_seq"
 								name="re_seq"> <input type="hidden" name="fr_seq"
 								value="${conts.fr_seq}">
 						</div>
-					</form>
-				</div>
+					</div>
+				</form>
 			</c:forEach>
-
-
 		</div>
 
 		<!-- 댓글들 끝 -->
@@ -403,17 +407,19 @@ textarea.form-control {
 		});
 
 		//게시글 삭제 
-		const btnDel = document.getElementById('btnDel');
-		btnDel.addEventListener('click', function() {
-			console.log("게시판 삭제버튼 클릭함");
-			let fr_seq = "${conts.fr_seq}";
-			console.log("게시판 시퀀스 잘 가져왔는지 확인 : " + fr_seq);
-			if (confirm("이 글을 삭제하시겠습니까?")) {
-				console.log("삭제 확인 버튼 클릭함");
-				location.href = "/freeBoard/deleteBoard?fr_seq=" + fr_seq;
-			} else {
-				// 취소시 아무런 동작 안함
-			}
+		window.addEventListener('DOMContentLoaded', function() {
+			const btnDel = document.getElementById('btnDel');
+			btnDel.addEventListener('click', function() {
+				console.log("게시판 삭제버튼 클릭함");
+				let fr_seq = "${conts.fr_seq}";
+				console.log("게시판 시퀀스 잘 가져왔는지 확인 : " + fr_seq);
+				if (confirm("이 글을 삭제하시겠습니까?")) {
+					console.log("삭제 확인 버튼 클릭함");
+					location.href = "/freeBoard/deleteBoard?fr_seq=" + fr_seq;
+				} else {
+					// 취소시 아무런 동작 안함
+				}
+			});
 		});
 
 		// 댓삭
@@ -443,10 +449,10 @@ textarea.form-control {
 			btn_zone.empty();
 			let re_seq = btn_zone.parent().find('#re_seq').val();
 			console.log("re_seq : " + re_seq);
-			btn_zone.next().find("#commentContents").removeAttr("readonly");
+			btn_zone.parent().next().find("#commentContents").removeAttr("readonly");
 
-			btn_zone.parent().prev().find(".commentDate").hide();// 날짜
-			btn_zone.parent().prev().find(".commentReply").hide();// 답글달기
+			btn_zone.parent().find(".commentDate").hide();// 날짜
+			btn_zone.parent().find(".commentReply").hide();// 답글달기
 
 			let saveUpdate = $("<button>").attr("id", "saveUpdate");
 			let cancel = $("<button>").attr("id", "cancel");

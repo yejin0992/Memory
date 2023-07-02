@@ -80,7 +80,7 @@
 	height: 55px;
 	border-bottom: 1px solid black;
 	background-color: white;
-	z-index: 2;
+	z-index: 1;
 }
 
 .contentTitle {
@@ -149,7 +149,7 @@
 
 #contentList {
 	min-height: 1100px;
-	max-height: 1300px;
+	max-height: 1400px;
 	overflow-y: auto;
 }
 
@@ -181,21 +181,24 @@
 	padding: 0px;
 }
 
+
 .btn-warning {
 	width: 100%;
 	height: 100%;
-}
-
-.btn-warning { 
-	-bs-btn-color: #75451D; -
-	-bs-btn-bg: #EBE1C8; -
-	-bs-btn-border-color: none; -
-	-bs-btn-hover-color: white; -
-	-bs-btn-hover-bg: #A37342; -
-	-bs-btn-hover-border-color: none; -
-	-bs-btn-focus-shadow-rgb: 217, 164, 6; -
-	-bs-btn-active-color: white; -
-	-bs-btn-active-bg: #75451D;
+    --bs-btn-color: white;
+    --bs-btn-bg:#b2a08a;
+    --bs-btn-border-color: none; 
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg:#525252;
+    --bs-btn-hover-border-color: none;
+    --bs-btn-focus-shadow-rgb: 217,164,6;
+    --bs-btn-active-color: white;
+    --bs-btn-active-bg: #525252;
+    --bs-btn-active-border-color: none;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #ffc107;
+    --bs-btn-disabled-border-color: #ffc107;
 }
 
 #tilde {
@@ -250,13 +253,15 @@ padding-top:30px;
 }
 
 #reload {
+	position:relative;
+	top : 80px;
 	padding-top: 20px;
 	padding-left: 0px;
 	font-weight: bold;
 }
 
 #reload:hover {
-	color: red;
+	color: #c28243;
 }
 
 .textRow {
@@ -279,6 +284,10 @@ color : grey;
 
 .page{
 color : grey;
+}
+
+#write{
+color : lightgrey;
 }
 
 </style>
@@ -309,17 +318,13 @@ color : grey;
 				<div class="row m-0">
 					<div class="col">
 						<!-- 관리자 로그인시에만 활성화 -->
-						<a href="/perfume/toInsert"> 글쓰기 </a> <input type="hidden"
+						<a href="/perfume/toInsert" id="write"> 글쓰기 </a> <input type="hidden"
 							id="loginID" value="${sessionScope.loginID}">
 					</div>
 				</div>
 				<div class="row m-0">
 					<div class="col-4 col-md-3 col-lg-2 sideNavi">
-						<div class="row p-2">
-							<div class="col-12" id="reload">
-								Reload <i class="fa-sharp fa-solid fa-rotate-right"></i>
-							</div>
-						</div>
+						
 						<div class="sideNaviBrand row p-2">
 							<div class="BrandTitle">
 								Brand
@@ -347,6 +352,7 @@ color : grey;
 								<input type="text" class="col-12 form-control form-control-sm"
 									id="endPrice" name="endPrice">
 							</div>
+							
 
 						</div>
 						<div class="sideNaviSearch row p-2">
@@ -357,8 +363,8 @@ color : grey;
 							</div>
 							<div class="col-12 p-0 m-0 selectCol">
 								<select id="category" class="form-select form-select-sm">
-									<option value="note">노트</option>
 									<option value="name">이름</option>
+									<option value="note">노트</option>
 								</select>
 							</div>
 							<div class="col-10 p-0 m-0">
@@ -373,6 +379,12 @@ color : grey;
 								</button>
 							</div>
 
+						</div>
+						
+						<div class="row p-2">
+							<div class="col-12" id="reload">
+								Reload <i class="fa-sharp fa-solid fa-rotate-right"></i>
+							</div>
 						</div>
 					</div>
 					<div class="col-8 col-md-9 col-lg-10 p-0" id="contentList">
@@ -409,7 +421,9 @@ color : grey;
 										<div class="row brandRow">${i.per_brand}</div>
 										<div class="row nameRow">${i.per_name }<hr class="priceHr">
 										</div>
-										<div class="row priceRow">${i.per_price}원</div>
+										<div class="row priceRow">
+									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+									</div>
 										<div class="row heartRow">
 											<input type="hidden" class="per_seq" name="per_seq"
 												value="${i.per_seq}">
@@ -439,7 +453,9 @@ color : grey;
 										<div class="row brandRow">${i.per_brand}</div>
 										<div class="row nameRow">${i.per_name }<hr class="priceHr">
 										</div>
-										<div class="row priceRow">${i.per_price}원</div>
+										<div class="row priceRow">
+									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+									</div>
 										<div class="row heartRow">
 											<input type="hidden" class="per_seq" name="per_seq"
 												value="${i.per_seq}">

@@ -69,7 +69,6 @@ table.table {
 }
 
 .container {
-	max-width: 800px;
 	margin: 0 auto;
 	padding: 20px;
 }
@@ -81,8 +80,14 @@ table.table {
 	}
 }
 
-h1 {
+h2 {
 	text-align: center;
+	color:black;
+}
+
+h2 a{
+	text-decoration: none; /* 링크의 밑줄 제거 */
+	color:black;
 }
 
 .table-responsive {
@@ -169,7 +174,7 @@ thead th {
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
 	<div class="titleArea">
-		<h2>COMMUNITY</h2>
+		<a href="/freeBoard/selectList?cpage=1"><h2>COMMUNITY</h2></a>
 	</div>
 
 	<div class="container">
