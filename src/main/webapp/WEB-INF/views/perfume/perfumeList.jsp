@@ -495,7 +495,7 @@ color : lightgrey;
 										</c:when>
 										<c:when test="${i eq '>>'}">
 											<li class="pageList"><a class="page"
-												href="/perfume/perfumeList?cpage=${end}">${i}</a></li>
+												href="/perfume/perfumeList?cpage=${last}">${i}</a></li>
 										</c:when>
 										<c:otherwise>
 											<li class="pageList"><a

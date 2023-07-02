@@ -17,17 +17,21 @@ public class PageService {
 	private PerfumeDAO perfumeDAO;
 		
 	public int[] getPageNum(int currentPage) {
+		int recordCountPerPage = Settings.PER_BOARD_RECORD_COUNT_PER_PAGE;
+		
+		int recordCount = this.recordTotalCount();
+		int pageTotalCount = (int)Math.ceil(recordCount/(double)recordCountPerPage);
+		
 		int[] num = new int[4];
 		//startRecord
 		num[0] = (currentPage * Settings.PER_BOARD_RECORD_COUNT_PER_PAGE) - 
 				(Settings.PER_BOARD_RECORD_COUNT_PER_PAGE - 1);
 		// endRecord
 		num[1] = currentPage * Settings.PER_BOARD_RECORD_COUNT_PER_PAGE;
-		// startNavi
-		num[2] = (currentPage-1)/Settings.PER_BOARD_NAVI_COUNT_PER_PAGE*Settings.PER_BOARD_NAVI_COUNT_PER_PAGE+1;
-		// lastNavi
-		num[3] = num[2] + (Settings.PER_BOARD_NAVI_COUNT_PER_PAGE -1);
-
+		// firstNavi
+		num[2] = 1;
+		// endNavi
+		num[3] = pageTotalCount;
 		return num;
 	}
 	
@@ -54,7 +58,6 @@ public class PageService {
 		int recordCountPerPage = Settings.PER_BOARD_RECORD_COUNT_PER_PAGE;
 		// 한 페이지에 표시되는 하단 네비 수
 		int naviCountPerPage = Settings.PER_BOARD_NAVI_COUNT_PER_PAGE;
-		
 		// 토탈 페이지 구하기
 		int pageTotalCount = (int)Math.ceil(recordTotalCount/(double)recordCountPerPage);
 		//방어코드
@@ -96,11 +99,7 @@ public class PageService {
 		if(needPageNext) {
 			list.add(">>");
 		}
-
 		return list;
-		
-		
-
 		}
 	
 }
