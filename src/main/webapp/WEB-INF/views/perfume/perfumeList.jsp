@@ -290,9 +290,16 @@ color : grey;
 color : lightgrey;
 }
 
+.boardList{
+cursor: pointer;
+}
+
+.boardHover{
+background-color: #EBEBEB;
+opacity : 0.9;
+} 
+
 </style>
-
-
 
 </head>
 <body>
@@ -653,6 +660,17 @@ color : lightgrey;
 	 $("#reload").on("click", function(){
 		 location.reload();
 	 })
+	 
+	 	// 향수 hover css 적용
+	  $('.boardList').hover(
+	    function() {
+	      $(this).addClass('boardHover');
+	    },
+	    function() {
+	      $(this).removeClass('boardHover');
+	    }
+	  ); 
+
     </script>
 </body>
 </html>
