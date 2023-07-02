@@ -30,7 +30,7 @@
 
 * {
 	box-sizing: border-box;
-	font-family: 'Pretendard-Regular';
+	
 }
 
 @font-face {
@@ -40,6 +40,10 @@
 		format('woff');
 	font-weight: 400;
 	font-style: normal;
+}
+
+body{
+	font-family: 'Pretendard-Regular';
 }
 
 #imgOutLine {

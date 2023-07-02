@@ -29,7 +29,6 @@
 <style>
 * {
 	box-sizing: border-box;
-	font-family: 'Pretendard-Regular';
 }
 
 @font-face {
@@ -56,6 +55,7 @@
 .body {
 	position: relative;
 	background-color: white;
+	font-family: 'Pretendard-Regular';
 }
 
 .imageRow {
