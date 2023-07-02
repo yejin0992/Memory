@@ -71,7 +71,7 @@ li {
 }
 
 #pwBtn:hover {
-	color: darkorange;
+	color: #b2a08a;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -102,7 +102,7 @@ input {
 }
 
 #findIdBtn:hover {
-	background-color: darkorange;
+	background-color: #b2a08a;
 	cursor: pointer;
 }
 
@@ -111,7 +111,7 @@ input {
 }
 
 .gotoPage>a {
-	color: darkorange;
+	color: #b2a08a;
 }
 </style>
 
@@ -154,7 +154,7 @@ input {
 						<a href="/member/loginForm">이미 아이디가 있으신가요? 로그인 하러 가기!</a>
 					</div>
 					<div class="gotoPage" align="left">
-						<a href="/member/joinForm">회원가입 하러 가기</a>
+						<a href="/member/toJoinForm">회원가입 하러 가기</a>
 					</div>
 
 				</div>

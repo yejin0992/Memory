@@ -46,7 +46,9 @@
 	width: 300px;
 	height: 400px;
 	border: 1px solid black;
-	float: right;
+	position:relative;
+	left : 130px;
+	border : 0.5px solid lightgrey;
 }
 
 #h3 {
@@ -88,14 +90,24 @@
 	width: 100%;
 	height: 100%;
 }
+
+.reChoice{
+display:none;
+}
+
+#headMargin{
+margin-top:70px;
+}
+
+
 </style>
 
 </head>
 <body>
-	<form action="/perfume/insert" method='post'
-		enctype="multipart/form-data">
+			<c:import url="/WEB-INF/views/common/navi.jsp" />
+	<form action="/perfume/insert" method='post' enctype="multipart/form-data">
 		<div class="container">
-			<div class="row">
+			<div class="row" id="headMargin">
 				<div class="col">
 					<h1>향수 정보 입력</h1>
 
@@ -205,7 +217,6 @@
 						<option value="BloodOrange">
 						<option value="Calamansi">
 						<option value="ChenPi">
-						<option value="Chinotto">
 						<option value="Citron">
 						<option value="CitrusWater">
 						<option value="Citruses">
@@ -1588,7 +1599,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote "
-						type="button">찾기</button>
+						type="button">선택</button>
 
 				</div>
 			</div>
@@ -1600,7 +1611,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button">찾기</button>
+						type="button">선택</button>
 					<button class="btn btn-outline-secondary h-75 flagTrue"
 						type="button">X</button>
 				</div>
@@ -1613,7 +1624,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button">찾기</button>
+						type="button">선택</button>
 					<button class="btn btn-outline-secondary h-75 flagTrue"
 						type="button">X</button>
 				</div>
@@ -1626,7 +1637,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button">찾기</button>
+						type="button">선택</button>
 				</div>
 			</div>
 			<div class="row ">
@@ -1637,7 +1648,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button">찾기</button>
+						type="button">선택</button>
 					<button class="btn btn-outline-secondary h-75 flagTrue"
 						type="button">X</button>
 				</div>
@@ -1650,7 +1661,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button">찾기</button>
+						type="button">선택</button>
 					<button class="btn btn-outline-secondary h-75 flagTrue"
 						type="button">X</button>
 				</div>
@@ -1663,7 +1674,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button" class="searchNote">찾기</button>
+						type="button" class="searchNote">선택</button>
 				</div>
 			</div>
 			<div class="row ">
@@ -1674,7 +1685,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button">찾기</button>
+						type="button">선택</button>
 					<button class="btn btn-outline-secondary h-75 flagTrue"
 						type="button">X</button>
 				</div>
@@ -1687,7 +1698,7 @@
 					<button class="btn btn-outline-secondary h-75 reChoice"
 						type="button">재선택</button>
 					<button class="btn btn-outline-secondary h-75 searchNote"
-						type="button">찾기</button>
+						type="button">선택</button>
 					<button class="btn btn-outline-secondary h-75 flagTrue"
 						type="button">X</button>
 				</div>
@@ -1697,10 +1708,9 @@
 				<button id="insertBtn" class="btn btn-outline-primary" type="submit">저장</button>
 			</div>
 			<div style="height: 50px;"></div>
-
 		</div>
 	</form>
-
+<c:import url="/WEB-INF/views/common/footer.jsp" />
 	<script>
     // 노트 검색
     let flags = {
@@ -1740,6 +1750,11 @@
     			}
 	    		else if(resp == 1){
 	    				note.attr("readonly",true);
+	    				noteBtn.css("display","none");
+	    				noteBtn.prev().css({
+	    					"display":"block",
+	    					"border-radius":"6px"
+	    					});
 	    				note.css("background-color", "lightgrey");
 	    				noteBtn.text("완료");
 	    				noteBtn.css("background-color", "lightgrey");
@@ -1750,8 +1765,10 @@
  	
     // 노트 재검색
  	$(".reChoice").on("click", function(){
+ 		$(this).css("display","none");
+ 		$(this).next().css("display","block");
  		$(this).prev().attr("readonly", false).css("background-color", "white").val("");
- 		$(this).next().text("찾기");
+ 		$(this).next().text("선택");
  		$(this).next().css("background-color", "white");
  		let noteID = $(this).prev().attr("id");
  		flags[noteID] = false;
@@ -1778,7 +1795,6 @@
  	
  	// 선택안했을 때 true로 반환
  	$(".flagTrue").on("click", function(){
- 		alert("선택되었음");
  		let noteID = $(this).prev().prev().prev().attr("id");
  		let note = $(this).prev().prev().prev();
  		console.log(noteID);

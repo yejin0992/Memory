@@ -28,7 +28,10 @@
 	padding-bottom: 80px;
 }
 
-
+a {
+text-decoration: none;
+color: #b2a08a;
+}
 input[type="text"] {
 	border: none;
 	outline: none;
@@ -156,6 +159,10 @@ img {
 	height: 100%;
 }
 
+#replyInsertTextarea {
+width: 100%;
+}
+
 /* 댓글 수정,삭제,출력 */
 #nextreply {
 	border: 1px solid #dddddd;
@@ -217,7 +224,7 @@ img {
 			id="form" method="post">
 
 			<div class="body">
-				<div class="borderName" align="center">Q & A</div>
+				<div class="borderName" align="center"><a href="/qnaBoard/boardList?cpage=1">Q & A</a></div>
 
 				<input type="text" id="title" name="qa_title"
 					value="${post.qa_title }" readonly>
@@ -244,7 +251,7 @@ img {
 					<c:when test="${loginID eq post.qa_writer}">
 						<div id="btnArea" align="right">
 							<a href="/qnaBoard/boardList?cpage=${cpage}">
-							<input type="button" id="backBtn" class="btn" value="목록">
+							<input type="button" id="backBtn" class="btn toList" value="목록">
 								<a href="/qnaBoard/delete?qa_seq=${post.qa_seq}"> 
 								<input type="button" id="deleteBtn" class="btn" value="삭제"></a> 
 								<input type="button" id="updateBtn" class="btn" value="수정">
@@ -334,7 +341,7 @@ img {
 			});
 			$("#title").removeAttr("readonly");
 			$("#content").removeAttr("readonly");
-			$("#updateBtn,#deleteBtn").css("display", "none");
+			$("#updateBtn,#deleteBtn,.toList").css("display", "none");
 
 			let updateComplete = $("<input>");
 			updateComplete.attr("value", "완료");
@@ -434,7 +441,7 @@ img {
 		});
 
 		// 댓글 삭제
-		$("#re_deleteBtn").on(
+		$(".re_deleteBtn").on(
 						"click",
 						function() {
 							let replySeq = $(this).attr("seq");

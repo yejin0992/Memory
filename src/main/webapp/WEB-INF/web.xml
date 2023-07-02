@@ -26,6 +26,12 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<!--multipart size 제한 -->
+		<multipart-config>
+			<max-file-size>52428800</max-file-size>
+			<max-request-size>52428800</max-request-size>
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
 	</servlet>
 
 	<servlet-mapping>
@@ -58,18 +64,19 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<!-- 	 <filter>
+ 	 <filter>
 		<filter-name>multipartFilter</filter-name>
 		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>multipartFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
+
 	
 	<!-- 세션 시간  -->
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
-	
+
 </web-app>

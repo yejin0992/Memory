@@ -17,7 +17,6 @@
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <title>getMyID</title>
 
 
@@ -73,7 +72,7 @@ li {
 }
 
 #pwBtn:hover {
-	color: darkorange;
+	color: #b2a08a;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -107,7 +106,7 @@ li {
 }
 
 #login:hover {
-	background-color: darkorange;
+	background-color: #b2a08a;
 	cursor: pointer;
 }
 </style>
