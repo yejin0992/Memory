@@ -16,11 +16,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
 <!-- 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap"
-	rel="stylesheet">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +32,6 @@ body {
 
 a {
 	text-decoration: none;
-	color: #525252;
 }
 
 /* ----- 네비바 ----- */
@@ -64,7 +58,7 @@ a {
 }
 
 /* 로고 */
-.navbar_logo {
+#navbar_logo {
 	font-family: 'Taviraj', serif;
 	font-size: 30px;
 	font-weight: bold;
@@ -93,10 +87,12 @@ nav ul li {
 }
 
 .dropdown_menu:hover {
-	background-color: #b2a08a ;
-	color: white;
+	font-weight: bold;
 }
 
+.menu:hover {
+color: darkorange;
+}
 
 /* 로그인 아이콘 */
 .navbar_icon {
@@ -115,7 +111,7 @@ nav ul li {
 }
 
 .navbar_icon>li>a:hover {
-	color: #b2a08a;
+	color: darkorange;
 	font-weight: bold;
 }
 
@@ -161,30 +157,30 @@ nav ul li {
 	<input type="hidden" value="${loginID}">
 	
 		<nav class="navibar">
-			<div class="navbar_logo">
-				<a href="/">The Memory</a>
+			<div id="navbar_logo">
+				<a href="/">The Memorys</a>
 			</div>
 			<ul class="navbar_menu">
 				<li class="dropdown"><a href="/test/heartTest">
 						<div class="dropdown_menu">
-							<a href="/perfume/perfumeList">PERFUME</a>
+							<a href="/perfume/perfumeList" class="menu">PERFUME</a>
 						</div>
 				</a></li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/perfume/perfumeBest">BEST</a>
+						<a href="/perfume/perfumeBest" class="menu">BEST</a>
 					</div>
 
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/freeBoard/selectList?cpage=1">COMMUNITY</a>
+						<a href="/freeBoard/selectList?cpage=1" class="menu">COMMUNITY</a>
 					</div>
 
 				</li>
 				<li class="dropdown">
 					<div class="dropdown_menu">
-						<a href="/qnaBoard/boardList">Q&A</a>
+						<a href="/qnaBoard/boardList" class="menu">Q&A</a>
 					</div> <input type="hidden" value="${loginID}">
 				</li>
 			</ul>
