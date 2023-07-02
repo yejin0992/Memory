@@ -239,7 +239,7 @@ body {
 	flex: 1;
 	padding: 0px;
 	background-color: black;
-	opacity: 0.7;
+	opacity: 0.4;
 }
 
 .imageRow {
@@ -277,7 +277,7 @@ height:200px;
 		</div>
 	<div class="container">
 		<div class="row imageRow m-0 p-0">
-			<img src="/resources/perfume2_2.jpg" id="mainImage">
+			<img src="/resources/perfumeBest.png" id="mainImage">
 		</div>
 		<div class="row titleRow">
 			<div class=col-12>
