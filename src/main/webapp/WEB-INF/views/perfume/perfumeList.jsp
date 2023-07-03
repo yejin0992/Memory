@@ -307,8 +307,6 @@ opacity : 0.2;
 			<c:import url="/WEB-INF/views/common/navi.jsp" />
 		</div>
 	<div class="container">
-	
-
 		<div class="row body">
 			<div class="col body p-0">
 				<div class="row imageRow m-0 p-0">

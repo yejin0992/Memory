@@ -32,8 +32,11 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Kalam&display=swap" rel="stylesheet">
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';
@@ -43,6 +46,9 @@
 	font-weight: 400;
 	font-style: normal;
 }
+
+
+
 
 * {
 	/* border : 1px solid grey; */
@@ -178,10 +184,12 @@ body {
 
 .textCol {
 	z-index: 30;
-	font-size: 20px;
+	font-size: 30px;
 	position: absolute;
-	top: 40%;
+	top: 30%;
 	font-weight: 600;
+font-family: 'Architects Daughter', cursive;
+color : #DFA8A7;
 }
 
 .textRow {
@@ -262,6 +270,35 @@ body {
 	background-color: white;
 }
 
+.loop{
+background-color : #DFA8A7;
+color : white;
+width:30px;
+height:30px;
+position:relative;
+left : 87%;
+z-index:5;
+padding-left:0;
+padding-right:0;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+ border-radius : 2px;
+}
+
+.loop2{
+background-color : #DFA8A7;
+color : white;
+width:30px;
+height:30px;
+position:relative;
+left : 91%;
+top:30px;
+z-index:5;
+padding-left:0;
+padding-right:0;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+ border-radius : 2px;
+}
+
 
 
 .margin{
@@ -278,14 +315,12 @@ height:200px;
 	<div class="container">
 		<div class="row imageRow m-0 p-0">
 			<img src="/resources/perfumeBest.png" id="mainImage">
-		</div>
+	</div>
 		<div class="row titleRow">
 			<div class=col-12>
 				<span id="perfume">Best</span><br> 실시간으로 인기가 가장 많은 향수를 확인하세요
 			</div>
 		</div>
-
-
 
 		<div class="row">
 			<div class="col-2 left d-none d-sm-none d-md-block">
@@ -300,9 +335,10 @@ height:200px;
 			<div class="col-10 top10 d-none d-sm-none d-md-block fullSlide">
 				<div class="row swiper mySwiper">
 					<div class="col swiper-wrapper">
-						<c:forEach var="i" items="${best}">
+						<c:forEach var="i" items="${best}" varStatus="loop">
 							<div class="row swiper-slide img" >
 						<input type="hidden" value="${i.per_seq}">
+						  <span class="loop">${loop.index + loop.begin + 1}</span>
 								<div class="col description">
 									<div class="row thumbnail">
 										<img src="/perfumeImage/${i.sysName}" class="image">
@@ -335,11 +371,12 @@ height:200px;
 			<div class="col-9 top10 d-block d-md-none">
 				<div class="row swiper mySwiper2">
 					<div class="col swiper-wrapper">
-						<c:forEach var="i" items="${best}">
+						<c:forEach var="i" items="${best}" varStatus="loop">
 							<div class="row swiper-slide img smSlide">
 							<input type="hidden" value="${i.per_seq}">
 								<div class="col description">
 								<input type="hidden" value="${i.per_seq}">
+								 <div class="loop2">${loop.index + loop.begin + 1}</div>
 									<div class="row thumbnail">
 										<img src="/perfumeImage/${i.sysName}" class="image">
 									</div>
