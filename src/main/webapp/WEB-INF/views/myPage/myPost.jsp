@@ -29,7 +29,7 @@
 	font-style: normal;
 }
 
-* {
+body {
 	font-family: 'Pretendard-Regular';
 }
 

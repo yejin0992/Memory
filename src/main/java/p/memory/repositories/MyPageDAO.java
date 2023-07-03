@@ -50,7 +50,7 @@ public class MyPageDAO {
 	// 좋아요한 향수 개수 
 	public int getLikedPerfumeCount (String loggedID) {
 		System.out.println("좋아요 향수 개수 dao 도착");
-		return mybatis.selectOne("MyPage.selectLikedPerfume",loggedID); 
+		return mybatis.selectOne("MyPage.getLikedPerfumeCount",loggedID); 
 	}
 	// 내가 등록한 qna 불러오기 
 	public List<QnABoardDTO> selectMyQna(String loggedID){
