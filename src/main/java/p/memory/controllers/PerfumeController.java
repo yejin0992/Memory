@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,7 +77,7 @@ public class PerfumeController {
 		System.out.println("loginID : "+loginID);
 		List<HeartDTO> heart = heartService.selectList(loginID);
 		System.out.println("하트 리스트 사이즈 : "+heart.size());
-		
+
 		List<PerfumeHeartDTO> PHdto = new ArrayList<>();
 		for(PerfumeMainDTO dto : list) {
 			boolean found = false;
@@ -138,11 +139,11 @@ public class PerfumeController {
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("file", file);
 		model.addAttribute("reply", reply);
-		 model.addAttribute("heart", heart);
+		model.addAttribute("heart", heart);
 		System.out.println("댓글 불러오기 성공");
 		return "perfume/perfumeSelect";
 	}
-	
+
 
 	@RequestMapping("bestSelect")
 	public String bestSelect(int per_seq, Model model) throws Exception {
@@ -159,7 +160,7 @@ public class PerfumeController {
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("file", file);
 		model.addAttribute("reply", reply);
-		 model.addAttribute("heart", heart);
+		model.addAttribute("heart", heart);
 		System.out.println("댓글 불러오기 성공");
 		return "perfume/perfumeBestSelect";
 	}
@@ -176,7 +177,7 @@ public class PerfumeController {
 
 	@RequestMapping("perfumeUpdate")
 	public String perfumeUpdate(PerfumeDTO pDTO, int file_seq, MultipartFile[] files) throws Exception {
-		 pDTO.setId((String)session.getAttribute("loginID"));
+		pDTO.setId((String)session.getAttribute("loginID"));
 		System.out.println(pDTO.getBase3() + pDTO.getPer_kind());
 		int perResult = perfumeService.update(pDTO);
 		System.out.println("파일 시퀀스 : " + file_seq);
@@ -207,7 +208,7 @@ public class PerfumeController {
 			System.out.println("false에 도착");
 		}
 	}
-	
+
 	@ResponseBody
 	@PostMapping(value = "/entireSearch", consumes = MediaType.APPLICATION_JSON_VALUE	)
 	public List<PerfumeMainDTO> brandSelect( @RequestBody PerfumeFilter filter)throws Exception{
@@ -230,15 +231,58 @@ public class PerfumeController {
 		System.out.println("넘어온 노트는 : " + note);
 		return result;
 	}
-	
-	 @RequestMapping("perfumeBest")
-	 public String perfumeBest(Model model) {
-		 System.out.println("best에 도착");
-	 List<PerfumeMainDTO> best = perfumeService.selectBest();
-	 model.addAttribute("best", best);
-	 return "perfume/perfumeBest";
-	 }
-	
+
+	@RequestMapping("perfumeBest")
+	public String perfumeBest(Model model ,HttpServletRequest request,@RequestParam(defaultValue = "1", name = "choice") int choice) throws Exception{
+		System.out.println("best에 도착");
+		System.out.println("choice의 값 : "+choice);
+		List<PerfumeMainDTO> best = perfumeService.selectBest();
+		model.addAttribute("best", best);
+		// 낮은가격, 높은가격
+
+		String loginID = (String) session.getAttribute("loginID");
+		int currentPage = request.getParameter("cpage") == null ? 1 : Integer.parseInt(request.getParameter("cpage"));
+		System.out.println("cpage : " + currentPage);
+		currentPage = pageService.getCurrentPage(currentPage);
+		System.out.println("서비스 다녀온 cpage : "+currentPage);
+		int[] num = pageService.getPageNum(currentPage);
+		int startRecord = num[0];
+		System.out.println("게시글 시작 seq : " + startRecord);
+		int endRecord = num[1];
+		System.out.println("게시글 마지막 seq : " + endRecord);
+		int startNavi = num[2];
+		System.out.println("페이지 시작 번호 : " + startNavi);
+		int lastNavi = num[3];
+		System.out.println("페이지 마지막 번호 : " + lastNavi);
+		// 페이지 네비 처음부터 끝까지 구하는 함수
+		int recordTotalCount = pageService.recordTotalCount();
+		List<String> pageNavi = pageService.getPageNavi(currentPage, recordTotalCount);
+		for(String a : pageNavi) {
+			System.out.print(a+" , ");
+		}
+		//낮은가격순
+		if(choice == 1) {
+			System.out.println("if문 안으로 들어옴");
+			// 해당 페이지당 목록으로 나오는 게시글
+			List<PerfumeMainDTO> list = perfumeService.selectLowPrice(startRecord, endRecord); 
+			model.addAttribute("pagination", pageNavi);
+			model.addAttribute("cpage", currentPage);
+			model.addAttribute("start", startNavi);
+			model.addAttribute("last", lastNavi);
+			model.addAttribute("list", list);
+		}// 높은가격순
+		else if(choice==0) {
+			System.out.println("else if문 안으로 들어옴");
+			List<PerfumeMainDTO> list = perfumeService.selectHighPrice(startRecord, endRecord); 
+			model.addAttribute("pagination", pageNavi);
+			model.addAttribute("cpage", currentPage);
+			model.addAttribute("start", startNavi);
+			model.addAttribute("last", lastNavi);
+			model.addAttribute("list", list);
+		}
+		return "perfume/perfumeBest";
+	}
+
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

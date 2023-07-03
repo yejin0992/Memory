@@ -222,6 +222,34 @@
 		select count(*) from notelist
 		where note=#{note}
 	</select>
-
+	
+	<!-- 낮은 가격순  -->
+	<select id="selectLowPrice" resultType="p.memory.dto.PerfumeMainDTO">
+	select * from(select
+		p.per_seq, p.per_brand, p.per_name,
+		p.per_price,
+		i.sysname, p.id,
+		row_number()
+		over(order by p.per_price asc) as rank
+		from perfume p
+		left join
+		perfume_image i on p.per_seq = i.per_seq)
+        where rank between #{start} and #{end}
+	</select>
+	
+	<!-- 높은 가격순  -->
+	<select id="selectHighPrice" resultType="p.memory.dto.PerfumeMainDTO">
+		select * from(select
+		p.per_seq, p.per_brand, p.per_name,
+		p.per_price,
+		i.sysname, p.id,
+		row_number()
+		over(order by p.per_price desc) as rank
+		from perfume p
+		left join
+		perfume_image i on p.per_seq = i.per_seq)
+        where rank between #{start} and #{end}
+	</select>
+	
 
 </mapper>
