@@ -40,10 +40,11 @@ public class MyPageController {
 		System.out.println("현재 로그인한 아이디 : " + loggedID);
 		model.addAttribute("loggedID", loggedID);
 		List<PerfumeMainDTO> likedPerfume = myPageService.selectLikedPerfume(loggedID);
-//		int likedPerfumeCount = myPageService.getLikedPerfumeCount(loggedID);
-//		System.out.println("좋아요한 향수 개수" + likedPerfumeCount);
 		model.addAttribute("likedPerfume", likedPerfume);
 		System.out.println("좋아요한 향수 : " + likedPerfume);
+		int likedPerfumeCount = myPageService.getLikedPerfumeCount(loggedID);
+		System.out.println("좋아요한 향수 개수" + likedPerfumeCount);
+		model.addAttribute("likedPerfumeCount", likedPerfumeCount); 
 		// 내가 쓴 글 총 개수
 		FreeBoardDTO dto = new FreeBoardDTO();
 		// 로그인한 세션 넣어주기

@@ -52,7 +52,7 @@
 	height: 350px;
 	border: 1.2px solid #CBC8BF;
 	padding: 30px;
-	box-shadow: 0px 2px 4px 0px(0, 0, 0, 0.2);
+	box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 	border-radius: 4px;
 }
 
@@ -238,7 +238,7 @@
 		<div class="likeContainer">
 			<div class="wrapperPerfume">
 				<h3>
-					<strong class="liked-perfume">Liked Perfume </strong>
+					<strong class="liked-perfume">Liked Perfume (${likedPerfumeCount}) </strong>
 				</h3>
 				<hr>
 				<div class="likePerfume row">
