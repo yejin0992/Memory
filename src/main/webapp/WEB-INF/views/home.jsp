@@ -186,7 +186,7 @@ color: darkorange;
 	
 	.imgTextBox{
    display: none;
-}
+
 }
 
 /* ----- 바디 ----- */
@@ -208,11 +208,19 @@ font-size: 50px;
 cloro:  #525252;
 margin: 0;
 }
-
-</style>
+  
+  @font-face {
+   font-family: 'Pretendard-Regular';
+   src:
+      url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
+   font-weight: 400;
+   font-style: normal;
+}
+   
+  </style>
 </head>
-
-<body>
+ <body style="font-family: 'Pretendard-Regular', sans-serif;">
 	<input type="hidden" value="${loginID}">
 	<div class="rowheader">
 		<nav class="navibar">
@@ -252,9 +260,10 @@ margin: 0;
 					<li><a href="/member/toJoinForm">SIGN UP</a></li>
 				</ul>
 			</c:if>
+			
 			<c:if test="${loginID != null}">
-				<div id="navbar_logo">
-				<a href="/">The Memorys</a>
+				<div class="navbar_logo">
+				<a href="/">The Memory</a>
 			</div>
 			<ul class="navbar_menu">
 				<li class="dropdown"><a href="/test/heartTest">
