@@ -48,32 +48,28 @@ public class PerfumeController {
 
 	@RequestMapping("perfumeList")
 	public String PerfumeList(Model model, HttpServletRequest request) {
-		System.out.println("도착");
 		String loginID = (String) session.getAttribute("loginID");
 		int currentPage = request.getParameter("cpage") == null ? 1 : Integer.parseInt(request.getParameter("cpage"));
 		System.out.println("cpage : " + currentPage);
 		currentPage = pageService.getCurrentPage(currentPage);
-		System.out.println("currentPage 로직 완료");
 		int[] num = pageService.getPageNum(currentPage);
 		int startRecord = num[0];
-		System.out.println("게시글 시작 seq" + startRecord);
+		System.out.println("게시글 시작 seq : " + startRecord);
 		int endRecord = num[1];
-		System.out.println("게시글 마지막 seq" + endRecord);
+		System.out.println("게시글 마지막 seq : " + endRecord);
 		int startNavi = num[2];
-		System.out.println("페이지 시작 번호" + startNavi);
+		System.out.println("페이지 시작 번호 : " + startNavi);
 		int lastNavi = num[3];
-		System.out.println("페이지 마지막 번호" + lastNavi);
+		System.out.println("페이지 마지막 번호 : " + lastNavi);
 		// 페이지 네비 처음부터 끝까지 구하는 함수
 		int recordTotalCount = pageService.recordTotalCount();
 		List<String> pageNavi = pageService.getPageNavi(currentPage, recordTotalCount);
 		for(String a : pageNavi) {
-			System.out.println(a+" , ");
+			System.out.print(a+" , ");
 		}
-		System.out.println("페이지네비 구하는고 완료");
 		// 해당 페이지당 목록으로 나오는 게시글
 		List<PerfumeMainDTO> list = perfumeService.selectList(startRecord, endRecord);
 		System.out.println("게시글 리스트 사이즈 : " + list.size());
-
 		// brand 목록 가져오기
 		List<String> brand = perfumeService.selectBrandKind();
 		// 좋아요 목록 가져오기
@@ -109,7 +105,6 @@ public class PerfumeController {
 
 	@RequestMapping("toInsert")
 	public String toInsert() throws Exception {
-		System.out.println("글쓰기 도착");
 		return "perfume/perfumeInsert";
 	}
 

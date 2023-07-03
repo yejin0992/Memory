@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,13 +16,11 @@
    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
 <!-- 폰트 -->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-   href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap"
-   rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Domine&family=Fasthand&family=Taviraj:ital,wght@1,200&display=swap" rel="stylesheet">
 <style>
+
 * {
    box-sizing: border-box;
 }
@@ -34,6 +31,7 @@ body {
 
 a {
    text-decoration: none;
+   color: #525252;
 }
 
 /* ----- 네비바 ----- */
@@ -64,6 +62,10 @@ a {
    font-family: 'Taviraj', serif;
    font-size: 30px;
    font-weight: bold;
+}
+
+#navbar_logo a:hover {
+color: #525252;
 }
 
 /* 네비메뉴 */
@@ -100,7 +102,7 @@ color: darkorange;
    list-style: none;
    float: right;
    position: absolute;
-   right: 20px;
+    right: 20px;
 }
 
 .navbar_icon li {
@@ -156,9 +158,10 @@ color: darkorange;
 </head>
 <body>
    <input type="hidden" value="${loginID}">
+   
       <nav class="navibar">
          <div id="navbar_logo">
-            <a href="/">The Memorys</a>
+            <a href="/">The Memory</a>
          </div>
          <ul class="navbar_menu">
             <li class="dropdown"><a href="/test/heartTest">
@@ -169,14 +172,7 @@ color: darkorange;
             <li class="dropdown">
                <div class="dropdown_menu">
                   <a href="/perfume/perfumeBest" class="menu">BEST</a>
-
                </div>
-         </a></li>
-         <li class="dropdown">
-            <div class="dropdown_menu">
-               <a href="/perfume/perfumeBest">BEST</a>
-            </div>
-
 
             </li>
             <li class="dropdown">
@@ -192,15 +188,14 @@ color: darkorange;
             </li>
          </ul>
 
+         <ul class="navbar_icon">
+            <li><a href="/myPage/toMyPageMain">MYPAGE</a></li>
+            <li><a href="/member/logout">LOGOUT</a></li>
+         </ul>
 
-      <ul class="navbar_icon">
-         <li><a href="/myPage/toMyPageMain">My Page</a></li>
-         <li><a href="/member/logout">LOGOUT</a></li>
-      </ul>
-
-      <a href="#" class="navbar_hamburgerBtn"> <i
-         class="fa-solid fa-bars"></i></a>
-   </nav>
+         <a href="#" class="navbar_hamburgerBtn"> <i
+            class="fa-solid fa-bars"></i></a>
+      </nav>
 
    <script>
       // 햄버거 바 클릭했을때

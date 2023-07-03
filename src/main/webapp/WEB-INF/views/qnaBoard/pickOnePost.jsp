@@ -28,12 +28,12 @@
    padding-bottom: 80px;
 }
 
-a {
+#btnArea a {
 text-decoration: none;
 color: #b2a08a;
 }
 
-a:hover {
+.borderName a:hover, #btnArea a:hover {
 color: #b2a08a;
 font-weight: bold;
 }
@@ -235,7 +235,7 @@ width: 100%;
    <c:otherwise>
    <div class="container">
       <form
-         action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_write_date=${post.qa_write_date}"
+         action="/qnaBoard/updatePost?qa_seq=${post.qa_seq}&qa_write_date=${post.qa_write_date}&qnaCpage=${qnaCpage}"
          id="form" method="post">
 
          <div class="body">
@@ -312,6 +312,7 @@ width: 100%;
 
                <input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
                   type="hidden" name="re_seq" value="${r.re_seq}">
+                  <input type="hidden" name="qnaCpage" value="${qnaCpage}">
             </div>
          </form>
       </c:forEach>
@@ -334,6 +335,7 @@ width: 100%;
                </div>
             </div>
             <input type="hidden" name="qa_seq" value="${post.qa_seq}">
+            <input type="hidden" name="qnaCpage" value="${qnaCpage}">
          </div>
       </form>
 

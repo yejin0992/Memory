@@ -159,7 +159,7 @@ public class QnABoardController {
 
 	// 게시글 수정
 	@RequestMapping("updatePost")
-	public String update(QnABoardDTO qa_dto, RedirectAttributes rttb) {
+	public String update(QnABoardDTO qa_dto, RedirectAttributes rttb, int qnaCpage) {
 		String id = (String) session.getAttribute("loginID");
 		qa_dto.setQa_writer(id);
 		System.out.println("수정수정 : " + qa_dto.getQa_seq() + "/" + qa_dto.getQa_writer() + "/" + qa_dto.getQa_title()
@@ -167,7 +167,7 @@ public class QnABoardController {
 		qnaService.update(qa_dto);
 		rttb.addFlashAttribute("status", "update");
 		System.out.println("update완료");
-		return "redirect:/qnaBoard/selectOnePost?qa_seq="+qa_dto.getQa_seq()+ "&status=update";
+		return "redirect:/qnaBoard/selectOnePost?qa_seq="+qa_dto.getQa_seq()+"&qnaCpage="+qnaCpage+ "&status=update";
 	}
 
 	// 게시글 삭제
