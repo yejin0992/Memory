@@ -25,7 +25,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
 
-<title>자유게시판 상세 내역</title>
+<title>자유게시판 상세 뷰</title>
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';

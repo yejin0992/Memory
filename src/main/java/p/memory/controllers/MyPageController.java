@@ -38,10 +38,12 @@ public class MyPageController {
 		System.out.println("좋아요한 향수 불러오기 컨트롤러 도착");
 		String loggedID = (String) session.getAttribute("loginID");
 		System.out.println("현재 로그인한 아이디 : " + loggedID);
-		List<PerfumeMainDTO> likedPerfume = myPageService.selectLikedPerfume(loggedID);
-		System.out.println("좋아요한 향수 : " + likedPerfume);
-		model.addAttribute("likedPerfume", likedPerfume);
 		model.addAttribute("loggedID", loggedID);
+		List<PerfumeMainDTO> likedPerfume = myPageService.selectLikedPerfume(loggedID);
+//		int likedPerfumeCount = myPageService.getLikedPerfumeCount(loggedID);
+//		System.out.println("좋아요한 향수 개수" + likedPerfumeCount);
+		model.addAttribute("likedPerfume", likedPerfume);
+		System.out.println("좋아요한 향수 : " + likedPerfume);
 		// 내가 쓴 글 총 개수
 		FreeBoardDTO dto = new FreeBoardDTO();
 		// 로그인한 세션 넣어주기

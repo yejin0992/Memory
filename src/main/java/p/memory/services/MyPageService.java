@@ -40,6 +40,10 @@ public class MyPageService {
 	public List<PerfumeMainDTO> selectLikedPerfume(String loggedID){
 		return myDAO.selectLikedPerfume(loggedID); 
 	}
+	// 좋아요한 향수 개수
+	public int getLikedPerfumeCount(String loggedID) {
+		return myDAO.getLikedPerfumeCount(loggedID);
+	}
 	// 내가 등록한 qna
 	public List<QnABoardDTO> selectMyQna(String loggedID){
 		return myDAO.selectMyQna(loggedID); 
