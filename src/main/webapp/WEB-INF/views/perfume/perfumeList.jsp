@@ -290,9 +290,16 @@ color : grey;
 color : lightgrey;
 }
 
+.boardList{
+cursor: pointer;
+}
+
+.boardHover{
+background-color: #EBEBEB;
+opacity : 0.9;
+} 
+
 </style>
-
-
 
 </head>
 <body>
@@ -495,7 +502,7 @@ color : lightgrey;
 										</c:when>
 										<c:when test="${i eq '>>'}">
 											<li class="pageList"><a class="page"
-												href="/perfume/perfumeList?cpage=${end}">${i}</a></li>
+												href="/perfume/perfumeList?cpage=${last}">${i}</a></li>
 										</c:when>
 										<c:otherwise>
 											<li class="pageList"><a
@@ -653,6 +660,17 @@ color : lightgrey;
 	 $("#reload").on("click", function(){
 		 location.reload();
 	 })
+	 
+	 	// 향수 hover css 적용
+	  $('.boardList').hover(
+	    function() {
+	      $(this).addClass('boardHover');
+	    },
+	    function() {
+	      $(this).removeClass('boardHover');
+	    }
+	  ); 
+
     </script>
 </body>
 </html>
