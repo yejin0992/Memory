@@ -338,6 +338,7 @@ height:200px;
 
 						<c:forEach var="i" items="${best}">
 							<div class="row swiper-slide img smSlide">
+							<input type="hidden" value="${i.per_seq}">
 								<div class="col description">
 								<input type="hidden" value="${i.per_seq}">
 									<div class="row thumbnail">
