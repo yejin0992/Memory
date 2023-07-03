@@ -239,7 +239,7 @@ body {
 	flex: 1;
 	padding: 0px;
 	background-color: black;
-	opacity: 0.7;
+	opacity: 0.4;
 }
 
 .imageRow {
@@ -277,7 +277,7 @@ height:200px;
 		</div>
 	<div class="container">
 		<div class="row imageRow m-0 p-0">
-			<img src="/resources/perfume2_2.jpg" id="mainImage">
+			<img src="/resources/perfumeBest.png" id="mainImage">
 		</div>
 		<div class="row titleRow">
 			<div class=col-12>
@@ -335,9 +335,9 @@ height:200px;
 			<div class="col-9 top10 d-block d-md-none">
 				<div class="row swiper mySwiper2">
 					<div class="col swiper-wrapper">
-
 						<c:forEach var="i" items="${best}">
 							<div class="row swiper-slide img smSlide">
+							<input type="hidden" value="${i.per_seq}">
 								<div class="col description">
 								<input type="hidden" value="${i.per_seq}">
 									<div class="row thumbnail">

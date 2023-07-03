@@ -68,6 +68,8 @@
 			<exclude-mapping path="/member/pwUpdate" />
 			<exclude-mapping path="/member/idCheck" />
 			<exclude-mapping path="/member/joinMember" />
+			<exclude-mapping path="/404error" />
+			<exclude-mapping path="/500error" />
 
 			<beans:bean class="p.memory.interceptors.LoginValidator"></beans:bean>
 		</interceptor>

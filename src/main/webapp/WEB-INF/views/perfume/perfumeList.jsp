@@ -296,7 +296,7 @@ cursor: pointer;
 
 .boardHover{
 background-color: #EBEBEB;
-opacity : 0.9;
+opacity : 0.2;
 } 
 
 </style>
@@ -662,7 +662,7 @@ opacity : 0.9;
 	 })
 	 
 	 	// 향수 hover css 적용
-	  $('.boardList').hover(
+	  $('.liImage').hover(
 	    function() {
 	      $(this).addClass('boardHover');
 	    },
