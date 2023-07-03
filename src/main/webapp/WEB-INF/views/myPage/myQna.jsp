@@ -18,7 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>내가 쓴 글 목록</title>
+<title>QNA에서 쓴 글</title>
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';
@@ -161,32 +161,16 @@ li {
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="my" items="${myPosts}">
+					<c:forEach var="my" items="${myQnaList}">
 						<tr>
-							<td class="hide-on-mobile" align="center">${my.fr_seq }</td>
-							<td class="title"><a
-								href="/freeBoard/selectBySeq?fr_seq=${my.fr_seq}">${my.fr_title}</a>
-								<c:if test="${my.commentCount > 0}">
-									<span class="commentCount">${my.commentCount}</span>
-								</c:if></td>
-							<td align="center">${my.formattedDate}</td>
-							<td class="hide-on-mobile" align="center">${my.fr_view_count }</td>
+							<td class="hide-on-mobile" align="center">${my.qa_seq }</td>
+							<td class="title"><a href="/qnaBoard/viewCount?qa_seq=${my.qa_seq}&qnaCpage=${qnaCpage}">${my.qa_title}</td></a>
+							<td align="center">${my.qa_write_date}</td>
+							<td class="hide-on-mobile" align="center">${my.qa_view_count }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="pageArea">
-				<c:if test="${prev}">
-					<span><a href="myPage/selectMyPost?cpage=${startNavi -1}">이전</a></span>
-				</c:if>
-				<c:forEach var="navi" begin="${startNavi }" end="${endNavi }">
-					<span> <a href="/myPage/selectMyPost?cpage=${navi}">${navi}</a>
-					</span>
-				</c:forEach>
-				<c:if test="${next}">
-					<span><a href="myPage/selectMyPost?cpage=${endNavi +1}">다음</a></span>
-				</c:if>
-			</div>
 		</div>
 	</div>
 	<div class="footer">

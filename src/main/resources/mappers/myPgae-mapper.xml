@@ -78,6 +78,12 @@
 		where h.id = #{userId} order by
 		p.per_seq asc
 	</select>
+	
+	<!--내가 작성한 qna  -->
+	<select id="selectMyQna" resultType="p.memory.dto.QnABoardDTO">
+		select * from qna_board
+		where qa_writer = #{loggedID} 
+	</select>
 
 	<!--내가 작성한 댓글 -->
 	<!-- <select id="selectMyComments" resultType="p.memory.dto.FrReply"> select 

@@ -29,10 +29,6 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
-
 h2 {
 	text-align: center;
 	color: #555555;
@@ -90,7 +86,7 @@ h2 {
 }
 </style>
 </head>
-<body>
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 	<div class="header">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>

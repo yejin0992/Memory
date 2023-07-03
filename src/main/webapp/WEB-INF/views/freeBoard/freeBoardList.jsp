@@ -39,10 +39,6 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
-
 .titleArea {
 	text-align: center;
 	font-size: 30px;
@@ -82,25 +78,25 @@ table.table {
 
 h2 {
 	text-align: center;
-	color:black;
+	color: black;
 }
 
-h2 a{
+h2 a {
 	text-decoration: none; /* 링크의 밑줄 제거 */
-	color:black;
+	color: black;
 }
 
 .table-responsive {
 	overflow-x: auto;
 }
 
-table td {
+tr {
 	padding: 10px;
 	vertical-align: top;
 	border-bottom: 1px solid #ccc;
 }
 
-thead th {
+thead {
 	padding: 10px;
 	font-weight: bold;
 	vertical-align: top;
@@ -169,7 +165,7 @@ thead th {
 }
 </style>
 </head>
-<body>
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 	<div class="header">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>
@@ -179,7 +175,7 @@ thead th {
 
 	<div class="container">
 		<div class="table-responsive">
-			<table class="table table-bordered" solid black>
+			<table class="table">
 				<thead>
 					<tr>
 						<th id="no" class="hide-on-mobile">NO</th>
