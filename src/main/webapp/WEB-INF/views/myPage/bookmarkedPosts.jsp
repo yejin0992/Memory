@@ -29,10 +29,6 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
-
 .titleArea {
 	padding: 20px;
 	text-align: center;
@@ -40,8 +36,8 @@
 	padding-top: 100px;
 	padding-bottom: 50px;
 }
-}
 
+}
 .titleArea h1 {
 	font-size: 27px; /* 원하는 크기로 조절해주세요 */
 	text-align: center;
@@ -91,6 +87,10 @@
 .pageArea a {
 	text-decoration: none;
 	color: #B2A08A;
+}
+
+body {
+	font-family: 'Pretendard-Regular';
 }
 </style>
 </head>

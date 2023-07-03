@@ -164,7 +164,7 @@ li {
 					<c:forEach var="my" items="${myQnaList}">
 						<tr>
 							<td class="hide-on-mobile" align="center">${my.qa_seq }</td>
-							<td class="title">${my.qa_title}</td>
+							<td class="title"><a href="/qnaBoard/viewCount?qa_seq=${my.qa_seq}&qnaCpage=${qnaCpage}">${my.qa_title}</td></a>
 							<td align="center">${my.qa_write_date}</td>
 							<td class="hide-on-mobile" align="center">${my.qa_view_count }</td>
 						</tr>

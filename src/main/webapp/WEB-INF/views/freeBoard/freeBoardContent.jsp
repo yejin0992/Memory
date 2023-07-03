@@ -36,9 +36,6 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
 /* 게시판 스타일  */
 h2 {
 	text-align: center;
@@ -279,7 +276,7 @@ textarea.form-control {
 </style>
 </head>
 
-<body>
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 
 	<!-- 게시판 시작  -->
 	<div class="header">
@@ -466,7 +463,7 @@ textarea.form-control {
 			saveUpdate.css("padding", "0");
 			saveUpdate.css("cursor", "pointer");
 
-			cancel.attr("type", "button"); 
+			cancel.attr("type", "button");
 			cancel.css("background-color", "transparent");
 			cancel.css("border", "none");
 			cancel.css("padding", "0");
@@ -477,8 +474,8 @@ textarea.form-control {
 			btn_zone.append(cancel);
 
 			$("#cancel").on("click", function() {
-				console.log("취소버튼 클릭"); 
-				location.reload(); 
+				console.log("취소버튼 클릭");
+				location.reload();
 			});
 
 		}
@@ -588,12 +585,11 @@ textarea.form-control {
 												console.log(error);
 											});
 						});
-		
-		$(".commentReply").on("click", function() {
-			console.log("클릭"); 
-			alert("미구현 기능입니다."); 
-		});
 
+		$(".commentReply").on("click", function() {
+			console.log("클릭");
+			alert("미구현 기능입니다.");
+		});
 	</script>
 
 

@@ -47,12 +47,13 @@
 * {
 	/* border : 1px solid grey; */
 	box-sizing: border-box;
-	font-family: 'Pretendard-Regular';
+	
 }
 
 html, body {
 	position: relative;
 	height: 100%;
+	font-family: 'Pretendard-Regular';
 }
 
 body {

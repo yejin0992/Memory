@@ -230,6 +230,11 @@ font-weight:bold;
 width:150px;
 }
 
+.replyIdRow:focus{
+outline:none;
+}
+
+
 .replyConRow{
 border : none;
 width:100%;
@@ -241,6 +246,7 @@ max-height:100px;
 .replyConRow:focus{
 outline:none;
 }
+
 
 .height15{
 height:15px;
@@ -492,7 +498,7 @@ let replyFlag = true
  // 댓글 수정
  $(".replyModBtn").on("click", function(){
 	 if(replyFlag==true){
-	 let contents = $(this).parent().parent().prev().prev().children();
+	 let contents = $(this).parent().parent().prev().children();
 	 $(this).css("display","none"); 
 	 $(this).next().css("display", "none");
 	 $(this).next().next().css("display","inline-block");
@@ -557,7 +563,7 @@ let replyFlag = true
 		});
 		
 		$(".replyCancel").on("click",function(){
-			history.back();
+			 location.reload();
 		})
  
  </script>
