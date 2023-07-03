@@ -93,7 +93,6 @@ public class FreeBoardController {
 		String currentURL = request.getRequestURI() + "?" + request.getQueryString();
 		// 세션에 cpage 값 저장
 		session.setAttribute("cpage", currentURL);
-
 		// <페이징 관련 시작>
 		// 총 게시물 수
 		int recordsTotalCount = fBservice.getPostsCount(field, query);

@@ -22,7 +22,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>찐마이페이지 메인</title>
+<title>마이페이지 메인</title>
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';
@@ -33,16 +33,11 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
-
 .container {
 	/* margin: 80px; */
 	display: flex;
 	padding: 80px;
-	0
-	px;
+	flex-direction: column;
 }
 
 .titleArea {
@@ -53,12 +48,20 @@
 }
 
 .profileBox {
-	width: 220px;
+	width: 100%;
 	height: 350px;
 	border: 1.2px solid #CBC8BF;
-	padding: 20px;
-	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-	border-radius: 5px;
+	padding: 30px;
+	box-shadow: 0px 2px 4px 0px(0, 0, 0, 0.2);
+	border-radius: 4px;
+}
+
+@media ( max-width : 768px) {
+	.profileBox {
+		padding: 30px 25px 18px;
+		border: 1px solid top: -50px;
+		position: relative;
+	}
 }
 
 .profileInfo {
@@ -129,6 +132,7 @@
 	justify-content: space-between;
 	width: 100%;
 	height: calc(100% -194px);
+	display: flex;
 }
 
 .myRecords {
@@ -136,6 +140,12 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
+	flex: 1;
+	text-align: center;
+}
+
+.wrapperBookmarks {
+	flex: 1;
 }
 
 .bookmarks {
@@ -149,20 +159,34 @@
 	margin: 10px;
 }
 
-.likeContainer {
-	margin-left: 80px;
-}
-
 .myRecords {
 	margin-top: 3px;
 }
 
 .myPosts {
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .myComments {
-	font-size: 14px;
+	font-size: 16px;
+}
+
+.likeContainer {
+	margin-top: 20px;
+}
+
+.likePerfume img {
+	width: 90%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.likePerfume img:hover {
+	opacity: 0.7;
+}
+
+.liked-perfume {
+	font-size: 24px;
 }
 </style>
 </head>
@@ -205,7 +229,7 @@
 							<a href="/myPage/selectBookmarkedPosts"><i
 								class="fa-regular fa-bookmark fa-2xl" style="color: #b2a08a;"></i></a>
 						</div>
-						<span style="text-align: center; font-size: 14px;">북마크
+						<span style="text-align: center; font-size: 16px;">북마크
 							${bookmarkedPostsCount }</span>
 					</div>
 				</div>
@@ -214,11 +238,14 @@
 		<div class="likeContainer">
 			<div class="wrapperPerfume">
 				<h3>
-					<strong>Liked Perfume</strong>
+					<strong class="liked-perfume">Liked Perfume </strong>
 				</h3>
-				<div class="likePerfume">
+				<hr>
+				<div class="likePerfume row">
 					<c:forEach items="${likedPerfume }" var="image">
-						<img src="perfumeImage/${image.sysName}" alt="향수 이미지" />
+						<div class="col-md-3 col-sm-6">
+							<a href="/perfume/select?per_seq=${image.per_seq }&cpage=1"><img src="/perfumeImage/${image.sysName}" alt="향수 이미지" /></a>
+						</div>
 					</c:forEach>
 				</div>
 			</div>
