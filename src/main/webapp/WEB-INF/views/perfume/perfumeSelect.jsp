@@ -27,13 +27,16 @@
 }
  
 * {
-font-family: 'Pretendard-Regular';
 	box-sizing: border-box;
 }
 
 div {
 /* 	border: 1px solid grey; */
 }
+
+body{
+	font-family: 'Pretendard-Regular';
+	}
 
 .head {
 	position: sticky;

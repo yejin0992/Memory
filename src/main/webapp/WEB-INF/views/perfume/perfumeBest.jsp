@@ -335,7 +335,6 @@ height:200px;
 			<div class="col-9 top10 d-block d-md-none">
 				<div class="row swiper mySwiper2">
 					<div class="col swiper-wrapper">
-
 						<c:forEach var="i" items="${best}">
 							<div class="row swiper-slide img smSlide">
 							<input type="hidden" value="${i.per_seq}">

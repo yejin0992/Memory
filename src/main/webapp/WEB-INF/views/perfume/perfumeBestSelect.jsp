@@ -35,8 +35,11 @@
 	font-style: normal;
 }
 
-* {
+body {
 	font-family: 'Pretendard-Regular';
+}
+
+* {
 	box-sizing: border-box;
 }
 
