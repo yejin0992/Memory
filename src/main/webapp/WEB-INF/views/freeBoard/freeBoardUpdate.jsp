@@ -29,16 +29,13 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
-
 h2 {
 	text-align: center;
 	color: #555555;
 }
-h2 a{
- text-decoration: none; /* 링크의 밑줄 제거 */
+
+h2 a {
+	text-decoration: none; /* 링크의 밑줄 제거 */
 }
 
 .titleArea {
@@ -111,7 +108,7 @@ h2 a{
 </style>
 </head>
 
-<body>
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 
 	<!-- 게시판 시작  -->
 	<div class="header">
@@ -125,8 +122,7 @@ h2 a{
 			<div class="row form-group">
 				<div class="col-2">
 					<div class="mb-3">
-						<select class="form-select" id="category" name="fr_category"
-							required>
+						<select class="form-select" id="category" name="fr_category">
 							<option value="" disabled selected hidden>${conts.fr_category}</option>
 							<c:forEach var="c" items="${category }">
 								<option value="${c.cate_name }">${c.cate_name }</option>

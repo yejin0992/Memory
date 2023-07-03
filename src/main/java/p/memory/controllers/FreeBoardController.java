@@ -1,7 +1,6 @@
 package p.memory.controllers;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -85,16 +84,16 @@ public class FreeBoardController {
 	@RequestMapping("selectList")
 	public String selectList(@RequestParam(defaultValue = "1", name = "cpage") int currentPage,
 			@RequestParam(value = "field", required = false, defaultValue = "fr_title") String field,
-			@RequestParam(value = "query", required = false, defaultValue = "") String query, Model model, HttpServletRequest request, HttpSession session)
-			throws Exception {
+			@RequestParam(value = "query", required = false, defaultValue = "") String query, Model model,
+			HttpServletRequest request, HttpSession session) throws Exception {
 //		List<FreeBoardDTO> list = fBservice.selectList();
 //		model.addAttribute("list", list);
-		// cpage 받아오기 
+		// cpage 받아오기
 		// 현재 요청의 URL 생성
 		String currentURL = request.getRequestURI() + "?" + request.getQueryString();
 		// 세션에 cpage 값 저장
-		session.setAttribute("cpage",currentURL);
-		
+		session.setAttribute("cpage", currentURL);
+
 		// <페이징 관련 시작>
 		// 총 게시물 수
 		int recordsTotalCount = fBservice.getPostsCount(field, query);
@@ -163,12 +162,13 @@ public class FreeBoardController {
 
 	// 게시물 상세페이지 조회 (댓글포함)
 	@RequestMapping("selectBySeq")
-	public String selectBySeq(@RequestParam(defaultValue = "1", name = "cpage") int currentPage, HttpServletRequest request, HttpServletResponse response, Model model, Integer fr_seq) {
+	public String selectBySeq(@RequestParam(defaultValue = "1", name = "cpage") int currentPage,
+			HttpServletRequest request, HttpServletResponse response, Model model, Integer fr_seq) {
 		System.out.println("시퀀스는 잘 받아오는지 확인 : " + fr_seq);
 		String loggedID = (String) session.getAttribute("loginID");
 		// 세션에서 cpage 값 가져오기
 		String cpage = (String) session.getAttribute("cpage");
-		model.addAttribute("cpage", cpage); 
+		model.addAttribute("cpage", cpage);
 		// 조회수 증가 조회
 		// 쿠키 이름 설정
 		String cookieName = "free_board_viewed" + fr_seq;
@@ -245,9 +245,15 @@ public class FreeBoardController {
 		// 세션에서 cpage 값 가져오기
 		String cpage = (String) session.getAttribute("cpage");
 		System.out.println("cpage: " + cpage);
-		model.addAttribute("cpage", cpage); 
+		model.addAttribute("cpage", cpage);
 		FreeBoardDTO dto = fBservice.selectBySeq(fr_seq);
 		model.addAttribute("conts", dto);
+		// 카테고리 세션에 저장
+		String category = dto.getFr_category();
+		System.out.println("category : " + category);
+		// 세션에 값을 저장하기 전에 기존에 저장된 값을 확인하고 제거합니다.
+		session.removeAttribute("previousCategory");
+		session.setAttribute("previousCategory", category);
 		// 카테고리 리스트 가져오기
 		List<CateDTO> list = service.selectCate();
 		System.out.println("업데이트 리스트 확인 : " + list);
@@ -268,6 +274,15 @@ public class FreeBoardController {
 		String loggedID = (String) session.getAttribute("loginID");
 		// 아이디 세션 가져와서 dto writer에서 넣기
 		dto.setFr_writer(loggedID);
+		// 말머리 값이 null 또는 빈 문자일 경우
+		String updatedCate = dto.getFr_category();
+		if (updatedCate == null || updatedCate.isEmpty()) {
+			String previousCategory = (String)session.getAttribute("previousCategory"); 
+			System.out.println("카테고리 세션 확인 : " + previousCategory);
+			dto.setFr_category(previousCategory);
+			String checkCate = dto.getFr_category();
+			System.out.println("카테고리 재확인 : " + checkCate);
+		}
 		int result = fBservice.updateBoard(dto);
 		int seq = dto.getFr_seq();
 		System.out.println("게시판 수정 시퀀스 확인 : " + seq);
