@@ -242,7 +242,7 @@ width: 100%;
             <div class="borderName" align="center"><a href="/qnaBoard/boardList?qnaCpage=${qnaCpage}">Q & A</a></div>
 
             <input type="text" id="title" name="qa_title"
-               value="${post.qa_title }" readonly>
+               value="${post.qa_title }" maxlength="200" readonly>
             <div id="content_info">
                <span class="content_info_name">작성자 |</span> ${post.qa_writer} <span
                   class="content_info_name">작성일 |</span> ${post.qa_write_date} <span
@@ -307,7 +307,7 @@ width: 100%;
                   </c:when>
                </c:choose>
                <textarea id="nextReply_textarea" class="textarea"
-                  name="re_contents" readonly>${r.re_contents}</textarea>
+                  name="re_contents" maxlength="200" readonly>${r.re_contents}</textarea>
 
 
                <input type="hidden" name="qa_seq" value="${r.qa_seq}"> <input
@@ -328,7 +328,7 @@ width: 100%;
             <div id="replyBody" style="display: flex;">
                <div id="msg">
                   <textarea id="replyInsertTextarea" class="textarea"
-                     name="re_contents"></textarea>
+                     name="re_contents" maxlength="200"></textarea>
                </div>
                <div id="reply_insert_btn" align="right">
                   <input type="submit" id="replyBtn" value="등록">
@@ -350,6 +350,8 @@ width: 100%;
    </div>
 
    <script>
+   
+   
       // 게시글 수정 버튼
       $("#updateBtn").on("click", function() {
          $("#content").css({

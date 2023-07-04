@@ -205,8 +205,9 @@ input[type=radio] {
 										placeholder="  기본주소" readonly></input>
 								</div>
 								<div>
-									<input type="text" id="address2" name="address2"
-										placeholder="  나머지주소(선택 입력가능)"></input>
+									<input type="text" id="address2" class="readOnlyAdd"
+										name="address2" value="${myInfo.address2}"
+										placeholder="  나머지주소(선택 입력가능)" readonly></input>
 								</div>
 
 							</td>
@@ -266,6 +267,7 @@ input[type=radio] {
       let check2 = document.getElementById("check2");
       let check3 = document.getElementById("check3");
       let check4 = document.getElementById("check4");
+      let check5 = document.getElementById("check5");
 
       let check1Regex = /(?=.*[a-z])(?=.*[A-Z]).+/; 
       let check2Regex = /[0-9]/; 
@@ -324,7 +326,6 @@ input[type=radio] {
       
       //정규화
       document.getElementById("joinBtn").onclick = () => {
-
         let form = document.getElementById("form");
         let id = document.getElementById("id").value;
         let pw = document.getElementById("pw").value;
@@ -338,12 +339,12 @@ input[type=radio] {
         let add2 = document.getElementById("address2").value;
 
         let idRegex = /^[a-z0-9]{4,16}$/;
-        let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+        let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,20}$/;
         let nameRegex = /^[가-힣]{2,5}$/;
         let contactRegex = /^01\d{8,9}$/;
         let emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-		let add1Regex = /^([가-힣\d\s]+),?\s?([가-힣\d\s]+),?\s?([가-힣\d\s]+)$/;
-		let add2Regex = /^([가-힣\d\s]+),?\s?([가-힣\d\s]+),?\s?([가-힣\d\s]+)$/;
+		
+		let addRegex = /^[가-힣0-9\s,.|\-a-zA-Z]*$/;
 		
         // 생년월일
         let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
@@ -360,7 +361,6 @@ input[type=radio] {
               return false;
         }
         
-        
         if (!idChecked) {
           alert("아이디 중복 체크를 해주세요.");
           return false;
@@ -369,7 +369,7 @@ input[type=radio] {
         	alert("아이디를 입력해주세요.");
         	return false;
         }else if (!idRegex.test(id)){
-        	alert("아이디 형식을 맞춰 입력해주세요.(영문 소문자, 4~16자)")
+        	alert("아이디 형식을 맞춰 입력해주세요.(영문 소문자, 4~16자)");
         	return false;
         }else if (pw == "") {
           alert("비밀번호를 입력해주세요.");
@@ -377,10 +377,11 @@ input[type=radio] {
         } else if (!(pw == repw)) {
           alert("비밀번호가 일치하지 않습니다.");
           return false;
-        }else if (!pwRegex.test(pw)){
-        	alert("비밀번호 형식을 맞춰 입력해주세요.(영문 대소문자, 숫자, 특수문자, 8~20자)")
+        } else if (!pwRegex.test(pw)){
+        	console.log(pw);
+        	alert("비밀번호 형식을 맞춰 입력해주세요.(영문 대소문자, 숫자, 특수문자, 8~20자)");
         	return false;
-        } else if (name == "") {
+        }  else if (name == "") {
           alert("이름를 입력해주세요.");
           return false;
         } else if (!nameRegex.test(name)) {
@@ -399,16 +400,22 @@ input[type=radio] {
         } else if (!emailRegex.test(email)) {
           alert('이메일 형식을 맞춰 입력해주세요.');
           return false;
-        } else if (!add1Regex.test(add1)) {
-          alert('주소 형식을 맞춰 입력해주세요.');
-          return false;
-        } else if (!add2Regex.test(add2)) {
-          alert('주소 형식을 맞춰 입력해주세요.');
-          return false;
-        }
+        } 
+        
+        if (add1.trim() == ""){
+	    	
+      	  return true;
+      	} else {
+      	  if (!addRegex.test(add2)) {
+      	    alert('주소 형식을 맞춰 입력해주세요.');
+      	    return false;
+      	  }
+      	}
 
+        }
       // 카카오 우편번호 API
       document.getElementById("searchZipcode").onclick = function () {
+    	  $(".readOnlyAdd").removeAttr("readonly");
         new daum.Postcode(
           {
             oncomplete: function (data) {
