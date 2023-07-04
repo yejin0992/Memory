@@ -16,18 +16,20 @@
 	<!-- 내가 쓴 글 목록 불러오기 + 페이징 -->
 	<select id="selectMyPost" parameterType="hashMap"
 		resultType="p.memory.dto.FreeBoardDTO">
-		select * from (
+		<![CDATA[
+		select *
+		from (
 		select rownum as rn, t.*
 		from (
 		select *
-		from
-		free_board
+		from free_board
+		where fr_writer = #{fr_writer}
 		order by fr_seq desc
 		) t
+		where rownum <= #{end}
 		)
-		where rn between #{start} and #{end}
-		and
-		fr_writer = #{fr_writer}
+		where rn >= #{start}
+		]]>
 	</select>
 
 	<!-- 내가 북마크한 글 불러오기 + 페이징 -->
@@ -78,11 +80,11 @@
 		where h.id = #{userId} order by
 		p.per_seq asc
 	</select>
-	
-	<!--내가 작성한 qna  -->
+
+	<!--내가 작성한 qna -->
 	<select id="selectMyQna" resultType="p.memory.dto.QnABoardDTO">
 		select * from qna_board
-		where qa_writer = #{loggedID} 
+		where qa_writer = #{loggedID}
 	</select>
 
 	<!--내가 작성한 댓글 -->
