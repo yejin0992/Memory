@@ -241,7 +241,7 @@ input[type=radio] {
 										placeholder="  기본주소" readonly></input>
 								</div>
 								<div>
-									<input type="text" id="address2" class="readLater"
+									<input type="text" id="address2" class="readOnlyAdd"
 										name="address2" value="${myInfo.address2}"
 										placeholder="  나머지주소(선택 입력가능)" readonly></input>
 								</div>
@@ -348,20 +348,23 @@ input[type=radio] {
 	        } else if (!emailRegex.test(email)) {
 	          alert('이메일 형식을 맞춰 입력해주세요.');
 	          return false;
-	        } else if (!add1Regex.test(add1)) {
-	            alert('주소 형식을 맞춰 입력해주세요.');
-	            return false;
-	          } else if (!add2Regex.test(add2)) {
-	            alert('주소 형식을 맞춰 입력해주세요.');
-	            return false;
-	          }
+	        }
+	      if (add1.trim() == ""){
+        	  return true;
+        	} else {
+        	  if (!addRegex.test(add2)) {
+        	    alert('주소 형식을 맞춰 입력해주세요.');
+        	    return false;
+        	  }
+        	}
+	      
 	     
 	      pwRejexFlag = !pwRejexFlag; // 플래그 값을 토글 (false -> true 또는 true -> false)
 	      if (pwRejexFlag == true) { 
 	    	    console.log(11);
 	    	} else {
 	    	    let pw = document.getElementById("pw").value;
-	    	    let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+	    	    let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,20}$/;
 	    	    let repw = document.getElementById("repw").value;
 	    	
 	    	    if (pw == "") {
@@ -508,6 +511,7 @@ input[type=radio] {
 
       // 카카오 우편번호 API
       document.getElementById("searchZipcode").onclick = function () {
+    	  $(".readOnlyAdd").removeAttr("readonly");
         new daum.Postcode(
         
           {

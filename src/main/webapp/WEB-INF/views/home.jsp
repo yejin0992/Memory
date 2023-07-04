@@ -58,7 +58,6 @@ a {
 	color: #525252;
 }
 
-
 /* ----- 네비바 ----- */
 .rowheader {
 	position: fixed;
@@ -89,7 +88,6 @@ a {
 	font-weight: bold;
 }
 
-
 /* 네비메뉴 */
 nav ul {
 	list-style-type: none;
@@ -115,17 +113,17 @@ nav ul li {
 	color: darkorange;
 	font-weight: bold;
 }
-.menu:hover {
-color: darkorange;
-}
 
+.menu:hover {
+	color: darkorange;
+}
 
 /* 로그인 아이콘 */
 .navbar_icon {
 	list-style: none;
 	float: right;
 	position: absolute;
-    right: 20px;
+	right: 20px;
 }
 
 .navbar_icon li {
@@ -182,113 +180,113 @@ color: darkorange;
 		flex-direction: column;
 		height: 100%;
 	}
-	
-	
-	.imgTextBox{
-   display: none;
+	.imgTextBox {
+		display: none;
+	}
+	}
 
+	/* ----- 바디 ----- */
+	.carousel-control-next {
+		height: 80%;
+	}
+	.carousel-item {
+		position: relative;
+	}
+	.imgTextBox {
+		position: absolute;
+		top: 40%;
+		right: 15%;
+		z-index: 5;
+	}
+	.perfumeName {
+		font-size: 50px;
+		cloro: #525252;
+		margin: 0;
+	}
+	@font-face {
+		font-family: 'Pretendard-Regular';
+		src:
+			url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+			format('woff');
+		font-weight: 400;
+		font-style: normal;
+	}
 }
-
-/* ----- 바디 ----- */
-.carousel-control-next {
-	height: 80%;
-}
-
-.carousel-item {
-position: relative;
-}
-.imgTextBox {
-position: absolute;
-top: 40%;
-right: 15%;
-z-index: 5;
-}
-.perfumeName{
-font-size: 50px;
-cloro:  #525252;
-margin: 0;
-}
-  
-  @font-face {
-   font-family: 'Pretendard-Regular';
-   src:
-      url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-      format('woff');
-   font-weight: 400;
-   font-style: normal;
-}
-   
-  </style>
+</style>
 </head>
- <body style="font-family: 'Pretendard-Regular', sans-serif;">
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 	<input type="hidden" value="${loginID}">
 	<div class="rowheader">
 		<nav class="navibar">
-		
+
 
 			<c:if test="${loginID == null}">
 				<div class="navbar_logo">
-				<a href="/">The Memory</a>
-			</div>
-			<ul class="navbar_menu">
-				<li class="dropdown"><a href="/test/heartTest">
+					<a href="/">The Memory</a>
+				</div>
+				<ul class="navbar_menu">
+					<li class="dropdown"><a href="/test/heartTest">
+							<div class="dropdown_menu">
+								<a href="/member/loginForm" class="menu"
+									onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">PERFUME</a>
+							</div>
+					</a></li>
+					<li class="dropdown">
 						<div class="dropdown_menu">
-							<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">PERFUME</a>
+							<a href="/member/loginForm" class="menu"
+								onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">BEST</a>
 						</div>
-				</a></li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">BEST</a>
-					</div>
-					
-				</li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">COMMUNITY</a>
-					</div>
-					
-		
-				</li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/member/loginForm" class="menu" onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">Q&A</a>
-					</div> <input type="hidden" value="${loginID}">
-				</li>
-			</ul>
+
+					</li>
+					<li class="dropdown">
+						<div class="dropdown_menu">
+							<a href="/member/loginForm" class="menu"
+								onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">COMMUNITY</a>
+						</div>
+
+
+					</li>
+					<li class="dropdown">
+						<div class="dropdown_menu">
+							<a href="/member/loginForm" class="menu"
+								onclick="alert('회원만 열람 가능합니다. 로그인 해주세요.')">Q&A</a>
+						</div> <input type="hidden" value="${loginID}">
+					</li>
+				</ul>
 				<ul class="navbar_icon">
 					<li><a href="/member/loginForm">LOGIN</a></li>
 					<li><a href="/member/toJoinForm">SIGN UP</a></li>
 				</ul>
 			</c:if>
-			
+
 			<c:if test="${loginID != null}">
 				<div class="navbar_logo">
-				<a href="/">The Memory</a>
-			</div>
-			<ul class="navbar_menu">
-				<li class="dropdown"><a href="/test/heartTest">
+					<a href="/">The Memory</a>
+				</div>
+				<ul class="navbar_menu">
+					<li class="dropdown"><a href="/test/heartTest">
+							<div class="dropdown_menu">
+								<a href="/perfume/perfumeList" class="menu">PERFUME</a>
+							</div>
+					</a></li>
+					<li class="dropdown">
 						<div class="dropdown_menu">
-							<a href="/perfume/perfumeList" class="menu">PERFUME</a>
+							<a href="/perfume/perfumeBest" class="menu">BEST</a>
 						</div>
-				</a></li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/perfume/perfumeBest" class="menu">BEST</a>
-					</div>
 
-				</li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/freeBoard/selectList?cpage=1" class="menu">COMMUNITY</a>
-					</div>
+					</li>
+					<li class="dropdown">
+						<div class="dropdown_menu">
+							<a href="/freeBoard/selectList?cpage=1" class="menu">COMMUNITY</a>
+						</div>
 
-				</li>
-				<li class="dropdown">
-					<div class="dropdown_menu">
-						<a href="/qnaBoard/boardList" class="menu">Q&A</a>
-					</div> <input type="hidden" value="${loginID}">
-				</li>
-			</ul>
+					</li>
+					<li class="dropdown">
+						<div class="dropdown_menu">
+							<a href="/qnaBoard/boardList" class="menu">Q&A</a>
+						</div> <input type="hidden" value="${loginID}">
+					</li>
+				</ul>
 				<ul class="navbar_icon">
 					<li><a href="/myPage/toMyPageMain">MYPAGE</a></li>
 					<li><a href="/member/logout">LOGOUT</a></li>
@@ -306,11 +304,15 @@ margin: 0;
 			<div class="carousel-inner">
 				<div class="carousel-item active" data-bs-interval="300000">
 					<img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
-					
+					<div class="imgTextBox">
+						<p class="perfumeName">가브리엘 샤넬</p>
+						<p>태양빛을 머금은 플로럴 향수</p>
+						<a href="/perfume/select?per_seq=121&cpage=1"><input type="button" value="자세히 보기"></a>
+					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/y_1_u.jpg" class="d-block w-100" alt="...">
-					
+
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/b_1_u.jpg" class="d-block w-100" alt="...">
@@ -331,7 +333,7 @@ margin: 0;
 	<div class="footer">
 		<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	
+
 	<script>
 		// 햄버거 바 클릭했을때
 		const hamburgerBtn = document.querySelector('.navbar_hamburgerBtn');
