@@ -68,6 +68,10 @@
 			<exclude-mapping path="/member/pwUpdate" />
 			<exclude-mapping path="/member/idCheck" />
 			<exclude-mapping path="/member/joinMember" />
+			
+			<exclude-mapping path="/resources/n_2_u_u.jpg" />
+			<exclude-mapping path="/resources/y_1_u.jpg" />
+			<exclude-mapping path="/resources/b_1_u.jpg" />
 
 			<beans:bean class="p.memory.interceptors.LoginValidator"></beans:bean>
 		</interceptor>
