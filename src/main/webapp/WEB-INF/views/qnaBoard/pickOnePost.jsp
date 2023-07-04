@@ -457,19 +457,19 @@ width: 100%;
          }
       });
 
-      // 댓글 삭제
-      $(".re_deleteBtn").on(
-                  "click",
-                  function() {
-                     let replySeq = $(this).attr("seq");
-                     var result = confirm("댓글을 삭제하시겠습니까?");
-                     if (result) {
-                        alert("삭제 완료 되었습니다.");
-                        location.href = "/reply/replyDelete?qa_seq=${post.qa_seq}&re_seq="
-                              + replySeq;
-                     } else {
-                     }
-                  });
+		// 댓글 삭제
+		$(".re_deleteBtn").on(
+						"click",
+						function() {
+							let replySeq = $(this).attr("seq");
+							var result = confirm("댓글을 삭제하시겠습니까?");
+							if (result) {
+								alert("삭제 완료 되었습니다.");
+								location.href = "/reply/replyDelete?qa_seq=${post.qa_seq}&qnaCpage=${qnaCpage}&re_seq="
+										+ replySeq;
+							} else {
+							}
+						});
 
       // 댓글 등록 
       $("#replyBtn").on("click", function() {
