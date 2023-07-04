@@ -299,12 +299,78 @@ padding-right:0;
  border-radius : 2px;
 }
 
-
-
 .margin{
 height:200px;
+}
+
+.contentImage{
+height:280px;
 
 }
+
+.liImage{
+height:100%;
+width:100%;
+}
+
+.brandRkRow{
+margin-left : 10px;
+color : grey;
+}
+.nameRkRow{
+margin-left : 10px;
+margin-top : 10px;
+font-size : 17px;
+}
+.priceRkRow{
+margin-left : 10px;
+color : #b2a08a;
+font-size : 16px;
+}
+
+.priceHr{
+margin-top : 5px;
+margin-bottom:8px;
+}
+
+.height30{
+height:30px;
+}
+
+.btnCol{
+height:40px;
+float:right;
+}
+
+.rkBtn{
+border: none;
+background-color : white;
+cursor: pointer;
+}
+
+.rkBtn:hover{
+color : #b2a08a;
+}
+
+.pageList{
+width:30px;
+height:30px;
+line-height:30px;
+color : grey;
+}
+
+.page{
+color : grey;
+}
+
+.boardList{
+cursor: pointer;
+}
+
+.boardHover{
+background-color: #EBEBEB;
+opacity : 0.2;
+} 
 </style>
 </head>
 
@@ -314,7 +380,7 @@ height:200px;
 		</div>
 	<div class="container">
 		<div class="row imageRow m-0 p-0">
-			<img src="/resources/perfumeBest.png" id="mainImage">
+			<img src="/resources/perfumeBest2.png" id="mainImage">
 	</div>
 		<div class="row titleRow">
 			<div class=col-12>
@@ -396,10 +462,118 @@ height:200px;
 			</div>
 		</div>
 		
-		<div class="row margin"></div>
+		<div class="row height30"></div>
+		<hr>
+		<div class="row height30"></div>
 		
+		<div class="row">
+		<div class="col-12 btnCol">
+			<button class="rkBtn">낮은가격</button>
+			<button class="rkBtn">높은가격</button>
+			<!-- <input type="hidden" id="choice" name="choice" value="1"> -->
+		</div>
+		</div>
+		<div class="row justify-content-center">
+		<div class="col-10 p-0 col-auto" id="contentList">
+						<ul class="row list-group list-group-horizontal m-0">
+							<c:forEach var="i" items="${list}" begin="0" end="3" step="1">
+								<li class="list-group-item col-xs-12 col-sm-6 col-lg-3 boardList"
+									value="${i.per_seq}">
+									<div class="row contentImage">
+										 <img src="/perfumeImage/${i.sysName}" class="liImage"> 
+									</div>
+									<div class="row brandRkRow">${i.per_brand}</div>
+									<div class="row nameRkRow">${i.per_name }</div>
+									<hr class="priceHr">
+									<div class="row priceRkRow">
+									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+									</div>
+									
+								</li>
+							</c:forEach>
+						</ul>
 
+						<ul class="row list-group list-group-horizontal m-0">
+							<c:if test="${list.size() > 4 }">
+								<c:forEach var="i" items="${list }" begin="4" end="7" step="1">
+									<li class="list-group-item col-sm-6 col-lg-3 boardList"
+										value="${i.per_seq}">
+										<div class="row contentImage">
+											 <img src="/perfumeImage/${i.sysName}" class="liImage"> 
+										</div>
+										<div class="row brandRkRow">${i.per_brand}</div>
+										<div class="row nameRkRow">${i.per_name }</div>
+										<hr class="priceHr">
+										<div class="row priceRkRow">
+									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+									</div>
+										
+									</li>
+								</c:forEach>
+							</c:if>
+						</ul>
+
+
+						<ul class="row list-group list-group-horizontal m-0">
+							<c:if test="${list.size() > 8}">
+								<c:forEach var="i" items="${list }" begin="8" end="11" step="1">
+									<li class="list-group-item col-sm-6 col-lg-3 boardList"
+										value="${i.per_seq}">
+										<div class="row contentImage">
+											<img src="/perfumeImage/${i.sysName}" class="liImage"> 
+										</div>
+										<div class="row brandRkRow">${i.per_brand}</div>
+										<div class="row nameRkRow">${i.per_name }</div>
+										<hr class="priceHr">
+										<div class="row priceRkRow">
+									<fmt:formatNumber  type="number" maxFractionDigits="3" value="${i.per_price}" />원
+									</div>
+										
+									</li>
+								</c:forEach>
+							</c:if>
+						</ul>
+
+					</div>
+					</div>
+					<div class="row height30"></div>
+					<div class="row pageNavi">
+						<nav aria-label="Page navigation example" align="center"
+							id="pageNavigation">
+							<ul class="pagination d-flex justify-content-center">
+								<c:forEach var="i" items="${pagination}">
+									<c:choose>
+										<c:when test="${i eq '<<'}">
+											<li class="pageList"><a class="page"
+												href="/perfume/perfumeBest?cpage=${start}">${i}</a></li>
+										</c:when>
+										<c:when test="${i eq '<'}">
+											<li class="pageList"><a class="page"
+												href="/perfume/perfumeBest?cpage=${cpage - 10}">${i}</a></li>
+										</c:when>
+										<c:when test="${i eq '>'}">
+											<li class="pageList"><a class="page"
+												href="/perfume/perfumeBest?cpage=${cpage + 10}">${i}</a></li>
+										</c:when>
+										<c:when test="${i eq '>>'}">
+											<li class="pageList"><a class="page"
+												href="/perfume/perfumeBest?cpage=${last}">${i}</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="pageList"><a
+												class="page ${i == cpage ? 'current-page' : ''}"
+												href="/perfume/perfumeBest?cpage=${i}"
+												${i == cpage ? "disabled" : ""} onclick="${i == cpage ? "event.preventDefault()" : ""}" >
+													${i} </a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</ul>
+						</nav>
+					</div>
+					<div class="row height30"></div>
 	</div>
+	
 <div class="row footer">
 			<c:import url="/WEB-INF/views/common/footer.jsp" />
 		</div>
@@ -450,13 +624,52 @@ height:200px;
     	location.href="/perfume/bestSelect?per_seq="+per_seq;
     })
 
+    
+     var currentPage = ${cpage}; // 현재 페이지 번호
+    var pageLinks = document.querySelectorAll(".page"); // 페이지 링크 요소들을 가져옴
 
-//     var swiper = new Swiper('.swiper-container', {
-//     slidesPerView: 3, // 보여지는 슬라이드 수
-//     spaceBetween: 30, // 슬라이드 간의 거리(px 단위)
-//     // loop: true, // 슬라이드 무한 반복
-//     // centeredSlides: true, // 다음 슬라이드의 모습이 50%만 보입니다.(중앙)
-// });
+    for (var i = 0; i < pageLinks.length; i++) {
+      // 페이지 링크 요소들에 클릭 이벤트를 추가
+      pageLinks[i].addEventListener("click", function(event) {
+        if (parseInt(event.target.textContent) === currentPage) {
+          // 현재 페이지 번호와 클릭한 페이지 번호가 같으면 클릭 이벤트를 막음
+          event.preventDefault();
+        } else {
+          // 현재 페이지 번호와 클릭한 페이지 번호가 다르면 링크를 따라 이동
+          window.location.href = event.target.getAttribute("href");
+        }
+      });
+    }
+    
+    const currentPage2 = document.querySelector('.current-page');
+    currentPage2.style.color = 'black';
+    currentPage2.style.fontWeight='500';
+    
+    // 향수 클릭 시 디테일 뷰 이동
+    $(".boardList").on("click", function(){
+    	let per_seq = $(this).val();
+    	location.href="/perfume/bestSelect?per_seq="+per_seq+"&cpage="+currentPage;
+    })
+    
+    // 향수 낮은가격, 높은가격으로 정렬
+    $(".rkBtn").on("click", function(){
+    	if($(this).text()=="낮은가격"){
+    		location.href="/perfume/perfumeBest?choice=1"
+    	}else{
+    		location.href="/perfume/perfumeBest?choice=0"
+    	}
+    })
+    
+    	// 향수 hover css 적용
+	  $('.liImage').hover(
+	    function() {
+	      $(this).addClass('boardHover');
+	    },
+	    function() {
+	      $(this).removeClass('boardHover');
+	    }
+	  ); 
+
   </script>
 </body>
 
