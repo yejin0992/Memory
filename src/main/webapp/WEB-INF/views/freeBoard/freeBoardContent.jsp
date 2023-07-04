@@ -25,7 +25,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
 
-<title>자유게시판 상세 내역</title>
+<title>자유게시판 상세 뷰</title>
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';
@@ -36,9 +36,6 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
 /* 게시판 스타일  */
 h2 {
 	text-align: center;
@@ -178,7 +175,6 @@ h2 {
 }
 
 .
-
 .form-label {
 	display: block;
 	font-weight: bold;
@@ -280,7 +276,7 @@ textarea.form-control {
 </style>
 </head>
 
-<body>
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 
 	<!-- 게시판 시작  -->
 	<div class="header">
@@ -351,9 +347,9 @@ textarea.form-control {
 						<div class="commentHeader">
 							<span class="commentWriter">${i.re_writer}</span> <span
 								class="commentDate">${i.formattedDate}</span> <span
-								class="commentReply">답글달기</span> <input type="hidden"
-								value="${i.re_seq }" id="re_seq" name="re_seq"> <input
-								type="hidden" name="fr_seq" value="${conts.fr_seq}">
+								class="commentReply" style="cursor: pointer;">답글달기</span> <input
+								type="hidden" value="${i.re_seq }" id="re_seq" name="re_seq">
+							<input type="hidden" name="fr_seq" value="${conts.fr_seq}">
 							<c:choose>
 								<c:when test="${loginID eq i.re_writer}">
 									<div class="btnZone">
@@ -365,9 +361,10 @@ textarea.form-control {
 								</c:when>
 							</c:choose>
 						</div>
-						<div class="commentBody" >
+						<div class="commentBody">
 							<textarea id="commentContents" class="autosize"
-								name="re_contents" maxlength="250" style="margin-top: auto;" readonly >${i.re_contents}</textarea>
+								name="re_contents" maxlength="250" style="margin-top: auto;"
+								readonly>${i.re_contents}</textarea>
 							<input type="hidden" value="${i.re_seq }" id="re_seq"
 								name="re_seq"> <input type="hidden" name="fr_seq"
 								value="${conts.fr_seq}">
@@ -449,7 +446,8 @@ textarea.form-control {
 			btn_zone.empty();
 			let re_seq = btn_zone.parent().find('#re_seq').val();
 			console.log("re_seq : " + re_seq);
-			btn_zone.parent().next().find("#commentContents").removeAttr("readonly");
+			btn_zone.parent().next().find("#commentContents").removeAttr(
+					"readonly");
 
 			btn_zone.parent().find(".commentDate").hide();// 날짜
 			btn_zone.parent().find(".commentReply").hide();// 답글달기
@@ -465,6 +463,7 @@ textarea.form-control {
 			saveUpdate.css("padding", "0");
 			saveUpdate.css("cursor", "pointer");
 
+			cancel.attr("type", "button");
 			cancel.css("background-color", "transparent");
 			cancel.css("border", "none");
 			cancel.css("padding", "0");
@@ -475,7 +474,8 @@ textarea.form-control {
 			btn_zone.append(cancel);
 
 			$("#cancel").on("click", function() {
-				history.back();
+				console.log("취소버튼 클릭");
+				location.reload();
 			});
 
 		}
@@ -585,6 +585,11 @@ textarea.form-control {
 												console.log(error);
 											});
 						});
+
+		$(".commentReply").on("click", function() {
+			console.log("클릭");
+			alert("미구현 기능입니다.");
+		});
 	</script>
 
 

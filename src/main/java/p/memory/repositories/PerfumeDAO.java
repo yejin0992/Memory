@@ -81,4 +81,21 @@ public class PerfumeDAO {
 	public List<PerfumeMainDTO> selectBest(){
 		return mybatis.selectList("Perfume.selectBest");
 	}
+	
+	//낮은 가격순
+	public List<PerfumeMainDTO> selectLowPrice(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return mybatis.selectList("Perfume.selectLowPrice",param);
+	}
+	
+	//높은 가격순
+	public List<PerfumeMainDTO> selectHighPrice(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return mybatis.selectList("Perfume.selectHighPrice",param);
+	}
+	
 }

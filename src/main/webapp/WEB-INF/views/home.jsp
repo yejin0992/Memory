@@ -306,11 +306,6 @@ margin: 0;
 			<div class="carousel-inner">
 				<div class="carousel-item active" data-bs-interval="300000">
 					<img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
-					<div class="imgTextBox">
-					<p class="perfumeName">가브리엘 샤넬</p>
-					<p>태양빛을 머금은 플로럴 향수</p>
-					<input type="button" value="자세히 보기">
-					</div>
 					
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">

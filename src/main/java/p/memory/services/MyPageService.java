@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import p.memory.dto.FrReplyDTO;
 import p.memory.dto.FreeBoardDTO;
 import p.memory.dto.PerfumeMainDTO;
+import p.memory.dto.QnABoardDTO;
 import p.memory.repositories.MyPageDAO;
 
 @Service
@@ -39,6 +39,14 @@ public class MyPageService {
 	// 좋아요한 향수 
 	public List<PerfumeMainDTO> selectLikedPerfume(String loggedID){
 		return myDAO.selectLikedPerfume(loggedID); 
+	}
+	// 좋아요한 향수 개수
+	public int getLikedPerfumeCount(String loggedID) {
+		return myDAO.getLikedPerfumeCount(loggedID);
+	}
+	// 내가 등록한 qna
+	public List<QnABoardDTO> selectMyQna(String loggedID){
+		return myDAO.selectMyQna(loggedID); 
 	}
 
 }

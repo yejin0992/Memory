@@ -18,7 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>자게 수정폼</title>
+<title>자유게시판 수정</title>
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';
@@ -29,16 +29,13 @@
 	font-style: normal;
 }
 
-* {
-	font-family: 'Pretendard-Regular';
-}
-
 h2 {
 	text-align: center;
 	color: #555555;
 }
-h2 a{
- text-decoration: none; /* 링크의 밑줄 제거 */
+
+h2 a {
+	text-decoration: none; /* 링크의 밑줄 제거 */
 }
 
 .titleArea {
@@ -111,7 +108,7 @@ h2 a{
 </style>
 </head>
 
-<body>
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 
 	<!-- 게시판 시작  -->
 	<div class="header">
@@ -125,8 +122,7 @@ h2 a{
 			<div class="row form-group">
 				<div class="col-2">
 					<div class="mb-3">
-						<select class="form-select" id="category" name="fr_category"
-							required>
+						<select class="form-select" id="category" name="fr_category">
 							<option value="" disabled selected hidden>${conts.fr_category}</option>
 							<c:forEach var="c" items="${category }">
 								<option value="${c.cate_name }">${c.cate_name }</option>
@@ -158,13 +154,13 @@ h2 a{
 						<button id="btnContentsRemove">삭제</button>
 					</c:forEach>
 				</div>
-				<div class="mb-3">
+<!-- 				<div class="mb-3">
 					<div class="fileWrapper">
 						<label for="file">이미지 파일 첨부</label> <br> <input type="file"
 							id="inputFiles" value="첨부파일" name="files"
 							accept="image/png, image/jpeg, image/jpg" multiple><br>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="button">
 				<button type="submit" id="btnSave" class="btn btn-primary">등록</button>
@@ -185,27 +181,7 @@ h2 a{
 			location.href= "selectBySeq?fr_seq="+fr_seq; 
 		})
 		
-		
-		// 이미지 수정하기 
-		const r = $("#btnContentsRemove");
-		console.log(r); 
-		r.on("click", () => {
-			const f = $("#inputFiles")[0]; 
-			console.log(f.value);
-			
-			if(f.value && f.value !== ""){
-				// 파일 있는지 확인 
-				// 파일 첨부 요소의 값이 비어있지 않고, 비어있지 않은 문자열이라면(파일이 선택된 경우)
-				f.value = ""; //파일 비워준다 -> 선택된 파일 초기화 
-				$("#image").html(""); // 파일 이름 넣어준걸 비워줌
-				r.html("파일첨부"); 
-			}else {
-				// 파일 첨부 요소 값이 비어있을 경우 
-				// 파일 첨부 요소 클릭하여 파일 상자 엶 
-				f.click(); 
-			}
-		});
-		
+	
 	
 	</script>
 

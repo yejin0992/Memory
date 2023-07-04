@@ -11,9 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import p.memory.dto.FrReplyDTO;
 import p.memory.dto.FreeBoardDTO;
 import p.memory.dto.PerfumeMainDTO;
+import p.memory.dto.QnABoardDTO;
 import p.memory.services.FrReplyService;
 import p.memory.services.MyPageService;
 
@@ -38,10 +38,13 @@ public class MyPageController {
 		System.out.println("좋아요한 향수 불러오기 컨트롤러 도착");
 		String loggedID = (String) session.getAttribute("loginID");
 		System.out.println("현재 로그인한 아이디 : " + loggedID);
-		List<PerfumeMainDTO> likedPerfume = myPageService.selectLikedPerfume(loggedID);
-		System.out.println("좋아요한 향수 : " + likedPerfume);
-		model.addAttribute("likedPerfume", likedPerfume);
 		model.addAttribute("loggedID", loggedID);
+		List<PerfumeMainDTO> likedPerfume = myPageService.selectLikedPerfume(loggedID);
+		model.addAttribute("likedPerfume", likedPerfume);
+		System.out.println("좋아요한 향수 : " + likedPerfume);
+		int likedPerfumeCount = myPageService.getLikedPerfumeCount(loggedID);
+		System.out.println("좋아요한 향수 개수" + likedPerfumeCount);
+		model.addAttribute("likedPerfumeCount", likedPerfumeCount); 
 		// 내가 쓴 글 총 개수
 		FreeBoardDTO dto = new FreeBoardDTO();
 		// 로그인한 세션 넣어주기
@@ -179,16 +182,14 @@ public class MyPageController {
 		return "/myPage/bookmarkedPosts";
 	}
 
-	// 좋아요한 향수 불러오기
-//	@RequestMapping("selectLikedPerfume")
-//	public String selectLikedPerfume(Model model) throws Exception {
-//		System.out.println("좋아요한 향수 불러오기 컨트롤러 도착");
-//		String loggedID = (String) session.getAttribute("loginID");
-//		List<PerfumeMainDTO> likedPerfume = myPageService.selectLikedPerfume(loggedID);
-//		System.out.println("좋아요한 향수 : " + likedPerfume);
-//		model.addAttribute("likedPerfume", likedPerfume);
-//		return "/myPage/myPageMain";
-//	}
+	// 내가 작성한 qna 불러오기 
+	@RequestMapping("selectMyQna")
+	public String selectMyQna(Model model) throws Exception {
+		String loggedID = (String) session.getAttribute("loginID");
+		List<QnABoardDTO> myQna = myPageService.selectMyQna(loggedID);
+		model.addAttribute("myQnaList", myQna); 
+		return "/myPage/myQna"; 
+	}
 
 	// 회원정보 수정하기
 	@RequestMapping("toUpdateMyInfo")

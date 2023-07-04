@@ -69,4 +69,14 @@ public class PerfumeService {
 	public List<PerfumeMainDTO> selectBest(){
 		return perfumeDAO.selectBest();
 	} 
+	
+	// 낮은 가격순
+	public List<PerfumeMainDTO> selectLowPrice(int start, int end){
+		return perfumeDAO.selectLowPrice(start, end);
+	}
+	
+	// 낮은 가격순
+	public List<PerfumeMainDTO> selectHighPrice(int start, int end){
+		return perfumeDAO.selectHighPrice(start, end);
+	}
 }

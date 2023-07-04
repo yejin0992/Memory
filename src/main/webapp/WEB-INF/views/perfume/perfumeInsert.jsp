@@ -1709,7 +1709,7 @@ margin-top:70px;
 			</div>
 			<div class="row"></div>
 			<div class="row">
-				<button id="insertBtn" class="btn btn-outline-primary" type="submit">저장</button>
+				<button id="insertBtn" class="btn btn-outline-primary" type="button">저장</button>
 			</div>
 			<div style="height: 50px;"></div>
 		</div>
@@ -1915,6 +1915,7 @@ margin-top:70px;
 		    	 alert("base3의 값을 올바르게 입력해주세요");
 		    	 return false;
 		     } 
+		alert("관리자만 작성할 수 있습니다!");
  	})
  	
  	

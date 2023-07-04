@@ -29,7 +29,7 @@
 	font-style: normal;
 }
 
-* {
+body {
 	font-family: 'Pretendard-Regular';
 }
 
@@ -96,6 +96,41 @@ table.table {
 	text-decoration: none;
 	color: #B2A08A;
 }
+/* 사이드네비게이션바(snb) */
+@media ( max-width : 767px) {
+	.snb {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.snb li {
+		margin-bottom: 10px;
+	}
+}
+
+li {
+	postion: relative;
+	display: inline-block;
+}
+
+.text_item {
+	display: block;
+	position: relative;
+	padding-bottom: 20px;
+	font-size: 20px;
+	margin-right: 7px;
+}
+
+.snb ul li a.active .text_item:after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 9;
+	width: 100%;
+	height: 4px;
+	background-color: #333;
+	content: '';
+}
 </style>
 </head>
 
@@ -106,8 +141,15 @@ table.table {
 	<div class="titleArea">
 		<h2>내가 쓴 글</h2>
 	</div>
-
 	<div class="container">
+		<div class="snb">
+			<Ul>
+				<li><a class="active" href="selectMyPost?cpage=1"><span
+						class="text_item">자유게시판</span></a></li>
+				<li><a class="active" href="selectMyQna"><span
+						class="text_item">Q&A</span></a></li>
+			</Ul>
+		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" solid black>
 				<thead>

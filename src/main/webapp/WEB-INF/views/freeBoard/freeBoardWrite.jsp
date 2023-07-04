@@ -18,7 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>글작성 폼</title>
+<title>자유게시판 작성</title>
 <style>
 @font-face {
 	font-family: 'Pretendard-Regular';
@@ -27,10 +27,6 @@
 		format('woff');
 	font-weight: 400;
 	font-style: normal;
-}
-
-* {
-	font-family: 'Pretendard-Regular';
 }
 
 h2 {
@@ -78,6 +74,11 @@ h2 {
 	max-width: 100%;
 }
 
+.button {
+	display: flex;
+	justify-content: flex-end;
+}
+
 .btnAdd {
 	padding: 8px 20px;
 	font-size: 14px;
@@ -90,7 +91,7 @@ h2 {
 }
 </style>
 </head>
-<body>
+<body style="font-family: 'Pretendard-Regular', sans-serif;">
 	<div class="header">
 		<c:import url="/WEB-INF/views/common/navi.jsp" />
 	</div>

@@ -296,7 +296,7 @@ cursor: pointer;
 
 .boardHover{
 background-color: #EBEBEB;
-opacity : 0.9;
+opacity : 0.2;
 } 
 
 </style>
@@ -307,8 +307,6 @@ opacity : 0.9;
 			<c:import url="/WEB-INF/views/common/navi.jsp" />
 		</div>
 	<div class="container">
-	
-
 		<div class="row body">
 			<div class="col body p-0">
 				<div class="row imageRow m-0 p-0">
@@ -662,7 +660,7 @@ opacity : 0.9;
 	 })
 	 
 	 	// 향수 hover css 적용
-	  $('.boardList').hover(
+	  $('.liImage').hover(
 	    function() {
 	      $(this).addClass('boardHover');
 	    },
