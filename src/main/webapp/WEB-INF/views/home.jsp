@@ -186,8 +186,15 @@ nav ul li {
 	}
 
 	/* ----- 바디 ----- */
+	.carousel-inner {
+	border: 1px solid  #b2a08a;
+	width: 100%;
+	}
+	.carousel-control-prev {
+	height: 100%;
+	}
 	.carousel-control-next {
-		height: 80%;
+		height: 100%;
 	}
 	.carousel-item {
 		position: relative;
@@ -198,11 +205,34 @@ nav ul li {
 		right: 15%;
 		z-index: 5;
 	}
+	.imgTextBox2{
+	position: absolute;
+		top: 40%;
+		right: 15%;
+	z-index: 5;
+	}
+	
+	.imgTextBox3{
+	position: absolute;
+		top: 30%;
+		left: 9%;
+	z-index: 6;
+	border: 1px solid  #b2a08a;
+	}
 	.perfumeName {
 		font-size: 50px;
 		cloro: #525252;
 		margin: 0;
 	}
+	
+	.toDetailBtn {
+	border: 1px solid  #b2a08a;
+	padding: 3px 5px;	
+	background-color: transparent;
+	font-size: 10px; 
+	}
+	
+	// 폰트
 	@font-face {
 		font-family: 'Pretendard-Regular';
 		src:
@@ -307,15 +337,30 @@ nav ul li {
 					<div class="imgTextBox">
 						<p class="perfumeName">가브리엘 샤넬</p>
 						<p>태양빛을 머금은 플로럴 향수</p>
-						<a href="/perfume/select?per_seq=121&cpage=1"><input type="button" value="자세히 보기"></a>
+						<a href="/perfume/select?per_seq=121&cpage=1">
+						<input type="button" class="toDetailBtn" value="자세히 보기   +">
+						</a>
 					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/y_1_u.jpg" class="d-block w-100" alt="...">
+					<div class="imgTextBox2">
+						<p class="perfumeName">로에베 001</p>
+						<p>감미로운 아침의 향기</p>
+						<a href="#">
+						<input type="button" class="toDetailBtn" value="자세히 보기   +"></a>
+					</div>
 
 				</div>
 				<div class="carousel-item" data-bs-interval="3000">
 					<img src="/resources/b_1_u.jpg" class="d-block w-100" alt="...">
+					<div class="imgTextBox3">
+						<p class="perfumeName">L'HUILE ORIENT</p>
+						<p>감미로운 아침의 향기</p>
+						<a href="/perfume/select?per_seq=121&cpage=1">
+						<input type="button" class="toDetailBtn" value="자세히 보기   +">
+						</a>
+					</div>
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button"
