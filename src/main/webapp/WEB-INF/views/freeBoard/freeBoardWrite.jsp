@@ -126,7 +126,7 @@ h2 {
 			<div class="mb-3">
 				<div class="wrContent">
 					<textarea class="form-control" id="content" name="fr_contents"
-						rows="13" required></textarea>
+						rows="13" maxlength="2000" required></textarea>
 				</div>
 			</div>
 			<!-- 첨부파일 -->

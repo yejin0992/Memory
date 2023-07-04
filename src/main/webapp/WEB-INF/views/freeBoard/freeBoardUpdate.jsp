@@ -151,7 +151,6 @@ h2 a {
 				<div class="imageListContainer">
 					<c:forEach items="${imageList}" var="image">
 						<span id="image">${image.oriName}</span>
-						<button id="btnContentsRemove">삭제</button>
 					</c:forEach>
 				</div>
 <!-- 				<div class="mb-3">
@@ -180,6 +179,10 @@ h2 a {
 			console.log(fr_seq); 
 			location.href= "selectBySeq?fr_seq="+fr_seq; 
 		})
+		
+		$("#btnContentsRemove").on("click",function(){
+			alert("미구현 기능입니다."); 
+		}); 
 		
 	
 	
