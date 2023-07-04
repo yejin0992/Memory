@@ -380,7 +380,7 @@ opacity : 0.2;
 		</div>
 	<div class="container">
 		<div class="row imageRow m-0 p-0">
-			<img src="/resources/perfumeBest.png" id="mainImage">
+			<img src="/resources/perfumeBest2.png" id="mainImage">
 	</div>
 		<div class="row titleRow">
 			<div class=col-12>
