@@ -236,7 +236,7 @@ input[type=radio] {
 									<button type="button" id="searchZipcode" style="display: none;">우편번호</button>
 								</div>
 								<div>
-									<input type="text" id="address1" class="readLater"
+									<input type="text" id="address1" class="readOnly" 
 										name="address1" value="${myInfo.address1}"
 										placeholder="  기본주소" readonly></input>
 								</div>
@@ -315,16 +315,19 @@ input[type=radio] {
 			
 			let form = document.getElementById("form");
 	        
-	        let repw = document.getElementById("repw").value;
+	        
 	        let birth_date = document.getElementById("birth_date").value;
 	        let contact = document.getElementById("contact").value;
 	        let email = document.getElementById("email").value;
 	        let zipcode = document.getElementById("zipcode").value;
-	        let address1 = document.getElementById("address1").value;
-	        let address2 = document.getElementById("address2").value;
-	      	        let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
+	        let add1 = document.getElementById("address1").value;
+	        let add2 = document.getElementById("address2").value;
+	        
+	      	let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
 	        let contactRegex = /^01\d{8,9}$/;
 	        let emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+	        let add1Regex = /^([가-힣\d\s]+),?\s?([가-힣\d\s]+),?\s?([가-힣\d\s]+)$/;
+			let add2Regex = /^([가-힣\d\s]+),?\s?([가-힣\d\s]+),?\s?([가-힣\d\s]+)$/;
 
 	        console.log(3);
 	      if (birth_date == "") {
@@ -345,28 +348,38 @@ input[type=radio] {
 	        } else if (!emailRegex.test(email)) {
 	          alert('이메일 형식을 맞춰 입력해주세요.');
 	          return false;
-	        }
-	     
-	      
-	        if (pwRejexFlag == true) { 
-	        	console.log(11);
-	        }else if(pwRejexFlag == false) {
-	        	console.log(00);
-	          let pw = document.getElementById("pw").value;
-	          let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-
-	          if (pw == "") {
-	            alert("비밀번호를 입력해주세요.");
+	        } else if (!add1Regex.test(add1)) {
+	            alert('주소 형식을 맞춰 입력해주세요.');
 	            return false;
-	          } else if (!(pw == repw)) {
-	            alert("비밀번호가 일치하지 않습니다.");
-	            return false;
-	          } else if (!pwRegex.test(pw)) {
-	            alert("비밀번호 형식을 맞춰 입력해주세요.(영문 소문자, 4~16자)")
+	          } else if (!add2Regex.test(add2)) {
+	            alert('주소 형식을 맞춰 입력해주세요.');
 	            return false;
 	          }
-	        pwRejexFlag = true;
-		      }
+	     
+	      pwRejexFlag = !pwRejexFlag; // 플래그 값을 토글 (false -> true 또는 true -> false)
+	      if (pwRejexFlag == true) { 
+	    	    console.log(11);
+	    	} else {
+	    	    let pw = document.getElementById("pw").value;
+	    	    let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+	    	    let repw = document.getElementById("repw").value;
+	    	
+	    	    if (pw == "") {
+	    	        alert("비밀번호를 입력해주세요.");
+	    	        return false;
+	    	    } else if (!(pw == repw)) {
+	    	        alert("비밀번호가 일치하지 않습니다.");
+	    	        return false;
+	    	    } else if (!pwRegex.test(pw)) {
+	    	        alert("비밀번호 형식을 맞춰 입력해주세요.(영문 대소문자, 숫자, 특수문자, 8~20자)")
+	    	        return false;
+	    	    }
+	    	    pwRejexFlag = true;
+	    	   
+	    	}
+	      updateComplete.on("click", function() {
+	    	    pwRejexFlag = true;
+	    	});
 	      
 	    
 	      

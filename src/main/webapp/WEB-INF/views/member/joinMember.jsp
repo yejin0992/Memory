@@ -202,7 +202,7 @@ input[type=radio] {
 								</div>
 								<div>
 									<input type="text" id="address1" name="address1"
-										placeholder="  기본주소"></input>
+										placeholder="  기본주소" readonly></input>
 								</div>
 								<div>
 									<input type="text" id="address2" name="address2"
@@ -308,7 +308,6 @@ input[type=radio] {
         	check5.style.color = "";
         } 
       });
-      
       $("#repw").on("keyup", function () {
     	  let pw = document.getElementById("pw").value;
           let repw = document.getElementById("repw").value;
@@ -323,7 +322,6 @@ input[type=radio] {
           } 
     	});
       
-      
       //정규화
       document.getElementById("joinBtn").onclick = () => {
 
@@ -336,15 +334,18 @@ input[type=radio] {
         let contact = document.getElementById("contact").value;
         let email = document.getElementById("email").value;
         let zipcode = document.getElementById("zipcode").value;
-        let address1 = document.getElementById("address1").value;
-        let address2 = document.getElementById("address2").value;
+        let add1 = document.getElementById("address1").value;
+        let add2 = document.getElementById("address2").value;
 
         let idRegex = /^[a-z0-9]{4,16}$/;
         let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
         let nameRegex = /^[가-힣]{2,5}$/;
         let contactRegex = /^01\d{8,9}$/;
         let emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-
+		let add1Regex = /^([가-힣\d\s]+),?\s?([가-힣\d\s]+),?\s?([가-힣\d\s]+)$/;
+		let add2Regex = /^([가-힣\d\s]+),?\s?([가-힣\d\s]+),?\s?([가-힣\d\s]+)$/;
+		
+        // 생년월일
         let birth_dateRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
         let currentDate = new Date(); //현재날짜
         let insertBirthDate = new Date(birth_date.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')); // 유저가 입력한 날짜
@@ -398,8 +399,13 @@ input[type=radio] {
         } else if (!emailRegex.test(email)) {
           alert('이메일 형식을 맞춰 입력해주세요.');
           return false;
+        } else if (!add1Regex.test(add1)) {
+          alert('주소 형식을 맞춰 입력해주세요.');
+          return false;
+        } else if (!add2Regex.test(add2)) {
+          alert('주소 형식을 맞춰 입력해주세요.');
+          return false;
         }
-      }
 
       // 카카오 우편번호 API
       document.getElementById("searchZipcode").onclick = function () {
