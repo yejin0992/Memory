@@ -223,7 +223,7 @@
 		where note=#{note}
 	</select>
 	
-	<!-- 낮은 가격순  -->
+	<!-- PERFUME LOWPRICE  -->
 	<select id="selectLowPrice" resultType="p.memory.dto.PerfumeMainDTO">
 	select * from(select
 		p.per_seq, p.per_brand, p.per_name,
@@ -237,7 +237,7 @@
         where rank between #{start} and #{end}
 	</select>
 	
-	<!-- 높은 가격순  -->
+	<!-- PERFUME HIGHPRICE  -->
 	<select id="selectHighPrice" resultType="p.memory.dto.PerfumeMainDTO">
 		select * from(select
 		p.per_seq, p.per_brand, p.per_name,
