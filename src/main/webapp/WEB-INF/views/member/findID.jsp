@@ -71,7 +71,7 @@ li {
 }
 
 #pwBtn:hover {
-	color: #b2a08a;
+	color: darkorange;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -102,7 +102,7 @@ input {
 }
 
 #findIdBtn:hover {
-	background-color: #b2a08a;
+	background-color: darkorange;
 	cursor: pointer;
 }
 
@@ -111,7 +111,7 @@ input {
 }
 
 .gotoPage>a {
-	color: #b2a08a;
+	color: darkorange;
 }
 </style>
 

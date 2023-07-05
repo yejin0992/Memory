@@ -87,6 +87,7 @@ public class MemberController {
 	// 회원 탈퇴
 	@RequestMapping("memberOut")
 	public String delete(String id) {
+		System.out.println(id);
 		mService.delete((String) session.getAttribute("loginID"));
 		session.invalidate();
 		return "home";
