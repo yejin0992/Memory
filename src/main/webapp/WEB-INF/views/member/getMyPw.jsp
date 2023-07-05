@@ -68,7 +68,7 @@ li {
 }
 
 #idBtn:hover {
-	color: #b2a08a;
+	color:darkorange;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -93,7 +93,7 @@ input {
 }
 
 #pwUpdateBtn:hover {
-	background-color:  #b2a08a;
+	background-color: darkorange;
 	cursor: pointer;
 }
 
@@ -102,7 +102,7 @@ input {
 }
 
 .gotoPage>a {
-	color: #b2a08a;
+	color: darkorange;
 }
 
 .condition {
@@ -172,25 +172,25 @@ input {
       let repw = document.getElementById("repw").value;
 
       if (check1Regex.test(pw)) {
-        check1.style.color = "#525252";
+        check1.style.color = "darkorange";
       } else {
         check1.style.color = "";
       }
 
       if (check2Regex.test(pw)) {
-        check2.style.color = "#525252";
+        check2.style.color = "darkorange";
       } else {
         check2.style.color = "";
       }
 
       if (check3Regex.test(pw)) {
-        check3.style.color = "#525252";
+        check3.style.color = "darkorange";
       } else {
         check3.style.color = "";
       }
 
       if (pw.length >= 8 && pw.length <= 20) {
-        check4.style.color = "#525252";
+        check4.style.color = "darkorange";
       } else {
         check4.style.color = "";
       }
@@ -199,7 +199,7 @@ input {
       	check5.style.color = "";
       } else if 
       	(pw === repw) {
-          	check5.style.color = "#525252";
+          	check5.style.color = "darkorange";
       } else {
       	check5.style.color = "";
       } 
@@ -213,7 +213,7 @@ input {
         	check5.style.color = "";
         } else if 
         	(repw === pw) {
-            	check5.style.color = "#525252";
+            	check5.style.color = "darkorange";
         } else {
         	check5.style.color = "";
         } 
@@ -232,9 +232,14 @@ input {
       } else if (!(pw == repw)) {
         alert("비밀번호가 일치 하지 않습니다.");
         return false;
+     
+      }else if (!pwRegex.test(pw)) {
+    	  alert("비밀번호 형식을 맞춰 입력해주세요.(영문 대소문자, 숫자, 특수문자, 8~20자)");
+    	  return false;
       } else if (pw == repw) {
     	  alert("비밀번호 수정 완료 되었습니다.");
       }
+      
     }
     </script>
 </body>

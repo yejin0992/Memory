@@ -187,17 +187,16 @@ nav ul li {
 
 	/* ----- 바디 ----- */
 	.carousel-inner {
-	border: 1px solid  #b2a08a;
 	width: 100%;
 	}
 	.carousel-control-prev {
 	height: 100%;
 	}
 	.carousel-control-next {
-		height: 100%;
+	height: 100%;
 	}
 	.carousel-item {
-		position: relative;
+	position: relative;
 	}
 	.imgTextBox {
 		position: absolute;
@@ -207,18 +206,18 @@ nav ul li {
 	}
 	.imgTextBox2{
 	position: absolute;
-		top: 40%;
-		right: 15%;
+	top: 40%;
+	right: 15%;
 	z-index: 5;
 	}
 	
 	.imgTextBox3{
 	position: absolute;
-		top: 30%;
-		left: 9%;
+	top: 30%;
+	left: 7%;
 	z-index: 6;
-	border: 1px solid  #b2a08a;
 	}
+	
 	.perfumeName {
 		font-size: 50px;
 		cloro: #525252;
@@ -229,7 +228,7 @@ nav ul li {
 	border: 1px solid  #b2a08a;
 	padding: 3px 5px;	
 	background-color: transparent;
-	font-size: 10px; 
+	font-size: 15px; 
 	}
 	
 	// 폰트
@@ -332,7 +331,7 @@ nav ul li {
 		<div id="carouselExampleInterval" class="carousel slide"
 			data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item active" data-bs-interval="300000">
+				<div class="carousel-item active" data-bs-interval="3000">
 					<img src="/resources/n_2_u_u.jpg" class="d-block w-100" alt="...">
 					<div class="imgTextBox">
 						<p class="perfumeName">가브리엘 샤넬</p>
@@ -347,7 +346,7 @@ nav ul li {
 					<div class="imgTextBox2">
 						<p class="perfumeName">로에베 001</p>
 						<p>감미로운 아침의 향기</p>
-						<a href="#">
+						<a href="/perfume/select?per_seq=151&cpage=1">
 						<input type="button" class="toDetailBtn" value="자세히 보기   +"></a>
 					</div>
 
@@ -356,8 +355,8 @@ nav ul li {
 					<img src="/resources/b_1_u.jpg" class="d-block w-100" alt="...">
 					<div class="imgTextBox3">
 						<p class="perfumeName">L'HUILE ORIENT</p>
-						<p>감미로운 아침의 향기</p>
-						<a href="/perfume/select?per_seq=121&cpage=1">
+						<p>스파이시한 장미향</p>
+						<a href="/perfume/select?per_seq=152&cpage=1">
 						<input type="button" class="toDetailBtn" value="자세히 보기   +">
 						</a>
 					</div>
