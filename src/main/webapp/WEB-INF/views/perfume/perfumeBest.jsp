@@ -188,8 +188,7 @@ body {
 	position: absolute;
 	top: 30%;
 	font-weight: 600;
-font-family: 'Architects Daughter', cursive;
-color : #DFA8A7;
+color : grey;
 }
 
 .textRow {
@@ -384,7 +383,7 @@ opacity : 0.2;
 	</div>
 		<div class="row titleRow">
 			<div class=col-12>
-				<span id="perfume">Best</span><br> 실시간으로 인기가 가장 많은 향수를 확인하세요
+				<span id="perfume">Best</span><br>실시간으로  좋아요 순위가 높은 향수를 확인하세요
 			</div>
 		</div>
 
