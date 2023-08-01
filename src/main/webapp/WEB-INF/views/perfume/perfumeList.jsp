@@ -324,7 +324,7 @@ opacity : 0.2;
 					<div class="col">
 						<!-- 관리자 로그인시에만 활성화 -->
 						<%-- <a href="/perfume/toInsert" id="write"> 글쓰기 </a> <input type="hidden"
-							id="loginID" value="${sessionScope.loginID}"> --%>
+							id="loginID" value="${sessionScope.loginID}">  --%>
 					</div>
 				</div>
 				<div class="row m-0">
@@ -357,7 +357,6 @@ opacity : 0.2;
 								<input type="text" class="col-12 form-control form-control-sm"
 									id="endPrice" name="endPrice">
 							</div>
-							
 
 						</div>
 						<div class="sideNaviSearch row p-2">
@@ -557,6 +556,8 @@ opacity : 0.2;
     }); 
    
 	// 브랜드, 가격으로 필터
+	
+	
 	function commonFunction(){ 
 			  let checkedValue = [];
 		 $(".brand:checked").each((i,e)=>{
@@ -571,6 +572,7 @@ opacity : 0.2;
 		  if(endPrice == '' ){
 			 endPrice = null;
 		 } 
+		
 		 let category = $("#category").val();
 		 let searchText = $("#searchText").val();
 		 if(searchText == '' ){
@@ -619,10 +621,31 @@ opacity : 0.2;
 	    			 contentList.append(ul);
 	    })
 	 }; 
+	  
+	  function startRegexFunction(){
+		  let numRegex = /^[0-9]*$/;
+		  let startPrice = $("#startPrice").val();
+		  if (!numRegex.test(startPrice)) {
+			  alert("가격은 숫자로 입력해주세요");
+			  return false;
+			}
+	  }
+	  
+	  function endRegexFunction(){
+		  let numRegex = /^[0-9]*$/;
+		  let endPrice = $("#endPrice").val();
+		  if (!numRegex.test(endPrice)) {
+			  alert("가격은 숫자로 입력해주세요");
+			  return false;
+			}
+	  }
 	 
+	  
 	 $(".brand").on("click", commonFunction);
 	  $("#startPrice").on("keyup", commonFunction);
+	  $("#startPrice").on("keyup", startRegexFunction);
 	 $("#endPrice").on("keyup", commonFunction); 
+	 $("#endPrice").on("keyup", endRegexFunction); 
 	 $("#search").on("click", commonFunction);
 	 
 	 t = (per_seq, isTrue, id) => {

@@ -312,7 +312,7 @@ input[type=radio] {
 		// 수정 완료 버튼
 		updateComplete.on("click", function() {
 			event.preventDefault(); // 폼 바로 제출 막기
-			
+			alert("완료버튼 눌림");
 			let form = document.getElementById("form");
 	        
 	        
@@ -359,10 +359,13 @@ input[type=radio] {
         	}
 	      
 	     
-	      pwRejexFlag = !pwRejexFlag; // 플래그 값을 토글 (false -> true 또는 true -> false)
-	      if (pwRejexFlag == true) { 
+	     /*  pwRejexFlag = !pwRejexFlag;  */// 플래그 값을 토글 (false -> true 또는 true -> false)
+	     // 안열었을때
+	     if (pwRejexFlag == true) { 
 	    	    console.log(11);
-	    	} else {
+	    	}
+	     // 수정 열었을 때
+	     else {
 	    	    let pw = document.getElementById("pw").value;
 	    	    let pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,20}$/;
 	    	    let repw = document.getElementById("repw").value;
