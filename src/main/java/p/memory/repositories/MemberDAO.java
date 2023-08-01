@@ -41,6 +41,7 @@ public class MemberDAO {
 	
 	// 회원 탈퇴
 	public int delete (String id) {
+		System.out.println("탈퇴id: "+id);
 		return db.delete("Member.delete",id);
 	}
 	

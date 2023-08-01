@@ -404,7 +404,7 @@ width: 100%;
       
       // 게시글 삭제
       $("#deleteBtn").on("click",function(){
-         var delet = confirm("댓글을 삭제하시겠습니까?");
+         var delet = confirm("게시글을 삭제하시겠습니까?");
          if (result) {
             alert("삭제 완료 되었습니다.");
             location.href = "/reply/replyDelete?qa_seq=${post.qa_seq}&re_seq="

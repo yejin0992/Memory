@@ -165,12 +165,12 @@ input[type="text"] {
 				<hr>
 				<div>
 					<input type="text" id="title" placeholder="  글 제목을 입력하세요"
-						name="qa_title" maxlength="200">
+						name="qa_title" maxlength="60">
 				</div>
 
 				<div>
 					<textarea id="content" placeholder="글 내용을 입력하세요."
-						name="qa_contents" maxlength="2000"></textarea>
+						name="qa_contents" maxlength="1000"></textarea>
 				</div>
 
 		<!-- 		<div class="filebox">
@@ -193,29 +193,31 @@ input[type="text"] {
 	</div>
 
 	<script>
+	
 	// 글자수 제한 
 	const title = document.getElementById("title");
 
-	title.addEventListener("keyup", function() {
+	title.addEventListener("input", function() {
 	  const maxLength = parseInt(this.getAttribute("maxlength"));
 	  const currentLength = this.value.length;
 
 	  if (currentLength > maxLength) {
-	    alert("200까지 작성 가능 합니다.");
+	    alert("60자까지 작성 가능 합니다.");
 	  }
 	});
 	
 	
 	const textarea = document.getElementById("content");
 
-	textarea.addEventListener("keyup", function() {
+	textarea.addEventListener("input", function() {
 	  const maxLength = parseInt(this.getAttribute("maxlength"));
 	  const currentLength = this.value.length;
 
 	  if (currentLength > maxLength) {
-	    alert("2000까지 작성 가능 합니다.");
+	    alert("1000자까지 작성 가능 합니다.");
 	  }
 	});
+	
 		// 등록버튼
 		$("#complete").on("click", function() {
 			let title = document.getElementById("title").value;

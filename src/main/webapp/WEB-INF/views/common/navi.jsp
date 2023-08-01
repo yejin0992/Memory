@@ -44,7 +44,7 @@ a {
 .navibar {
    display: flex;
    align-items: center;
-   background-color: #ffffff97;
+   background-color: white;
    padding: 2px 30px;
    position: relative;
 }

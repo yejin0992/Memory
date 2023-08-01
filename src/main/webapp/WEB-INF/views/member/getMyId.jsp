@@ -72,7 +72,7 @@ li {
 }
 
 #pwBtn:hover {
-	color: #b2a08a;
+	color: darkorange;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -106,7 +106,7 @@ li {
 }
 
 #login:hover {
-	background-color: #b2a08a;
+	background-color: darkorange;
 	cursor: pointer;
 }
 </style>

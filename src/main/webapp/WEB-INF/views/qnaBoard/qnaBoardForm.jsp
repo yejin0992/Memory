@@ -41,6 +41,8 @@ table td {
 	padding: 10px;
 	vertical-align: top;
 	border-bottom: 1px solid #ccc;
+	    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 thead th {
@@ -57,6 +59,10 @@ tfoot td {
 
 #date, #hit {
 	color: grey;
+}
+
+#titleWidth {
+max-width : 500px;
 }
 
 @media ( max-width : 800px) {
@@ -170,7 +176,7 @@ button:hover {
 				<c:forEach var="i" items="${list}">
 					<tr align="center">
 						<td width="10" height="20">${i.qa_seq}</td>
-						<td width="570" height="20"><a
+						<td width="570" height="20" id="titleWidth"><a
 							href="/qnaBoard/viewCount?qa_seq=${i.qa_seq}&qnaCpage=${qnaCpage}">${i.qa_title}</a></td>
 						<td width="160" height="20">${i.qa_writer}</td>
 						<td width="40" height="20" id="date">${i.detailDate}</td>
