@@ -1,22 +1,19 @@
-# Memory
-개발목표
-개발기간 및 인
-사율 기술 및 라이브러리
-구현기능
-ERD
+
 <h2 tabindex="-1" dir="auto">
 개발기간 및 인원
 </h2>
 <p dir="auto">
-  <span font-weight: bold">개발기간 : </span>
-  2023.06.02 ~ 2023.07.05</p>
+  <span style="font-weight: bold;">개발기간 : </span>
+  2023.06.02 ~ 2023.07.05
+</p>
 <p dir="auto">
-  <span font-weight: bold">인원 수 : </span>
-  3명명</p>
+  <span style="font-weight: bold;">인원 수 : </span>
+  3명
+</p>
 <h2 tabindex="-1" dir="auto">
 개발목표
 </h2>
-<p dir="auto">마스크 착용이 해제되고, 스몰 력셔리 상품 구매 증가로 인해 향수 수요가 증가함에도 불구하고, 향수 정보를 얻을 수 있는 플랫폼 및 커뮤니티 부족하여 이를 만족할 수 있는 사이트 제공</p>
+<p dir="auto">마스크 착용이 해제되고 스몰 력셔리 상품 구매 증가로 인해 향수 수요가 증가함에도 불구하고,<br> 향수 정보를 얻을 수 있는 플랫폼 및 커뮤니티 부족하여 이를 만족할 수 있는 사이트 제공</p>
 
 <h2 tabindex="-1" dir="auto">
 사용기술 및 라이브러리
@@ -62,14 +59,14 @@ ERD
 <h2 tabindex="-1" dir="auto">
 구현기능
 </h2>
-- 회원 : 회원가입, 로그인, 로그아웃, 아이디/비밀번호 찾기<br>
-- 메인 : 회원, 비회원 페이지 구분 / 상단 네비, 푸터 공유<br>
-- 마이페이지 :<br>
+- <span style="font-weight: bold;">회원</span> : 회원가입, 로그인, 로그아웃, 아이디/비밀번호 찾기<br>
+- <span style="font-weight: bold;">메인</span> : 회원, 비회원 페이지 구분 / 상단 네비, 푸터 공유<br>
+- <span style="font-weight: bold;">마이페이지</span> :<br>
     회원정보 수정, 조회, 탈퇴 / 내 게시글 모아보기 / 자유게시판, 향수게시판 북마크 목록 불러오기<br>
-- 자유게시판 :<br>
+- <span style="font-weight: bold;">자유게시판</span> :<br>
     게시글 CRUD, 댓글 CRUD, 이미지 업로드 및 출력, 게시판 북마크, 게시글 검색(제목, 내용, 작성자) 및 페이징<br>
-- QnA 게시판 : 게시글 CRUD, 댓글 CRUD, 검색(제목, 작성자, 내용) 및 페이징<br>
-- 향수 게시판 :<br>
+- <span style="font-weight: bold;">QnA 게시판</span> : 게시글 CRUD, 댓글 CRUD, 검색(제목, 작성자, 내용) 및 페이징<br>
+- <<span style="font-weight: bold;">향수 게시판</span> :<br>
     게시글 목록 화면<br>
     게시글 작성, 수정, 삭제 및 상세페이지 조회<br>
     이미지 업로드 및 출력<br>
@@ -77,7 +74,7 @@ ERD
     좋아요 기능<br>
     실시간 통합검색(브랜드, 가격, 이름, 노트) 및 페이징<br>
     게시글 작성 시 자동완성<br>
-- 향수 BEST 게시판 :<br>
+- <span style="font-weight: bold;">향수 BEST 게시판</span> :<br>
     상위 10 목록 출력(좋아요 내림차순) <br>
     향수 가격 낮은순, 높은순 출력<br>
 <h2 tabindex="-1" dir="auto">
