@@ -3,7 +3,7 @@
 개발기간 및 인원
 </h2>
 <p dir="auto">
-  <span style="font-weight: bold;">개발기간 : </span>
+  **개발기간** :
   2023.06.02 ~ 2023.07.05
 </p>
 <p dir="auto">
