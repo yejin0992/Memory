@@ -2,14 +2,10 @@
 <h2 tabindex="-1" dir="auto">
 개발기간 및 인원
 </h2>
-<p dir="auto">
   **개발기간** :
-  2023.06.02 ~ 2023.07.05
-</p>
-<p dir="auto">
-  <span style="font-weight: bold;">인원 수 : </span>
-  3명
-</p>
+  2023.06.02 ~ 2023.07.05<br>
+  **인원 수** : 
+  3명<br>
 <h2 tabindex="-1" dir="auto">
 개발목표
 </h2>
